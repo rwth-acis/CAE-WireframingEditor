@@ -20,7 +20,7 @@
 
 #wireframe {
     position: absolute;
-    background: url("./../images/grid.gif");
+    background: url("../images/grid.gif");
     left: 0px;
     width: 500px;
     height: 500px;

@@ -18,14 +18,19 @@ module.exports = {
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
-    sourceMapFilename: '[name].map'
+    sourceMapFilename: '[name].map',
   },
   module: {
     rules: [{
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: "style-loader",
-          use: "css-loader"
+          use: {
+            loader :"css-loader",
+            options :{
+              url :true
+            }
+        }
         })
       },
       {
@@ -53,7 +58,7 @@ module.exports = {
 
     }),
     new ExtractTextPlugin({
-      filename: "bundle.css",
+      filename: "css/bundle.css",
       allChunks: true
     }),
     new CopyWebpackPlugin([{
@@ -68,12 +73,16 @@ module.exports = {
         to: 'css/common.css'
       },
       {
-        from: './node_modules/mxgraph/javascript/src/images/separator.gif',
-        to: 'images/separator.gif'
+        from: './node_modules/mxgraph/javascript/src/images',
+        to: 'images'
       },
       {
         from: './node_modules/mxgraph/javascript/src/resources',
         to: 'resources'
+      },
+      {
+        from: './node_modules/jquery-ui/themes/base/images',
+        to: 'images'
       }
     ])
   ]
