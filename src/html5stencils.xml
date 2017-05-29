@@ -1,0 +1,15 @@
+<shapes>
+    <shape name="div" aspect="variable">
+        <background>
+            <path>
+                <move x="0" y="0"/>
+                <quad x1="100" y1="0" x2="100" y2="50"/>
+                <quad x1="100" y1="100" x2="0" y2="100"/>
+                <close/>
+            </path>
+        </background>
+        <foreground>
+            <fillstroke/>
+        </foreground>
+    </shape>
+</shapes>

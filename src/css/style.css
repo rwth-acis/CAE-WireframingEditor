@@ -1,0 +1,202 @@
+#mainContainer {
+    height: 100%;
+}
+
+#wireframeContainer {
+    position: absolute;
+    top: 36px;
+    left: 70px;
+    width: 100%;
+    height: 100%;
+}
+
+#wireframeWrap {
+    position: absolute;
+    left: 200px;
+    top: 60px;
+    width: 500px;
+    height: 510px;
+}
+
+#wireframe {
+    position: absolute;
+    background: url("./../images/grid.gif");
+    left: 0px;
+    width: 500px;
+    height: 500px;
+    border: grey 0.5px solid;
+    background-color: rgba(151, 177, 131, 0.12);
+}
+
+#draggingBar {
+    position: relative;
+    left: 0px;
+    width: 500px;
+    height: 15px;
+    max-height: 15px;
+    min-height: 15px;
+    border: grey 0.5px solid;
+    background-color: grey;
+}
+
+#toolbox {
+    position: absolute;
+    overflow: hidden;
+    white-space: nowrap;
+    top: 0px;
+    left: 70px;
+    width: 100%;
+    height: 28px;
+    right: 0px;
+    background-color: rgba(124, 195, 255, 0.46);
+    padding: 8px;
+    padding-left: 10%;
+}
+
+#paletteContainer {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 70px;
+    height: 100%;
+}
+
+#palette {
+    position: absolute;
+    overflow: hidden;
+    top: 0px;
+    width: 56px;
+    height: 100%;
+    margin: auto;
+    background-color: rgba(124, 195, 255, 0.46);
+}
+
+.hsplit {
+    position: absolute;
+    overflow: hidden;
+    top: 0px;
+    width: 14px;
+    touch-action: none;
+    left: 56px;
+    height: 100%;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAHBAMAAADdS/HjAAAAGFBMVEUzMzP///9tbW1QUFCKiopBQUF8fHxfX1/IXlmXAAAAHUlEQVQImWMQEGAQFWUQFmYQF2cQEmIQE2MQEQEACy4BF67hpEwAAAAASUVORK5CYII=);
+    background-color: rgba(124, 195, 255, 0.46);
+    cursor: col-resize;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.hsplit:hover {
+    background-color: #7cc3ff;
+}
+
+.mxToolbarMode {
+    background-color: white;
+}
+
+.mxToolbarMode:hover, .mxToolbarItem:hover:not(.mxSeparator):hover {
+    border: 1px solid grey;
+}
+
+.ui-resizable-handle {
+    position: absolute;
+    font-size: 0.1px;
+    display: block;
+}
+
+.ui-resizable-n {
+    cursor: n-resize;
+    height: 7px;
+    width: 100%;
+    top: 0px;
+    left: 0;
+}
+
+.ui-resizable-n:hover {
+    border-top: 3px solid #7cc3ff;
+}
+
+.ui-resizable-s {
+    cursor: s-resize;
+    height: 7px;
+    width: 100%;
+    top :100%;
+    left: 0;
+}
+
+.ui-resizable-s:hover {
+    border-bottom: 3px solid #7cc3ff;
+}
+
+.ui-resizable-e {
+    cursor: e-resize;
+    width: 7px;
+    right: 0px;
+    top: 0;
+    height: 100%;
+}
+
+.ui-resizable-e:hover {
+    border-right: 3px solid #7cc3ff;
+}
+
+.ui-resizable-w {
+    cursor: w-resize;
+    width: 7px;
+    left: 0px;
+    top: 0px;
+    height: 100%;
+}
+
+.ui-resizable-w:hover {
+    border-left: 3px solid #7cc3ff;
+}
+
+.ui-resizable-se {
+    cursor: se-resize;
+    width: 7px;
+    height: 7px;
+    right: 0px;
+    bottom: 0px;
+}
+
+.ui-resizable-sw {
+    cursor: sw-resize;
+    width: 9px;
+    height: 9px;
+    left: 0px;
+    bottom: 0px;
+}
+
+.ui-resizable-sw:hover {
+    border: 3px solid #7cc3ff;
+}
+
+.ui-resizable-nw {
+    cursor: nw-resize;
+    width: 9px;
+    height: 9px;
+    left: 0px;
+    top: 0px;
+}
+
+.ui-resizable-nw:hover {
+    border: 3px solid #7cc3ff;
+}
+
+.ui-resizable-ne {
+    cursor: ne-resize;
+    width: 9px;
+    height: 9px;
+    right: 0px;
+    top: 0px;
+}
+
+.ui-resizable-ne:hover {
+    border: 3px solid #7cc3ff;
+}
+
+.ui-icon {
+    margin-top: .0em!important;
+    float: right;
+}
