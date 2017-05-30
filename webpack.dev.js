@@ -10,7 +10,7 @@ module.exports = {
     compress: true,
     port: 8080
   },
-  devtool: 'cheap-module-source-map',
+  devtool: 'inline-source-map',
   entry: {
     app: './src/js/index.js'
     //"bundle.css" : ['./src/css/style.css',  './node_modules/jquery-ui/themes/base/theme.css', './node_modules/jquery-ui/themes/base/tabs.css']

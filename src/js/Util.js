@@ -1,4 +1,4 @@
-function Util() {}
+function Util() { }
 
 /**
      * Returns the Ids for cells currently selected in the graph
@@ -23,4 +23,5 @@ Util.getCellsFromIdList = function (graph, ids) {
     }
     return cells;
 }
+
 export default Util;

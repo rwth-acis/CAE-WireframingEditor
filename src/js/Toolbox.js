@@ -1,4 +1,4 @@
-import {mxDefaultToolbar, mxEvent, mxCodec, mxLog, mxClient, mxClipboard, mxUtils, mxRectangle} from './mxExport.js';
+import { mxDefaultToolbar, mxEvent, mxCodec, mxLog, mxClient, mxClipboard, mxUtils, mxRectangle } from './mxExport.js';
 import $ from 'jquery';
 import Util from './Util.js';
 
@@ -10,7 +10,7 @@ function Toolbox(container, editor) {
 
     this._editor = editor;
     var that = this;
-    
+
     editor.addAction("shared_paste", function (editor, cell) {
         var encoder = new mxCodec();
         var result = encoder.encode(mxClipboard.getCells());
@@ -40,11 +40,11 @@ function Toolbox(container, editor) {
 
     editor.addAction("shared_group", function (editor, cell) {
 
-        y.share.action.set(mxEvent.GROUP_CELLS, {userId: y.db.userId, ids : Util.getIdsOfSelectedCells(that._editor.graph)});
+        y.share.action.set(mxEvent.GROUP_CELLS, { userId: y.db.userId, ids: Util.getIdsOfSelectedCells(that._editor.graph) });
     });
 
     editor.addAction("shared_ungroup", function (editor, cell) {
-        y.share.action.set(mxEvent.UNGROUP_CELLS, {userId: y.db.userId, ids : Util.getIdsOfSelectedCells(that._editor.graph)});
+        y.share.action.set(mxEvent.UNGROUP_CELLS, { userId: y.db.userId, ids: Util.getIdsOfSelectedCells(that._editor.graph) });
     });
 
     y.share.action.observe(function (event) {
@@ -74,53 +74,53 @@ function Toolbox(container, editor) {
                 that._editor.execute("delete");
                 break;
             case mxEvent.GROUP_CELLS:
-                //if(y.db.userId !== event.value.userId)
-                    that._editor.graph.groupCells(null, null, Util.getCellsFromIdList(that._editor.graph, event.value.ids));
-                //else
-                //    that._editor.execute("group");
+                var group = that._editor.graph.groupCells(null, null, Util.getCellsFromIdList(that._editor.graph, event.value.ids));
+                if (y.db.userId === event.value.userId)
+                    //that._editor.graph.setSelectionCells(group);
+                    that._editor.graph.getSelectionModel().setCell(group)
                 break;
             case mxEvent.UNGROUP_CELLS:
-                // if(y.db.userId !== event.value.userId)
-                    that._editor.graph.ungroupCells(Util.getCellsFromIdList(that._editor.graph, event.value.ids));
-                //else
-                //    that._editor.execute("ungroup");
+                var cells = that._editor.graph.ungroupCells(Util.getCellsFromIdList(that._editor.graph, event.value.ids));
+                if (y.db.userId === event.value.userId)
+                    that._editor.graph.setSelectionCells(cells);
+
                 break;
             case "paste":
-                    var selectedCells = that._editor.graph.getSelectionCells();
-                   
-                    var doc = mxUtils.parseXml(event.value.xml);
-                    var elt = doc.documentElement.firstChild;
-                    var cells = [];
-                    while (elt != null) {
-                        var codec = new mxCodec();
-                        var cell = codec.decode(elt);
-                        cells.push(cell);
-                        elt = elt.nextSibling;
-                    }   
-                    mxClipboard.setCells(cells);
-                    mxClipboard.paste(that._editor.graph);
-                    
-                    if (event.value.userId  !== y.db.userId) {
-                        that._editor.graph.setSelectionCells(selectedCells);
-                    }
+                var selectedCells = that._editor.graph.getSelectionCells();
+
+                var doc = mxUtils.parseXml(event.value.xml);
+                var elt = doc.documentElement.firstChild;
+                var cells = [];
+                while (elt != null) {
+                    var codec = new mxCodec();
+                    var cell = codec.decode(elt);
+                    cells.push(cell);
+                    elt = elt.nextSibling;
+                }
+                mxClipboard.setCells(cells);
+                mxClipboard.paste(that._editor.graph);
+
+                if (event.value.userId !== y.db.userId) {
+                    that._editor.graph.setSelectionCells(selectedCells);
+                }
                 break;
             case "graphResize": //event triggerd in index.html
-                if(y.db.userId !== event.value.userId){
+                if (y.db.userId !== event.value.userId) {
                     //var size = $('#wireframeWrap').css(["width", "height"]);
-                    $('#wireframeWrap').css("width", "+="+ event.value.dWidth).css("height", "+="+ event.value.dHeight);
-                    $('#wireframe').css("width", "+="+ event.value.dWidth).css("height", "+="+ event.value.dHeight);
-                    $('#draggingBar').css("width", "+="+ event.value.dWidth).css("height", "+="+ event.value.dHeight);                
+                    $('#wireframeWrap').css("width", "+=" + event.value.dWidth).css("height", "+=" + event.value.dHeight);
+                    $('#wireframe').css("width", "+=" + event.value.dWidth).css("height", "+=" + event.value.dHeight);
+                    $('#draggingBar').css("width", "+=" + event.value.dWidth).css("height", "+=" + event.value.dHeight);
                 }
                 var prevBounds = that._editor.graph.maximumGraphBounds;
-                that._editor.graph.maximumGraphBounds = new mxRectangle(0,0, prevBounds.width + event.value.dWidth, prevBounds.height + event.value.height);
-            break;
+                that._editor.graph.maximumGraphBounds = new mxRectangle(0, 0, prevBounds.width + event.value.dWidth, prevBounds.height + event.value.height);
+                break;
         }
     });
 
-    this.addSeparator = function(icon){
+    this.addSeparator = function (icon) {
         //The first two lines are from the addSeperator(icon) of mxDefaultToolbar
         icon = icon || mxClient.imageBasePath + '/separator.gif';
-	    var item = this.toolbar.addSeparator(icon);
+        var item = this.toolbar.addSeparator(icon);
         $(item).addClass("mxSeparator");
         return item;
     }
