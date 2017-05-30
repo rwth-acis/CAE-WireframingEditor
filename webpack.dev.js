@@ -69,10 +69,6 @@ module.exports = {
         from: 'src/html5stencils.xml'
       },
       {
-        from: './node_modules/mxgraph/javascript/src/css/common.css',
-        to: 'css/common.css'
-      },
-      {
         from: './node_modules/mxgraph/javascript/src/images',
         to: 'images'
       },

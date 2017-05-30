@@ -1,8 +1,10 @@
 import mxGraphLib from "../../node_modules/mxgraph/javascript/dist/build";
+//require('../../node_modules/mxgraph/javascript/src/css/common.css');
 var mxLib = mxGraphLib({
         mxImageBasePath: "images",
-        mxBasePath: "."
-    });
+        mxBasePath: ".",
+        mxLoadStylesheets : false
+    })
 /*var mxgraph = require("../node_modules/mxgraph/javascript/dist/build")({
       mxImageBasePath: "../node_modules/mxgraph/javascript/src/images",
       mxBasePath: "../node_modules/mxgraph/javascript/src"
