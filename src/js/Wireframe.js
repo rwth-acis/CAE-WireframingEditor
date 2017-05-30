@@ -121,12 +121,13 @@ function Wireframe(container, model) {
     y.share.map.observe(function (event) {
         switch (event.name) {
             case mxEvent.ADD_VERTEX: {
-                var doc = mxUtils.parseXml(event.value);
+                var doc = mxUtils.parseXml(event.value.data);
                 var codec = new mxCodec(doc);
                 var elt = doc.documentElement;
                 var cells = [];
                 while (elt != null) {
                     var cell = codec.decode(elt);
+                    cell.setId(event.value.id);
                     cells.push(cell);
                     elt = elt.nextSibling;
                 }

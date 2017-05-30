@@ -1,4 +1,6 @@
 import {mxCell, mxCodec, mxUtils, mxEvent} from './mxExport.js'; 
+import Util from './Util';
+
 UIControl.prototype = new mxCell();
 UIControl.prototype.constructor = UIControl;
 function UIControl(value, geometry, style){
@@ -23,7 +25,7 @@ function UIControl(value, geometry, style){
 
         var result = encoder.encode(v);
         var xml = mxUtils.getXml(result);
-        y.share.map.set(mxEvent.ADD_VERTEX, xml);
+        y.share.map.set(mxEvent.ADD_VERTEX, {id : Util.GUID(), data : xml});
     }
 
     this.makeTypeDraggable = function(type, wireframe){

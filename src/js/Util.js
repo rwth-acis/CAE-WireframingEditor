@@ -24,4 +24,19 @@ Util.getCellsFromIdList = function (graph, ids) {
     return cells;
 }
 
+/**
+ * Generates a GUID string.
+ * @returns {String} The generated GUID.
+ * @example af8a84166e18a307bd9cf2c947bbb3aa
+ * @author Slavik Meltser (slavik@meltser.info).
+ * @link http://slavik.meltser.info/?p=142
+ */
+Util.GUID = function() {
+    function _p8(s) {
+        var p = (Math.random().toString(16)+"000000000").substr(2,8);
+        return s ? p.substr(0,4) +  p.substr(4,4) : p ;
+    }
+    return _p8() + _p8(true) + _p8(true) + _p8();
+}
+
 export default Util;
