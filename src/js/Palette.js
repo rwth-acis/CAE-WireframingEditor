@@ -50,7 +50,7 @@ function Palette(container) {
     var getNodeEntry = function (cell) {
         graph.labelsVisible = false;
         graph.view.scaleAndTranslate(1, 0, 0);
-        
+
         graph.addCell(cell);
         var bounds = graph.getGraphBounds();
         var s = Math.floor(Math.min((thumbWidth - 2 * thumbBorder) / bounds.width, (thumbHeight - 2 * thumbBorder) / bounds.height) * 100) / 100;
@@ -81,14 +81,14 @@ function Palette(container) {
         node.style.minHeight = '';
         return node;
     }
-    
+
     /**
      * @param{mxCell} cell
      */
-    this.createItem = function (cell) {
+    this.createItem = function (cell, name) {
         var elt = document.createElement('a');
         elt.setAttribute('href', 'javascript:void(0);');
-        elt.className = 'item';
+        elt.className = 'item tooltip';
         elt.style.overflow = 'hidden';
         var border = 2 * thumbBorder;
         elt.style.width = (thumbWidth + border) + 'px';
@@ -100,9 +100,19 @@ function Palette(container) {
             mxEvent.consume(evt);
         });
         elt.appendChild(getNodeEntry(cell, elt));
+        var tooltip = createTooltip(name);
+
         //var bounds = new mxRectangle(0, 0, width, height);
+        elt.appendChild(tooltip);
         container.appendChild(elt);
         return elt;
+    }
+
+    var createTooltip = function (text) {
+        var tooltip = document.createElement('span');
+        tooltip.className = 'tooltiptext';
+        tooltip.innerHTML = text;
+        return tooltip;
     }
     return this;
 }

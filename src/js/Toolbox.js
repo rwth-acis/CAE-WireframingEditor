@@ -126,19 +126,19 @@ function Toolbox(container, editor) {
     }
 
     this.addSeparator();
-    this.addItem("Copy", "images/toolbox/copy.gif", "copy");
-    this.addItem("Paste", "images/toolbox/paste.gif", "shared_paste");
+    this.addItem("Copy", "images/toolbox/copy.png", "copy");
+    this.addItem("Paste", "images/toolbox/paste.png", "shared_paste");
     this.addSeparator();
-    this.addItem("Delete", "images/toolbox/delete2.png", "shared_delete");
+    this.addItem("Delete", "images/toolbox/delete.png", "shared_delete");
     this.addSeparator();
     //this.addItem("Cut", "images/toolbox/cut.gif", "shared_cut");
-    this.addItem("Undo", "images/toolbox/undo.gif", "shared_undo");
-    this.addItem("Redo", "images/toolbox/redo.gif", "shared_redo");
+    this.addItem("Undo", "images/toolbox/undo2.png", "shared_undo");
+    this.addItem("Redo", "images/toolbox/redo2.png", "shared_redo");
     this.addSeparator();
-    this.addItem("Group", "images/toolbox/group.gif", "shared_group");
-    this.addItem("Ungroup", "images/toolbox/ungroup.gif", "shared_ungroup");
+    this.addItem("Group", "images/toolbox/group.png", "shared_group");
+    this.addItem("Ungroup", "images/toolbox/ungroup.png", "shared_ungroup");
     this.addSeparator();
-    this.addItem("Console", "images/toolbox/console.gif", "toggleConsole");
+    this.addItem("Console", "images/toolbox/console.png", "toggleConsole");
     this.addSeparator();
 
     return this;

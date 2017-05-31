@@ -29,7 +29,7 @@ function Editor(wireframe, palette) {
             var stencilName = shape.getAttribute('name');
             mxStencilRegistry.addStencil(shape.getAttribute('name'), stencil);
             var cell = new UIControl(stencilName , new mxGeometry(0, 0,shape.getAttribute('w') || 100, shape.getAttribute('h') || 100), "shape="+stencilName);
-            var type = palette.createItem(cell);
+            var type = palette.createItem(cell, shape.getAttribute('name'));
             cell.makeTypeDraggable(type, wireframe);
         }
         shape = shape.nextSibling;
@@ -39,11 +39,11 @@ function Editor(wireframe, palette) {
     mxCellRenderer.prototype.defaultShapes[DivContainerShape.prototype.cst.SHAPE_GROUP] = DivContainerShape;
 
     var cell = new UIControl("" , new mxGeometry(0, 0, 200, 100), "shape=VideoPlayer;"+mxConstants.STYLE_FILLCOLOR+ "=none;" + mxConstants.STYLE_STROKECOLOR + '=grey;');
-    var type = palette.createItem(cell);
+    var type = palette.createItem(cell, "Video Player");
     cell.makeTypeDraggable(type, wireframe);
 
     cell = new UIControl("" , new mxGeometry(0, 0, 200, 100), "shape=DivContainer;"+mxConstants.STYLE_FILLCOLOR+ "=none;"+ mxConstants.STYLE_POINTER_EVENTS+"=true;" + mxConstants.STYLE_STROKECOLOR + '=grey;');
-    type = palette.createItem(cell);
+    type = palette.createItem(cell, "Container");
     cell.makeTypeDraggable(type, wireframe);
     //horizontal line
     palette.addLine();

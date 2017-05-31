@@ -30,16 +30,16 @@ function ContextMenu(editor) {
             });
             menu.addSeparator();
         }
-        menu.addItem('Undo', 'images/toolbox/undo.gif', function () {
+        menu.addItem('Undo', 'images/toolbox/undo2.png', function () {
             editor.execute("shared_undo");
         });
-        menu.addItem('Redo', 'images/toolbox/redo.gif', function () {
+        menu.addItem('Redo', 'images/toolbox/redo2.png', function () {
             editor.execute("shared_redo");
         });
         menu.addSeparator();
         if (cell == null) {
 
-            menu.addItem('Show Console', 'images/toolbox/console.gif', function () {
+            menu.addItem('Show Console', 'images/toolbox/console.png', function () {
                 editor.execute("toggleConsole");
             });
         } else {
@@ -50,14 +50,14 @@ function ContextMenu(editor) {
             menu.addItem('Paste', 'images/toolbox/paste.gif', function () {
                 editor.execute("shared_paste");
             });*/
-            menu.addItem('Group', 'images/toolbox/group.gif', function () {
+            menu.addItem('Group', 'images/toolbox/group.png', function () {
                 editor.execute("shared_group");
             });
-            menu.addItem('Ungroup', 'images/toolbox/ungroup.gif', function () {
+            menu.addItem('Ungroup', 'images/toolbox/ungroup.png', function () {
                 editor.execute("shared_ungroup");
             });
             menu.addSeparator();
-            menu.addItem('Delete Cell', 'images/toolbox/delete2.png', function () {
+            menu.addItem('Delete Cell', 'images/toolbox/delete.png', function () {
                 editor.execute("shared_delete");
             });
         }
