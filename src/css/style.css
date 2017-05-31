@@ -71,6 +71,12 @@
     background-color: rgba(124, 195, 255, 0.46);
 }
 
+.item {
+    display: inline-block;
+}
+.item:hover {
+    border: 1px solid grey;
+}
 .hsplit {
     position: absolute;
     overflow: hidden;

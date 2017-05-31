@@ -23,27 +23,18 @@ function Editor(wireframe, palette) {
 
     while (shape != null) {
         if (shape.nodeType == mxConstants.NODETYPE_ELEMENT) {
-            mxStencilRegistry.addStencil(shape.getAttribute('name'), new mxStencil(shape));
-            //add UI controls and types to palette dynamically
+            var stencil = new mxStencil(shape);
+            var stencilName = shape.getAttribute('name');
+            mxStencilRegistry.addStencil(shape.getAttribute('name'), stencil);
+            var cell = new UIControl(stencilName , new mxGeometry(0, 0, 100, 40), "shape="+stencilName);
+            var type = palette.createItem(cell);
+            cell.makeTypeDraggable(type, wireframe);
         }
         shape = shape.nextSibling;
     }
-
-    var DivVertex = new UIControl("Div", new mxGeometry(0, 0, 100, 40), "shape=div");
-    var vertex = new UIControl("Default", new mxGeometry(0, 0, 100, 40), 'shape=' + mxConstants.SHAPE_CLOUD);
-    var vertexActor = new UIControl("Actor", new mxGeometry(0, 0, 100, 40), 'shape=' + mxConstants.SHAPE_ACTOR);
-    //vertexActor.setStyle('shape='+ mxConstants.SHAPE_ACTOR);
-    //vertex.setStyle('shape=' + mxConstants.SHAPE_CLOUD);
-   
-    var rectType = palette.addType("Rectangle", "images/rectangle.gif", vertex.funct);
-    vertex.makeTypeDraggable(rectType, wireframe);
-
-    var actorType = palette.addType("Actor", "images/actor.gif", vertexActor.funct);
-    vertexActor.makeTypeDraggable(actorType, wireframe);
-
-    var divType = palette.addType("Div", "images/rectangle.gif", DivVertex.funct);
-    DivVertex.makeTypeDraggable(divType, wireframe);
-
+    var cell = new UIControl("Text" , new mxGeometry(0, 0, 100, 40), "shape="+mxConstants.SHAPE_ACTOR);
+    var type = palette.createItem(cell);
+            cell.makeTypeDraggable(type, wireframe);
     //horizontal line
     palette.addLine();
     //palette.addBreak();
