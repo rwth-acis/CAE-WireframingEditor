@@ -98,7 +98,7 @@ function Wireframe(container, model) {
 
     that.createGroupCell = function (cells) {
         var group = mxGraph.prototype.createGroupCell.apply(this, arguments);
-        group.setStyle('fillColor=none;' + mxConstants.STYLE_STROKECOLOR + '=black');
+        group.setStyle('shape=DivContainer;fillColor=none;' + mxConstants.STYLE_STROKECOLOR + '=black;'+mxConstants.STYLE_POINTER_EVENTS+"=true");
         return group;
     };
     that.moveCells = function (cells, dx, dy, clone, target, evt, mapping, shared) {

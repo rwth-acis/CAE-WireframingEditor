@@ -74,7 +74,7 @@ function Toolbox(container, editor) {
                 that._editor.execute("delete");
                 break;
             case mxEvent.GROUP_CELLS:
-                var group = that._editor.graph.groupCells(null, null, Util.getCellsFromIdList(that._editor.graph, event.value.ids));
+                var group = that._editor.graph.groupCells(null, 20, Util.getCellsFromIdList(that._editor.graph, event.value.ids));
                 if (y.db.userId === event.value.userId)
                     //that._editor.graph.setSelectionCells(group);
                     that._editor.graph.getSelectionModel().setCell(group)

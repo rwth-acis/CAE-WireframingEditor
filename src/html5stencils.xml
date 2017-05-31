@@ -1,41 +1,51 @@
 <shapes>
-    <shape name="div" aspect="variable">
-        <background>
+ <shape name="Select Field" h="24" w="85.5" aspect="1">
+        <foreground>
+            <strokecolor color="#000000"/>
+            <strokecolor color="#666666"/>
+            <fillcolor color="#ebebeb"/>
+            <roundrect x="0" y="0" w="85.5" h="24" arcsize="7.058625336927224"/>
+            <fillstroke/>
+            <strokecolor color="#000000"/>
+            <fillcolor color="#000000"/>
+            <linejoin join="round"/>
             <path>
-                <move x="0" y="0"/>
-                <quad x1="100" y1="0" x2="100" y2="50"/>
-                <quad x1="100" y1="100" x2="0" y2="100"/>
+                <move x="75" y="10.666663999999997"/>
+                <line x="79" y="10.666663999999997"/>
+                <line x="77" y="13.666663999999997"/>
                 <close/>
             </path>
-        </background>
-        <foreground>
             <fillstroke/>
         </foreground>
-    </shape>
-    <shape name="div2" aspect="variable">
-        <background>
+</shape>
+<shape name="Combo Box" h="24" w="98" aspect="1">
+        <foreground>
+            <strokecolor color="#000000"/>
+            <strokecolor color="#666666"/>
+            <fillcolor color="#ebebeb"/>
+            <roundrect x="0" y="0" w="97.69998" h="24" arcsize="6.753862983128181"/>
+            <fillstroke/>
+            <fillcolor color="#cccccc"/>
+            <roundrect x="77" y="0" w="21" h="24" arcsize="13.392857142857142"/>
+            <fillstroke/>
+            <strokecolor color="#000000"/>
+            <fillcolor color="#000000"/>
+            <linejoin join="round"/>
             <path>
-                <move x="0" y="0"/>
-                <quad x1="100" y1="0" x2="100" y2="50"/>
-                <quad x1="100" y1="100" x2="0" y2="100"/>
+                <move x="85.5" y="10.5"/>
+                <line x="89.5" y="10.5"/>
+                <line x="87.5" y="13.5"/>
                 <close/>
             </path>
-        </background>
-        <foreground>
             <fillstroke/>
-        </foreground>
-    </shape>
-    <shape name="div3" aspect="variable">
-        <background>
+            <strokecolor color="#666666"/>
+            <fillcolor color="none"/>
+            <linejoin join="miter"/>
             <path>
-                <move x="0" y="0"/>
-                <quad x1="100" y1="0" x2="100" y2="50"/>
-                <quad x1="100" y1="100" x2="0" y2="100"/>
-                <close/>
+                <move x="77" y="0"/>
+                <line x="77" y="24"/>
             </path>
-        </background>
-        <foreground>
-            <fillstroke/>
+            <stroke/>
         </foreground>
-    </shape>
+</shape>
 </shapes>

@@ -48,6 +48,7 @@ function Palette(container) {
      * @param {DOM} parent 
      */
     var getNodeEntry = function (cell) {
+        graph.labelsVisible = false;
         graph.view.scaleAndTranslate(1, 0, 0);
         
         graph.addCell(cell);
