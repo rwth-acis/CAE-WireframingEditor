@@ -1,4 +1,25 @@
 <shapes>
+<!--<shape name="Link2" h="25" w="171" aspect="1" >
+    <foreground>
+        <fontsize size="17"/>
+        <fontcolor color="#0000ff"/>
+        <strokecolor color="#0000ff"/>
+        <text str="Link" x="85" y="12" align="center" valign="middle"/>
+        <path>
+            <move x="70" y="20"/>
+            <line x="102" y="20"/>
+        </path>
+        <fillstroke/>
+    </foreground>
+</shape>-->
+<shape name="Button" h="25" w="171" aspect="1">
+        <foreground>
+            <strokecolor color="#a4a4a4"/>
+            <fillcolor color="#e3e3e4"/>
+            <roundrect x="0" y="0" w="171" h="25" arcsize="10.851851851851851"/>
+            <fillstroke/>
+        </foreground>
+</shape>
  <shape name="Select Field" h="24" w="85.5" aspect="1">
         <foreground>
             <strokecolor color="#000000"/>
@@ -39,7 +60,7 @@
             </path>
             <fillstroke/>
             <strokecolor color="#666666"/>
-            <fillcolor color="none"/>
+            <fillcolor color="none"/>s
             <linejoin join="miter"/>
             <path>
                 <move x="77" y="0"/>
@@ -47,5 +68,10 @@
             </path>
             <stroke/>
         </foreground>
+</shape>
+<shape name="Image" w="128" h="128" aspect="1">
+    <foreground>
+        <image src="./images/image.png" x="0" y="0" w="128" h="128"/>
+    </foreground>
 </shape>
 </shapes>

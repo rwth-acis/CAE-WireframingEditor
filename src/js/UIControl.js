@@ -25,9 +25,8 @@ function UIControl(value, geometry, style){
 
         var result = encoder.encode(v);
         var xml = mxUtils.getXml(result);
-        y.share.map.set(mxEvent.ADD_VERTEX, {id : Util.GUID(), data : xml});
+        y.share.map.set(mxEvent.ADD_VERTEX, {userId : y.db.userId, id : Util.GUID(), data : xml});
     }
-
     this.makeTypeDraggable = function(type, wireframe){
         mxUtils.makeDraggable(type, wireframe, that.funct);
     }

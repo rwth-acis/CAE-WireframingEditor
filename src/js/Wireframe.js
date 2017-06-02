@@ -1,4 +1,5 @@
 import UIControl from './UIControl.js';
+
 window.UIControl = UIControl;
 import {
     mxGraph, mxEvent, mxGraphHandler, mxConstants, mxCodec, mxCodecRegistry,
@@ -16,6 +17,8 @@ function Wireframe(container, model) {
 
     that.foldingEnabled = false;
     that.autoExtend = false;
+    that.setHtmlLabels(true);
+
     that.maximumGraphBounds = new mxRectangle(0, 0, 500, 500);
     //enable guiding lines
     mxGraphHandler.prototype.guidesEnabled = true;
@@ -58,13 +61,13 @@ function Wireframe(container, model) {
                 }
             }
             sharedAction = {
-                userId : y.db.userId,
-                ids : [],
+                userId: y.db.userId,
+                ids: [],
                 bounds: []
             };
             for (var i = 0; i < cells.length; i++) {
-              sharedAction.ids.push(cells[i].id);
-              sharedAction.bounds.push({x: bounds[i].x, y: bounds[i].y, width : bounds[i].width, height : bounds[i].height});  
+                sharedAction.ids.push(cells[i].id);
+                sharedAction.bounds.push({ x: bounds[i].x, y: bounds[i].y, width: bounds[i].width, height: bounds[i].height });
             }
         }
 
@@ -74,7 +77,7 @@ function Wireframe(container, model) {
     /*that.addListener(mxEvent.CELLS_ADDED, function(wf, event){
         var test = true;
     });*/
-    
+
 
     this.dropEnabled = true;
 
@@ -98,7 +101,7 @@ function Wireframe(container, model) {
 
     that.createGroupCell = function (cells) {
         var group = mxGraph.prototype.createGroupCell.apply(this, arguments);
-        group.setStyle('shape=DivContainer;fillColor=none;' + mxConstants.STYLE_STROKECOLOR + '=black;'+mxConstants.STYLE_POINTER_EVENTS+"=true");
+        group.setStyle('shape=DivContainer;fillColor=none;' + mxConstants.STYLE_STROKECOLOR + '=black;' + mxConstants.STYLE_POINTER_EVENTS + "=true");
         return group;
     };
     that.moveCells = function (cells, dx, dy, clone, target, evt, mapping, shared) {
@@ -128,10 +131,16 @@ function Wireframe(container, model) {
                 while (elt != null) {
                     var cell = codec.decode(elt);
                     cell.setId(event.value.id);
+                    if (cell.hasOwnProperty('init')) cell.init();
                     cells.push(cell);
                     elt = elt.nextSibling;
                 }
                 that.addCells(cells);
+                for (var i = 0; i < cells.length; i++) {
+                    if (cells[i].hasOwnProperty('initShared'))
+                        cells[i].initShared(event.value.userId === y.db.userId);
+                }
+
                 break;
             }
             case mxEvent.MOVE: {
@@ -150,17 +159,53 @@ function Wireframe(container, model) {
                 if (event.value.userId !== y.db.userId) {
                     var cells = Util.getCellsFromIdList(that, event.value.ids);
                     var bounds = [];
-                    for(var i=0;i<event.value.bounds.length;i++){
+                    for (var i = 0; i < event.value.bounds.length; i++) {
                         var bound = event.value.bounds[i];
                         bounds.push(new mxRectangle(bound.x, bound.y, bound.width, bound.height));
                     }
-                    if(cells.length > 0)
+                    if (cells.length > 0)
                         that.resizeCells(cells, bounds, false, true);
                 }
                 break;
             }
         }
     });
+    y.share.attrs.observe(function (event) {
+        var id = event.name.substring(0, event.name.indexOf('_'));
+        var cell = that.getModel().getCell(id);
+        event.value.bind(cell.$input[0]);
+    });
+    that.convertValueToString = function (cell) {
+        if (mxUtils.isNode(cell.value) && cell.value.nodeName.toLowerCase() === 'uiobject') {
+            mxEvent.addListener(cell.$input[0], 'change', function (evt) {
+                var elt = cell.value.cloneNode(true);
+                elt.setAttribute('label', cell.$input.val());
+                that.model.setValue(cell, elt);
+            });
+            cell.$input.css('width', cell.geometry.width).css('height', cell.geometry.height);
+            return cell.$input[0];
+        }
+    }
+
+    var cellLabelChanged = that.cellLabelChanged;
+    that.cellLabelChanged = function (cell, newValue, autoSize) {
+        if (mxUtils.isNode(cell.value) && cell.value.nodeName.toLowerCase() == 'uiobject') {
+            // Clones the value for correct undo/redo
+            var elt = cell.value.cloneNode(true);
+            elt.setAttribute('label', newValue);
+            newValue = elt;
+        }
+
+        cellLabelChanged.apply(this, arguments);
+    };
+
+    // Overrides method to create the editing value
+    var getEditingValue = that.getEditingValue;
+    that.getEditingValue = function (cell) {
+        if (mxUtils.isNode(cell.value) && cell.value.nodeName.toLowerCase() == 'uiobject') {
+            return cell.getAttribute('label');
+        }
+    };
     return this;
 }
 export default Wireframe;

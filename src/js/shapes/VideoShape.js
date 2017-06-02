@@ -25,7 +25,7 @@ mxShapeMockupVideoPlayer.prototype.cst = {
     TEXT_COLOR: 'textColor',
     STROKE_COLOR2: 'strokeColor2',
     STROKE_COLOR3: 'strokeColor3',
-    SHAPE_VIDEO_PLAYER: 'VideoPlayer',
+    SHAPE: 'VideoPlayer',
     BAR_POS: 'barPos',
     BAR_HEIGHT: 'barHeight'
 };

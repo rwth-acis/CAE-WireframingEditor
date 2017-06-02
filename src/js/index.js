@@ -16,7 +16,6 @@ import yMap from 'y-map';
 import yText from 'y-text';
 import yArray from 'y-array';
 Y.extend(yArray, yWebsocketsClient, yMemory, yMap, yText);
-
 $(function(){
      if (!mxClient.isBrowserSupported()) {
       // Displays an error message if the browser is not supported.
@@ -32,7 +31,8 @@ $(function(){
         },
         share: {
           map: 'Map',
-          action: 'Map'
+          action: 'Map',
+          attrs: 'Map'
         }
       }).then(function (y) {
         window.y = y;

@@ -47,8 +47,8 @@ function Palette(container) {
      * Get a node entry to the given parent
      * @param {DOM} parent 
      */
-    var getNodeEntry = function (cell) {
-        graph.labelsVisible = false;
+    var getNodeEntry = function (cell, showLabel) {
+        graph.labelsVisible = showLabel || false;
         graph.view.scaleAndTranslate(1, 0, 0);
 
         graph.addCell(cell);
@@ -85,7 +85,7 @@ function Palette(container) {
     /**
      * @param{mxCell} cell
      */
-    this.createItem = function (cell, name) {
+    this.createItem = function (cell, name, showLabel) {
         var elt = document.createElement('a');
         elt.setAttribute('href', 'javascript:void(0);');
         elt.className = 'item tooltip';
@@ -99,7 +99,7 @@ function Palette(container) {
         mxEvent.addListener(elt, 'click', function (evt) {
             mxEvent.consume(evt);
         });
-        elt.appendChild(getNodeEntry(cell, elt));
+        elt.appendChild(getNodeEntry(cell, showLabel));
         var tooltip = createTooltip(name);
 
         //var bounds = new mxRectangle(0, 0, width, height);

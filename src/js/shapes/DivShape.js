@@ -19,7 +19,7 @@ mxShapeMockupGroup.prototype.cst = {
 		TEXT_SIZE : 'textSize',
 		TEXT_COLOR : 'textColor',
 		FILL_COLOR2 : 'fillColor2',
-		SHAPE_GROUP : 'DivContainer'
+		SHAPE : 'DivContainer'
 };
 
 /**
