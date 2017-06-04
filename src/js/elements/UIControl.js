@@ -1,5 +1,5 @@
-import {mxCell, mxCodec, mxUtils, mxEvent} from './mxExport.js'; 
-import Util from './Util';
+import {mxCell, mxCodec, mxUtils, mxEvent} from './../mxExport.js'; 
+import Util from './../Util';
 
 UIControl.prototype = new mxCell();
 UIControl.prototype.constructor = UIControl;

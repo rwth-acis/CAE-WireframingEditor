@@ -61,6 +61,7 @@
     left: 0px;
     width: 70px;
     height: 100%;
+   
 }
 
 #palette {
@@ -71,6 +72,7 @@
     height: 100%;
     margin: auto;
     background-color: #ebebeb;
+    overflow-y: overlay;
 }
 
 .item {
@@ -95,7 +97,7 @@
 }
 
 .hsplit:hover {
-    background-color: grey;
+    background-color: rgba(128, 128, 128, 0.37);
 }
 
 .mxToolbarMode {

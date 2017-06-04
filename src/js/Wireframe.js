@@ -1,14 +1,26 @@
-import UIControl from './UIControl.js';
+import UIControl from './elements/UIControl.js';
 
 window.UIControl = UIControl;
 import {
-    mxGraph, mxEvent, mxGraphHandler, mxConstants, mxCodec, mxCodecRegistry,
-    mxKeyHandler, mxRubberband, mxUtils, mxRectangle, mxGeometry
+    mxGraph,
+    mxEvent,
+    mxGraphHandler,
+    mxConstants,
+    mxCodec,
+    mxCodecRegistry,
+    mxKeyHandler,
+    mxRubberband,
+    mxUtils,
+    mxRectangle,
+    mxGeometry
 } from './mxExport.js';
 import Util from './Util.js';
+import $ from 'jquery';
+
 window.mxGeometry = mxGeometry;
 Wireframe.prototype = new mxGraph();
 Wireframe.prototype.constructor = Wireframe;
+
 function Wireframe(container, model) {
     var that = this;
     mxGraph.call(this, container);
@@ -30,7 +42,7 @@ function Wireframe(container, model) {
         var cells = properties.cells;
         var ids = [];
         for (var i = 0; i < cells.length; i++) {
-            ids.push(cells[0].id);
+            ids.push(cells[i].id);
         }
         sharedAction = {
             userId: y.db.userId,
@@ -67,7 +79,12 @@ function Wireframe(container, model) {
             };
             for (var i = 0; i < cells.length; i++) {
                 sharedAction.ids.push(cells[i].id);
-                sharedAction.bounds.push({ x: bounds[i].x, y: bounds[i].y, width: bounds[i].width, height: bounds[i].height });
+                sharedAction.bounds.push({
+                    x: bounds[i].x,
+                    y: bounds[i].y,
+                    width: bounds[i].width,
+                    height: bounds[i].height
+                });
             }
         }
 
@@ -123,51 +140,54 @@ function Wireframe(container, model) {
     };
     y.share.map.observe(function (event) {
         switch (event.name) {
-            case mxEvent.ADD_VERTEX: {
-                var doc = mxUtils.parseXml(event.value.data);
-                var codec = new mxCodec(doc);
-                var elt = doc.documentElement;
-                var cells = [];
-                while (elt != null) {
-                    var cell = codec.decode(elt);
-                    cell.setId(event.value.id);
-                    if (cell.hasOwnProperty('init')) cell.init();
-                    cells.push(cell);
-                    elt = elt.nextSibling;
-                }
-                that.addCells(cells);
-                for (var i = 0; i < cells.length; i++) {
-                    if (cells[i].hasOwnProperty('initShared'))
-                        cells[i].initShared(event.value.userId === y.db.userId);
-                }
+            case mxEvent.ADD_VERTEX:
+                {
+                    var doc = mxUtils.parseXml(event.value.data);
+                    var codec = new mxCodec(doc);
+                    var elt = doc.documentElement;
+                    var cells = [];
+                    while (elt != null) {
+                        var cell = codec.decode(elt);
+                        cell.setId(event.value.id);
+                        if (cell.hasOwnProperty('init')) cell.init();
+                        cells.push(cell);
+                        elt = elt.nextSibling;
+                    }
+                    that.addCells(cells);
+                    for (var i = 0; i < cells.length; i++) {
+                        if (cells[i].hasOwnProperty('initShared'))
+                            cells[i].initShared(event.value.userId === y.db.userId);
+                    }
 
-                break;
-            }
-            case mxEvent.MOVE: {
-                if (event.value.userId !== y.db.userId) {
-                    that.removeListener(SharedCellsMovedEvent);
-                    var cells = Util.getCellsFromIdList(that, event.value.ids);
-                    if (cells.length > 0) {
-                        if (event.value.dx != 0 || event.value.dy != 0)
-                            that.moveCells(cells, event.value.dx, event.value.dy, false, that.getModel().getCell(event.value.parentId), null, null, true);
-                    }
-                    that.addListener(mxEvent.CELLS_MOVED, SharedCellsMovedEvent);
+                    break;
                 }
-                break;
-            }
-            case mxEvent.RESIZE: {
-                if (event.value.userId !== y.db.userId) {
-                    var cells = Util.getCellsFromIdList(that, event.value.ids);
-                    var bounds = [];
-                    for (var i = 0; i < event.value.bounds.length; i++) {
-                        var bound = event.value.bounds[i];
-                        bounds.push(new mxRectangle(bound.x, bound.y, bound.width, bound.height));
+            case mxEvent.MOVE:
+                {
+                    if (event.value.userId !== y.db.userId) {
+                        that.removeListener(SharedCellsMovedEvent);
+                        var cells = Util.getCellsFromIdList(that, event.value.ids);
+                        if (cells.length > 0) {
+                            if (event.value.dx != 0 || event.value.dy != 0)
+                                that.moveCells(cells, event.value.dx, event.value.dy, false, that.getModel().getCell(event.value.parentId), null, null, true);
+                        }
+                        that.addListener(mxEvent.CELLS_MOVED, SharedCellsMovedEvent);
                     }
-                    if (cells.length > 0)
-                        that.resizeCells(cells, bounds, false, true);
+                    break;
                 }
-                break;
-            }
+            case mxEvent.RESIZE:
+                {
+                    if (event.value.userId !== y.db.userId) {
+                        var cells = Util.getCellsFromIdList(that, event.value.ids);
+                        var bounds = [];
+                        for (var i = 0; i < event.value.bounds.length; i++) {
+                            var bound = event.value.bounds[i];
+                            bounds.push(new mxRectangle(bound.x, bound.y, bound.width, bound.height));
+                        }
+                        if (cells.length > 0)
+                            that.resizeCells(cells, bounds, false, true);
+                    }
+                    break;
+                }
         }
     });
     y.share.attrs.observe(function (event) {
@@ -176,13 +196,38 @@ function Wireframe(container, model) {
         event.value.bind(cell.$input[0]);
     });
     that.convertValueToString = function (cell) {
-        if (mxUtils.isNode(cell.value) && cell.value.nodeName.toLowerCase() === 'uiobject') {
+        if (mxUtils.isNode(cell.value)) {
             mxEvent.addListener(cell.$input[0], 'change', function (evt) {
                 var elt = cell.value.cloneNode(true);
                 elt.setAttribute('label', cell.$input.val());
                 that.model.setValue(cell, elt);
             });
-            cell.$input.css('width', cell.geometry.width).css('height', cell.geometry.height);
+            cell.$input.css('width', cell.geometry.width - 15).css('height', cell.geometry.height - 15);
+
+            switch (cell.value.nodeName.toLowerCase()) {
+                case 'linkobj':
+                case 'textboxobj':
+                    {
+                        cell.$input.click(function (event) {
+                            that.getSelectionModel().setCell(cell);
+                        });
+                        break;
+                    }
+                case 'pobj':
+                case 'textareaobj':
+                    {
+                        cell.$input.click(function (event) {
+                            this.focus();
+                            this.setSelectionRange(this.value.length, this.value.length);
+                        });
+
+                        cell.$input.dblclick(function (event) {
+                            this.focus();
+                            this.setSelectionRange(0, this.value.length);
+                        })
+                        break;
+                    }
+            }
             return cell.$input[0];
         }
     }

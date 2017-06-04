@@ -1,5 +1,5 @@
 import {mxEditor, mxUtils, mxStencil, mxStencilRegistry, mxGeometry, mxConstants, mxCellRenderer} from './mxExport.js';
-import UIControl from './UIControl.js';
+import UIControl from './elements/UIControl.js';
 import KeyHandler from './KeyHandler.js';
 import ContextMenu from './ContextMenu.js';
 
@@ -9,6 +9,9 @@ import LinkShape from './shapes/LinkShape.js';
 import TextBoxShape from './shapes/TextBoxShape.js';
 
 import Link from './elements/Link.js';
+import TextBox from './elements/TextBox.js';
+import Paragraph from './elements/Paragraph.js';
+import TextArea from './elements/TextArea.js';
 
 Editor.prototype = new mxEditor();
 Editor.prototype.constructor = Editor;
@@ -55,12 +58,20 @@ function Editor(wireframe, palette) {
     cell.makeTypeDraggable(type, wireframe);
 
     //cell = new UIControl("" , new mxGeometry(0, 0, 50, 20), "shape=link;"+ mxConstants.STYLE_EDITABLE + "=0;" + mxConstants.STYLE_RESIZABLE+ "=0");
-    cell = new Link("", new mxGeometry(0,0,100,70));
+    cell = new Link(new mxGeometry(0,0,100,70));
     type = palette.createItem(cell, "Link", true);
     cell.makeTypeDraggable(type, wireframe);
 
-    cell = new UIControl("" , new mxGeometry(0, 0, 120, 30), "shape=textbox;"+mxConstants.STYLE_FILLCOLOR+ "=white;"+ mxConstants.STYLE_STROKECOLOR + '=grey;');
+    cell = new TextBox(new mxGeometry(0, 0, 120, 30));
     type = palette.createItem(cell, "TextBox", true);
+    cell.makeTypeDraggable(type, wireframe);
+
+    cell = new Paragraph(new mxGeometry(0, 0, 320, 80));
+    type = palette.createItem(cell, "Paragraph", true);
+    cell.makeTypeDraggable(type, wireframe);
+
+    cell = new TextArea(new mxGeometry(0, 0, 320, 80));
+    type = palette.createItem(cell, "TextArea", true);
     cell.makeTypeDraggable(type, wireframe);
 
     //horizontal line
