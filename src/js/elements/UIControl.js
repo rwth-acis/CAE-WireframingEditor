@@ -1,17 +1,24 @@
-import {mxCell, mxCodec, mxUtils, mxEvent} from './../mxExport.js'; 
-import Util from './../Util';
+/*global y*/
+import {
+    mxCell,
+    mxCodec,
+    mxUtils,
+    mxEvent
+} from './../misc/mxExport.js';
+import Util from '../misc/Util';
 
 UIControl.prototype = new mxCell();
 UIControl.prototype.constructor = UIControl;
-function UIControl(value, geometry, style){
+
+function UIControl(value, geometry, style) {
     var that = this;
     mxCell.call(this, value, geometry, style);
 
-    
+
     this.setVertex(true);
 
 
-    this.funct = function (wf, evt, cell) {
+    this.funct = function (wf, evt/*, cell*/) {
         wf.stopEditing(false);
 
         //encode UIControl
@@ -25,9 +32,13 @@ function UIControl(value, geometry, style){
 
         var result = encoder.encode(v);
         var xml = mxUtils.getXml(result);
-        y.share.map.set(mxEvent.ADD_VERTEX, {userId : y.db.userId, id : Util.GUID(), data : xml});
+        y.share.map.set(mxEvent.ADD_VERTEX, {
+            userId: y.db.userId,
+            id: Util.GUID(),
+            data: xml
+        });
     }
-    this.makeTypeDraggable = function(type, wireframe){
+    this.makeTypeDraggable = function (type, wireframe) {
         mxUtils.makeDraggable(type, wireframe, that.funct);
     }
 

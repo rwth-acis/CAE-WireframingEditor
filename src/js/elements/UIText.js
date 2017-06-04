@@ -1,8 +1,7 @@
+/*global y*/
 import {
-    mxUtils,
-    mxConstants,
-    mxEvent
-} from '../mxExport.js';
+    mxConstants
+} from '../misc/mxExport.js';
 import UIControl from './UIControl.js';
 import $ from 'jquery';
 import Y from 'yjs';

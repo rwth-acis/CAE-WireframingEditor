@@ -1,9 +1,8 @@
 import {
     mxUtils,
     mxShape,
-    mxConstants,
-    mxCellRenderer
-} from './../mxExport.js';
+    mxConstants
+} from '../misc/mxExport.js';
 
 function mxShapeMockupVideoPlayer(bounds, fill, stroke, strokewidth) {
     mxShape.call(this);

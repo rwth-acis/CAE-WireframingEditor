@@ -1,8 +1,8 @@
 require(['./../css/style.css', './../../node_modules/jquery-ui/themes/base/theme.css', './../../node_modules/jquery-ui/themes/base/tabs.css', '../../node_modules/mxgraph/javascript/src/css/common.css']);
 import $ from 'jquery';
-import resizable from 'jquery-ui/ui/widgets/resizable';
-import draggable from 'jquery-ui/ui/widgets/draggable';
-import {mxClient, mxUtils, mxEvent, mxGraphModel} from './mxExport.js';
+import  'jquery-ui/ui/widgets/resizable';
+import  'jquery-ui/ui/widgets/draggable';
+import {mxClient, mxUtils, mxEvent, mxGraphModel} from './misc/mxExport.js';
 
 import Wireframe from './Wireframe.js';
 import Palette from './Palette.js';

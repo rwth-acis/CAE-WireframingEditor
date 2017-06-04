@@ -1,7 +1,6 @@
 import {
-    mxUtils,
-    mxConstants
-} from '../mxExport.js';
+    mxUtils
+} from '../misc/mxExport.js';
 import UIText from './UIText.js';
 import $ from 'jquery';
 

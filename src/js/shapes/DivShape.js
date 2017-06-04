@@ -1,4 +1,4 @@
-import {mxUtils, mxConstants, mxShape} from '../mxExport.js';
+import {mxUtils, mxConstants, mxShape} from '../misc/mxExport.js';
 
 function mxShapeMockupGroup(bounds, fill, stroke, strokewidth)
 {

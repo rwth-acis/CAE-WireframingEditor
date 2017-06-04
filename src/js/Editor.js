@@ -1,4 +1,4 @@
-import {mxEditor, mxUtils, mxStencil, mxStencilRegistry, mxGeometry, mxConstants, mxCellRenderer} from './mxExport.js';
+import {mxEditor, mxUtils, mxStencil, mxStencilRegistry, mxGeometry, mxConstants, mxCellRenderer} from './misc/mxExport.js';
 import UIControl from './elements/UIControl.js';
 import KeyHandler from './KeyHandler.js';
 import ContextMenu from './ContextMenu.js';

@@ -2,9 +2,8 @@ import {
     mxToolbar,
     mxGraph,
     mxConstants,
-    mxEvent,
-    mxRectangle
-} from './mxExport.js';
+    mxEvent
+} from './misc/mxExport.js';
 Palette.prototype = new mxToolbar();
 Palette.prototype.constructor = Palette;
 

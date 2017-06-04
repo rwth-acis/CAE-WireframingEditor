@@ -1,4 +1,4 @@
-import {mxDefaultKeyHandler} from './mxExport.js';
+import {mxDefaultKeyHandler} from './misc/mxExport.js';
 KeyHandler.prototype = new mxDefaultKeyHandler();
 KeyHandler.prototype.constructor = KeyHandler;
 

@@ -1,4 +1,4 @@
-import {mxShape, mxConstants, mxUtils} from '../mxExport';
+import {mxShape, mxConstants, mxUtils} from '../misc/mxExport';
 function TextBoxShape(bounds, fill, stroke, strokewidth)
 {
 	mxShape.call(this);

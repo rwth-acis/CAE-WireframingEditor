@@ -1,6 +1,16 @@
-import { mxDefaultToolbar, mxEvent, mxCodec, mxLog, mxClient, mxClipboard, mxUtils, mxRectangle } from './mxExport.js';
+/*global y*/
+import {
+    mxDefaultToolbar,
+    mxEvent,
+    mxCodec,
+    mxLog,
+    mxClient,
+    mxClipboard,
+    mxUtils,
+    mxRectangle
+} from './misc/mxExport.js';
 import $ from 'jquery';
-import Util from './Util.js';
+import Util from './misc/Util.js';
 
 Toolbox.prototype = new mxDefaultToolbar();
 Toolbox.prototype.constructor = Toolbox;
@@ -11,18 +21,24 @@ function Toolbox(container, editor) {
     this._editor = editor;
     var that = this;
 
+    /*eslint-disable no-unused-vars*/
     editor.addAction("shared_paste", function (editor, cell) {
         var encoder = new mxCodec();
         var result = encoder.encode(mxClipboard.getCells());
         var xml = mxUtils.getXml(result);
-        y.share.action.set("paste", { userId: y.db.userId, xml: xml });
+        y.share.action.set("paste", {
+            userId: y.db.userId,
+            xml: xml
+        });
         //editor.execute("paste", cell);
     });
 
+    /*eslint-disable no-unused-vars*/
     editor.addAction('shared_delete', function (editor, cell) {
         y.share.action.set(mxEvent.REMOVE, Util.getIdsOfSelectedCells(that._editor.graph));
     });
 
+    /*eslint-disable no-unused-vars*/
     editor.addAction("toggleConsole", function (editor, cell) {
         if (mxLog.isVisible())
             mxLog.setVisible(false);
@@ -30,21 +46,31 @@ function Toolbox(container, editor) {
             mxLog.setVisible(true);
     });
 
+    /*eslint-disable no-unused-vars*/
     editor.addAction("shared_undo", function (editor, cell) {
         y.share.action.set(mxEvent.UNDO, y.db.userId);
     });
 
+    /*eslint-disable no-unused-vars*/
     editor.addAction("shared_redo", function (editor, cell) {
         y.share.action.set(mxEvent.REDO, y.db.userId);
     });
 
+    /*eslint-disable no-unused-vars*/
     editor.addAction("shared_group", function (editor, cell) {
 
-        y.share.action.set(mxEvent.GROUP_CELLS, { userId: y.db.userId, ids: Util.getIdsOfSelectedCells(that._editor.graph) });
+        y.share.action.set(mxEvent.GROUP_CELLS, {
+            userId: y.db.userId,
+            ids: Util.getIdsOfSelectedCells(that._editor.graph)
+        });
     });
 
+    /*eslint-disable no-unused-vars*/
     editor.addAction("shared_ungroup", function (editor, cell) {
-        y.share.action.set(mxEvent.UNGROUP_CELLS, { userId: y.db.userId, ids: Util.getIdsOfSelectedCells(that._editor.graph) });
+        y.share.action.set(mxEvent.UNGROUP_CELLS, {
+            userId: y.db.userId,
+            ids: Util.getIdsOfSelectedCells(that._editor.graph)
+        });
     });
 
     y.share.action.observe(function (event) {
@@ -55,8 +81,7 @@ function Toolbox(container, editor) {
                     var cells = that._editor.graph.getSelectionCells();
                     that._editor.undo();
                     that._editor.graph.setSelectionCells(cells);
-                }
-                else
+                } else
                     that._editor.undo();
                 break;
             case mxEvent.REDO:
@@ -65,8 +90,7 @@ function Toolbox(container, editor) {
                     var cells = that._editor.graph.getSelectionCells();
                     that._editor.redo();
                     that._editor.graph.setSelectionCells(cells);
-                }
-                else
+                } else
                     that._editor.redo();
                 break;
             case mxEvent.REMOVE:

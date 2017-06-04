@@ -1,10 +1,12 @@
-import {mxWindow} from './mxExport.js';
+import {mxWindow} from './misc/mxExport.js';
 import $ from 'jquery';
-import tabs from 'jquery-ui/ui/widgets/tabs';
+import 'jquery-ui/ui/widgets/tabs';
 
+/**
+ * Generates the property editor for the given cell
+ * @param {mxCell} cell 
+ */
 function PropertyEditor(cell) {
-
-    var _cell = cell;
     var htmlEditorTemplate = '<div id="propertyEditor_' + cell.getId() + '"><ul><li><a href="#attributesTab">Attributes</a></li><li><a href="#tagsTab">Tags</a></li></ul><div id="attributesTab"></div><div id="tagsTab"></div>';
 
     this.getCell = function(){

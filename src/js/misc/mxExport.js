@@ -1,4 +1,4 @@
-import mxGraphLib from "../../node_modules/mxgraph/javascript/dist/build";
+import mxGraphLib from "../../../node_modules/mxgraph/javascript/dist/build";
 //require('../../node_modules/mxgraph/javascript/src/css/common.css');
 var mxLib = mxGraphLib({
         mxImageBasePath: "images",

@@ -1,16 +1,16 @@
 //ContextMenu.prototype = new mxDefaultPopupMenu();
 //ContextMenu.prototype.constructor = ContextMenu;
-import {mxForm} from './mxExport.js';
+import {mxForm} from './misc/mxExport.js';
 import PropertyEditor from './PropertyEditor.js';
 
 function ContextMenu(editor) {
     // mxDefaultPopupMenu.call(this);
 
     editor.graph.popupMenuHandler.factoryMethod = function (menu, cell, evt) {
-        return createPopupMenu(wireframe, menu, cell, evt);
+        return createPopupMenu(null, menu, cell, evt);
     };
 
-    function createPopupMenu(graph, menu, cell, evt) {
+    function createPopupMenu(graph, menu, cell/*, evt*/) {
 
         if (cell == null) {
             var sub = menu.addItem('Create..', null);
@@ -21,7 +21,7 @@ function ContextMenu(editor) {
             }, sub);
             menu.addSeparator();
         } else {
-            menu.addItem('Show Attributes', null, function (event) {
+            menu.addItem('Show Attributes', null, function (/*event*/) {
                  var form = new mxForm('properties');
                 form.addText("Style", cell.getStyle());
 

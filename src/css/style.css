@@ -79,7 +79,9 @@
     display: inline-block;
 }
 .item:hover {
-    border: 1px solid grey;
+    border: 1px outset grey;
+    border-radius: 5px;
+
 }
 .hsplit {
     position: absolute;
@@ -105,9 +107,12 @@
 }
 .mxToolbarItem{
     border : 1px solid transparent;
+    padding: 3px;
+    margin-top: -6px;
 }
 .mxToolbarMode:hover, .mxToolbarItem:hover:not(.mxSeparator):hover {
-    border: 1px solid grey;
+    border: 1px outset grey;
+    border-radius: 5px;
 }
 .mxSeparator {
     height: 32px;

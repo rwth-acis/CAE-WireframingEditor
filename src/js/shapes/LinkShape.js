@@ -1,4 +1,4 @@
-import {mxShape, mxUtils, mxConstants} from '../mxExport.js';
+import {mxShape, mxUtils, mxConstants} from '../misc/mxExport.js';
 function LinkShape(bounds, fill, stroke, strokewidth)
 {
 	mxShape.call(this);

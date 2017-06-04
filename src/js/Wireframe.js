@@ -1,3 +1,4 @@
+/*global y*/
 import UIControl from './elements/UIControl.js';
 
 window.UIControl = UIControl;
@@ -7,25 +8,23 @@ import {
     mxGraphHandler,
     mxConstants,
     mxCodec,
-    mxCodecRegistry,
     mxKeyHandler,
     mxRubberband,
     mxUtils,
     mxRectangle,
     mxGeometry
-} from './mxExport.js';
-import Util from './Util.js';
-import $ from 'jquery';
+} from './misc/mxExport.js';
+import Util from './misc/Util.js';
 
 window.mxGeometry = mxGeometry;
 Wireframe.prototype = new mxGraph();
 Wireframe.prototype.constructor = Wireframe;
 
-function Wireframe(container, model) {
+function Wireframe(container) {
     var that = this;
     mxGraph.call(this, container);
 
-    var handler = new mxGraphHandler(that)
+    //var handler = new mxGraphHandler(that)
 
     that.foldingEnabled = false;
     that.autoExtend = false;
@@ -116,11 +115,13 @@ function Wireframe(container, model) {
     };
     */
 
+    /*eslint-disable no-unused-vars*/
     that.createGroupCell = function (cells) {
         var group = mxGraph.prototype.createGroupCell.apply(this, arguments);
         group.setStyle('shape=DivContainer;fillColor=none;' + mxConstants.STYLE_STROKECOLOR + '=black;' + mxConstants.STYLE_POINTER_EVENTS + "=true");
         return group;
     };
+    
     that.moveCells = function (cells, dx, dy, clone, target, evt, mapping, shared) {
         var cells = mxGraph.prototype.moveCells.apply(this, arguments);
         if (cells.length > 0 && sharedAction && !shared) {
@@ -197,7 +198,7 @@ function Wireframe(container, model) {
     });
     that.convertValueToString = function (cell) {
         if (mxUtils.isNode(cell.value)) {
-            mxEvent.addListener(cell.$input[0], 'change', function (evt) {
+            mxEvent.addListener(cell.$input[0], 'change', function (/*event*/) {
                 var elt = cell.value.cloneNode(true);
                 elt.setAttribute('label', cell.$input.val());
                 that.model.setValue(cell, elt);
@@ -208,7 +209,7 @@ function Wireframe(container, model) {
                 case 'linkobj':
                 case 'textboxobj':
                     {
-                        cell.$input.click(function (event) {
+                        cell.$input.click(function (/*event*/) {
                             that.getSelectionModel().setCell(cell);
                         });
                         break;
@@ -216,12 +217,12 @@ function Wireframe(container, model) {
                 case 'pobj':
                 case 'textareaobj':
                     {
-                        cell.$input.click(function (event) {
+                        cell.$input.click(function (/*event*/) {
                             this.focus();
                             this.setSelectionRange(this.value.length, this.value.length);
                         });
 
-                        cell.$input.dblclick(function (event) {
+                        cell.$input.dblclick(function (/*event*/) {
                             this.focus();
                             this.setSelectionRange(0, this.value.length);
                         })
@@ -233,6 +234,7 @@ function Wireframe(container, model) {
     }
 
     var cellLabelChanged = that.cellLabelChanged;
+    /*eslint-disable no-unused-vars*/
     that.cellLabelChanged = function (cell, newValue, autoSize) {
         if (mxUtils.isNode(cell.value) && cell.value.nodeName.toLowerCase() == 'uiobject') {
             // Clones the value for correct undo/redo
@@ -245,7 +247,7 @@ function Wireframe(container, model) {
     };
 
     // Overrides method to create the editing value
-    var getEditingValue = that.getEditingValue;
+    //var getEditingValue = that.getEditingValue;
     that.getEditingValue = function (cell) {
         if (mxUtils.isNode(cell.value) && cell.value.nodeName.toLowerCase() == 'uiobject') {
             return cell.getAttribute('label');
