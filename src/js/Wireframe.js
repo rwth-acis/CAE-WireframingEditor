@@ -121,7 +121,7 @@ function Wireframe(container) {
         group.setStyle('shape=DivContainer;fillColor=none;' + mxConstants.STYLE_STROKECOLOR + '=black;' + mxConstants.STYLE_POINTER_EVENTS + "=true");
         return group;
     };
-    
+
     that.moveCells = function (cells, dx, dy, clone, target, evt, mapping, shared) {
         var cells = mxGraph.prototype.moveCells.apply(this, arguments);
         if (cells.length > 0 && sharedAction && !shared) {
@@ -198,38 +198,42 @@ function Wireframe(container) {
     });
     that.convertValueToString = function (cell) {
         if (mxUtils.isNode(cell.value)) {
-            mxEvent.addListener(cell.$input[0], 'change', function (/*event*/) {
-                var elt = cell.value.cloneNode(true);
-                elt.setAttribute('label', cell.$input.val());
-                that.model.setValue(cell, elt);
-            });
-            cell.$input.css('width', cell.geometry.width - 15).css('height', cell.geometry.height - 15);
+            if (cell.hasOwnProperty('$input')) {
+                mxEvent.addListener(cell.$input[0], 'change', function ( /*event*/ ) {
+                    var elt = cell.value.cloneNode(true);
+                    elt.setAttribute('label', cell.$input.val());
+                    that.model.setValue(cell, elt);
+                });
+                cell.$input.css('width', cell.geometry.width - 15).css('height', cell.geometry.height - 15);
 
-            switch (cell.value.nodeName.toLowerCase()) {
-                case 'linkobj':
-                case 'textboxobj':
-                    {
-                        cell.$input.click(function (/*event*/) {
-                            that.getSelectionModel().setCell(cell);
-                        });
-                        break;
-                    }
-                case 'pobj':
-                case 'textareaobj':
-                    {
-                        cell.$input.click(function (/*event*/) {
-                            this.focus();
-                            this.setSelectionRange(this.value.length, this.value.length);
-                        });
+                switch (cell.value.nodeName.toLowerCase()) {
+                    case 'linkobj':
+                    case 'textboxobj':
+                    case 'btnobj':
+                    case 'textnodeobj':
+                        {
+                            cell.$input.click(function ( /*event*/ ) {
+                                that.getSelectionModel().setCell(cell);
+                            });
+                            break;
+                        }
+                    case 'pobj':
+                    case 'textareaobj':
+                        {
+                            cell.$input.click(function ( /*event*/ ) {
+                                this.focus();
+                                this.setSelectionRange(this.value.length, this.value.length);
+                            });
 
-                        cell.$input.dblclick(function (/*event*/) {
-                            this.focus();
-                            this.setSelectionRange(0, this.value.length);
-                        })
-                        break;
-                    }
+                            cell.$input.dblclick(function ( /*event*/ ) {
+                                this.focus();
+                                this.setSelectionRange(0, this.value.length);
+                            })
+                            break;
+                        }
+                }
+                return cell.$input[0];
             }
-            return cell.$input[0];
         }
     }
 

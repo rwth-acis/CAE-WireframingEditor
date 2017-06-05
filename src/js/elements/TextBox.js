@@ -2,7 +2,6 @@ import {
     mxUtils
 } from '../misc/mxExport.js';
 import UIText from './UIText.js';
-import $ from 'jquery';
 
 TextBox.prototype = new UIText();
 TextBox.prototype.constructor = TextBox;

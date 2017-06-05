@@ -37,8 +37,9 @@ var mxWindow = mxLib.mxWindow;
 var mxShape = mxLib.mxShape;
 var mxCellRenderer = mxLib.mxCellRenderer;
 var mxStylesheet = mxLib.mxStylesheet;
+var mxText = mxLib.mxText;
 export {
     mxClient, mxEditor, mxGraph, mxGraphModel, mxCell, mxCodec, mxCodecRegistry,  mxEvent, mxGraphHandler, mxConstants,
     mxKeyHandler, mxRubberband, mxUtils, mxRectangle, mxToolbar, mxStencil, mxStencilRegistry, mxWindow, mxShape, mxStylesheet,
-    mxGeometry, mxDefaultKeyHandler, mxForm, mxDefaultToolbar, mxLog, mxClipboard, mxCellRenderer
+    mxGeometry, mxDefaultKeyHandler, mxForm, mxDefaultToolbar, mxLog, mxClipboard, mxCellRenderer, mxText
 };

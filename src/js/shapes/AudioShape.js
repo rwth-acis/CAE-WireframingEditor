@@ -4,7 +4,7 @@ import {
     mxConstants
 } from '../misc/mxExport.js';
 
-function VideoShape(bounds, fill, stroke, strokewidth) {
+function AudioShape(bounds, fill, stroke, strokewidth) {
     mxShape.call(this);
     this.bounds = bounds;
     this.fill = "white";
@@ -17,14 +17,14 @@ function VideoShape(bounds, fill, stroke, strokewidth) {
 /**
  * Extends mxShape.
  */
-mxUtils.extend(VideoShape, mxShape);
+mxUtils.extend(AudioShape, mxShape);
 
-VideoShape.prototype.cst = {
+AudioShape.prototype.cst = {
     FILL_COLOR2: 'fillColor2',
     TEXT_COLOR: 'textColor',
     STROKE_COLOR2: 'strokeColor2',
     STROKE_COLOR3: 'strokeColor3',
-    SHAPE: 'VideoPlayer',
+    SHAPE: 'AudioPlayer',
     BAR_POS: 'barPos',
     BAR_HEIGHT: 'barHeight'
 };
@@ -34,24 +34,24 @@ VideoShape.prototype.cst = {
  * 
  * Paints the vertex shape.
  */
-VideoShape.prototype.paintVertexShape = function (c, x, y, w, h) {
+AudioShape.prototype.paintVertexShape = function (c, x, y, w, h) {
     var bgColor = mxUtils.getValue(this.style, mxConstants.STYLE_FILLCOLOR, 'white');
-    var buttonColor = mxUtils.getValue(this.style, VideoShape.prototype.cst.FILL_COLOR2, 'grey');
+    var buttonColor = mxUtils.getValue(this.style, AudioShape.prototype.cst.FILL_COLOR2, 'grey');
     var frameColor = mxUtils.getValue(this.style, mxConstants.STYLE_STROKECOLOR, 'grey');
-    var filledColor = mxUtils.getValue(this.style, VideoShape.prototype.cst.STROKE_COLOR2, 'grey');
-    var emptyColor = mxUtils.getValue(this.style, VideoShape.prototype.cst.STROKE_COLOR3, 'grey');
-    var barHeight = mxUtils.getValue(this.style, VideoShape.prototype.cst.BAR_HEIGHT, 30);
+    var filledColor = mxUtils.getValue(this.style, AudioShape.prototype.cst.STROKE_COLOR2, 'grey');
+    var emptyColor = mxUtils.getValue(this.style, AudioShape.prototype.cst.STROKE_COLOR3, 'grey');
+    var barHeight = mxUtils.getValue(this.style, AudioShape.prototype.cst.BAR_HEIGHT, 25);
 
-    w = Math.max(w, 5 * barHeight);
-    h = Math.max(h, barHeight + 10);
+    w = Math.max(w, barHeight);
+    h = Math.max(h, barHeight);
 
     c.translate(x, y);
     this.background(c, x, y, w, h, bgColor, frameColor);
     c.setShadow(false);
-    this.otherShapes(c, x, y, w, h, buttonColor, frameColor, filledColor, emptyColor, barHeight);
+    this.otherShapes(c, x, y, w, h, buttonColor, frameColor, filledColor, emptyColor, h);
 };
 
-VideoShape.prototype.background = function (c, x, y, w, h, bgColor, frameColor) {
+AudioShape.prototype.background = function (c, x, y, w, h, bgColor, frameColor) {   
     c.setFillColor(bgColor);
     c.setStrokeColor(frameColor);
     c.begin();
@@ -63,47 +63,21 @@ VideoShape.prototype.background = function (c, x, y, w, h, bgColor, frameColor) 
     c.fillAndStroke();
 };
 
-VideoShape.prototype.otherShapes = function (c, x, y, w, h, buttonColor, frameColor, filledColor, emptyColor, barHeight) {
-    var barPos = mxUtils.getValue(this.style, VideoShape.prototype.cst.BAR_POS, '20');
+AudioShape.prototype.otherShapes = function (c, x, y, w, h, buttonColor, frameColor, filledColor, emptyColor, barHeight) {
+    var barPos = mxUtils.getValue(this.style, AudioShape.prototype.cst.BAR_POS, '20');
     barPos = Math.max(0, barPos);
     barPos = Math.min(100, barPos);
-
     var strokeWidth = mxUtils.getValue(this.style, mxConstants.STYLE_STROKEWIDTH, '1');
     var buttonR = 8;
-    var barY = h - barHeight;
+    var barY = 0 ;
 
     var barMin = buttonR;
     var barMax = w - buttonR;
     var barRange = barMax - barMin;
     var realBarPos = barRange * barPos / 100;
     var barEnd = barMin + realBarPos;
-    
-    //camera icon
-    var camerIconX =  w/2 - w/4.5;
-    var cameraIconY = h/2 + h/12;
-    var cameraIconWidth = w * 0.3;
-    var cameraIconHeight = (h - barHeight) * 0.5;
-    var offset = -(cameraIconHeight*0.5);
-    c.setStrokeColor(filledColor);
-    c.setFillColor('#808080');
-    c.begin();
-
-    c.moveTo(camerIconX, cameraIconY);
-
-    c.lineTo(camerIconX+cameraIconWidth, cameraIconY);
-    c.lineTo(camerIconX+cameraIconWidth, cameraIconY-cameraIconHeight);
-    c.lineTo(camerIconX, cameraIconY-cameraIconHeight);
-    c.lineTo(camerIconX, cameraIconY);
-
-    c.moveTo(camerIconX+cameraIconWidth +offset, cameraIconY-(cameraIconHeight/2));
-    
-    c.lineTo(camerIconX+cameraIconWidth+cameraIconHeight + offset, cameraIconY);
-    c.lineTo(camerIconX+cameraIconWidth+cameraIconHeight + offset, cameraIconY-cameraIconHeight);
-    c.lineTo(camerIconX+cameraIconWidth+offset, cameraIconY-(cameraIconHeight/2));
-    c.fillAndStroke();    
 
     //progress bar
-    c.setFillColor('none');
     c.setStrokeColor(filledColor);
     c.begin();
     c.moveTo(0, barY);
@@ -180,11 +154,11 @@ VideoShape.prototype.otherShapes = function (c, x, y, w, h, buttonColor, frameCo
     c.lineTo(screenX + barHeight * 0.75, speakerY + barHeight * 0.7);
     c.stroke();
 
-    var textColor = mxUtils.getValue(this.style, VideoShape.prototype.cst.TEXT_COLOR, 'grey');
+    var textColor = mxUtils.getValue(this.style, AudioShape.prototype.cst.TEXT_COLOR, 'grey');
     c.begin();
     c.setFontSize(barHeight * 0.5);
     c.setFontColor(textColor);
-    c.text(barHeight * 1.9, h - barHeight * 0.45, 0, 0, '1:20/6:23', mxConstants.ALIGN_LEFT, mxConstants.ALIGN_MIDDLE, 0, null, 0, 0, 0);
+    c.text(barHeight * 1.9, h - barHeight * 0.45, 0, 0, '0:42/4:23', mxConstants.ALIGN_LEFT, mxConstants.ALIGN_MIDDLE, 0, null, 0, 0, 0);
 };
 
-export default VideoShape;
+export default AudioShape;
