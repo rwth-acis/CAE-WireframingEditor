@@ -1,10 +1,17 @@
-import mxGraphLib from "../../../node_modules/mxgraph/javascript/dist/build";
+/*window.mxImageBasePath = "images";
+window.mxLoadResources = false;
+window.mxLoadStylesheets = false;
+*/
+import mxGraphLib from "../../../node_modules/mxgraph/javascript/dist/build.js";
+
 //require('../../node_modules/mxgraph/javascript/src/css/common.css');
+
 var mxLib = mxGraphLib({
         mxImageBasePath: "images",
         mxBasePath: ".",
-        mxLoadStylesheets : false
-    })
+        mxLoadStylesheets : false,
+        mxLoadResources : false
+    });
 /*var mxgraph = require("../node_modules/mxgraph/javascript/dist/build")({
       mxImageBasePath: "../node_modules/mxgraph/javascript/src/images",
       mxBasePath: "../node_modules/mxgraph/javascript/src"

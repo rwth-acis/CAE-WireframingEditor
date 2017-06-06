@@ -35,7 +35,7 @@ module.exports = {
       },
       {
         test: /\.(jpeg|png|gif|svg)$/i,
-        loader: "file-loader?name=../images/[name].[ext]"
+        loader: "file-loader?name=../images/[name].[ext]&emitFile=false"
       }
     ]
   },
@@ -66,19 +66,16 @@ module.exports = {
         to: 'images'
       },
       {
-        from: 'src/html5stencils.xml'
+        from: 'src/js/shapes/html5stencils.xml',
+        to : 'html5stencils.xml'
       },
       {
         from: './node_modules/mxgraph/javascript/src/images',
-        to: 'images'
-      },
-      {
-        from: './node_modules/mxgraph/javascript/src/resources',
-        to: 'resources'
+        to: './images'
       },
       {
         from: './node_modules/jquery-ui/themes/base/images',
-        to: 'images'
+        to: './images'
       }
     ])
   ]

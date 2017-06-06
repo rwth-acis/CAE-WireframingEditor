@@ -2,7 +2,7 @@ require(['./../css/style.css', './../../node_modules/jquery-ui/themes/base/theme
 import $ from 'jquery';
 import  'jquery-ui/ui/widgets/resizable';
 import  'jquery-ui/ui/widgets/draggable';
-import {mxClient, mxUtils, mxEvent, mxGraphModel} from './misc/mxExport.js';
+import {mxClient, mxUtils, mxEvent, mxGraphModel, mxLog} from './misc/mxExport.js';
 import YjsSync from './misc/YjsSync.js';
 import CONST from './misc/Constants.js';
 
@@ -17,7 +17,7 @@ $(function(){
     } else {
       YjsSync().done(function (y) {
         var model = new mxGraphModel();
-        //mxLog.show();
+        mxLog.show();
         
         var container = document.getElementById('wireframe');
          //disable default context menu
