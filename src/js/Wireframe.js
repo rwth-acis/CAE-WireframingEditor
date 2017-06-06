@@ -115,12 +115,7 @@ function Wireframe(container) {
     };
     */
 
-    /*eslint-disable no-unused-vars*/
-    that.createGroupCell = function (cells) {
-        var group = mxGraph.prototype.createGroupCell.apply(this, arguments);
-        group.setStyle('shape=DivContainer;fillColor=none;' + mxConstants.STYLE_STROKECOLOR + '=black;' + mxConstants.STYLE_POINTER_EVENTS + "=true");
-        return group;
-    };
+
 
     that.moveCells = function (cells, dx, dy, clone, target, evt, mapping, shared) {
         var cells = mxGraph.prototype.moveCells.apply(this, arguments);
@@ -191,11 +186,11 @@ function Wireframe(container) {
                 }
         }
     });
-    
+
     that.convertValueToString = function (cell) {
         if (mxUtils.isNode(cell.value)) {
             if (cell.hasOwnProperty('$input')) {
-                mxEvent.addListener(cell.$input[0], 'change', function ( /*event*/ ) {
+                mxEvent.addListener(cell.$input[0], 'change', function ( /*event*/) {
                     var elt = cell.value.cloneNode(true);
                     elt.setAttribute('label', cell.$input.val());
                     that.model.setValue(cell, elt);
@@ -208,7 +203,7 @@ function Wireframe(container) {
                     case 'btnobj':
                     case 'textnodeobj':
                         {
-                            cell.$input.click(function ( /*event*/ ) {
+                            cell.$input.click(function ( /*event*/) {
                                 that.getSelectionModel().setCell(cell);
                             });
                             break;
@@ -216,32 +211,31 @@ function Wireframe(container) {
                     case 'pobj':
                     case 'textareaobj':
                         {
-                            cell.$input.click(function ( /*event*/ ) {
+                            cell.$input.click(function ( /*event*/) {
                                 this.focus();
                                 this.setSelectionRange(this.value.length, this.value.length);
                             });
 
-                            cell.$input.dblclick(function ( /*event*/ ) {
+                            cell.$input.dblclick(function ( /*event*/) {
                                 this.focus();
                                 this.setSelectionRange(0, this.value.length);
                             })
                             break;
                         }
-                        case 'radioobj':
-                        case 'checkboxobj':{
-                            cell.$input.find('input[type="input"]').click(function ( /*event*/ ) {
-                                that.getSelectionModel().setCell(cell);
-                            });
-                            break;
-                        }
+                    case 'radioobj':
+                    case 'checkboxobj': {
+                        cell.$input.find('input[type="input"]').click(function ( /*event*/) {
+                            that.getSelectionModel().setCell(cell);
+                        });
+                        break;
+                    }
                 }
                 return cell.$input[0];
             }
         }
     }
-
+    /*
     var cellLabelChanged = that.cellLabelChanged;
-    /*eslint-disable no-unused-vars*/
     that.cellLabelChanged = function (cell, newValue, autoSize) {
         if (mxUtils.isNode(cell.value) && cell.value.nodeName.toLowerCase() == 'uiobject') {
             // Clones the value for correct undo/redo
@@ -259,7 +253,7 @@ function Wireframe(container) {
         if (mxUtils.isNode(cell.value) && cell.value.nodeName.toLowerCase() == 'uiobject') {
             return cell.getAttribute('label');
         }
-    };
+    };*/
     return this;
 }
 export default Wireframe;

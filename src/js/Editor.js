@@ -7,7 +7,8 @@ import {
     mxStencilRegistry,
     mxGeometry,
     mxConstants,
-    mxCellRenderer
+    mxCellRenderer,
+    mxGraph
 } from './misc/mxExport.js';
 import UIControl from './elements/UIControl.js';
 import KeyHandler from './KeyHandler.js';
@@ -15,7 +16,6 @@ import ContextMenu from './ContextMenu.js';
 
 import VideoPlayerShape from './shapes/VideoShape.js';
 import AudioPlayerShape from './shapes/AudioShape.js';
-import DivContainerShape from './shapes/DivShape.js';
 
 import Link from './elements/Link.js';
 import TextBox from './elements/TextBox.js';
@@ -28,6 +28,7 @@ import RadioBtn from './elements/RadioButton.js';
 import Image from './elements/Image.js';
 import VideoPlayer from './elements/VideoPlayer.js';
 import AudioPlayer from './elements/AudioPlayer.js';
+import DivContainer from './elements/DivContainer.js';
 
 Editor.prototype = new mxEditor();
 Editor.prototype.constructor = Editor;
@@ -59,7 +60,6 @@ function Editor(wireframe, palette) {
 
     mxCellRenderer.prototype.defaultShapes[VideoPlayerShape.prototype.cst.SHAPE] = VideoPlayerShape;
     mxCellRenderer.prototype.defaultShapes[AudioPlayerShape.prototype.cst.SHAPE] = AudioPlayerShape;
-    mxCellRenderer.prototype.defaultShapes[DivContainerShape.prototype.cst.SHAPE] = DivContainerShape;
 
     y.share.attrs.observe(function (event) {
         var id = event.name.substring(0, event.name.indexOf('_'));
@@ -70,13 +70,35 @@ function Editor(wireframe, palette) {
             event.value.bind(cell.$input[0]);
     });
 
-    //Div container needs rework --> look at swimlanes
-    var cell = new UIControl("", new mxGeometry(0, 0, 200, 100), mxConstants.STYLE_SHAPE + "=DivContainer;" + mxConstants.STYLE_FILLCOLOR + "=none;" + mxConstants.STYLE_POINTER_EVENTS + "=true;" + mxConstants.STYLE_STROKECOLOR + '=grey;');
-    var type = palette.createItem(cell, "Container");
+    //-------------------------------------------------------------------
+    // Overrides functions from Wireframe which is derived from mxGraph 
+    //-------------------------------------------------------------------
+    /**
+     * Overrides getLabel from mxGraph for the Wireframe-class
+     */
+    that.graph.getLabel = function (state) {
+        var label = mxGraph.prototype.getLabel.apply(this, arguments);
+        if (state instanceof DivContainer)
+            return state.value.getAttribute('label');
+        else return label;
+    }
+    /**
+     * Overrices createGroupCell from the superclass mxGraph for the Wireframe-class
+     */
+    /*eslint-disable no-unused-vars*/
+    that.graph.createGroupCell = function (cells) {
+        var group = new DivContainer();
+        return group;
+    };
+    //-------------------------------------------------------------------
+
+    var cell, type, shapeCell;
+    cell = new DivContainer(new mxGeometry(0, 0, 250, 300));
+    type = palette.createItem(cell, "UI Component Container");
     cell.makeTypeDraggable(type, wireframe);
 
     cell = new TextNode(new mxGeometry(0, 0, 150, 50));
-    var shapeCell = new UIControl(null, cell.geometry, mxConstants.STYLE_SHAPE + '=textnode;');
+    shapeCell = new UIControl(null, cell.geometry, mxConstants.STYLE_SHAPE + '=textnode;');
     type = palette.createItem(shapeCell, "TextNode", true);
     cell.makeTypeDraggable(type, wireframe);
 
@@ -126,6 +148,7 @@ function Editor(wireframe, palette) {
     cell = new AudioPlayer(new mxGeometry(0, 0, 200, 30));
     type = palette.createItem(cell, "Audio Player", false);
     cell.makeTypeDraggable(type, wireframe);
+
 
     //horizontal line
     palette.addLine();
