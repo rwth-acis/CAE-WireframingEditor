@@ -11,6 +11,7 @@ import {
 } from './misc/mxExport.js';
 import $ from 'jquery';
 import Util from './misc/Util.js';
+import CONST from './misc/Constants.js';
 
 Toolbox.prototype = new mxDefaultToolbar();
 Toolbox.prototype.constructor = Toolbox;
@@ -22,24 +23,23 @@ function Toolbox(container, editor) {
     var that = this;
 
     /*eslint-disable no-unused-vars*/
-    editor.addAction("shared_paste", function (editor, cell) {
+    editor.addAction(CONST.ACTIONS.SHARED.PASTE, function (editor, cell) {
         var encoder = new mxCodec();
         var result = encoder.encode(mxClipboard.getCells());
         var xml = mxUtils.getXml(result);
-        y.share.action.set("paste", {
+        y.share.action.set(CONST.ACTIONS.SHARED.PASTE, {
             userId: y.db.userId,
             xml: xml
         });
-        //editor.execute("paste", cell);
     });
 
     /*eslint-disable no-unused-vars*/
-    editor.addAction('shared_delete', function (editor, cell) {
+    editor.addAction(CONST.ACTIONS.SHARED.DELETE, function (editor, cell) {
         y.share.action.set(mxEvent.REMOVE, Util.getIdsOfSelectedCells(that._editor.graph));
     });
 
     /*eslint-disable no-unused-vars*/
-    editor.addAction("toggleConsole", function (editor, cell) {
+    editor.addAction(CONST.ACTIONS.CONSOLE, function (editor, cell) {
         if (mxLog.isVisible())
             mxLog.setVisible(false);
         else
@@ -47,17 +47,17 @@ function Toolbox(container, editor) {
     });
 
     /*eslint-disable no-unused-vars*/
-    editor.addAction("shared_undo", function (editor, cell) {
+    editor.addAction(CONST.ACTIONS.SHARED.UNDO, function (editor, cell) {
         y.share.action.set(mxEvent.UNDO, y.db.userId);
     });
 
     /*eslint-disable no-unused-vars*/
-    editor.addAction("shared_redo", function (editor, cell) {
+    editor.addAction(CONST.ACTIONS.SHARED.REDO, function (editor, cell) {
         y.share.action.set(mxEvent.REDO, y.db.userId);
     });
 
     /*eslint-disable no-unused-vars*/
-    editor.addAction("shared_group", function (editor, cell) {
+    editor.addAction(CONST.ACTIONS.SHARED.GROUP, function (editor, cell) {
 
         y.share.action.set(mxEvent.GROUP_CELLS, {
             userId: y.db.userId,
@@ -66,7 +66,7 @@ function Toolbox(container, editor) {
     });
 
     /*eslint-disable no-unused-vars*/
-    editor.addAction("shared_ungroup", function (editor, cell) {
+    editor.addAction(CONST.ACTIONS.SHARED.UNGROUP, function (editor, cell) {
         y.share.action.set(mxEvent.UNGROUP_CELLS, {
             userId: y.db.userId,
             ids: Util.getIdsOfSelectedCells(that._editor.graph)
@@ -109,7 +109,7 @@ function Toolbox(container, editor) {
                     that._editor.graph.setSelectionCells(cells);
 
                 break;
-            case "paste":
+            case CONST.ACTIONS.SHARED.PASTE:
                 var selectedCells = that._editor.graph.getSelectionCells();
 
                 var doc = mxUtils.parseXml(event.value.xml);
@@ -128,7 +128,7 @@ function Toolbox(container, editor) {
                     that._editor.graph.setSelectionCells(selectedCells);
                 }
                 break;
-            case "graphResize": //event triggerd in index.html
+            case CONST.ACTIONS.SHARED.GRAPH_RESIZE: //event triggerd in index.html
                 if (y.db.userId !== event.value.userId) {
                     //var size = $('#wireframeWrap').css(["width", "height"]);
                     $('#wireframeWrap').css("width", "+=" + event.value.dWidth).css("height", "+=" + event.value.dHeight);
@@ -150,19 +150,19 @@ function Toolbox(container, editor) {
     }
 
     this.addSeparator();
-    this.addItem("Copy", "images/toolbox/copy.png", "copy");
-    this.addItem("Paste", "images/toolbox/paste.png", "shared_paste");
+    this.addItem("Copy", CONST.IMAGES.COPY, CONST.ACTIONS.CONSOLE);
+    this.addItem("Paste", CONST.IMAGES.PASTE, CONST.ACTIONS.SHARED.PASTE);
     this.addSeparator();
-    this.addItem("Delete", "images/toolbox/delete.png", "shared_delete");
+    this.addItem("Delete", CONST.IMAGES.DELETE, CONST.ACTIONS.SHARED.DELETE);
     this.addSeparator();
     //this.addItem("Cut", "images/toolbox/cut.gif", "shared_cut");
-    this.addItem("Undo", "images/toolbox/undo2.png", "shared_undo");
-    this.addItem("Redo", "images/toolbox/redo2.png", "shared_redo");
+    this.addItem("Undo", CONST.IMAGES.UNDO, CONST.ACTIONS.SHARED.UNDO);
+    this.addItem("Redo", CONST.IMAGES.REDO, CONST.ACTIONS.SHARED.REDO);
     this.addSeparator();
-    this.addItem("Group", "images/toolbox/group.png", "shared_group");
-    this.addItem("Ungroup", "images/toolbox/ungroup.png", "shared_ungroup");
+    this.addItem("Group", CONST.IMAGES.GROUP, CONST.ACTIONS.SHARED.GROUP);
+    this.addItem("Ungroup", CONST.IMAGES.UNGROUP, CONST.ACTIONS.SHARED.UNGROUP);
     this.addSeparator();
-    this.addItem("Console", "images/toolbox/console.png", "toggleConsole");
+    this.addItem("Console", CONST.IMAGES.CONSOLE, CONST.ACTIONS.CONSOLE);
     this.addSeparator();
 
     return this;

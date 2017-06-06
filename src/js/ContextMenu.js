@@ -2,6 +2,7 @@
 //ContextMenu.prototype.constructor = ContextMenu;
 import {mxForm} from './misc/mxExport.js';
 import PropertyEditor from './PropertyEditor.js';
+import CONST from './misc/Constants.js';
 
 function ContextMenu(editor) {
     // mxDefaultPopupMenu.call(this);
@@ -15,7 +16,7 @@ function ContextMenu(editor) {
         if (cell == null) {
             var sub = menu.addItem('Create..', null);
             menu.createSubmenu(sub);
-            menu.addItem('Element 1', 'images/actor.gif', function (event) {
+            menu.addItem('Element 1', null, function (event) {
                 //TODO
                 var test = true;
             }, sub);
@@ -30,17 +31,17 @@ function ContextMenu(editor) {
             });
             menu.addSeparator();
         }
-        menu.addItem('Undo', 'images/toolbox/undo2.png', function () {
-            editor.execute("shared_undo");
+        menu.addItem('Undo', CONST.IMAGES.UNDO, function () {
+            editor.execute(CONST.ACTIONS.SHARED.UNDO);
         });
-        menu.addItem('Redo', 'images/toolbox/redo2.png', function () {
-            editor.execute("shared_redo");
+        menu.addItem('Redo', CONST.IMAGES.REDO, function () {
+            editor.execute(CONST.ACTIONS.SHARED.REDO);
         });
         menu.addSeparator();
         if (cell == null) {
 
-            menu.addItem('Show Console', 'images/toolbox/console.png', function () {
-                editor.execute("toggleConsole");
+            menu.addItem('Show Console', CONST.IMAGES.CONSOLE, function () {
+                editor.execute(CONST.ACTIONS.CONSOLE);
             });
         } else {
             //TODO copy & paste for context menu needs rework
@@ -50,15 +51,15 @@ function ContextMenu(editor) {
             menu.addItem('Paste', 'images/toolbox/paste.gif', function () {
                 editor.execute("shared_paste");
             });*/
-            menu.addItem('Group', 'images/toolbox/group.png', function () {
-                editor.execute("shared_group");
+            menu.addItem('Group', CONST.IMAGES.GROUP, function () {
+                editor.execute(CONST.ACTIONS.SHARED.GROUP);
             });
-            menu.addItem('Ungroup', 'images/toolbox/ungroup.png', function () {
-                editor.execute("shared_ungroup");
+            menu.addItem('Ungroup', CONST.IMAGES.UNGROUP, function () {
+                editor.execute(CONST.ACTIONS.SHARED.UNGROUP);
             });
             menu.addSeparator();
-            menu.addItem('Delete Cell', 'images/toolbox/delete.png', function () {
-                editor.execute("shared_delete");
+            menu.addItem('Delete Cell', CONST.IMAGES.DELETE, function () {
+                editor.execute(CONST.ACTIONS.SHARED.DELETE);
             });
         }
     };

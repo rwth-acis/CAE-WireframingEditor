@@ -33,10 +33,6 @@ function RadioButton(geometry) {
             .css('border-style', 'initial')
             .val(text));
     }
-    
-    this.initShared = function (createdByLocalUser) {
-        
-    }
     return this;
 }
 export default RadioButton;

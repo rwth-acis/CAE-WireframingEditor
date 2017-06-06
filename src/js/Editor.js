@@ -1,3 +1,5 @@
+
+/*global y*/
 import {
     mxEditor,
     mxUtils,
@@ -21,7 +23,7 @@ import Paragraph from './elements/Paragraph.js';
 import TextArea from './elements/TextArea.js';
 import Button from './elements/Button.js';
 import TextNode from './elements/TextNode.js';
-import CheckBox from './elements/Checkbox.js';
+import CheckBox from './elements/CheckBox.js';
 import RadioBtn from './elements/RadioButton.js';
 import Image from './elements/Image.js';
 import VideoPlayer from './elements/VideoPlayer.js';
@@ -31,6 +33,7 @@ Editor.prototype = new mxEditor();
 Editor.prototype.constructor = Editor;
 
 function Editor(wireframe, palette) {
+    var that = this;
     mxEditor.call(this);
     this.graph = wireframe;
     this.installUndoHandler(wireframe);
@@ -57,6 +60,15 @@ function Editor(wireframe, palette) {
     mxCellRenderer.prototype.defaultShapes[VideoPlayerShape.prototype.cst.SHAPE] = VideoPlayerShape;
     mxCellRenderer.prototype.defaultShapes[AudioPlayerShape.prototype.cst.SHAPE] = AudioPlayerShape;
     mxCellRenderer.prototype.defaultShapes[DivContainerShape.prototype.cst.SHAPE] = DivContainerShape;
+
+    y.share.attrs.observe(function (event) {
+        var id = event.name.substring(0, event.name.indexOf('_'));
+        var cell = that.graph.getModel().getCell(id);
+        if (cell instanceof RadioBtn || cell instanceof CheckBox)
+            event.value.bind(cell.$input.find('input[type="input"]')[0]);
+        else
+            event.value.bind(cell.$input[0]);
+    });
 
     //Div container needs rework --> look at swimlanes
     var cell = new UIControl("", new mxGeometry(0, 0, 200, 100), mxConstants.STYLE_SHAPE + "=DivContainer;" + mxConstants.STYLE_FILLCOLOR + "=none;" + mxConstants.STYLE_POINTER_EVENTS + "=true;" + mxConstants.STYLE_STROKECOLOR + '=grey;');

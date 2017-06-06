@@ -3,40 +3,19 @@ import $ from 'jquery';
 import  'jquery-ui/ui/widgets/resizable';
 import  'jquery-ui/ui/widgets/draggable';
 import {mxClient, mxUtils, mxEvent, mxGraphModel} from './misc/mxExport.js';
+import YjsSync from './misc/YjsSync.js';
+import CONST from './misc/Constants.js';
 
 import Wireframe from './Wireframe.js';
 import Palette from './Palette.js';
 import Editor from './Editor.js';
 import Toolbox from './Toolbox.js';
-
-import Y from 'yjs';
-import yWebsocketsClient from 'y-websockets-client';
-import yMemory from 'y-memory';
-import yMap from 'y-map';
-import yText from 'y-text';
-import yArray from 'y-array';
-Y.extend(yArray, yWebsocketsClient, yMemory, yMap, yText);
 $(function(){
      if (!mxClient.isBrowserSupported()) {
       // Displays an error message if the browser is not supported.
       mxUtils.error('Browser is not supported!', 200, false);
     } else {
-      Y({
-        db: {
-          name: "memory"
-        },
-        connector: {
-          name: "websockets-client",
-          room: "yireframe"
-        },
-        share: {
-          map: 'Map',
-          action: 'Map',
-          attrs: 'Map'
-        }
-      }).then(function (y) {
-        window.y = y;
-       
+      YjsSync().done(function (y) {
         var model = new mxGraphModel();
         //mxLog.show();
         
@@ -66,7 +45,7 @@ $(function(){
           },
           stop: function (event, ui) {
             //propagate graph resize to other users; handled in Toolbox.js
-            y.share.action.set('graphResize', {
+            y.share.action.set(CONST.ACTIONS.SHARED.GRAPH_RESIZE, {
               userId: y.db.userId,
               dHeight: ui.size.height - ui.originalSize.height,
               dWidth: ui.size.width - ui.originalSize.width
@@ -82,16 +61,17 @@ $(function(){
 
         $('.hsplit').click(function () {
           var $palette = $('#palette');
+          var paletteWidth = $palette.css('width');
           if ($palette.is(':visible')) {
             $palette.hide();
-            $('#wireframeContainer').css('left', '-=56');
-            $('#toolbox').css('left', '-=56');
-            $(this).css('left', '-=56');
+            $('#wireframeContainer').css('left', '-='+ paletteWidth);
+            $('#toolbox').css('left', '-=' +paletteWidth);
+            $(this).css('left', '-=' + paletteWidth);
           } else {
             $palette.show();
-            $(this).css('left', '+=56');
-            $('#wireframeContainer').css('left', '+=56');
-            $('#toolbox').css('left', '+=56');
+            $(this).css('left', '+=' +paletteWidth);
+            $('#wireframeContainer').css('left', '+=' + paletteWidth);
+            $('#toolbox').css('left', '+=' + paletteWidth);
           }
         });
       });

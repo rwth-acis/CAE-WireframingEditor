@@ -191,11 +191,7 @@ function Wireframe(container) {
                 }
         }
     });
-    y.share.attrs.observe(function (event) {
-        var id = event.name.substring(0, event.name.indexOf('_'));
-        var cell = that.getModel().getCell(id);
-        event.value.bind(cell.$input[0]);
-    });
+    
     that.convertValueToString = function (cell) {
         if (mxUtils.isNode(cell.value)) {
             if (cell.hasOwnProperty('$input')) {
@@ -229,6 +225,13 @@ function Wireframe(container) {
                                 this.focus();
                                 this.setSelectionRange(0, this.value.length);
                             })
+                            break;
+                        }
+                        case 'radioobj':
+                        case 'checkboxobj':{
+                            cell.$input.find('input[type="input"]').click(function ( /*event*/ ) {
+                                that.getSelectionModel().setCell(cell);
+                            });
                             break;
                         }
                 }
