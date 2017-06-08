@@ -1,6 +1,3 @@
-import {
-    mxUtils
-} from '../misc/mxExport.js';
 import UIText from './UIText.js';
 
 TextNode.prototype = new UIText();
@@ -11,11 +8,8 @@ window.TextNode = TextNode;
 
 function TextNode(geometry) {
     var text = 'A simple TextNode...';
-    var xmlDoc = mxUtils.createXmlDocument();
-    var uiObj = xmlDoc.createElement('TextNodeObj');
-    uiObj.setAttribute('label', text);
-
-    UIText.call(this, text, geometry, uiObj);
+    
+    UIText.call(this, text, geometry);
 
     this.init = function () {
         this.__proto__.init.call(this);

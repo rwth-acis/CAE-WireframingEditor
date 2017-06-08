@@ -1,6 +1,3 @@
-import {
-    mxUtils
-} from '../misc/mxExport.js';
 import UIText from './UIText.js';
 import $ from 'jquery';
 
@@ -13,13 +10,10 @@ window.RadioButton = RadioButton;
 function RadioButton(geometry) {
     var text = 'Option';
 
-    var xmlDoc = mxUtils.createXmlDocument();
-    var uiObj = xmlDoc.createElement('RadioObj');
-    uiObj.setAttribute('label', text);
-    uiObj.setAttribute('checked', false);
-    uiObj.setAttribute('name', '');
-
-    UIText.call(this, text, geometry, uiObj);
+    UIText.call(this, text, geometry);
+    this.value.setAttribute('checked', false);
+    this.value.setAttribute('autofocus', false);
+    this.value.setAttribute('disabled', false);
 
     this.init = function () {
         this.$input = $('<div>')

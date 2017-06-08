@@ -1,6 +1,3 @@
-import {
-    mxUtils
-} from '../misc/mxExport.js';
 import UIText from './UIText.js';
 
 TextBox.prototype = new UIText();
@@ -11,12 +8,11 @@ window.TextBox = TextBox;
 
 function TextBox(geometry) {
     var text = 'Some Text...';
-    var xmlDoc = mxUtils.createXmlDocument();
-    var uiObj = xmlDoc.createElement('TextBoxObj');
-    uiObj.setAttribute('label', text);
 
-    UIText.call(this, text, geometry, uiObj);
-    
+    UIText.call(this, text, geometry);
+    this.setAttribute('autofocus', false);
+    this.setAttribute('disabled', false);
+    this.setAttribute('autocomplete', 'off');
     this.init = function(){
         this.__proto__.init.call(this);
         this.$input.val(text);

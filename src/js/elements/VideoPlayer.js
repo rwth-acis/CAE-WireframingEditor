@@ -1,19 +1,13 @@
 import {
-    mxUtils,
     mxConstants
 } from '../misc/mxExport.js';
-import UIControl from './UIControl.js';
+import UIMedia from './UIMedia.js';
 
-VideoPlayer.prototype = new UIControl();
+VideoPlayer.prototype = new UIMedia();
 VideoPlayer.prototype.constructor = VideoPlayer;
 window.VideoPlayer = VideoPlayer;
 
 function VideoPlayer(geometry) {
-
-    var xmlDoc = mxUtils.createXmlDocument();
-    var uiObj = xmlDoc.createElement('VideoPlayerObj');
-    //TODO set attribute for the video player
-    //uiObj.setAttribute();
 
     //style in html5stencils.xml and registered in the editor
     var style = mxConstants.STYLE_SHAPE + "=VideoPlayer;" +
@@ -22,7 +16,9 @@ function VideoPlayer(geometry) {
         mxConstants.STYLE_ASPECT + '=fixed;' +
         mxConstants.STYLE_EDITABLE + "=0;";
 
-    UIControl.call(this, uiObj, geometry, style);
+    UIMedia.call(this, geometry, style);
+    this.value.setAttribute('poster', '');
+
     return this;
 }
 export default VideoPlayer;

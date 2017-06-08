@@ -98,42 +98,42 @@ function Editor(wireframe, palette) {
     cell.makeTypeDraggable(type, wireframe);
 
     cell = new TextNode(new mxGeometry(0, 0, 150, 50));
-    shapeCell = new UIControl(null, cell.geometry, mxConstants.STYLE_SHAPE + '=textnode;');
+    shapeCell = new UIControl(cell.geometry, mxConstants.STYLE_SHAPE + '=textnode;');
     type = palette.createItem(shapeCell, "TextNode", true);
     cell.makeTypeDraggable(type, wireframe);
 
     cell = new Button(new mxGeometry(0, 0, 100, 50));
-    shapeCell = new UIControl(null, cell.geometry, mxConstants.STYLE_SHAPE + '=button;');
+    shapeCell = new UIControl(cell.geometry, mxConstants.STYLE_SHAPE + '=button;');
     type = palette.createItem(shapeCell, "Button", false);
     cell.makeTypeDraggable(type, wireframe);
 
     cell = new Link(new mxGeometry(0, 0, 50, 30));
-    shapeCell = new UIControl(null, cell.geometry, mxConstants.STYLE_SHAPE + '=link;' + mxConstants.STYLE_FILLCOLOR + "=none;");
+    shapeCell = new UIControl(cell.geometry, mxConstants.STYLE_SHAPE + '=link;' + mxConstants.STYLE_FILLCOLOR + "=none;");
     type = palette.createItem(shapeCell, "Link", false);
     cell.makeTypeDraggable(type, wireframe);
 
     cell = new TextBox(new mxGeometry(0, 0, 120, 30));
-    shapeCell = new UIControl(null, cell.geometry, mxConstants.STYLE_SHAPE + '=textbox;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;');
+    shapeCell = new UIControl(cell.geometry, mxConstants.STYLE_SHAPE + '=textbox;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;');
     type = palette.createItem(shapeCell, "TextBox", true);
     cell.makeTypeDraggable(type, wireframe);
 
     cell = new Paragraph(new mxGeometry(0, 0, 320, 80));
-    shapeCell = new UIControl(null, cell.geometry, mxConstants.STYLE_SHAPE + '=paragraph;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;');
+    shapeCell = new UIControl(cell.geometry, mxConstants.STYLE_SHAPE + '=paragraph;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;');
     type = palette.createItem(shapeCell, "Paragraph of Text", true);
     cell.makeTypeDraggable(type, wireframe);
 
     cell = new TextArea(new mxGeometry(0, 0, 320, 80));
-    shapeCell = new UIControl(null, cell.geometry, mxConstants.STYLE_SHAPE + '=textarea;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;');
+    shapeCell = new UIControl(cell.geometry, mxConstants.STYLE_SHAPE + '=textarea;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;');
     type = palette.createItem(shapeCell, "TextArea", true);
     cell.makeTypeDraggable(type, wireframe);
 
     cell = new CheckBox(new mxGeometry(0, 0, 150, 30));
-    shapeCell = new UIControl(null, cell.geometry, mxConstants.STYLE_SHAPE + '=checkbox;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;');
+    shapeCell = new UIControl(cell.geometry, mxConstants.STYLE_SHAPE + '=checkbox;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;');
     type = palette.createItem(shapeCell, "Checkbox", true);
     cell.makeTypeDraggable(type, wireframe);
 
     cell = new RadioBtn(new mxGeometry(0, 0, 150, 30));
-    shapeCell = new UIControl(null, cell.geometry, mxConstants.STYLE_SHAPE + '=radio;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;');
+    shapeCell = new UIControl(cell.geometry, mxConstants.STYLE_SHAPE + '=radio;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;');
     type = palette.createItem(shapeCell, "Radio Button", true);
     cell.makeTypeDraggable(type, wireframe);
 

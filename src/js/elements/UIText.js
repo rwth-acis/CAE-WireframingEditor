@@ -9,14 +9,15 @@ import Y from 'yjs';
 UIText.prototype = new UIControl();
 UIText.prototype.constructor = UIText;
 
-function UIText(text, geometry, value) {
+function UIText(text, geometry) {
     var style = mxConstants.STYLE_SHAPE + "=rectangle;" +
         mxConstants.STYLE_EDITABLE + "=0;" +
         mxConstants.STYLE_RESIZABLE + "=1;" +
         mxConstants.STYLE_FILLCOLOR + "=none;" +
         mxConstants.STYLE_STROKECOLOR + '=none;';
 
-    UIControl.call(this, value, geometry, style);
+    UIControl.call(this, geometry, style);
+    this.value.setAttribute('label', text);
 
     var ytext = null;
     this.$input = null;

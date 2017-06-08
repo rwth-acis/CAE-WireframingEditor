@@ -1,5 +1,4 @@
 import {
-    mxUtils,
     mxConstants
 } from '../misc/mxExport.js';
 import UIControl from './UIControl.js';
@@ -10,16 +9,12 @@ window.Image = Image;
 
 function Image(geometry) {
 
-    var xmlDoc = mxUtils.createXmlDocument();
-    var uiObj = xmlDoc.createElement('ImageObj');
-    //TODO set attribute for the image
-    //uiObj.setAttribute();
-
     //style in html5stencils.xml and registered in the editor
     var style = mxConstants.STYLE_SHAPE + '=image;' +
         mxConstants.STYLE_EDITABLE + "=0;";
 
-    UIControl.call(this, uiObj, geometry, style);
+    UIControl.call(this, geometry, style);
+    this.setAttribute('src','');
     return this;
 }
 export default Image;

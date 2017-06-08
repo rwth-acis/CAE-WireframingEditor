@@ -6,13 +6,19 @@ import {
     mxEvent
 } from './../misc/mxExport.js';
 import Util from '../misc/Util';
+window.UIControl = UIControl;
 
 UIControl.prototype = new mxCell();
 UIControl.prototype.constructor = UIControl;
-
-function UIControl(value, geometry, style) {
+function UIControl(geometry, style) {
     var that = this;
-    mxCell.call(this, value, geometry, style);
+    var xmlDoc = mxUtils.createXmlDocument();
+    var uiObj = xmlDoc.createElement('uiObj');
+    uiObj.setAttribute('id', '');
+    uiObj.setAttribute('class', '');
+    uiObj.setAttribute('uiType', this.constructor.name.toLowerCase());
+
+    mxCell.call(this, uiObj, geometry, style);
 
 
     this.setVertex(true);
@@ -28,7 +34,6 @@ function UIControl(value, geometry, style) {
         var v = wf.getModel().cloneCell(that);
         v.geometry.x = pt.x;
         v.geometry.y = pt.y;
-        //v.style = that.style;
 
         var result = encoder.encode(v);
         var xml = mxUtils.getXml(result);
@@ -42,6 +47,13 @@ function UIControl(value, geometry, style) {
         mxUtils.makeDraggable(type, wireframe, that.funct);
     }
 
+    this.setValueFromJson = function (json) {
+        for (var key in json) {
+            if (this.value.hasAttribute(key)) {
+                this.value.setAttribute(key, json[key]);
+            }
+        }
+    }
 
     return this;
 }

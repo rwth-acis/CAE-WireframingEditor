@@ -1,8 +1,4 @@
-import {
-    mxUtils
-} from '../misc/mxExport.js';
 import UIText from './UIText.js';
-
 
 Link.prototype = new UIText();
 Link.prototype.constructor = Link;
@@ -12,12 +8,11 @@ window.Link = Link;
 
 function Link(geometry) {
     var text = 'Link';
-    var xmlDoc = mxUtils.createXmlDocument();
-    var uiObj = xmlDoc.createElement('LinkObj');
-    uiObj.setAttribute('label', text);
-    uiObj.setAttribute('url', 'http://localhost:8080/index.html');
 
-    UIText.call(this, text, geometry, uiObj);
+
+    UIText.call(this, text, geometry);
+    this.value.setAttribute('label', text);
+    this.value.setAttribute('href', '');
 
     this.init = function () {
         this.__proto__.init.call(this);

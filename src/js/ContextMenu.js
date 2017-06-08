@@ -1,6 +1,4 @@
 //ContextMenu.prototype = new mxDefaultPopupMenu();
-//ContextMenu.prototype.constructor = ContextMenu;
-import {mxForm} from './misc/mxExport.js';
 import PropertyEditor from './PropertyEditor.js';
 import CONST from './misc/Constants.js';
 
@@ -23,11 +21,7 @@ function ContextMenu(editor) {
             menu.addSeparator();
         } else {
             menu.addItem('Show Attributes', null, function (/*event*/) {
-                 var form = new mxForm('properties');
-                form.addText("Style", cell.getStyle());
-
-               var propertyEditor =  new PropertyEditor(cell);
-               propertyEditor.createPropertyEditor(form);
+                new PropertyEditor(cell);
             });
             menu.addSeparator();
         }

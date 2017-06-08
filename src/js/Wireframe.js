@@ -6,7 +6,6 @@ import {
     mxGraph,
     mxEvent,
     mxGraphHandler,
-    mxConstants,
     mxCodec,
     mxKeyHandler,
     mxRubberband,
@@ -197,19 +196,19 @@ function Wireframe(container) {
                 });
                 cell.$input.css('width', cell.geometry.width - 15).css('height', cell.geometry.height - 15);
 
-                switch (cell.value.nodeName.toLowerCase()) {
-                    case 'linkobj':
-                    case 'textboxobj':
-                    case 'btnobj':
-                    case 'textnodeobj':
+                switch (cell.value.getAttribute('uiType').toLowerCase()) {
+                    case 'link':
+                    case 'textbox':
+                    case 'button':
+                    case 'textnode':
                         {
                             cell.$input.click(function ( /*event*/) {
                                 that.getSelectionModel().setCell(cell);
                             });
                             break;
                         }
-                    case 'pobj':
-                    case 'textareaobj':
+                    case 'paragraph':
+                    case 'textarea':
                         {
                             cell.$input.click(function ( /*event*/) {
                                 this.focus();
@@ -222,8 +221,8 @@ function Wireframe(container) {
                             })
                             break;
                         }
-                    case 'radioobj':
-                    case 'checkboxobj': {
+                    case 'radiobutton':
+                    case 'checkbox': {
                         cell.$input.find('input[type="input"]').click(function ( /*event*/) {
                             that.getSelectionModel().setCell(cell);
                         });

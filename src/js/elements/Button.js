@@ -1,6 +1,3 @@
-import {
-    mxUtils
-} from '../misc/mxExport.js';
 import UIText from './UIText.js';
 
 Button.prototype = new UIText();
@@ -11,12 +8,12 @@ window.Button = Button;
 
 function Button(geometry) {
     var text = 'Button';
-    var xmlDoc = mxUtils.createXmlDocument();
-    var uiObj = xmlDoc.createElement('btnObj');
-    uiObj.setAttribute('label', text);
-
-    UIText.call(this, text, geometry, uiObj);
     
+    UIText.call(this, text, geometry);
+    this.value.setAttribute('disabled', false);
+    this.value.setAttribute('autofocus', false);
+    this.value.setAttribute('type', 'button');
+
     this.init = function(){
         this.__proto__.init.call(this);
         this.$input
