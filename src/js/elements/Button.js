@@ -1,3 +1,5 @@
+/*global y*/
+import Y from 'yjs';
 import UIText from './UIText.js';
 
 Button.prototype = new UIText();
@@ -23,6 +25,14 @@ function Button(geometry) {
             .css('border-style', 'ridge')
             .val(text);
     }
+
+    this.initShared = function(createdByLocalUser){
+        UIText.prototype.initShared.call(this, createdByLocalUser);
+        if(createdByLocalUser){
+            var ytext = y.share.attrs.set(this.getId() + '_type', Y.Text);
+            ytext.insert(0, this.value.getAttribute('type'));
+        }
+    };
 
     return this;
 }

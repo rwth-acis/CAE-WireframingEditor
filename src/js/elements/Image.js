@@ -1,3 +1,5 @@
+/*global y*/
+import Y from 'yjs';
 import {
     mxConstants
 } from '../misc/mxExport.js';
@@ -16,5 +18,11 @@ function Image(geometry) {
     UIControl.call(this, geometry, style);
     this.setAttribute('src','');
     return this;
+}
+Image.prototype.initShared = function(createdByLocalUser){
+    UIControl.prototype.initShared.call(this, createdByLocalUser);
+    if(createdByLocalUser){
+        y.share.attrs.set(this.getId()+'_src', Y.Text);
+    }
 }
 export default Image;

@@ -6,7 +6,7 @@ import {
     mxEvent
 } from './../misc/mxExport.js';
 import Util from '../misc/Util';
-window.UIControl = UIControl;
+import Y from 'yjs';
 
 UIControl.prototype = new mxCell();
 UIControl.prototype.constructor = UIControl;
@@ -20,9 +20,7 @@ function UIControl(geometry, style) {
 
     mxCell.call(this, uiObj, geometry, style);
 
-
     this.setVertex(true);
-
 
     this.funct = function (wf, evt/*, cell*/) {
         wf.stopEditing(false);
@@ -54,7 +52,12 @@ function UIControl(geometry, style) {
             }
         }
     }
-
     return this;
+}
+UIControl.prototype.initShared = function (createdByLocalUser) {
+    if (createdByLocalUser) {
+        y.share.attrs.set(this.getId() + '_id', Y.Text);
+        y.share.attrs.set(this.getId() + '_class', Y.Text);
+    }
 }
 export default UIControl;

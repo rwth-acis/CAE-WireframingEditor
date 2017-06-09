@@ -62,12 +62,14 @@ function Editor(wireframe, palette) {
     mxCellRenderer.prototype.defaultShapes[AudioPlayerShape.prototype.cst.SHAPE] = AudioPlayerShape;
 
     y.share.attrs.observe(function (event) {
-        var id = event.name.substring(0, event.name.indexOf('_'));
-        var cell = that.graph.getModel().getCell(id);
-        if (cell instanceof RadioBtn || cell instanceof CheckBox)
-            event.value.bind(cell.$input.find('input[type="input"]')[0]);
-        else
-            event.value.bind(cell.$input[0]);
+        if(event.name.indexOf('_label') != -1){
+            var id = event.name.substring(0, event.name.indexOf('_'));
+            var cell = that.graph.getModel().getCell(id);
+            if (cell instanceof RadioBtn || cell instanceof CheckBox)
+                event.value.bind(cell.$input.find('input[type="input"]')[0]);
+            else
+                event.value.bind(cell.$input[0]);
+        }
     });
 
     //-------------------------------------------------------------------

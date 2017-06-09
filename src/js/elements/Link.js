@@ -1,3 +1,5 @@
+/*global y*/
+import Y from 'yjs';
 import UIText from './UIText.js';
 
 Link.prototype = new UIText();
@@ -8,8 +10,6 @@ window.Link = Link;
 
 function Link(geometry) {
     var text = 'Link';
-
-
     UIText.call(this, text, geometry);
     this.value.setAttribute('label', text);
     this.value.setAttribute('href', '');
@@ -25,4 +25,10 @@ function Link(geometry) {
     return this;
 }
 
+Link.prototype.initShared = function(createdByLocalUser){
+    UIText.prototype.initShared.call(this, createdByLocalUser);
+    if(createdByLocalUser){
+        y.share.attrs.set(this.getId()+'_href', Y.Text);
+    }
+}
 export default Link;

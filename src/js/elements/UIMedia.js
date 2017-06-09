@@ -1,3 +1,5 @@
+/*global y*/
+import Y from 'yjs';
 import UIControl from './UIControl.js';
 
 UIMedia.prototype = new UIControl();
@@ -13,5 +15,10 @@ function UIMedia(geometry, style) {
     this.value.setAttribute('preload', 'auto');
 
     return this;
+}
+UIMedia.prototype.initShared = function(createdByLocalUser){
+    UIControl.prototype.initShared.call(this, createdByLocalUser);
+    if(createdByLocalUser)
+        y.share.attrs.set(this.getId()+'_src', Y.Text);
 }
 export default UIMedia;

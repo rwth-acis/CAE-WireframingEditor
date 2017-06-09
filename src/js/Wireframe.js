@@ -103,19 +103,6 @@ function Wireframe(container) {
     new mxKeyHandler(this);
     new mxRubberband(this);
 
-    /*
-    rubberBand.mouseDown = function(wf, evt){
-        mxLog.debug("mxRubberBand MouseDown Event");
-        mxRubberband.prototype.mouseDown.call(this, wf, evt);
-    };
-    rubberBand.mouseUp = function(wf, evt){
-        mxLog.debug("mxRubberBand Mouseup Event");
-        mxRubberband.prototype.mouseUp.call(this, wf, evt);
-    };
-    */
-
-
-
     that.moveCells = function (cells, dx, dy, clone, target, evt, mapping, shared) {
         var cells = mxGraph.prototype.moveCells.apply(this, arguments);
         if (cells.length > 0 && sharedAction && !shared) {
@@ -150,8 +137,7 @@ function Wireframe(container) {
                     }
                     that.addCells(cells);
                     for (var i = 0; i < cells.length; i++) {
-                        if (cells[i].hasOwnProperty('initShared'))
-                            cells[i].initShared(event.value.userId === y.db.userId);
+                        cells[i].initShared(event.value.userId === y.db.userId);
                     }
 
                     break;

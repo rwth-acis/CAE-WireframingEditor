@@ -8,7 +8,6 @@ import Y from 'yjs';
 
 UIText.prototype = new UIControl();
 UIText.prototype.constructor = UIText;
-
 function UIText(text, geometry) {
     var style = mxConstants.STYLE_SHAPE + "=rectangle;" +
         mxConstants.STYLE_EDITABLE + "=0;" +
@@ -19,7 +18,6 @@ function UIText(text, geometry) {
     UIControl.call(this, geometry, style);
     this.value.setAttribute('label', text);
 
-    var ytext = null;
     this.$input = null;
 
     this.init = function (element) {
@@ -29,12 +27,15 @@ function UIText(text, geometry) {
             .css('height', this.geometry.height - 15)
             .css('font-size', 15);
     }
-    this.initShared = function (createdByLocalUser) {
-        if (createdByLocalUser) {
-            ytext = y.share.attrs.set(this.getId() + '_label', Y.Text);
-            ytext.insert(0, text);
-        }
-    }
+
     return this;
+}
+
+UIText.prototype.initShared = function (createdByLocalUser) {
+    UIControl.prototype.initShared.call(this, createdByLocalUser);
+    if (createdByLocalUser) {
+        var ytext = y.share.attrs.set(this.getId() + '_label', Y.Text);
+        ytext.insert(0, this.value.getAttribute('label'));
+    }
 }
 export default UIText;

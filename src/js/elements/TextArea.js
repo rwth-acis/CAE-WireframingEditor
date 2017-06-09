@@ -1,3 +1,5 @@
+/*global y*/
+import Y from 'yjs';
 import UIText from './UIText.js';
 
 TextArea.prototype = new UIText();
@@ -27,5 +29,13 @@ function TextArea(geometry) {
     }
     return this;
 }
-
+TextArea.prototype.initShared = function(createdByLocalUser){
+    UIText.prototype.initShared.call(this, createdByLocalUser);
+    if(createdByLocalUser){
+        y.share.attrs.set(this.getId()+'_placeholder', Y.Text);
+        y.share.attrs.set(this.getId()+'_maxlength', Y.Text);
+        y.share.attrs.set(this.getId()+'_cols', Y.Text);
+        y.share.attrs.set(this.getId()+'_rows', Y.Text);
+    }
+}
 export default TextArea;

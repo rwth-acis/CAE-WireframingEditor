@@ -15,7 +15,6 @@ import CONST from './misc/Constants.js';
 
 Toolbox.prototype = new mxDefaultToolbar();
 Toolbox.prototype.constructor = Toolbox;
-
 function Toolbox(container, editor) {
     mxDefaultToolbar.call(this, container, editor);
 
