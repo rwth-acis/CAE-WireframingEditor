@@ -1,5 +1,8 @@
 /*global y*/
-import { mxWindow, mxForm } from './misc/mxExport.js';
+import {
+    mxWindow,
+    mxForm
+} from './misc/mxExport.js';
 import $ from 'jquery';
 import 'jquery-ui/ui/widgets/tabs';
 
@@ -44,7 +47,10 @@ function PropertyEditor(cell) {
                 if (ytext)
                     ytext.bind($input[0]);
                 //else //should actually not happen but add something to mxLog if ytext does not exists for whatever reason
-            }
+            } else
+                $input.change(function () {
+                    y.share.attrs.set(id + '_' + name, this.checked);
+                });
         });
     };
 
@@ -56,7 +62,7 @@ function PropertyEditor(cell) {
     for (var i = 0; i < attrs.length; i++) {
         attr = attrs[i];
         if (attr.name === 'label' || attr.name === 'uiType') continue; //skip the label and the ui-type
-        if (attr.value.indexOf('true') != -1 || attr.value.indexOf('false') != -1)//a boolean value
+        if (attr.value.indexOf('true') != -1 || attr.value.indexOf('false') != -1) //a boolean value
             form.addCheckbox(attr.name, attr.value.indexOf('true') != -1 ? true : false);
         else form.addText(attr.name, attr.value);
     }

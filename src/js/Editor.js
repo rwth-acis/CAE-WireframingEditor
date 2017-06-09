@@ -1,5 +1,5 @@
-
 /*global y*/
+import $ from 'jquery';
 import {
     mxEditor,
     mxUtils,
@@ -62,13 +62,19 @@ function Editor(wireframe, palette) {
     mxCellRenderer.prototype.defaultShapes[AudioPlayerShape.prototype.cst.SHAPE] = AudioPlayerShape;
 
     y.share.attrs.observe(function (event) {
+        var id = event.name.substring(0, event.name.indexOf('_'));
+        var cell = that.graph.getModel().getCell(id);
         if(event.name.indexOf('_label') != -1){
-            var id = event.name.substring(0, event.name.indexOf('_'));
-            var cell = that.graph.getModel().getCell(id);
             if (cell instanceof RadioBtn || cell instanceof CheckBox)
                 event.value.bind(cell.$input.find('input[type="input"]')[0]);
             else
                 event.value.bind(cell.$input[0]);
+        }else if(typeof event.value === 'boolean'){
+            var name = event.name.substring(event.name.indexOf('_')+1);
+            cell.value.setAttribute(name, event.value);
+            var $input = $('#propertyEditor_'+id + ' #attributesTab').find('td:contains(' + name + ') + td input');
+            if ($input.length > 0 ) 
+                $input[0].checked = event.value;
         }
     });
 
