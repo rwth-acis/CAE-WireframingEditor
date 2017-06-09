@@ -15,6 +15,7 @@ function Button(geometry) {
     this.value.setAttribute('disabled', false);
     this.value.setAttribute('autofocus', false);
     this.value.setAttribute('type', 'button');
+    this.addComboAttr('type',  ['button', 'reset', 'submit']);
 
     this.init = function(){
         this.__proto__.init.call(this);

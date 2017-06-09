@@ -62,6 +62,7 @@ function Editor(wireframe, palette) {
     mxCellRenderer.prototype.defaultShapes[AudioPlayerShape.prototype.cst.SHAPE] = AudioPlayerShape;
 
     y.share.attrs.observe(function (event) {
+        var name;
         var id = event.name.substring(0, event.name.indexOf('_'));
         var cell = that.graph.getModel().getCell(id);
         if(event.name.indexOf('_label') != -1){
@@ -70,11 +71,18 @@ function Editor(wireframe, palette) {
             else
                 event.value.bind(cell.$input[0]);
         }else if(typeof event.value === 'boolean'){
-            var name = event.name.substring(event.name.indexOf('_')+1);
+            name = event.name.substring(event.name.indexOf('_')+1);
             cell.value.setAttribute(name, event.value);
             var $input = $('#propertyEditor_'+id + ' #attributesTab').find('td:contains(' + name + ') + td input');
             if ($input.length > 0 ) 
                 $input[0].checked = event.value;
+        }
+        else if(typeof event.value === 'string'){
+            name = event.name.substring(event.name.indexOf('_')+1);
+            cell.value.setAttribute(name, event.value);
+            var $select = $('#propertyEditor_'+id + ' #attributesTab').find('td:contains(' + name + ') + td select');
+            if ($select.length > 0 ) 
+                $select.find('option[value=' + event.value +']').prop('selected', true);
         }
     });
 

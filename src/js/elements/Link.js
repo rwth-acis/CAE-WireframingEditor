@@ -11,7 +11,6 @@ window.Link = Link;
 function Link(geometry) {
     var text = 'Link';
     UIText.call(this, text, geometry);
-    this.value.setAttribute('label', text);
     this.value.setAttribute('href', '');
 
     this.init = function () {

@@ -10,6 +10,7 @@ import Y from 'yjs';
 
 UIControl.prototype = new mxCell();
 UIControl.prototype.constructor = UIControl;
+
 function UIControl(geometry, style) {
     var that = this;
     var xmlDoc = mxUtils.createXmlDocument();
@@ -18,11 +19,13 @@ function UIControl(geometry, style) {
     uiObj.setAttribute('class', '');
     uiObj.setAttribute('uiType', this.constructor.name.toLowerCase());
 
+    this.comboAttr = {};
+
     mxCell.call(this, uiObj, geometry, style);
 
     this.setVertex(true);
 
-    this.funct = function (wf, evt/*, cell*/) {
+    this.funct = function (wf, evt /*, cell*/ ) {
         wf.stopEditing(false);
 
         //encode UIControl
@@ -51,6 +54,18 @@ function UIControl(geometry, style) {
                 this.value.setAttribute(key, json[key]);
             }
         }
+    }
+
+    this.getComboAttr = function (name) {
+        if (this.comboAttr.hasOwnProperty(name))
+            return this.comboAttr[name];
+        else return undefined;
+    }
+    this.addComboAttr = function (name, values) {
+        if (!this.comboAttr.hasOwnProperty(name)) {
+            this.comboAttr[name] = values;
+            return true;
+        } else return false;
     }
     return this;
 }
