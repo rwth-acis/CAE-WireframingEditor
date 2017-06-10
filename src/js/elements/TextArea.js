@@ -1,6 +1,9 @@
 /*global y*/
 import Y from 'yjs';
 import UIText from './UIText.js';
+import {
+    mxGeometry
+} from '../misc/mxExport.js';
 
 TextArea.prototype = new UIText();
 TextArea.prototype.constructor = TextArea;
@@ -10,7 +13,8 @@ window.TextArea = TextArea;
 function TextArea(geometry) {
     var text='Multi-Line text input area';
    // var text = 'hallo';
-   
+   if(!geometry)
+    geometry = new mxGeometry(0, 0, 320, 80);
 
     UIText.call(this, text, geometry);
     this.value.setAttribute('placeholder', '');

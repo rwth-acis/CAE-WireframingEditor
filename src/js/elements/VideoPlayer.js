@@ -1,7 +1,8 @@
 /*global y*/
 import Y from 'yjs';
 import {
-    mxConstants
+    mxConstants,
+    mxGeometry
 } from '../misc/mxExport.js';
 import UIMedia from './UIMedia.js';
 
@@ -9,7 +10,8 @@ window.VideoPlayer = VideoPlayer;
 VideoPlayer.prototype = new UIMedia();
 VideoPlayer.prototype.constructor = VideoPlayer;
 function VideoPlayer(geometry) {
-
+    if(!geometry)
+        geometry = new mxGeometry(0, 0, 200, 100);
     //style in html5stencils.xml and registered in the editor
     var style = mxConstants.STYLE_SHAPE + "=VideoPlayer;" +
         mxConstants.STYLE_FILLCOLOR + "=none;" +

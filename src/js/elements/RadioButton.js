@@ -1,5 +1,8 @@
 import UIText from './UIText.js';
 import $ from 'jquery';
+import {
+    mxGeometry
+} from '../misc/mxExport.js';
 
 RadioButton.prototype = new UIText();
 RadioButton.prototype.constructor = RadioButton;
@@ -9,7 +12,8 @@ window.RadioButton = RadioButton;
 
 function RadioButton(geometry) {
     var text = 'Option';
-
+    if(!geometry)
+        geometry = new mxGeometry(0, 0, 150, 30);
     UIText.call(this, text, geometry);
     this.value.setAttribute('checked', false);
     this.value.setAttribute('autofocus', false);

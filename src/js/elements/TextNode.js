@@ -1,4 +1,7 @@
 import UIText from './UIText.js';
+import {
+    mxGeometry
+} from '../misc/mxExport.js';
 
 TextNode.prototype = new UIText();
 TextNode.prototype.constructor = TextNode;
@@ -8,7 +11,8 @@ window.TextNode = TextNode;
 
 function TextNode(geometry) {
     var text = 'A simple TextNode...';
-    
+    if(!geometry)
+        geometry = new mxGeometry(0, 0, 150, 50);
     UIText.call(this, text, geometry);
 
     this.init = function () {

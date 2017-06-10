@@ -1,4 +1,7 @@
 import UIText from './UIText.js';
+import {
+    mxGeometry
+} from '../misc/mxExport.js';
 
 TextBox.prototype = new UIText();
 TextBox.prototype.constructor = TextBox;
@@ -8,7 +11,8 @@ window.TextBox = TextBox;
 
 function TextBox(geometry) {
     var text = 'Some Text...';
-    
+    if(!geometry)
+        geometry = new mxGeometry(0, 0, 120, 30);
     UIText.call(this, text, geometry);
     this.setAttribute('autofocus', false);
     this.setAttribute('disabled', false);

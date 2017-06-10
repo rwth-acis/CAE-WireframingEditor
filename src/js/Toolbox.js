@@ -98,9 +98,11 @@ function Toolbox(container, editor) {
                 break;
             case mxEvent.GROUP_CELLS:
                 var group = that._editor.graph.groupCells(null, 20, Util.getCellsFromIdList(that._editor.graph, event.value.ids));
-                if (y.db.userId === event.value.userId)
+                if (y.db.userId === event.value.userId){
                     //that._editor.graph.setSelectionCells(group);
-                    that._editor.graph.getSelectionModel().setCell(group)
+                    that._editor.graph.getSelectionModel().setCell(group);
+                    group.initShared(true);
+                }
                 break;
             case mxEvent.UNGROUP_CELLS:
                 var cells = that._editor.graph.ungroupCells(Util.getCellsFromIdList(that._editor.graph, event.value.ids));

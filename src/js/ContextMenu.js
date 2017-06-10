@@ -9,18 +9,21 @@ function ContextMenu(editor) {
         return createPopupMenu(null, menu, cell, evt);
     };
 
-    function createPopupMenu(graph, menu, cell/*, evt*/) {
+    function createPopupMenu(graph, menu, cell /*, evt*/ ) {
 
         if (cell == null) {
-            var sub = menu.addItem('Create..', null);
+            var sub = menu.addItem('Create..', CONST.IMAGES.ADD);
             menu.createSubmenu(sub);
-            menu.addItem('Element 1', null, function (event) {
-                //TODO
-                var test = true;
-            }, sub);
+            var UIComponents = editor.getUIComponents();
+            for (var name in UIComponents) {
+                menu.addItem(name, null, function (event) {
+                    var cell = new UIComponents[event.target.innerHTML]();
+                    cell.funct(editor.graph, event);
+                }, sub);
+            }
             menu.addSeparator();
         } else {
-            menu.addItem('Show Attributes', null, function (/*event*/) {
+            menu.addItem('Show Attributes', CONST.IMAGES.FLASH, function ( /*event*/ ) {
                 new PropertyEditor(cell);
             });
             menu.addSeparator();
@@ -31,18 +34,17 @@ function ContextMenu(editor) {
         menu.addItem('Redo', CONST.IMAGES.REDO, function () {
             editor.execute(CONST.ACTIONS.SHARED.REDO);
         });
-        menu.addSeparator();
         if (cell == null) {
-
-            menu.addItem('Show Console', CONST.IMAGES.CONSOLE, function () {
+           /* menu.addItem('Show Console', CONST.IMAGES.CONSOLE, function () {
                 editor.execute(CONST.ACTIONS.CONSOLE);
-            });
+            });*/
         } else {
+            menu.addSeparator();
             //TODO copy & paste for context menu needs rework
-            /*menu.addItem('Copy', 'images/toolbox/copy.gif', function () {
+            /*menu.addItem('Copy', CONST.IMAGES.COPY, function () {
                 editor.execute("copy");
             });
-            menu.addItem('Paste', 'images/toolbox/paste.gif', function () {
+            menu.addItem('Paste', CONST.IMAGES.PASTE, function () {
                 editor.execute("shared_paste");
             });*/
             menu.addItem('Group', CONST.IMAGES.GROUP, function () {
@@ -55,6 +57,7 @@ function ContextMenu(editor) {
             menu.addItem('Delete Cell', CONST.IMAGES.DELETE, function () {
                 editor.execute(CONST.ACTIONS.SHARED.DELETE);
             });
+
         }
     };
     return this;

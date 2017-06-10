@@ -21,6 +21,8 @@ export default {
         REDO : 'images/toolbox/redo2.png',
         GROUP: 'images/toolbox/group.png',
         UNGROUP : 'images/toolbox/ungroup.png',
-        CONSOLE : 'images/toolbox/console.png'
+        CONSOLE : 'images/toolbox/console.png',
+        ADD : 'images/toolbox/add.png',
+        FLASH : 'images/toolbox/flash.png'
     }
 }

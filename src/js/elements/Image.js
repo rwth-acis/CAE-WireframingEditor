@@ -1,7 +1,8 @@
 /*global y*/
 import Y from 'yjs';
 import {
-    mxConstants
+    mxConstants,
+    mxGeometry
 } from '../misc/mxExport.js';
 import UIControl from './UIControl.js';
 
@@ -10,7 +11,8 @@ Image.prototype.constructor = Image;
 window.Image = Image;
 
 function Image(geometry) {
-
+    if(!geometry)
+        geometry = new mxGeometry(0, 0, 128, 128);
     //style in html5stencils.xml and registered in the editor
     var style = mxConstants.STYLE_SHAPE + '=image;' +
         mxConstants.STYLE_EDITABLE + "=0;";

@@ -108,63 +108,50 @@ function Editor(wireframe, palette) {
     };
     //-------------------------------------------------------------------
 
-    var cell, type, shapeCell;
-    cell = new DivContainer(new mxGeometry(0, 0, 250, 300));
-    type = palette.createItem(cell, "UI Component Container");
-    cell.makeTypeDraggable(type, wireframe);
+    var yfUIComponents  = {
+       "UI Component Container": DivContainer,
+       "TextNode" : TextNode,
+       "Button": Button, 
+       "Link" : Link, 
+       "TextBox" : TextBox, 
+       "Paragraph of Text" : Paragraph, 
+       "TextArea" : TextArea, 
+       "Checkbox" : CheckBox,
+       "Radio Button" : RadioBtn,
+       "Image" : Image,
+       "Audio Player" : AudioPlayer,
+       "Video Player" : VideoPlayer
+    };
 
-    cell = new TextNode(new mxGeometry(0, 0, 150, 50));
-    shapeCell = new UIControl(cell.geometry, mxConstants.STYLE_SHAPE + '=textnode;');
-    type = palette.createItem(shapeCell, "TextNode", true);
-    cell.makeTypeDraggable(type, wireframe);
+    var yfShapeMapping = {
+        "TextNode" : mxConstants.STYLE_SHAPE + '=textnode;',
+        "Button" : mxConstants.STYLE_SHAPE + '=button;', 
+        "Link": mxConstants.STYLE_SHAPE + '=link;' + mxConstants.STYLE_FILLCOLOR + "=none;",
+        "TextBox" : mxConstants.STYLE_SHAPE + '=textbox;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;',
+        "Paragraph of Text" : mxConstants.STYLE_SHAPE + '=paragraph;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;',
+        "TextArea": mxConstants.STYLE_SHAPE + '=textarea;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;',
+        "Checkbox" : mxConstants.STYLE_SHAPE + '=checkbox;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;',
+        "Radio Button" : mxConstants.STYLE_SHAPE + '=radio;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;',
 
-    cell = new Button(new mxGeometry(0, 0, 100, 50));
-    shapeCell = new UIControl(cell.geometry, mxConstants.STYLE_SHAPE + '=button;');
-    type = palette.createItem(shapeCell, "Button", false);
-    cell.makeTypeDraggable(type, wireframe);
+    };
 
-    cell = new Link(new mxGeometry(0, 0, 50, 30));
-    shapeCell = new UIControl(cell.geometry, mxConstants.STYLE_SHAPE + '=link;' + mxConstants.STYLE_FILLCOLOR + "=none;");
-    type = palette.createItem(shapeCell, "Link", false);
-    cell.makeTypeDraggable(type, wireframe);
-
-    cell = new TextBox(new mxGeometry(0, 0, 120, 30));
-    shapeCell = new UIControl(cell.geometry, mxConstants.STYLE_SHAPE + '=textbox;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;');
-    type = palette.createItem(shapeCell, "TextBox", true);
-    cell.makeTypeDraggable(type, wireframe);
-
-    cell = new Paragraph(new mxGeometry(0, 0, 320, 80));
-    shapeCell = new UIControl(cell.geometry, mxConstants.STYLE_SHAPE + '=paragraph;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;');
-    type = palette.createItem(shapeCell, "Paragraph of Text", true);
-    cell.makeTypeDraggable(type, wireframe);
-
-    cell = new TextArea(new mxGeometry(0, 0, 320, 80));
-    shapeCell = new UIControl(cell.geometry, mxConstants.STYLE_SHAPE + '=textarea;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;');
-    type = palette.createItem(shapeCell, "TextArea", true);
-    cell.makeTypeDraggable(type, wireframe);
-
-    cell = new CheckBox(new mxGeometry(0, 0, 150, 30));
-    shapeCell = new UIControl(cell.geometry, mxConstants.STYLE_SHAPE + '=checkbox;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;');
-    type = palette.createItem(shapeCell, "Checkbox", true);
-    cell.makeTypeDraggable(type, wireframe);
-
-    cell = new RadioBtn(new mxGeometry(0, 0, 150, 30));
-    shapeCell = new UIControl(cell.geometry, mxConstants.STYLE_SHAPE + '=radio;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;');
-    type = palette.createItem(shapeCell, "Radio Button", true);
-    cell.makeTypeDraggable(type, wireframe);
-
-    cell = new Image(new mxGeometry(0, 0, 128, 128));
-    type = palette.createItem(cell, "Image", false);
-    cell.makeTypeDraggable(type, wireframe);
-
-    cell = new VideoPlayer(new mxGeometry(0, 0, 200, 100));
-    type = palette.createItem(cell, "Video Player", false);
-    cell.makeTypeDraggable(type, wireframe);
-
-    cell = new AudioPlayer(new mxGeometry(0, 0, 200, 30));
-    type = palette.createItem(cell, "Audio Player", false);
-    cell.makeTypeDraggable(type, wireframe);
-
+    var addUIComponent = function(componentName){
+        var cell, type, shapeCell;
+        cell = new yfUIComponents[componentName]();
+        if(yfShapeMapping.hasOwnProperty(componentName))
+            shapeCell = new UIControl(cell.geometry, yfShapeMapping[componentName]);
+        else 
+            shapeCell = cell;
+        type = palette.createItem(shapeCell, componentName, false);
+        cell.makeTypeDraggable(type, wireframe);
+    }
+    
+    this.getUIComponents = function(){
+        return yfUIComponents;
+    }
+    for(var componentName in yfUIComponents){
+        addUIComponent(componentName);
+    }
 
     //horizontal line
     palette.addLine();

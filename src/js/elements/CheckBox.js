@@ -1,6 +1,8 @@
 import UIText from './UIText.js';
 import $ from 'jquery';
-
+import {
+    mxGeometry
+} from '../misc/mxExport.js';
 CheckBox.prototype = new UIText();
 CheckBox.prototype.constructor = CheckBox;
 
@@ -9,7 +11,8 @@ window.CheckBox = CheckBox;
 
 function CheckBox(geometry) {
     var text = 'Option';
-
+    if(!geometry)
+        geometry = new mxGeometry(0, 0, 150, 30);
     UIText.call(this, text, geometry);
     this.value.setAttribute('checked', false);
     this.value.setAttribute('autofocus', false);
