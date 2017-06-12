@@ -7,7 +7,7 @@ import {
 
 TextArea.prototype = new UIText();
 TextArea.prototype.constructor = TextArea;
-
+UIText.registerCodec(TextArea);
 window.TextArea = TextArea;
 
 function TextArea(geometry) {

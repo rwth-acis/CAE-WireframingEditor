@@ -1,3 +1,5 @@
+import {mxCodec, mxUtils} from './mxExport.js';
+
 /**
  * Some helper functions
  */
@@ -42,4 +44,11 @@ Util.GUID = function () {
     return _p8() + _p8(true) + _p8(true) + _p8();
 }
 
+Util.Save = function(graph){
+    /*global y*/
+    var encoder = new mxCodec();
+    var result = encoder.encode(graph.getModel());
+    var xml = mxUtils.getXml(result);
+    y.share.data.set('model', xml);
+}   
 export default Util;

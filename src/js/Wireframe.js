@@ -19,9 +19,9 @@ window.mxGeometry = mxGeometry;
 Wireframe.prototype = new mxGraph();
 Wireframe.prototype.constructor = Wireframe;
 
-function Wireframe(container) {
+function Wireframe(container, model) {
     var that = this;
-    mxGraph.call(this, container);
+    mxGraph.call(this, container, model);
 
     //var handler = new mxGraphHandler(that)
 

@@ -21,9 +21,14 @@ var mxClient = mxLib.mxClient;
 var mxEditor = mxLib.mxEditor;
 var mxGraph = mxLib.mxGraph;
 var mxGraphModel = mxLib.mxGraphModel;
+
 var mxCell = mxLib.mxCell;
+window.mxCell = mxCell; //for the encoding and decoding
+
 var mxCodec = mxLib.mxCodec;
 var mxCodecRegistry = mxLib.mxCodecRegistry;
+window.mxCodecRegistry = mxCodecRegistry;
+
 var mxEvent = mxLib.mxEvent;
 var mxGraphHandler = mxLib.mxGraphHandler;
 var mxConstants = mxLib.mxConstants;
@@ -44,8 +49,9 @@ var mxWindow = mxLib.mxWindow;
 var mxShape = mxLib.mxShape;
 var mxCellRenderer = mxLib.mxCellRenderer;
 var mxStylesheet = mxLib.mxStylesheet;
+var mxObjectCodec = mxLib.mxObjectCodec;
 export {
     mxClient, mxEditor, mxGraph, mxGraphModel, mxCell, mxCodec, mxCodecRegistry,  mxEvent, mxGraphHandler, mxConstants,
     mxKeyHandler, mxRubberband, mxUtils, mxRectangle, mxToolbar, mxStencil, mxStencilRegistry, mxWindow, mxShape, mxStylesheet,
-    mxGeometry, mxDefaultKeyHandler, mxForm, mxDefaultToolbar, mxLog, mxClipboard, mxCellRenderer
+    mxGeometry, mxDefaultKeyHandler, mxForm, mxDefaultToolbar, mxLog, mxClipboard, mxCellRenderer, mxObjectCodec
 };

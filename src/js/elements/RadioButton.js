@@ -6,7 +6,7 @@ import {
 
 RadioButton.prototype = new UIText();
 RadioButton.prototype.constructor = RadioButton;
-
+UIText.registerCodec(RadioButton);
 //Global for the codec converter
 window.RadioButton = RadioButton;
 

@@ -51,4 +51,7 @@ UIText.prototype.initShared = function (createdByLocalUser) {
         });
     }
 };
+UIText.registerCodec = function(ctor){
+    UIControl.registerCodec(ctor);
+}
 export default UIText;

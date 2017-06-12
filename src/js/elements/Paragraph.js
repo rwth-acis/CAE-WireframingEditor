@@ -4,7 +4,7 @@ import {
 } from '../misc/mxExport.js';
 Paragraph.prototype = new UIText();
 Paragraph.prototype.constructor = Paragraph;
-
+UIText.registerCodec(Paragraph);
 window.Paragraph = Paragraph;
 
 function Paragraph(geometry) {

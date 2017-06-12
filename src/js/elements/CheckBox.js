@@ -5,7 +5,7 @@ import {
 } from '../misc/mxExport.js';
 CheckBox.prototype = new UIText();
 CheckBox.prototype.constructor = CheckBox;
-
+UIText.registerCodec(CheckBox);
 //Global for the codec converter
 window.CheckBox = CheckBox;
 
@@ -19,7 +19,7 @@ function CheckBox(geometry) {
     this.value.setAttribute('disabled', false);
 
     this.initDOM = function () {
-        this.set$input(
+        this.set$node(
             $('<div>')
             .append($('<input>').attr('type', 'checkbox').attr('checked', true))
             .append($('<input>')

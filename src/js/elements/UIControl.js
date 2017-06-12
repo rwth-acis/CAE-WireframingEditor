@@ -3,7 +3,8 @@ import {
     mxCell,
     mxCodec,
     mxUtils,
-    mxEvent
+    mxEvent,
+    mxCodecRegistry
 } from './../misc/mxExport.js';
 import Util from '../misc/Util';
 import Y from 'yjs';
@@ -68,6 +69,12 @@ function UIControl(geometry, style) {
         } else return false;
     }
     return this;
+}
+
+UIControl.registerCodec = function(ctor){
+    var codec = mxUtils.clone(mxCodecRegistry.getCodec(mxCell));
+    codec.template = new ctor();
+    mxCodecRegistry.register(codec);
 }
 UIControl.prototype.initShared = function (createdByLocalUser) {
     if (createdByLocalUser) {

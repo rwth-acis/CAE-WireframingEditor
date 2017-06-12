@@ -7,7 +7,7 @@ import UIMedia from './UIMedia.js';
 AudioPlayer.prototype = new UIMedia();
 AudioPlayer.prototype.constructor = AudioPlayer;
 window.AudioPlayer = AudioPlayer;
-
+UIMedia.registerCodec(AudioPlayer);
 function AudioPlayer(geometry) {
     if (!geometry)
         geometry = new mxGeometry(0, 0, 200, 30);

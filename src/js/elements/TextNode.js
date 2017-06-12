@@ -5,7 +5,7 @@ import {
 
 TextNode.prototype = new UIText();
 TextNode.prototype.constructor = TextNode;
-
+UIText.registerCodec(TextNode);
 //Global for the codec converter
 window.TextNode = TextNode;
 

@@ -20,7 +20,8 @@ export default function (space) {
         share: {
             map: 'Map',
             action: 'Map',
-            attrs: 'Map'
+            attrs: 'Map',
+            data : 'Map'
         }
     }).then(function (y) {
         window.y = y;

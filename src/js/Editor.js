@@ -5,9 +5,10 @@ import {
     mxUtils,
     mxStencil,
     mxStencilRegistry,
-    mxGeometry,
     mxConstants,
     mxCellRenderer,
+    mxCodecRegistry,
+    mxObjectCodec,
     mxGraph
 } from './misc/mxExport.js';
 import UIControl from './elements/UIControl.js';
@@ -132,9 +133,9 @@ function Editor(wireframe, palette) {
         "TextArea": mxConstants.STYLE_SHAPE + '=textarea;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;',
         "Checkbox" : mxConstants.STYLE_SHAPE + '=checkbox;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;',
         "Radio Button" : mxConstants.STYLE_SHAPE + '=radio;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;',
-
     };
 
+    
     var addUIComponent = function(componentName){
         var cell, type, shapeCell;
         cell = new yfUIComponents[componentName]();
@@ -151,6 +152,7 @@ function Editor(wireframe, palette) {
     }
     for(var componentName in yfUIComponents){
         addUIComponent(componentName);
+        //mxCodecRegistry.register(new mxObjectCodec(new yfUIComponents[componentName]()));
     }
 
     //horizontal line

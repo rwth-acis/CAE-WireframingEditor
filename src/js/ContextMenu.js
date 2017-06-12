@@ -1,6 +1,7 @@
 //ContextMenu.prototype = new mxDefaultPopupMenu();
 import PropertyEditor from './PropertyEditor.js';
 import CONST from './misc/Constants.js';
+import Util from './misc/Util.js';
 
 function ContextMenu(editor) {
     // mxDefaultPopupMenu.call(this);
@@ -38,6 +39,9 @@ function ContextMenu(editor) {
            /* menu.addItem('Show Console', CONST.IMAGES.CONSOLE, function () {
                 editor.execute(CONST.ACTIONS.CONSOLE);
             });*/
+            menu.addItem('Save', null, function(){
+                Util.Save(editor.graph);
+            });
         } else {
             menu.addSeparator();
             //TODO copy & paste for context menu needs rework

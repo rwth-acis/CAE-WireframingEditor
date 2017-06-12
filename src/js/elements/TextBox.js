@@ -1,12 +1,15 @@
 import UIText from './UIText.js';
 import {
-    mxGeometry
+    mxGeometry, mxCodecRegistry, mxCell, mxUtils
 } from '../misc/mxExport.js';
 
 TextBox.prototype = new UIText();
 TextBox.prototype.constructor = TextBox;
 
-//Global for the codec converter
+var codec = mxUtils.clone(mxCodecRegistry.getCodec(mxCell));
+codec.template = new TextBox();
+codec.isCellCodec   = function(){return true;};
+mxCodecRegistry.register(codec);
 window.TextBox = TextBox;
 
 function TextBox(geometry) {

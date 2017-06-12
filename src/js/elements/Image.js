@@ -2,13 +2,18 @@
 import Y from 'yjs';
 import {
     mxConstants,
-    mxGeometry
+    mxGeometry,
+    mxUtils, mxCell, mxCodecRegistry
 } from '../misc/mxExport.js';
 import UIControl from './UIControl.js';
 
 Image.prototype = new UIControl();
 Image.prototype.constructor = Image;
 window.Image = Image;
+
+var codec = mxUtils.clone(mxCodecRegistry.getCodec(mxCell));
+codec.template = new Image();
+mxCodecRegistry.register(codec);
 
 function Image(geometry) {
     if(!geometry)

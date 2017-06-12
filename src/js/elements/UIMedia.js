@@ -22,4 +22,7 @@ UIMedia.prototype.initShared = function(createdByLocalUser){
     if(createdByLocalUser)
         y.share.attrs.set(this.getId()+'_src', Y.Text);
 }
+UIMedia.registerCodec = function(ctor){
+    UIControl.registerCodec(ctor);
+}
 export default UIMedia;

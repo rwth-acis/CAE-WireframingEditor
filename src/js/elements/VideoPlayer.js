@@ -9,6 +9,7 @@ import UIMedia from './UIMedia.js';
 window.VideoPlayer = VideoPlayer;
 VideoPlayer.prototype = new UIMedia();
 VideoPlayer.prototype.constructor = VideoPlayer;
+UIMedia.registerCodec(VideoPlayer);
 function VideoPlayer(geometry) {
     if(!geometry)
         geometry = new mxGeometry(0, 0, 200, 100);

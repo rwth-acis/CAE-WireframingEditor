@@ -8,7 +8,7 @@ import UIControl from './UIControl.js';
 
 mxUtils.extend(DivContainer, UIControl);
 window.DivContainer = DivContainer;
-
+UIControl.registerCodec(DivContainer);
 function DivContainer(geometry) {
     if (!geometry)
         geometry = new mxGeometry(0, 0, 250, 300);

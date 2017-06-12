@@ -6,6 +6,7 @@ import {
 } from '../misc/mxExport.js';
 Link.prototype = new UIText();
 Link.prototype.constructor = Link;
+UIText.registerCodec(Link);
 
 //Global for the codec converter
 window.Link = Link;
