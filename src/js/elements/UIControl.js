@@ -10,7 +10,7 @@ import Y from 'yjs';
 
 UIControl.prototype = new mxCell();
 UIControl.prototype.constructor = UIControl;
-
+window.UIControl = UIControl;
 function UIControl(geometry, style) {
     var that = this;
     var xmlDoc = mxUtils.createXmlDocument();

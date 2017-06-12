@@ -17,13 +17,15 @@ function Link(geometry) {
     UIText.call(this, text, geometry);
     this.value.setAttribute('href', '');
 
-    this.init = function () {
-        this.__proto__.init.call(this);
-        this.$input.css('color', 'blue')
+    this.initDOM = function () {
+        UIText.prototype.initDOM.call(this);
+        var $input = this.get$node();
+        $input.css('color', 'blue')
             .css('background-color', 'transparent')
             .css('border-style', 'initial')
             .css('text-decoration', 'underline')
             .val(text);
+        this.set$node($input);
     }
     return this;
 }

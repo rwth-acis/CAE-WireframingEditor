@@ -123,10 +123,14 @@ function Toolbox(container, editor) {
                     elt = elt.nextSibling;
                 }
                 mxClipboard.setCells(cells);
-                mxClipboard.paste(that._editor.graph);
+                var pastedCells = mxClipboard.paste(that._editor.graph);
 
                 if (event.value.userId !== y.db.userId) {
                     that._editor.graph.setSelectionCells(selectedCells);
+                }else{
+                    for(var i=0;i<pastedCells.length;i++)
+                        if(pastedCells[i].hasOwnProperty('initShared')) 
+                            pastedCells[i].initShared(true);
                 }
                 break;
             case CONST.ACTIONS.SHARED.GRAPH_RESIZE: //event triggerd in index.html
@@ -151,7 +155,7 @@ function Toolbox(container, editor) {
     }
 
     this.addSeparator();
-    this.addItem("Copy", CONST.IMAGES.COPY, CONST.ACTIONS.CONSOLE);
+    this.addItem("Copy", CONST.IMAGES.COPY, CONST.ACTIONS.COPY);
     this.addItem("Paste", CONST.IMAGES.PASTE, CONST.ACTIONS.SHARED.PASTE);
     this.addSeparator();
     this.addItem("Delete", CONST.IMAGES.DELETE, CONST.ACTIONS.SHARED.DELETE);

@@ -15,14 +15,17 @@ function TextNode(geometry) {
         geometry = new mxGeometry(0, 0, 150, 50);
     UIText.call(this, text, geometry);
 
-    this.init = function () {
-        this.__proto__.init.call(this);
-        this.$input
-            .css('background-color', 'transparent')
+    this.initDOM = function(element){
+        UIText.prototype.initDOM.call(this, element);
+        var $node = this.get$node();
+        $node.css('background-color', 'transparent')
             .css('border-style', 'initial')
             .val(text);
+        this.set$node($node);
     }
 
     return this;
 }
+
+
 export default TextNode;

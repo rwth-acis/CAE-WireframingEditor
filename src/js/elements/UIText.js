@@ -8,6 +8,7 @@ import Y from 'yjs';
 
 UIText.prototype = new UIControl();
 UIText.prototype.constructor = UIText;
+window.UIText = UIText;
 function UIText(text, geometry) {
     var style = mxConstants.STYLE_SHAPE + "=rectangle;" +
         mxConstants.STYLE_EDITABLE + "=0;" +
@@ -18,24 +19,36 @@ function UIText(text, geometry) {
     UIControl.call(this, geometry, style);
     this.value.setAttribute('label', text);
 
-    this.$input = null;
+    var _$node = null;
 
-    this.init = function (element) {
-        var dom = element || 'input';
-        this.$input = $('<' + dom + '>')
+    this.get$node = function(){
+        return _$node;
+    }
+
+    this.set$node =  function($node){
+        _$node = $node;
+    }
+    return this;
+}
+
+UIText.prototype.initDOM = function(element){
+    var _$node;
+    var dom = element || 'input';
+        _$node = $('<' + dom + '>')
             .css('width', this.geometry.width - 15)
             .css('height', this.geometry.height - 15)
             .css('font-size', 15);
-    }
-
-    return this;
-}
+    this.set$node(_$node);
+};
 
 UIText.prototype.initShared = function (createdByLocalUser) {
     UIControl.prototype.initShared.call(this, createdByLocalUser);
     if (createdByLocalUser) {
         var ytext = y.share.attrs.set(this.getId() + '_label', Y.Text);
         ytext.insert(0, this.value.getAttribute('label'));
+        ytext.observe(function(event){
+            this.value.setAttribute('label', event.value);
+        });
     }
-}
+};
 export default UIText;

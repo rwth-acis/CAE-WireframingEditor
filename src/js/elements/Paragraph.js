@@ -13,14 +13,15 @@ function Paragraph(geometry) {
         geometry = new mxGeometry(0, 0, 320, 80);
     UIText.call(this, text, geometry);
 
-    this.init = function () {
-        this.__proto__.init.call(this, 'textarea');
-        this.$input
-            .css('background-color', 'transparent')
+    this.initDOM = function () {
+        UIText.prototype.initDOM.call(this, 'textarea');
+        var $node = this.get$node();
+        $node.css('background-color', 'transparent')
             .css('border-style', 'initial')
             .css('overflow', 'hidden')
             .css('resize', 'none')
             .text(text);
+        this.set$node($node);
     }
     return this;
 }

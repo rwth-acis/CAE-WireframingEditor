@@ -21,14 +21,15 @@ function Button(geometry) {
     this.value.setAttribute('type', 'button');
     this.addComboAttr('type', ['button', 'reset', 'submit']);
 
-    this.init = function () {
-        this.__proto__.init.call(this);
-        this.$input
-            .css('text-align', 'center')
+    this.initDOM = function () {
+        UIText.prototype.initDOM.call(this);
+        var $node = this.get$node()
+        $node.css('text-align', 'center')
             .css('border-radius', '12px')
             .css('background-color', 'rgb(227, 227, 228)')
             .css('border-style', 'ridge')
             .val(text);
+        this.set$node($node);
     }
 
     this.initShared = function (createdByLocalUser) {

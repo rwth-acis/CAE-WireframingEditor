@@ -18,9 +18,11 @@ function TextBox(geometry) {
     this.setAttribute('disabled', false);
     this.setAttribute('autocomplete', 'off');
     this.addComboAttr('autocomplete',  ['off', 'on']);
-    this.init = function(){
-        this.__proto__.init.call(this);
-        this.$input.val(text);
+    this.initDOM = function(){
+        UIText.prototype.initDOM.call(this);
+        var $node =this.get$node()
+        $node.val(text);
+        this.set$node($node);
     }
     return this;
 }

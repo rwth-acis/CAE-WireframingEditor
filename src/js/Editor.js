@@ -67,9 +67,9 @@ function Editor(wireframe, palette) {
         var cell = that.graph.getModel().getCell(id);
         if(event.name.indexOf('_label') != -1){
             if (cell instanceof RadioBtn || cell instanceof CheckBox)
-                event.value.bind(cell.$input.find('input[type="input"]')[0]);
+                event.value.bind(cell.get$node().find('input[type="input"]')[0]);
             else
-                event.value.bind(cell.$input[0]);
+                event.value.bind(cell.get$node()[0]);
         }else if(typeof event.value === 'boolean'){
             name = event.name.substring(event.name.indexOf('_')+1);
             cell.value.setAttribute(name, event.value);

@@ -131,7 +131,7 @@ function Wireframe(container) {
                     while (elt != null) {
                         var cell = codec.decode(elt);
                         cell.setId(event.value.id);
-                        if (cell.hasOwnProperty('init')) cell.init();
+                        if (cell.hasOwnProperty('initDOM')) cell.initDOM();
                         cells.push(cell);
                         elt = elt.nextSibling;
                     }
@@ -174,13 +174,14 @@ function Wireframe(container) {
 
     that.convertValueToString = function (cell) {
         if (mxUtils.isNode(cell.value)) {
-            if (cell.hasOwnProperty('$input')) {
-                mxEvent.addListener(cell.$input[0], 'change', function ( /*event*/) {
+            if (cell.hasOwnProperty('get$node')) {
+                if(!cell.get$node()) cell.initDOM();
+                mxEvent.addListener(cell.get$node()[0], 'change', function ( /*event*/) {
                     var elt = cell.value.cloneNode(true);
-                    elt.setAttribute('label', cell.$input.val());
+                    elt.setAttribute('label', cell.get$node().val());
                     that.model.setValue(cell, elt);
                 });
-                cell.$input.css('width', cell.geometry.width - 15).css('height', cell.geometry.height - 15);
+                cell.get$node().css('width', cell.geometry.width - 15).css('height', cell.geometry.height - 15);
 
                 switch (cell.value.getAttribute('uiType').toLowerCase()) {
                     case 'link':
@@ -188,7 +189,7 @@ function Wireframe(container) {
                     case 'button':
                     case 'textnode':
                         {
-                            cell.$input.click(function ( /*event*/) {
+                            cell.get$node().click(function ( /*event*/) {
                                 that.getSelectionModel().setCell(cell);
                             });
                             break;
@@ -196,12 +197,12 @@ function Wireframe(container) {
                     case 'paragraph':
                     case 'textarea':
                         {
-                            cell.$input.click(function ( /*event*/) {
+                            cell.get$node().click(function ( /*event*/) {
                                 this.focus();
                                 this.setSelectionRange(this.value.length, this.value.length);
                             });
 
-                            cell.$input.dblclick(function ( /*event*/) {
+                            cell.get$node().dblclick(function ( /*event*/) {
                                 this.focus();
                                 this.setSelectionRange(0, this.value.length);
                             })
@@ -209,13 +210,13 @@ function Wireframe(container) {
                         }
                     case 'radiobutton':
                     case 'checkbox': {
-                        cell.$input.find('input[type="input"]').click(function ( /*event*/) {
+                        cell.get$node().find('input[type="input"]').click(function ( /*event*/) {
                             that.getSelectionModel().setCell(cell);
                         });
                         break;
                     }
                 }
-                return cell.$input[0];
+                return cell.get$node()[0];
             }
         }
     }
