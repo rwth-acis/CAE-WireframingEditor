@@ -26,10 +26,17 @@ function Image(geometry) {
     this.setAttribute('src','');
     return this;
 }
-Image.prototype.initShared = function(createdByLocalUser){
-    UIControl.prototype.initShared.call(this, createdByLocalUser);
+Image.prototype.createShared = function(createdByLocalUser){
+    UIControl.prototype.createShared.call(this, createdByLocalUser);
     if(createdByLocalUser){
         y.share.attrs.set(this.getId()+'_src', Y.Text);
     }
+}
+
+Image.prototype.initShared = function(){
+    UIControl.prototype.initShared.call(this);
+    var ytext = y.share.attrs.get(this.getId() + '_src', Y.Text);
+    if (!ytext)
+        y.share.attrs.set(this.getId() + '_src', Y.Text);
 }
 export default Image;

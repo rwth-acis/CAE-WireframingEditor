@@ -34,13 +34,44 @@ function TextArea(geometry) {
     }
     return this;
 }
-TextArea.prototype.initShared = function (createdByLocalUser) {
-    UIText.prototype.initShared.call(this, createdByLocalUser);
+TextArea.prototype.createShared = function (createdByLocalUser) {
+    UIText.prototype.createShared.call(this, createdByLocalUser);
     if (createdByLocalUser) {
         y.share.attrs.set(this.getId() + '_placeholder', Y.Text);
         y.share.attrs.set(this.getId() + '_maxlength', Y.Text);
         y.share.attrs.set(this.getId() + '_cols', Y.Text);
         y.share.attrs.set(this.getId() + '_rows', Y.Text);
     }
+}
+
+TextArea.prototype.initShared = function(){
+    UIText.prototype.initShared.call(this);
+    var ytext = y.share.attrs.get(this.getId() + '_placeholder', Y.Text);
+    if (!ytext)
+        y.share.attrs.set(this.getId() + '_placeholder', Y.Text);
+
+    ytext = y.share.attrs.get(this.getId() + '_maxlength', Y.Text);
+    if (!ytext)
+        y.share.attrs.set(this.getId() + '_maxlength', Y.Text);
+
+    ytext = y.share.attrs.get(this.getId() + '_cols', Y.Text);
+    if (!ytext)
+        y.share.attrs.set(this.getId() + '_cols', Y.Text);
+
+    ytext = y.share.attrs.get(this.getId() + '_rows', Y.Text);
+    if (!ytext)
+        y.share.attrs.set(this.getId() + '_rows', Y.Text);
+
+    var val = y.share.attrs.get(this.getId() + '_autofocus');
+    if (val)
+        this.setBooleanAttributeValue('autofocus', val);
+    
+    val = y.share.attrs.get(this.getId() + '_readonly');
+    if (val)
+        this.setBooleanAttributeValue('readonly', val);
+    
+    val = y.share.attrs.get(this.getId() + '_disabled');
+    if (val)
+        this.setBooleanAttributeValue('disabled', val);
 }
 export default TextArea;

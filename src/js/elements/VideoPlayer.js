@@ -26,9 +26,16 @@ function VideoPlayer(geometry) {
     return this;
 }
 
-VideoPlayer.prototype.initShared = function(createdByLocalUser){
-    UIMedia.prototype.initShared.call(this, createdByLocalUser);
+VideoPlayer.prototype.createShared = function(createdByLocalUser){
+    UIMedia.prototype.createShared.call(this, createdByLocalUser);
     if(createdByLocalUser)
         y.share.attrs.set(this.getId()+'_poster', Y.Text);
+}
+
+VideoPlayer.prototype.initShared = function(){
+    UIMedia.prototype.initShared.call(this);
+    var ytext = y.share.attrs.get(this.getId() + '_poster', Y.Text);
+    if (!ytext)
+        y.share.attrs.set(this.getId() + '_poster', Y.Text);
 }
 export default VideoPlayer;

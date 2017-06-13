@@ -101,7 +101,7 @@ function Toolbox(container, editor) {
                 if (y.db.userId === event.value.userId){
                     //that._editor.graph.setSelectionCells(group);
                     that._editor.graph.getSelectionModel().setCell(group);
-                    group.initShared(true);
+                    group.createShared(true);
                 }
                 break;
             case mxEvent.UNGROUP_CELLS:
@@ -129,8 +129,8 @@ function Toolbox(container, editor) {
                     that._editor.graph.setSelectionCells(selectedCells);
                 }else{
                     for(var i=0;i<pastedCells.length;i++)
-                        if(pastedCells[i].hasOwnProperty('initShared')) 
-                            pastedCells[i].initShared(true);
+                        if(pastedCells[i].hasOwnProperty('createShared')) 
+                            pastedCells[i].createShared(true);
                 }
                 break;
             case CONST.ACTIONS.SHARED.GRAPH_RESIZE: //event triggerd in index.html

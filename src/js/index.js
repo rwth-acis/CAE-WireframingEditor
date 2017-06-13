@@ -5,6 +5,7 @@ import 'jquery-ui/ui/widgets/draggable';
 import { mxClient, mxUtils, mxCodec, mxEvent, mxGraphModel, mxLog } from './misc/mxExport.js';
 import YjsSync from './misc/YjsSync.js';
 import CONST from './misc/Constants.js';
+import Util from './misc/Util.js';
 
 import Wireframe from './Wireframe.js';
 import Palette from './Palette.js';
@@ -25,8 +26,6 @@ $(function () {
       mxEvent.disableContextMenu(container);
       var wireframe = new Wireframe(container, model);
 
-
-
       var htmlPalette = document.getElementById('palette');
       var palette = new Palette(htmlPalette);
 
@@ -38,6 +37,8 @@ $(function () {
         var doc = mxUtils.parseXml(xml);
         var codec = new mxCodec(doc);
         codec.decode(doc.documentElement, wireframe.getModel());
+        
+        Util.initSharedData(wireframe.getDefaultParent());
       }
 
       var htmlToolbox = document.getElementById('toolbox');

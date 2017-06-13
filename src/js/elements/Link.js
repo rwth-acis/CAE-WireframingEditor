@@ -31,10 +31,17 @@ function Link(geometry) {
     return this;
 }
 
-Link.prototype.initShared = function(createdByLocalUser){
-    UIText.prototype.initShared.call(this, createdByLocalUser);
+Link.prototype.createShared = function(createdByLocalUser){
+    UIText.prototype.createShared.call(this, createdByLocalUser);
     if(createdByLocalUser){
         y.share.attrs.set(this.getId()+'_href', Y.Text);
     }
+}
+
+Link.prototype.initShared = function(){
+    UIText.prototype.initShared.call(this);
+    var ytext = y.share.attrs.get(this.getId() + '_href', Y.Text);
+    if (!ytext)
+        y.share.attrs.set(this.getId() + '_href', Y.Text);
 }
 export default Link;

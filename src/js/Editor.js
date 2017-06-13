@@ -7,8 +7,6 @@ import {
     mxStencilRegistry,
     mxConstants,
     mxCellRenderer,
-    mxCodecRegistry,
-    mxObjectCodec,
     mxGraph
 } from './misc/mxExport.js';
 import UIControl from './elements/UIControl.js';
@@ -67,23 +65,14 @@ function Editor(wireframe, palette) {
         var id = event.name.substring(0, event.name.indexOf('_'));
         var cell = that.graph.getModel().getCell(id);
         if(event.name.indexOf('_label') != -1){
-            if (cell instanceof RadioBtn || cell instanceof CheckBox)
-                event.value.bind(cell.get$node().find('input[type="input"]')[0]);
-            else
-                event.value.bind(cell.get$node()[0]);
+            cell.bindLabel(event.value);
         }else if(typeof event.value === 'boolean'){
             name = event.name.substring(event.name.indexOf('_')+1);
-            cell.value.setAttribute(name, event.value);
-            var $input = $('#propertyEditor_'+id + ' #attributesTab').find('td:contains(' + name + ') + td input');
-            if ($input.length > 0 ) 
-                $input[0].checked = event.value;
+            cell.setBooleanAttributeValue(name, event.value);
         }
         else if(typeof event.value === 'string'){
             name = event.name.substring(event.name.indexOf('_')+1);
-            cell.value.setAttribute(name, event.value);
-            var $select = $('#propertyEditor_'+id + ' #attributesTab').find('td:contains(' + name + ') + td select');
-            if ($select.length > 0 ) 
-                $select.find('option[value=' + event.value +']').prop('selected', true);
+            cell.setComboAttributeValue(name, event.value);
         }
     });
 
@@ -100,7 +89,7 @@ function Editor(wireframe, palette) {
         else return label;
     }
     /**
-     * Overrices createGroupCell from the superclass mxGraph for the Wireframe-class
+     * Overrides createGroupCell from the superclass mxGraph for the Wireframe-class
      */
     /*eslint-disable no-unused-vars*/
     that.graph.createGroupCell = function (cells) {
@@ -152,7 +141,6 @@ function Editor(wireframe, palette) {
     }
     for(var componentName in yfUIComponents){
         addUIComponent(componentName);
-        //mxCodecRegistry.register(new mxObjectCodec(new yfUIComponents[componentName]()));
     }
 
     //horizontal line

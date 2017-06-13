@@ -8,6 +8,7 @@ import {
 } from './../misc/mxExport.js';
 import Util from '../misc/Util';
 import Y from 'yjs';
+import $ from 'jquery';
 
 UIControl.prototype = new mxCell();
 UIControl.prototype.constructor = UIControl;
@@ -26,7 +27,7 @@ function UIControl(geometry, style) {
 
     this.setVertex(true);
 
-    this.funct = function (wf, evt /*, cell*/ ) {
+    this.funct = function (wf, evt /*, cell*/) {
         wf.stopEditing(false);
 
         //encode UIControl
@@ -38,7 +39,9 @@ function UIControl(geometry, style) {
         v.geometry.y = pt.y;
 
         var result = encoder.encode(v);
+
         var xml = mxUtils.getXml(result);
+
         y.share.map.set(mxEvent.ADD_VERTEX, {
             userId: y.db.userId,
             id: Util.GUID(),
@@ -71,15 +74,37 @@ function UIControl(geometry, style) {
     return this;
 }
 
-UIControl.registerCodec = function(ctor){
+UIControl.registerCodec = function (ctor) {
     var codec = mxUtils.clone(mxCodecRegistry.getCodec(mxCell));
     codec.template = new ctor();
     mxCodecRegistry.register(codec);
 }
-UIControl.prototype.initShared = function (createdByLocalUser) {
+UIControl.prototype.createShared = function (createdByLocalUser) {
     if (createdByLocalUser) {
         y.share.attrs.set(this.getId() + '_id', Y.Text);
         y.share.attrs.set(this.getId() + '_class', Y.Text);
     }
+}
+UIControl.prototype.setBooleanAttributeValue = function (name, value) {
+    this.value.setAttribute(name, value);
+    var $input = $('#propertyEditor_' + this.getId() + ' #attributesTab').find('td:contains(' + name + ') + td input');
+    if ($input.length > 0)
+        $input[0].checked = value;
+}
+UIControl.prototype.setComboAttributeValue = function (name, value) {
+    this.value.setAttribute(name, value);
+    var $select = $('#propertyEditor_' + this.getId() + ' #attributesTab').find('td:contains(' + name + ') + td select');
+    if ($select.length > 0)
+        $select.find('option[value=' + value + ']').prop('selected', true);
+}
+UIControl.prototype.initShared = function () {
+
+    var ytext = y.share.attrs.get(this.getId() + '_id', Y.Text);
+    if (!ytext)
+        y.share.attrs.set(this.getId() + '_id', Y.Text);
+
+    ytext = y.share.attrs.get(this.getId() + '_class', Y.Text);
+    if (!ytext)
+        y.share.attrs.set(this.getId() + '_class', Y.Text);
 }
 export default UIControl;

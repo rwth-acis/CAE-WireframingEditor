@@ -126,7 +126,7 @@ function Wireframe(container, model) {
                 {
                     var doc = mxUtils.parseXml(event.value.data);
                     var codec = new mxCodec(doc);
-                    var elt = doc.documentElement;
+                    var elt = doc.documentElement.childNodes[0];
                     var cells = [];
                     while (elt != null) {
                         var cell = codec.decode(elt);
@@ -137,7 +137,7 @@ function Wireframe(container, model) {
                     }
                     that.addCells(cells);
                     for (var i = 0; i < cells.length; i++) {
-                        cells[i].initShared(event.value.userId === y.db.userId);
+                        cells[i].createShared(event.value.userId === y.db.userId);
                     }
 
                     break;

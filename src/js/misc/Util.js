@@ -1,9 +1,10 @@
-import {mxCodec, mxUtils} from './mxExport.js';
+/*global y*/
+import { mxCodec, mxUtils } from './mxExport.js';
 
 /**
  * Some helper functions
  */
-function Util() {}
+function Util() { }
 
 /**
  * Returns the Ids for cells currently selected in the graph
@@ -17,6 +18,7 @@ Util.getIdsOfSelectedCells = function (graph) {
     }
     return ids;
 }
+
 /**
  * Returns the cells for the given ids
  * @param {array} ids the ids as string to look for 
@@ -44,11 +46,21 @@ Util.GUID = function () {
     return _p8() + _p8(true) + _p8(true) + _p8();
 }
 
-Util.Save = function(graph){
-    /*global y*/
+Util.Save = function (graph) {
     var encoder = new mxCodec();
     var result = encoder.encode(graph.getModel());
     var xml = mxUtils.getXml(result);
     y.share.data.set('model', xml);
-}   
+}
+
+Util.initSharedData = function (parent) {
+    var uiControl;
+    for (var i = 0; i < parent.children.length; i++) {
+        uiControl = parent.children[i];
+        uiControl.initShared();
+        if(uiControl.constructor.name === 'DivContainer'){
+            this.initSharedData(uiControl);
+        }
+    }    
+}
 export default Util;

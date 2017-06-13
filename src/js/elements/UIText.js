@@ -41,8 +41,8 @@ UIText.prototype.initDOM = function(element){
     this.set$node(_$node);
 };
 
-UIText.prototype.initShared = function (createdByLocalUser) {
-    UIControl.prototype.initShared.call(this, createdByLocalUser);
+UIText.prototype.createShared = function (createdByLocalUser) {
+    UIControl.prototype.createShared.call(this, createdByLocalUser);
     if (createdByLocalUser) {
         var ytext = y.share.attrs.set(this.getId() + '_label', Y.Text);
         ytext.insert(0, this.value.getAttribute('label'));
@@ -51,7 +51,21 @@ UIText.prototype.initShared = function (createdByLocalUser) {
         });
     }
 };
+ UIText.prototype.initShared = function(){
+    UIControl.prototype.initShared.call(this);
+    var ytext = y.share.attrs.get(this.getId()+ '_label');
+    if(ytext)
+        this.bindLabel(ytext);
+    else
+        y.share.attrs.set(this.getId() + '_label', Y.Text);
+ };
+
+UIText.prototype.bindLabel = function(ytext){
+    ytext.bind(this.get$node()[0]);
+}
+
 UIText.registerCodec = function(ctor){
     UIControl.registerCodec(ctor);
 }
+
 export default UIText;

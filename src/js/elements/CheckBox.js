@@ -1,3 +1,4 @@
+/*global y*/
 import UIText from './UIText.js';
 import $ from 'jquery';
 import {
@@ -32,5 +33,21 @@ function CheckBox(geometry) {
                 .val(text)));
     }
     return this;
+}
+CheckBox.prototype.bindLabel = function(ytext){
+    ytext.bind(this.get$node().find('input[type="input"]')[0]);
+}
+
+CheckBox.prototype.initShared = function () {
+    UIText.prototype.initShared.call(this);
+    var val = y.share.attrs.get(this.getId() + '_checked');
+    if (val)
+        this.setBooleanAttributeValue('checked', val);
+    val = y.share.attrs.get(this.getId() + '_autofocus');
+    if (val)
+        this.setBooleanAttributeValue('autofocus', val);
+    val = y.share.attrs.get(this.getId() + '_disabled');
+    if (val)
+        this.setBooleanAttributeValue('disabled', val);
 }
 export default CheckBox;

@@ -1,3 +1,4 @@
+/*global y*/
 import UIText from './UIText.js';
 import {
     mxGeometry, mxCodecRegistry, mxCell, mxUtils
@@ -29,4 +30,16 @@ function TextBox(geometry) {
     }
     return this;
 }
+TextBox.prototype.initShared = function(){
+    UIText.prototype.initShared.call(this);
+    var val = y.share.attrs.get(this.getId() + '_disabled');
+    if (val)
+        this.setBooleanAttributeValue('disabled', val);
+    val = y.share.attrs.get(this.getId() + '_autofocus');
+    if (val)
+        this.setBooleanAttributeValue('autofocus', val);
+    val = y.share.attrs.get(this.getId() + '_autocomplete');
+    if (val && typeof val === 'string')
+        this.setComboAttributeValue('autocomplete', val);
+}   
 export default TextBox;

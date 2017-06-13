@@ -1,3 +1,4 @@
+/*global y*/
 import UIText from './UIText.js';
 import $ from 'jquery';
 import {
@@ -23,8 +24,7 @@ function RadioButton(geometry) {
         this.set$node
             ($('<div>')
                 .append($('<input>').attr('type', 'radio').attr('checked', true))
-                .append($('<input>')
-                    .attr('type', 'input')
+                .append($('<input>').attr('type', 'input')
                     .css('font-size', 15)
                     .css('width', this.geometry.width - 30)
                     .css('height', this.geometry.height - 10)
@@ -33,5 +33,21 @@ function RadioButton(geometry) {
                     .val(text)));
     }
     return this;
+}
+RadioButton.prototype.bindLabel = function (ytext) {
+    ytext.bind(this.get$node().find('input[type="input"]')[0]);
+}
+
+RadioButton.prototype.initShared = function () {
+    UIText.prototype.initShared.call(this);
+    var val = y.share.attrs.get(this.getId() + '_checked');
+    if (val)
+        this.setBooleanAttributeValue('checked', val);
+    val = y.share.attrs.get(this.getId() + '_autofocus');
+    if (val)
+        this.setBooleanAttributeValue('autofocus', val);
+    val = y.share.attrs.get(this.getId() + '_disabled');
+    if (val)
+        this.setBooleanAttributeValue('disabled', val);
 }
 export default RadioButton;
