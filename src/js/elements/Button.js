@@ -8,7 +8,6 @@ import {
 Button.prototype = new UIText();
 Button.prototype.constructor = Button;
 UIText.registerCodec(Button);
-
 //Global for the codec converter
 window.Button = Button;
 
@@ -40,7 +39,7 @@ function Button(geometry) {
             ytext.insert(0, this.value.getAttribute('type'));
         }
     };
-
+    
     return this;
 }
 Button.prototype.initShared = function(){

@@ -71,6 +71,7 @@ function UIControl(geometry, style) {
             return true;
         } else return false;
     }
+
     return this;
 }
 
@@ -98,7 +99,6 @@ UIControl.prototype.setComboAttributeValue = function (name, value) {
         $select.find('option[value=' + value + ']').prop('selected', true);
 }
 UIControl.prototype.initShared = function () {
-
     var ytext = y.share.attrs.get(this.getId() + '_id', Y.Text);
     if (!ytext)
         y.share.attrs.set(this.getId() + '_id', Y.Text);
