@@ -15,6 +15,7 @@ import CONST from './misc/Constants.js';
 
 Toolbox.prototype = new mxDefaultToolbar();
 Toolbox.prototype.constructor = Toolbox;
+
 function Toolbox(container, editor) {
     mxDefaultToolbar.call(this, container, editor);
 
@@ -72,6 +73,36 @@ function Toolbox(container, editor) {
         });
     });
 
+    editor.addAction(CONST.ACTIONS.EXPORT, function () {
+        var link = document.createElement('a');
+        link.download = "wireframe.xml";
+        link.href = 'data:,' + encodeURI(y.share.data.get('model'));
+        link.click();
+    });
+
+    editor.addAction(CONST.ACTIONS.IMPORT, function () {
+        var input = document.createElement('input');
+        input.type = 'file';
+
+        //$(input).change(function(){});
+        //input.addEventListener('change', function(){});
+        input.onchange =  function () {
+            var fileReader, files, file;
+            fileReader = new FileReader();
+            fileReader.onload = function (e) {
+                var data = e.target.result;
+                y.share.data.set('model', data);
+                window.location.reload();
+                //TODO improve import
+            };
+            files = this.files;
+            if (!files || files.length === 0) return;
+            file = files[0];
+            fileReader.readAsText(file);
+        };
+        input.click();
+    });
+
     y.share.action.observe(function (event) {
         switch (event.name) {
             case mxEvent.UNDO:
@@ -98,7 +129,7 @@ function Toolbox(container, editor) {
                 break;
             case mxEvent.GROUP_CELLS:
                 var group = that._editor.graph.groupCells(null, 20, Util.getCellsFromIdList(that._editor.graph, event.value.ids));
-                if (y.db.userId === event.value.userId){
+                if (y.db.userId === event.value.userId) {
                     //that._editor.graph.setSelectionCells(group);
                     that._editor.graph.getSelectionModel().setCell(group);
                     group.createShared(true);
@@ -127,9 +158,9 @@ function Toolbox(container, editor) {
 
                 if (event.value.userId !== y.db.userId) {
                     that._editor.graph.setSelectionCells(selectedCells);
-                }else{
-                    for(var i=0;i<pastedCells.length;i++)
-                        if(pastedCells[i].hasOwnProperty('createShared')) 
+                } else {
+                    for (var i = 0; i < pastedCells.length; i++)
+                        if (pastedCells[i].hasOwnProperty('createShared'))
                             pastedCells[i].createShared(true);
                 }
                 break;
@@ -166,6 +197,9 @@ function Toolbox(container, editor) {
     this.addSeparator();
     this.addItem("Group", CONST.IMAGES.GROUP, CONST.ACTIONS.SHARED.GROUP);
     this.addItem("Ungroup", CONST.IMAGES.UNGROUP, CONST.ACTIONS.SHARED.UNGROUP);
+    this.addSeparator();
+    this.addItem("Import", CONST.IMAGES.IMPORT, CONST.ACTIONS.IMPORT);
+    this.addItem("Export", CONST.IMAGES.EXPORT, CONST.ACTIONS.EXPORT);
     this.addSeparator();
     this.addItem("Console", CONST.IMAGES.CONSOLE, CONST.ACTIONS.CONSOLE);
     this.addSeparator();

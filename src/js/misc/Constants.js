@@ -12,6 +12,8 @@ var constants = {
         COPY: 'copy',
         PASTE: 'paste',
         CONSOLE: 'toggleConsole',
+        EXPORT : 'export', 
+        IMPORT : 'import'
     },
     IMAGES: {
         COPY: 'images/toolbox/copy.png',
@@ -24,6 +26,8 @@ var constants = {
         CONSOLE: 'images/toolbox/console.png',
         ADD: 'images/toolbox/add.png',
         FLASH: 'images/toolbox/flash.png',
+        IMPORT : 'images/toolbox/import.png',
+        EXPORT : 'images/toolbox/export.png',
         YJS: 'images/tags/yjs.png',
         MICROSERVICECALL: 'images/tags/las2peer-logo-circle.png',
         EVENT_TAG: 'images/tags/event.png',
