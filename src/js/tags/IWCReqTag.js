@@ -4,7 +4,7 @@ import CONST from '../misc/Constants.js';
 
 mxUtils.extend(IWCReqTag, AbstractTag);
 function IWCReqTag(offset){
-    AbstractTag.call(this, new mxImage(CONST.IMAGES.IWC_REQ_TAG, CONST.TAG.SIZE, CONST.TAG.SIZE), 'IWC Request', offset);
+    AbstractTag.call(this, new mxImage(CONST.IMAGES.IWC_REQ_TAG, CONST.TAG.SIZE-4, CONST.TAG.SIZE-4), 'IWC Request', offset);
 }
 
 export default IWCReqTag;

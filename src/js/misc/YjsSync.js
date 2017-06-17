@@ -21,7 +21,9 @@ export default function (space) {
             map: 'Map',
             action: 'Map',
             attrs: 'Map',
-            data : 'Map'
+            data : 'Map',
+            awareness : 'Map', 
+            users : 'Map'
         }
     }).then(function (y) {
         window.y = y;

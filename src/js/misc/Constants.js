@@ -33,7 +33,8 @@ var constants = {
         EVENT_TAG: 'images/tags/event.png',
         FUNC_TAG: 'images/tags/func.png',
         IWC_REQ_TAG: 'images/tags/IWCRequest.png',
-        IWC_RESP_TAG: 'images/tags/IWCResponse.png'
+        IWC_RESP_TAG: 'images/tags/IWCResponse.png',
+        DEFAULT_USER : 'images/user.png'
     },
     TAG: {
         SIZE: 20,
@@ -48,6 +49,7 @@ var constants = {
     }
 };
 
+//Specify which elements supports which interactivity tags
 var T = constants.TAG.ALIAS;
 constants.TAG.MAPPING = {
     Button: [T.EVENT, T.FUNC, T.MICRO_CALL, T.IWC_CALL, T.IWC_RESP],

@@ -11,9 +11,11 @@ import {
     mxRubberband,
     mxUtils,
     mxRectangle,
-    mxGeometry
+    mxGeometry,
+    mxCellHighlight
 } from './misc/mxExport.js';
 import Util from './misc/Util.js';
+import UserOverlay from './overlays/UserOverlay.js';
 
 window.mxGeometry = mxGeometry;
 Wireframe.prototype = new mxGraph();
@@ -24,10 +26,11 @@ function Wireframe(container, model) {
     mxGraph.call(this, container, model);
 
     //var handler = new mxGraphHandler(that)
-
+    var highlightMap = {};
     that.foldingEnabled = false;
     that.autoExtend = false;
     that.setHtmlLabels(true);
+    that.setTooltips(true); //enable tooltips for overlays
 
     that.maximumGraphBounds = new mxRectangle(0, 0, 500, 500);
     //enable guiding lines
@@ -89,9 +92,63 @@ function Wireframe(container, model) {
     };
     that.addListener(mxEvent.CELLS_MOVED, SharedCellsMovedEvent);
     that.addListener(mxEvent.CELLS_RESIZED, SharedCellResizedEvent);
-    /*that.addListener(mxEvent.CELLS_ADDED, function(wf, event){
-        var test = true;
-    });*/
+
+    //----------------------------------------------------------------------------
+    // Awareness stuff begins here
+    that.getSelectionModel().addListener(mxEvent.CHANGE, function (sender, evt) {
+        var unselectedCells = evt.getProperty('added');
+        var unhighlight = [];
+        for (var i = 0; i < unselectedCells.length; i++) {
+            unhighlight.push(unselectedCells[i].getId());
+        }
+        var highlight = [];
+        for (var i = 0; i < sender.cells.length; i++) {
+            highlight.push(sender.cells[i].getId());
+        }
+        y.share.awareness.set(y.db.userId, {
+            highlight: highlight,
+            unhighlight: unhighlight
+        });
+
+    });
+
+    y.share.awareness.observe(function (event) {
+        if (event.name != y.db.userId) {
+            //unhighlight cells
+            var unhighlightCells = event.value.unhighlight;
+            for (var i = 0; i < unhighlightCells.length; i++) {
+                var highlight = highlightMap[unhighlightCells[i]];
+                if (highlight){
+                    highlight.hide();
+                    delete highlightMap[unhighlightCells[i]];
+                    var cell = that.getModel().getCell(unhighlightCells[i]);
+                    if(cell){
+                        for(var j=0;cell.overlays && j<cell.overlays.length;j++){
+                            if(cell.overlays[j] instanceof UserOverlay){
+                                that.removeCellOverlay(cell, cell.overlays[j]);
+                                j--;
+                            }
+                        }
+                    }
+                }
+            }
+
+            //highlight cells
+            var highlightCells = event.value.highlight;
+            for (var i = 0; i < highlightCells.length; i++) {
+                var highlight = new mxCellHighlight(that, '#ff0000', 2);
+                highlightMap[highlightCells[i]] = highlight;
+                var cell = that.getModel().getCell(highlightCells[i]);
+                if (cell){
+                    highlight.highlight(that.view.getState(cell));
+                     var overlay = new UserOverlay(event.name);
+                     that.addCellOverlay(cell, overlay);
+                }
+            }
+        }
+    });
+    // Awareness stuff ends here
+    //----------------------------------------------------------------------------
 
 
     this.dropEnabled = true;
@@ -172,11 +229,12 @@ function Wireframe(container, model) {
         }
     });
 
+    
     that.convertValueToString = function (cell) {
         if (mxUtils.isNode(cell.value)) {
             if (cell.hasOwnProperty('get$node')) {
-                if(!cell.get$node()) cell.initDOM();
-                mxEvent.addListener(cell.get$node()[0], 'change', function ( /*event*/) {
+                if (!cell.get$node()) cell.initDOM();
+                mxEvent.addListener(cell.get$node()[0], 'change', function ( /*event*/ ) {
                     var elt = cell.value.cloneNode(true);
                     elt.setAttribute('label', cell.get$node().val());
                     that.model.setValue(cell, elt);
@@ -189,7 +247,7 @@ function Wireframe(container, model) {
                     case 'button':
                     case 'textnode':
                         {
-                            cell.get$node().click(function ( /*event*/) {
+                            cell.get$node().click(function ( /*event*/ ) {
                                 that.getSelectionModel().setCell(cell);
                             });
                             break;
@@ -197,24 +255,25 @@ function Wireframe(container, model) {
                     case 'paragraph':
                     case 'textarea':
                         {
-                            cell.get$node().click(function ( /*event*/) {
+                            cell.get$node().click(function ( /*event*/ ) {
                                 this.focus();
                                 this.setSelectionRange(this.value.length, this.value.length);
                             });
 
-                            cell.get$node().dblclick(function ( /*event*/) {
+                            cell.get$node().dblclick(function ( /*event*/ ) {
                                 this.focus();
                                 this.setSelectionRange(0, this.value.length);
                             })
                             break;
                         }
                     case 'radiobutton':
-                    case 'checkbox': {
-                        cell.get$node().find('input[type="input"]').click(function ( /*event*/) {
-                            that.getSelectionModel().setCell(cell);
-                        });
-                        break;
-                    }
+                    case 'checkbox':
+                        {
+                            cell.get$node().find('input[type="input"]').click(function ( /*event*/ ) {
+                                that.getSelectionModel().setCell(cell);
+                            });
+                            break;
+                        }
                 }
                 return cell.get$node()[0];
             }

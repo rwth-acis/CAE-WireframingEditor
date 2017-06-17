@@ -21,7 +21,7 @@ function UIControl(geometry, style) {
     uiObj.setAttribute('class', '');
     uiObj.setAttribute('uiType', this.constructor.name.toLowerCase());
 
-    this.comboAttr = {};
+    var comboAttr = {};
 
     mxCell.call(this, uiObj, geometry, style);
 
@@ -61,13 +61,13 @@ function UIControl(geometry, style) {
     }
 
     this.getComboAttr = function (name) {
-        if (this.comboAttr.hasOwnProperty(name))
-            return this.comboAttr[name];
+        if (comboAttr.hasOwnProperty(name))
+            return comboAttr[name];
         else return undefined;
     }
     this.addComboAttr = function (name, values) {
-        if (!this.comboAttr.hasOwnProperty(name)) {
-            this.comboAttr[name] = values;
+        if (!comboAttr.hasOwnProperty(name)) {
+            comboAttr[name] = values;
             return true;
         } else return false;
     }
