@@ -46,12 +46,14 @@ VideoShape.prototype.paintVertexShape = function (c, x, y, w, h) {
     h = Math.max(h, barHeight + 10);
 
     c.translate(x, y);
-    this.background(c, x, y, w, h, bgColor, frameColor);
+    this.foreground(c, x, y, w, h, bgColor, frameColor);
     c.setShadow(false);
     this.otherShapes(c, x, y, w, h, buttonColor, frameColor, filledColor, emptyColor, barHeight);
+
+    //this.background(c, x, y, w, h);
 };
 
-VideoShape.prototype.background = function (c, x, y, w, h, bgColor, frameColor) {
+VideoShape.prototype.foreground = function (c, x, y, w, h, bgColor, frameColor) {
     c.setFillColor(bgColor);
     c.setStrokeColor(frameColor);
     c.begin();
@@ -62,6 +64,13 @@ VideoShape.prototype.background = function (c, x, y, w, h, bgColor, frameColor) 
     c.close();
     c.fillAndStroke();
 };
+
+/*VideoShape.prototype.background = function (c, x, y, w, h) {
+    c.setFillColor('none');
+    c.setStrokeColor('none');
+    c.rect(x, y, w, h);
+    c.fillAndStroke();
+}*/
 
 VideoShape.prototype.otherShapes = function (c, x, y, w, h, buttonColor, frameColor, filledColor, emptyColor, barHeight) {
     var barPos = mxUtils.getValue(this.style, VideoShape.prototype.cst.BAR_POS, '20');

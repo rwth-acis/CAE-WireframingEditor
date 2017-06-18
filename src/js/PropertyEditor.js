@@ -145,10 +145,9 @@ function PropertyEditor(cell, graph) {
             }
             var $button = $('<button>').text('Add');
             $button.click(function () {
-                var overlays = graph.getCellOverlays(cell);
-                var n = overlays ? overlays.length : 0;
                 var val = $tagEditor.find('td:contains("Tag") + td select option:selected').text();
-                graph.addCellOverlay(cell, new tagAliasMap[val](new mxPoint(-CONST.TAG.SIZE * n, 0)));
+                graph.addCellOverlay(cell, new tagAliasMap[val](new mxPoint(-CONST.TAG.SIZE * cell.tagCounter, 0)));
+
             });
             $tagEditor.append($(tagForm.body).append($button));
         }

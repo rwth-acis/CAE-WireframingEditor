@@ -1,10 +1,4 @@
-/*window.mxImageBasePath = "images";
-window.mxLoadResources = false;
-window.mxLoadStylesheets = false;
-*/
 import mxGraphLib from "../../../node_modules/mxgraph/javascript/dist/build.js";
-
-//require('../../node_modules/mxgraph/javascript/src/css/common.css');
 
 var mxLib = mxGraphLib({
     mxImageBasePath: "images",
@@ -48,15 +42,20 @@ var mxClipboard = mxLib.mxClipboard;
 var mxWindow = mxLib.mxWindow;
 var mxShape = mxLib.mxShape;
 var mxCellRenderer = mxLib.mxCellRenderer;
-var mxStylesheet = mxLib.mxStylesheet;
 var mxObjectCodec = mxLib.mxObjectCodec;
 var mxCellOverlay = mxLib.mxCellOverlay;
 var mxCellHighlight = mxLib.mxCellHighlight;
 var mxImage = mxLib.mxImage;
 var mxPoint = mxLib.mxPoint;
+
+var codec = new mxObjectCodec(new mxImage());
+mxCodecRegistry.register(codec);
+
+var codec = new mxObjectCodec(new mxPoint());
+mxCodecRegistry.register(codec);
 export {
-    mxClient, mxEditor, mxGraph, mxGraphModel, mxCell, mxCodec, mxCodecRegistry, mxEvent, mxGraphHandler, mxConstants,mxImage,
-    mxKeyHandler, mxRubberband, mxUtils, mxRectangle, mxToolbar, mxStencil, mxStencilRegistry, mxWindow, mxShape, mxStylesheet,
-    mxGeometry, mxDefaultKeyHandler, mxForm, mxDefaultToolbar, mxLog, mxClipboard, mxCellRenderer, mxObjectCodec, mxCellOverlay,
+    mxClient, mxEditor, mxGraph, mxGraphModel, mxCell, mxCodec, mxCodecRegistry, mxEvent, mxGraphHandler, mxConstants,mxImage, 
+    mxKeyHandler, mxRubberband, mxUtils, mxRectangle, mxToolbar, mxStencil, mxStencilRegistry, mxWindow, mxShape, mxGeometry, mxDefaultKeyHandler,
+    mxForm, mxDefaultToolbar, mxLog, mxClipboard, mxCellRenderer, mxObjectCodec, mxCellOverlay,
     mxPoint, mxCellHighlight
 };

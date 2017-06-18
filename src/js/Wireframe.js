@@ -1,7 +1,4 @@
 /*global y*/
-import UIControl from './elements/UIControl.js';
-
-window.UIControl = UIControl;
 import {
     mxGraph,
     mxEvent,
@@ -12,10 +9,12 @@ import {
     mxUtils,
     mxRectangle,
     mxGeometry,
-    mxCellHighlight
+    mxConstants,
+    mxCodecRegistry
 } from './misc/mxExport.js';
 import Util from './misc/Util.js';
 import UserOverlay from './overlays/UserOverlay.js';
+import EnableAwareness from './Awareness.js';
 
 window.mxGeometry = mxGeometry;
 Wireframe.prototype = new mxGraph();
@@ -25,17 +24,22 @@ function Wireframe(container, model) {
     var that = this;
     mxGraph.call(this, container, model);
 
-    //var handler = new mxGraphHandler(that)
-    var highlightMap = {};
     that.foldingEnabled = false;
     that.autoExtend = false;
     that.setHtmlLabels(true);
     that.setTooltips(true); //enable tooltips for overlays
+    this.dropEnabled = true;
 
     that.maximumGraphBounds = new mxRectangle(0, 0, 500, 500);
     //enable guiding lines
     mxGraphHandler.prototype.guidesEnabled = true;
     mxGraphHandler.prototype.highlightEnabled = true;
+
+    //enables user highlighting and overlay for cells of the wireframe
+    EnableAwareness(this);
+
+    new mxKeyHandler(this);
+    new mxRubberband(this);
 
     var sharedAction = null;
     var SharedCellsMovedEvent = function (wf, event) {
@@ -92,92 +96,42 @@ function Wireframe(container, model) {
     };
     that.addListener(mxEvent.CELLS_MOVED, SharedCellsMovedEvent);
     that.addListener(mxEvent.CELLS_RESIZED, SharedCellResizedEvent);
-
-    //----------------------------------------------------------------------------
-    // Awareness stuff begins here
-    that.getSelectionModel().addListener(mxEvent.CHANGE, function (sender, evt) {
-        var unselectedCells = evt.getProperty('added');
-        var unhighlight = [];
-        for (var i = 0; i < unselectedCells.length; i++) {
-            unhighlight.push(unselectedCells[i].getId());
-        }
-        var highlight = [];
-        for (var i = 0; i < sender.cells.length; i++) {
-            highlight.push(sender.cells[i].getId());
-        }
-        y.share.awareness.set(y.db.userId, {
-            highlight: highlight,
-            unhighlight: unhighlight
-        });
-
-    });
-
-    y.share.awareness.observe(function (event) {
-        if (event.name != y.db.userId) {
-            //unhighlight cells
-            var unhighlightCells = event.value.unhighlight;
-            for (var i = 0; i < unhighlightCells.length; i++) {
-                var highlight = highlightMap[unhighlightCells[i]];
-                if (highlight){
-                    highlight.hide();
-                    delete highlightMap[unhighlightCells[i]];
-                    var cell = that.getModel().getCell(unhighlightCells[i]);
-                    if(cell){
-                        for(var j=0;cell.overlays && j<cell.overlays.length;j++){
-                            if(cell.overlays[j] instanceof UserOverlay){
-                                that.removeCellOverlay(cell, cell.overlays[j]);
-                                j--;
-                            }
-                        }
-                    }
-                }
-            }
-
-            //highlight cells
-            var highlightCells = event.value.highlight;
-            for (var i = 0; i < highlightCells.length; i++) {
-                var highlight = new mxCellHighlight(that, '#ff0000', 2);
-                highlightMap[highlightCells[i]] = highlight;
-                var cell = that.getModel().getCell(highlightCells[i]);
-                if (cell){
-                    highlight.highlight(that.view.getState(cell));
-                     var overlay = new UserOverlay(event.name);
-                     that.addCellOverlay(cell, overlay);
-                }
-            }
-        }
-    });
-    // Awareness stuff ends here
-    //----------------------------------------------------------------------------
-
-
-    this.dropEnabled = true;
-
-    //For the DynamicGrid
-    //this.graphHandler.scaleGrid = true; 
-    //this.setPanning(true);
-
-    new mxKeyHandler(this);
-    new mxRubberband(this);
-
+  
     that.moveCells = function (cells, dx, dy, clone, target, evt, mapping, shared) {
         var cells = mxGraph.prototype.moveCells.apply(this, arguments);
         if (cells.length > 0 && sharedAction && !shared) {
             sharedAction.parentId = cells[0].parent.id;
-            y.share.map.set(mxEvent.MOVE, sharedAction);
+            y.share.action.set(mxEvent.MOVE, sharedAction);
             sharedAction = null;
         }
         return cells;
     }
+
     that.resizeCells = function (cells, bounds, recurse, shared) {
         var cells = mxGraph.prototype.resizeCells.apply(this, arguments);
         if (cells.length > 0 && sharedAction && !shared) {
-            y.share.map.set(mxEvent.RESIZE, sharedAction);
+            y.share.action.set(mxEvent.RESIZE, sharedAction);
             sharedAction = null;
         }
         return cells;
     };
-    y.share.map.observe(function (event) {
+
+    that.addCellOverlay = function (cell, overlay) {
+        if (overlay instanceof UserOverlay) {
+            mxGraph.prototype.addCellOverlay.apply(this, arguments);
+        } else {
+            y.share.action.set(mxEvent.ADD_OVERLAY, {
+                userId: y.db.userId,
+                id: cell.getId(),
+                xml: overlay.toXML()
+            });
+        }
+    }
+
+    //------------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------Begin Yjs Observer for actions----------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------------
+    y.share.action.observe(function (event) {
         switch (event.name) {
             case mxEvent.ADD_VERTEX:
                 {
@@ -226,15 +180,46 @@ function Wireframe(container, model) {
                     }
                     break;
                 }
+            case mxEvent.ADD_OVERLAY:
+                {
+                    var doc = mxUtils.parseXml(event.value.xml);
+                    var codec = new mxCodec(doc);
+                    codec.decode = function (node, into) {
+                        var obj = null;
+
+                        if (node != null && node.nodeType == mxConstants.NODETYPE_ELEMENT) {
+
+                            var dec = mxCodecRegistry.getCodec(node.nodeName);
+
+                            if (dec != null) {
+                                obj = dec.decode(this, node, into);
+                            } else {
+                                obj = node.cloneNode(true);
+                                obj.removeAttribute('as');
+                            }
+                        }
+
+                        return obj;
+                    };
+                    var overlay = codec.decode(doc.documentElement);
+                    var cell = that.getModel().getCell(event.value.id);
+                    if (cell && overlay) {
+                        mxGraph.prototype.addCellOverlay.apply(that, [cell, overlay]);
+                        cell.tagCounter++;
+                    }
+                    break;
+                }
         }
     });
+    //------------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------End Yjs Observer for actions------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------------
 
-    
     that.convertValueToString = function (cell) {
         if (mxUtils.isNode(cell.value)) {
             if (cell.hasOwnProperty('get$node')) {
                 if (!cell.get$node()) cell.initDOM();
-                mxEvent.addListener(cell.get$node()[0], 'change', function ( /*event*/ ) {
+                mxEvent.addListener(cell.get$node()[0], 'change', function () {
                     var elt = cell.value.cloneNode(true);
                     elt.setAttribute('label', cell.get$node().val());
                     that.model.setValue(cell, elt);
@@ -247,7 +232,7 @@ function Wireframe(container, model) {
                     case 'button':
                     case 'textnode':
                         {
-                            cell.get$node().click(function ( /*event*/ ) {
+                            cell.get$node().click(function () {
                                 that.getSelectionModel().setCell(cell);
                             });
                             break;
@@ -255,12 +240,12 @@ function Wireframe(container, model) {
                     case 'paragraph':
                     case 'textarea':
                         {
-                            cell.get$node().click(function ( /*event*/ ) {
+                            cell.get$node().click(function () {
                                 this.focus();
                                 this.setSelectionRange(this.value.length, this.value.length);
                             });
 
-                            cell.get$node().dblclick(function ( /*event*/ ) {
+                            cell.get$node().dblclick(function () {
                                 this.focus();
                                 this.setSelectionRange(0, this.value.length);
                             })
@@ -269,7 +254,7 @@ function Wireframe(container, model) {
                     case 'radiobutton':
                     case 'checkbox':
                         {
-                            cell.get$node().find('input[type="input"]').click(function ( /*event*/ ) {
+                            cell.get$node().find('input[type="input"]').click(function () {
                                 that.getSelectionModel().setCell(cell);
                             });
                             break;
@@ -279,26 +264,5 @@ function Wireframe(container, model) {
             }
         }
     }
-    /*
-    var cellLabelChanged = that.cellLabelChanged;
-    that.cellLabelChanged = function (cell, newValue, autoSize) {
-        if (mxUtils.isNode(cell.value) && cell.value.nodeName.toLowerCase() == 'uiobject') {
-            // Clones the value for correct undo/redo
-            var elt = cell.value.cloneNode(true);
-            elt.setAttribute('label', newValue);
-            newValue = elt;
-        }
-
-        cellLabelChanged.apply(this, arguments);
-    };
-
-    // Overrides method to create the editing value
-    //var getEditingValue = that.getEditingValue;
-    that.getEditingValue = function (cell) {
-        if (mxUtils.isNode(cell.value) && cell.value.nodeName.toLowerCase() == 'uiobject') {
-            return cell.getAttribute('label');
-        }
-    };*/
-    return this;
 }
 export default Wireframe;

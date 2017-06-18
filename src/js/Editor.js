@@ -41,7 +41,6 @@ function Editor(wireframe, palette) {
     this.setToolbarContainer(palette.container);
     this.keyHandler = new KeyHandler(this);
     //Editor.prototype.disableContextMenu = false;
-    //this.popupHandler = new ContextMenu('contextmenu.xml');
     new ContextMenu(this);
     //Load stencils 
     var xml = mxUtils.load('html5stencils.xml');
@@ -142,11 +141,7 @@ function Editor(wireframe, palette) {
     for(var componentName in yfUIComponents){
         addUIComponent(componentName);
     }
-
-    //horizontal line
-    palette.addLine();
-    //palette.addBreak();
-
+    palette.addLine(); //conclude with a horizontal line at the end
     return this;
 }
 export default Editor;

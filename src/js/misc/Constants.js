@@ -12,8 +12,8 @@ var constants = {
         COPY: 'copy',
         PASTE: 'paste',
         CONSOLE: 'toggleConsole',
-        EXPORT : 'export', 
-        IMPORT : 'import'
+        EXPORT: 'export',
+        IMPORT: 'import'
     },
     IMAGES: {
         COPY: 'images/toolbox/copy.png',
@@ -26,15 +26,15 @@ var constants = {
         CONSOLE: 'images/toolbox/console.png',
         ADD: 'images/toolbox/add.png',
         FLASH: 'images/toolbox/flash.png',
-        IMPORT : 'images/toolbox/import.png',
-        EXPORT : 'images/toolbox/export.png',
+        IMPORT: 'images/toolbox/import.png',
+        EXPORT: 'images/toolbox/export.png',
         YJS: 'images/tags/yjs.png',
         MICROSERVICECALL: 'images/tags/las2peer-logo-circle.png',
         EVENT_TAG: 'images/tags/event.png',
         FUNC_TAG: 'images/tags/func.png',
         IWC_REQ_TAG: 'images/tags/IWCRequest.png',
         IWC_RESP_TAG: 'images/tags/IWCResponse.png',
-        DEFAULT_USER : 'images/user.png'
+        DEFAULT_USER: 'images/user.png'
     },
     TAG: {
         SIZE: 20,

@@ -18,7 +18,6 @@ export default function (space) {
             room: space || 'yireframe'
         },
         share: {
-            map: 'Map',
             action: 'Map',
             attrs: 'Map',
             data : 'Map',

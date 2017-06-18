@@ -1,16 +1,17 @@
-//ContextMenu.prototype = new mxDefaultPopupMenu();
 import PropertyEditor from './PropertyEditor.js';
 import CONST from './misc/Constants.js';
 import Util from './misc/Util.js';
 
+/**
+ * The class builds the context menu for the wireframing editor
+ * @param {mxEditor} editor
+ */
 function ContextMenu(editor) {
-    // mxDefaultPopupMenu.call(this);
-
     editor.graph.popupMenuHandler.factoryMethod = function (menu, cell, evt) {
         return createPopupMenu(null, menu, cell, evt);
     };
 
-    function createPopupMenu(graph, menu, cell /*, evt*/ ) {
+    function createPopupMenu(graph, menu, cell) {
 
         if (cell == null) {
             var sub = menu.addItem('Create..', CONST.IMAGES.ADD);
@@ -24,7 +25,7 @@ function ContextMenu(editor) {
             }
             menu.addSeparator();
         } else {
-            menu.addItem('Show Attributes', CONST.IMAGES.FLASH, function ( /*event*/ ) {
+            menu.addItem('Show Attributes', CONST.IMAGES.FLASH, function () {
                 new PropertyEditor(cell, editor.graph);
             });
             menu.addSeparator();
@@ -36,9 +37,6 @@ function ContextMenu(editor) {
             editor.execute(CONST.ACTIONS.SHARED.REDO);
         });
         if (cell == null) {
-           /* menu.addItem('Show Console', CONST.IMAGES.CONSOLE, function () {
-                editor.execute(CONST.ACTIONS.CONSOLE);
-            });*/
             menu.addItem('Save', null, function(){
                 Util.Save(editor.graph);
             });

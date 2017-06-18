@@ -22,7 +22,8 @@ function UIControl(geometry, style) {
     uiObj.setAttribute('uiType', this.constructor.name.toLowerCase());
 
     var comboAttr = {};
-
+    this.tagCounter = 0;
+    
     mxCell.call(this, uiObj, geometry, style);
 
     this.setVertex(true);
@@ -42,7 +43,7 @@ function UIControl(geometry, style) {
 
         var xml = mxUtils.getXml(result);
 
-        y.share.map.set(mxEvent.ADD_VERTEX, {
+        y.share.action.set(mxEvent.ADD_VERTEX, {
             userId: y.db.userId,
             id: Util.GUID(),
             data: xml
