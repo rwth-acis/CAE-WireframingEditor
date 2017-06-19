@@ -206,6 +206,7 @@ function Wireframe(container, model) {
                     if (cell && overlay) {
                         mxGraph.prototype.addCellOverlay.apply(that, [cell, overlay]);
                         cell.tagCounter++;
+                        
                     }
                     break;
                 }

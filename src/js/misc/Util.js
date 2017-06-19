@@ -1,5 +1,5 @@
 /*global y*/
-import { mxCodec, mxUtils } from './mxExport.js';
+import { mxCodec, mxUtils, mxForm } from './mxExport.js';
 
 /**
  * Some helper functions
@@ -62,5 +62,28 @@ Util.initSharedData = function (parent) {
             this.initSharedData(uiControl);
         }
     }    
+}
+
+Util.createFormFromCellAttributes = function(className, obj, entity){
+    var form = new mxForm(className);
+    var attrs = obj.attributes;
+    var attr;
+        for (var i = 0; i < attrs.length; i++) {
+            attr = attrs[i];
+            if (attr.name === 'label' || attr.name === 'uiType' || attr.name === 'tagType' || attr.name === '_id') continue; //skip the label and the ui-type
+            if (attr.value.indexOf('true') != -1 || attr.value.indexOf('false') != -1) //a boolean value
+                form.addCheckbox(attr.name, attr.value.indexOf('true') != -1 ? true : false);
+            else {
+                var values = entity.getComboAttr(attr.name);
+                if (values) {
+                    var combo = form.addCombo(attr.name);
+                    for (var j = 0; j < values.length; j++) {
+                        form.addOption(combo, values[j], values[j], attr.value === values[j]);
+                    }
+                } else
+                    form.addText(attr.name, attr.value);
+            }
+        }
+    return form;
 }
 export default Util;

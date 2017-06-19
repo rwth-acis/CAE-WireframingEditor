@@ -1,5 +1,6 @@
 import {mxCellOverlay, mxUtils, mxConstants, mxCodec, mxCodecRegistry, mxObjectCodec}  from '../misc/mxExport.js';
- 
+import Util from '../misc/Util.js';
+
  mxUtils.extend(AbstractTag, mxCellOverlay);
 
 /**
@@ -12,9 +13,25 @@ import {mxCellOverlay, mxUtils, mxConstants, mxCodec, mxCodecRegistry, mxObjectC
  * @param {*} cursor 
  */
 function AbstractTag(image, tooltip, offset, cursor){
+    var comboAttr = {};
+    var xmlDoc = mxUtils.createXmlDocument();
+    this.tagObj = xmlDoc.createElement('tagObj');
+    this.tagObj.setAttribute('tagType', this.constructor.name.toLowerCase());
+    this.tagObj.setAttribute('_id', Util.GUID());
+
     mxCellOverlay.call(this, image , tooltip, mxConstants.ALIGN_RIGHT, mxConstants.ALIGN_TOP, offset, cursor);
 
-
+    this.getComboAttr = function (name) {
+        if (comboAttr.hasOwnProperty(name))
+            return comboAttr[name];
+        else return undefined;
+    }
+    this.addComboAttr = function (name, values) {
+        if (!comboAttr.hasOwnProperty(name)) {
+            comboAttr[name] = values;
+            return true;
+        } else return false;
+    }
 }
 
 AbstractTag.prototype.toXML = function(){
