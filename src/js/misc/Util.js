@@ -70,7 +70,7 @@ Util.createFormFromCellAttributes = function(className, obj, entity){
     var attr;
         for (var i = 0; i < attrs.length; i++) {
             attr = attrs[i];
-            if (attr.name === 'label' || attr.name === 'uiType' || attr.name === 'tagType' || attr.name === '_id') continue; //skip the label and the ui-type
+            if (attr.name === 'label' || attr.name === 'uiType' || attr.name === 'tagType' || attr.name === '_id' || attr.name === '_isUnique') continue; //skip the label and the ui-type
             if (attr.value.indexOf('true') != -1 || attr.value.indexOf('false') != -1) //a boolean value
                 form.addCheckbox(attr.name, attr.value.indexOf('true') != -1 ? true : false);
             else {
@@ -85,5 +85,16 @@ Util.createFormFromCellAttributes = function(className, obj, entity){
             }
         }
     return form;
+}
+
+Util.containsTagType = function(cell, tag){
+    if(cell.hasOwnProperty('overlays') && cell.overlays){ 
+        for(var i=0;i<cell.overlays.length; i++){
+            var t = cell.overlays[i];
+            if(t.constructor.name === tag.constructor.name)
+                return true;
+        }                
+    }
+    return false;
 }
 export default Util;

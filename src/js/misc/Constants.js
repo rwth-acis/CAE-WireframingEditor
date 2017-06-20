@@ -13,7 +13,10 @@ var constants = {
         PASTE: 'paste',
         CONSOLE: 'toggleConsole',
         EXPORT: 'export',
-        IMPORT: 'import'
+        IMPORT: 'import',
+        MOVE_TAG: 'moveTag',
+        DELETE_TAG: 'deleteTag', 
+        RENAME_TAG: 'renameTag'
     },
     IMAGES: {
         COPY: 'images/toolbox/copy.png',

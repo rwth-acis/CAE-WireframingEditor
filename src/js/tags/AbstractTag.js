@@ -1,7 +1,14 @@
-import {mxCellOverlay, mxUtils, mxConstants, mxCodec, mxCodecRegistry, mxObjectCodec}  from '../misc/mxExport.js';
+import {
+    mxCellOverlay,
+    mxUtils,
+    mxConstants,
+    mxCodec,
+    mxCodecRegistry,
+    mxObjectCodec
+} from '../misc/mxExport.js';
 import Util from '../misc/Util.js';
 
- mxUtils.extend(AbstractTag, mxCellOverlay);
+mxUtils.extend(AbstractTag, mxCellOverlay);
 
 /**
  * Abstract tag class for interacitivty tags
@@ -12,14 +19,14 @@ import Util from '../misc/Util.js';
  * @param {*} offset 
  * @param {*} cursor 
  */
-function AbstractTag(image, tooltip, offset, cursor){
+function AbstractTag(image, tooltip, offset, cursor) {
     var comboAttr = {};
     var xmlDoc = mxUtils.createXmlDocument();
     this.tagObj = xmlDoc.createElement('tagObj');
     this.tagObj.setAttribute('tagType', this.constructor.name.toLowerCase());
     this.tagObj.setAttribute('_id', Util.GUID());
-
-    mxCellOverlay.call(this, image , tooltip, mxConstants.ALIGN_RIGHT, mxConstants.ALIGN_TOP, offset, cursor);
+    
+    mxCellOverlay.call(this, image, tooltip, mxConstants.ALIGN_RIGHT, mxConstants.ALIGN_TOP, offset, cursor);
 
     this.getComboAttr = function (name) {
         if (comboAttr.hasOwnProperty(name))
@@ -34,7 +41,7 @@ function AbstractTag(image, tooltip, offset, cursor){
     }
 }
 
-AbstractTag.prototype.toXML = function(){
+AbstractTag.prototype.toXML = function () {
     var encoder = new mxCodec();
     encoder.encodeDefaults = true;
     var result = encoder.encode(this);

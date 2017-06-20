@@ -28,7 +28,7 @@ $(function () {
       var htmlPalette = document.getElementById('palette');
       var palette = new Palette(htmlPalette);
 
-      var editor = new Editor(wireframe, palette, toolbox);
+      var editor = new Editor(wireframe, palette);
 
       //After the editor the add elements to window
       var xml = y.share.data.get('model');
@@ -41,7 +41,7 @@ $(function () {
       }
 
       var htmlToolbox = document.getElementById('toolbox');
-      var toolbox = new Toolbox(htmlToolbox, editor);
+      new Toolbox(htmlToolbox, editor);
 
       $('#wireframeWrap').resizable({
         handles: "n, e, s, w, se, sw, nw, ne",

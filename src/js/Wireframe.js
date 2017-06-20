@@ -15,6 +15,8 @@ import {
 import Util from './misc/Util.js';
 import UserOverlay from './overlays/UserOverlay.js';
 import EnableAwareness from './Awareness.js';
+import $ from 'jquery';
+import CONST from './misc/Constants.js';
 
 window.mxGeometry = mxGeometry;
 Wireframe.prototype = new mxGraph();
@@ -96,7 +98,7 @@ function Wireframe(container, model) {
     };
     that.addListener(mxEvent.CELLS_MOVED, SharedCellsMovedEvent);
     that.addListener(mxEvent.CELLS_RESIZED, SharedCellResizedEvent);
-  
+
     that.moveCells = function (cells, dx, dy, clone, target, evt, mapping, shared) {
         var cells = mxGraph.prototype.moveCells.apply(this, arguments);
         if (cells.length > 0 && sharedAction && !shared) {
@@ -201,13 +203,70 @@ function Wireframe(container, model) {
 
                         return obj;
                     };
-                    var overlay = codec.decode(doc.documentElement);
+                    var tag = codec.decode(doc.documentElement);
                     var cell = that.getModel().getCell(event.value.id);
-                    if (cell && overlay) {
-                        mxGraph.prototype.addCellOverlay.apply(that, [cell, overlay]);
+                    if (cell && tag) {
+                        mxGraph.prototype.addCellOverlay.apply(that, [cell, tag]);
                         cell.tagCounter++;
-                        
+                        var ref = $('#' + cell.getId() + '_tagTree').jstree(true);
+                        if (ref) {
+                            ref.create_node(null, {
+                                id: tag.tagObj.getAttribute('_id'),
+                                type: tag.constructor.name,
+                                text: tag.constructor.Alias,
+                                state: {
+                                    selected: false,
+                                    opened: true
+                                }
+                            });
+                            //if (sel) ref.edit(sel);
+                        }
                     }
+                    break;
+                }
+            case CONST.ACTIONS.MOVE_TAG:
+                {
+                    if (event.value.userId !== y.db.userId) {
+                        $('#' + event.value.cellId + '_tagTree').jstree(true).move_node(event.value.node, event.value.parent, event.value.position);
+                    }
+                    break;
+                }
+            case CONST.ACTIONS.DELETE_TAG:
+                {
+                    var $tree = $('#' + event.value.cellId + '_tagTree');
+                    if ($tree.length > 0)
+                        $tree.jstree(true).delete_node(event.value.selected);
+                    //delete attribute form of the tag
+                    $('#propertyEditor_' + event.value.cellId).find('.tagAttribute').parent().remove();
+                    var cell = that.getModel().getCell(event.value.cellId);
+                    if (cell) {
+                        for (var i = 0; i < event.value.selected.length; i++) {
+                            var id = event.value.selected[i];
+                            for (var j = 0; cell.overlays && j < cell.overlays.length; j++) {
+                                var tag = cell.overlays[j];
+                                if (tag.hasOwnProperty('tagObj') && tag.tagObj.getAttribute('_id') === id) {
+                                    that.removeCellOverlay(cell, tag);
+                                    cell.tagCounter--;
+                                }
+                            }
+                        }
+                        var k = 0;
+                        var state = that.view.getState(cell);
+                        if (state.overlays) {
+                            for (var o in state.overlays.map) {
+                                var tag = state.overlays.map[o].overlay;
+                                if (tag.constructor.name !== 'UserOverlay') {
+                                    tag.offset.x = -k * CONST.TAG.SIZE;
+                                    k++;
+                                }
+                            }
+                            that.cellRenderer.redraw(state);
+                        }
+                    }
+                    break;
+                }
+            case CONST.ACTIONS.RENAME_TAG:
+                {
                     break;
                 }
         }
