@@ -20,7 +20,6 @@ $(function () {
       window.mxGraphModel = mxGraphModel;
       var model = new mxGraphModel();
       mxLog.show();
-
       var container = document.getElementById('wireframe');
       //disable default context menu
       mxEvent.disableContextMenu(container);

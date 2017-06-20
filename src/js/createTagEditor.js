@@ -36,8 +36,8 @@ function createTagEditor(cell, $editor, graph) {
         for (var i = 0; i < supportedTags.length; i++) {
             tagForm.addOption(combo, supportedTags[i], supportedTags[i]);
         }
-        var $button = $('<button>').text('Create');
-        $button.click(function () {
+        var $createBtn = $('<button>').text('Create');
+        $createBtn.click(function () {
             var val = $tagEditor.find('td:contains("Tag") + td select option:selected').text();
             var tag = new tagAliasMap[val](new mxPoint(-CONST.TAG.SIZE * cell.tagCounter, 0));
             graph.addCellOverlay(cell, tag);
@@ -64,9 +64,7 @@ function createTagEditor(cell, $editor, graph) {
             plugins: ["dnd", "types", "wholerow"]
         });
         $tree.on('select_node.jstree', function (node, sel) {
-
-            //var $tagAttrs = $('#' + cell.getId() + '_tagAttribute');
-            $('.tagAttribute').remove();
+            $('.tagAttribute').parent().remove();
             //if ($tagAttrs.length == 0) {
                 var overlays = cell.overlays;
                 var tagId = sel.selected[0];
@@ -74,14 +72,17 @@ function createTagEditor(cell, $editor, graph) {
                     if (overlays[i].tagObj.getAttribute('_id') === tagId) {
                         var form = Util.createFormFromCellAttributes('tagAttribute', overlays[i].tagObj, overlays[i]);
                         var $tagAttrs = $('<div>').attr('id', cell.getId() + '_tagAttribute').addClass('tagAttribute').append(form.body);
-                        $tagEditor.append($tagAttrs);
+                        $tagEditor.find('tr').eq(2).append($('<td>').append($tagAttrs));
                         break;
                     }
                 }
             //}
         });
-        $tagEditor.append($('<div>').append($(tagForm.body).append($button))).append($tree);
-
+        $tagEditor.append($('<table>')
+            .append($('<tr>')
+                .append($('<td>').append($(tagForm.body)))
+                .append($('<td>').append($createBtn)))
+            .append($('<tr>').append($('<td>').append($tree))));
     }
 }
 
