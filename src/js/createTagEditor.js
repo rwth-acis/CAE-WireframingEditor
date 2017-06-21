@@ -64,9 +64,9 @@ function createTagEditor(cell, $editor, graph) {
         var $createBtn = $('<button>').text('Create');
         $createBtn.click(function () {
             var val = $tagEditor.find('td:contains("Tag") + td select option:selected').text();
-            var tag = new tagAliasMap[val](new mxPoint(-CONST.TAG.SIZE * cell.tagCounter, 0));
-            if(tag.tagObj.getAttribute('_isUnique')){
-                if(Util.containsTagType(cell, tag))//Tag type is only allowed once, so dont add it
+            var tag = new tagAliasMap[val](cell.getId(), new mxPoint(-CONST.TAG.SIZE * cell.tagCounter, 0));
+            if (tag.tagObj.getAttribute('_isUnique')) {
+                if (Util.containsTagType(cell, tag))//Tag type is only allowed once, so dont add it
                     return;
             }
             graph.addCellOverlay(cell, tag);
@@ -78,11 +78,9 @@ function createTagEditor(cell, $editor, graph) {
             var ref = $('#' + cell.getId() + '_tagTree').jstree(true);
             var sel = ref.get_selected();
             if (sel.length > 0) {
-                y.share.action.set(CONST.ACTIONS.DELETE_TAG, {cellId: cell.getId(), selected: sel});
+                y.share.action.set(CONST.ACTIONS.DELETE_TAG, { cellId: cell.getId(), selected: sel });
             }
         });
-
-
 
         var $tree = $($.parseHTML(htmlTagTree)).jstree({
             core: {
@@ -123,6 +121,7 @@ function createTagEditor(cell, $editor, graph) {
             for (var i = 0; i < overlays.length; i++) {
                 if (types.hasOwnProperty(overlays[i].constructor.name) && overlays[i].tagObj.getAttribute('_id') === tagId) {
                     var form = Util.createFormFromCellAttributes('tagAttribute', overlays[i].tagObj, overlays[i]);
+                    Util.bindSharedAttributes(overlays[i], form);
                     var $tagAttrs = $('<div>').attr('id', cell.getId() + '_tagAttribute').addClass('tagAttribute').append(form.body);
                     $tagEditor.find('tr').eq(2).append($('<td>').append($tagAttrs));
                     break;
@@ -138,11 +137,11 @@ function createTagEditor(cell, $editor, graph) {
                 node: event.node.id,
                 parent: event.parent,
                 position: event.position,
-                cellId : cell.getId()
+                cellId: cell.getId()
             });
         });
 
-        $tree.on('delete_node.jstree', function(){
+        $tree.on('delete_node.jstree', function () {
             $editor.find('.tagDel').hide();
         });
 

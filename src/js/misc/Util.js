@@ -1,5 +1,6 @@
 /*global y*/
 import { mxCodec, mxUtils, mxForm } from './mxExport.js';
+import $ from 'jquery';
 
 /**
  * Some helper functions
@@ -96,5 +97,30 @@ Util.containsTagType = function(cell, tag){
         }                
     }
     return false;
+}
+
+Util.bindSharedAttributes = function(entity, form){
+    var id = entity.getId();
+        $(form.body).find('tr').map(function (i, elem) {
+            var name = $(elem).find('td:first').text();
+            var $input = $(elem).find('input');
+            if ($input.length > 0) {
+                if ($input.attr('type') === 'text') {
+                    var ytext = y.share.attrs.get(id + '_' + name);
+                    if (ytext)
+                        ytext.bind($input[0]);
+                    //else //should actually not happen but add something to mxLog if ytext does not exists for whatever reason
+                } else if ($input.attr('type') === 'checkbox') {
+                    $input.change(function () {
+                        y.share.attrs.set(id + '_' + name, this.checked);
+                    });
+                }
+            } else {
+                $(elem).find('select').change(function () {
+                    //var optionSelected = $("option:selected", this);
+                    y.share.attrs.set(id + '_' + name, this.value);
+                });
+            }
+        });
 }
 export default Util;

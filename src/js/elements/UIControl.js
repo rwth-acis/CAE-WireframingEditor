@@ -108,4 +108,17 @@ UIControl.prototype.initShared = function () {
     if (!ytext)
         y.share.attrs.set(this.getId() + '_class', Y.Text);
 }
+UIControl.prototype.getTagById = function(id){
+    if(this.hasOwnProperty('overlays') && this.overlays){
+        for(var i=0;i<this.overlays.length; i++){
+            var tag = this.overlays[i];
+            if(tag.constructor.name !== 'UserOverlay'){
+                if(tag.tagObj.getAttribute('_id') === id){
+                    return tag;
+                }
+            }
+        }
+    }
+    return null;
+}
 export default UIControl;

@@ -7,8 +7,8 @@ import Y from 'yjs';
 mxUtils.extend(EventTag, AbstractTag);
 AbstractTag.registerCodec(EventTag);
 EventTag.Alias = CONST.TAG.ALIAS.EVENT;
-function EventTag(offset){
-    AbstractTag.call(this, new mxImage(CONST.IMAGES.EVENT_TAG, CONST.TAG.SIZE, CONST.TAG.SIZE), 'Event', offset);
+function EventTag(cellId, offset){
+    AbstractTag.call(this, cellId, new mxImage(CONST.IMAGES.EVENT_TAG, CONST.TAG.SIZE, CONST.TAG.SIZE), 'Event', offset);
    
     this.tagObj.setAttribute('eventCause', '');
     this.tagObj.setAttribute('name', '');
@@ -17,7 +17,8 @@ function EventTag(offset){
 
 EventTag.prototype.createShared = function (createdByLocalUser) {
     if (createdByLocalUser) {
-        y.share.attrs.set(this.getId() + 'name', Y.Text);
+        y.share.attrs.set(this.getId() + '_name', Y.Text);
+        y.share.attrs.set(this.getId() + '_eventCause', Y.Text);
     }
 }
 export default EventTag;

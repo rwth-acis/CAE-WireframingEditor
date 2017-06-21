@@ -7,8 +7,8 @@ import Y from 'yjs';
 mxUtils.extend(IWCReqTag, AbstractTag);
 AbstractTag.registerCodec(IWCReqTag);
 IWCReqTag.Alias = CONST.TAG.ALIAS.IWC_CALL;
-function IWCReqTag(offset){
-    AbstractTag.call(this, new mxImage(CONST.IMAGES.IWC_REQ_TAG, CONST.TAG.SIZE-4, CONST.TAG.SIZE-4), 'IWC Request', offset);
+function IWCReqTag(cellId, offset){
+    AbstractTag.call(this, cellId, new mxImage(CONST.IMAGES.IWC_REQ_TAG, CONST.TAG.SIZE-4, CONST.TAG.SIZE-4), 'IWC Request', offset);
     
     this.tagObj.setAttribute('intentAction', '');
     this.tagObj.setAttribute('content', '');

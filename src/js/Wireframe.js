@@ -188,11 +188,8 @@ function Wireframe(container, model) {
                     var codec = new mxCodec(doc);
                     codec.decode = function (node, into) {
                         var obj = null;
-
                         if (node != null && node.nodeType == mxConstants.NODETYPE_ELEMENT) {
-
                             var dec = mxCodecRegistry.getCodec(node.nodeName);
-
                             if (dec != null) {
                                 obj = dec.decode(this, node, into);
                             } else {
@@ -200,10 +197,10 @@ function Wireframe(container, model) {
                                 obj.removeAttribute('as');
                             }
                         }
-
                         return obj;
                     };
                     var tag = codec.decode(doc.documentElement);
+                    tag.createShared(y.db.userId === event.value.userId);
                     var cell = that.getModel().getCell(event.value.id);
                     if (cell && tag) {
                         mxGraph.prototype.addCellOverlay.apply(that, [cell, tag]);

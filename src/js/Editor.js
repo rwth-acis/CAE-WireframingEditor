@@ -1,5 +1,4 @@
 /*global y*/
-import $ from 'jquery';
 import {
     mxEditor,
     mxUtils,
@@ -61,17 +60,32 @@ function Editor(wireframe, palette) {
 
     y.share.attrs.observe(function (event) {
         var name;
-        var id = event.name.substring(0, event.name.indexOf('_'));
+        var arr = event.name.split('_');
+        var id = arr[0];
         var cell = that.graph.getModel().getCell(id);
-        if(event.name.indexOf('_label') != -1){
-            cell.bindLabel(event.value);
-        }else if(typeof event.value === 'boolean'){
-            name = event.name.substring(event.name.indexOf('_')+1);
-            cell.setBooleanAttributeValue(name, event.value);
-        }
-        else if(typeof event.value === 'string'){
-            name = event.name.substring(event.name.indexOf('_')+1);
-            cell.setComboAttributeValue(name, event.value);
+        if(arr.length == 2){
+            if(event.name.indexOf('_label') != -1){
+                cell.bindLabel(event.value);
+            }else if(typeof event.value === 'boolean'){
+                name = event.name.substring(event.name.indexOf('_')+1);
+                cell.setBooleanAttributeValue(name, event.value);
+            }
+            else if(typeof event.value === 'string'){
+                name = event.name.substring(event.name.indexOf('_')+1);
+                cell.setComboAttributeValue(name, event.value);
+            }
+        }else{
+            var tag = cell.getTagById(arr[0] + '_' + arr[1]);
+            if(tag){
+            if(typeof event.value === 'boolean'){
+                name = event.name.substring(event.name.lastIndexOf('_')+1);
+                tag.setBooleanAttributeValue(name, event.value);
+            }
+            else if(typeof event.value === 'string'){
+                name = event.name.substring(event.name.lastIndexOf('_')+1);
+                tag.setComboAttributeValue(name, event.value);
+            }
+            }
         }
     });
 

@@ -37,34 +37,7 @@ function PropertyEditor(cell, graph) {
         });
         return obj;
     }
-    /**
-     * Binds the shared attributes
-     * @param {mxCell} cell 
-     */
-    var bindSharedAttributes = function (cell) {
-        var id = cell.getId();
-        $(form.body).find('tr').map(function (i, elem) {
-            var name = $(elem).find('td:first').text();
-            var $input = $(elem).find('input');
-            if ($input.length > 0) {
-                if ($input.attr('type') === 'text') {
-                    var ytext = y.share.attrs.get(id + '_' + name);
-                    if (ytext)
-                        ytext.bind($input[0]);
-                    //else //should actually not happen but add something to mxLog if ytext does not exists for whatever reason
-                } else if ($input.attr('type') === 'checkbox') {
-                    $input.change(function () {
-                        y.share.attrs.set(id + '_' + name, this.checked);
-                    });
-                }
-            } else {
-                $(elem).find('select').change(function () {
-                    //var optionSelected = $("option:selected", this);
-                    y.share.attrs.set(id + '_' + name, this.value);
-                });
-            }
-        });
-    };
+    
     var htmlEditorTemplate = '<div id="propertyEditor_' + cell.getId() + '"><ul></ul>';
 
     var $htmlEditor = $('#propertyEditor_' + cell.getId());
@@ -92,7 +65,7 @@ function PropertyEditor(cell, graph) {
         propertyEditorWnd.setResizable(false);
         propertyEditorWnd.setClosable(false);
 
-        bindSharedAttributes(cell);
+        Util.bindSharedAttributes(cell, form);
 
         createTagEditor(cell, $htmlEditor, graph);
        

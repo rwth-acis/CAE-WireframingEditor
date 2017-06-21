@@ -17,6 +17,7 @@ $(function () {
     mxUtils.error('Browser is not supported!', 200, false);
   } else {
     YjsSync().done(function (y) {
+     
       window.mxGraphModel = mxGraphModel;
       var model = new mxGraphModel();
       mxLog.show();
