@@ -2,11 +2,12 @@ require(['./../css/style.css', './../../node_modules/jquery-ui/themes/base/theme
 import $ from 'jquery';
 import 'jquery-ui/ui/widgets/resizable';
 import 'jquery-ui/ui/widgets/draggable';
-import { mxClient, mxUtils, mxCodec, mxEvent, mxGraphModel, mxLog } from './misc/mxExport.js';
+import { mxClient, mxUtils, mxCodec, mxEvent, mxLog } from './misc/mxExport.js';
 import YjsSync from './misc/YjsSync.js';
 import CONST from './misc/Constants.js';
 import Util from './misc/Util.js';
 
+import WireframeModel from './WireframeModel.js';
 import Wireframe from './Wireframe.js';
 import Palette from './Palette.js';
 import Editor from './Editor.js';
@@ -18,8 +19,7 @@ $(function () {
   } else {
     YjsSync().done(function (y) {
      
-      window.mxGraphModel = mxGraphModel;
-      var model = new mxGraphModel();
+      var model = new WireframeModel();
       mxLog.show();
       var container = document.getElementById('wireframe');
       //disable default context menu
@@ -36,9 +36,9 @@ $(function () {
       if (xml) {
         var doc = mxUtils.parseXml(xml);
         var codec = new mxCodec(doc);
-        codec.decode(doc.documentElement, wireframe.getModel());
-        
-        Util.initSharedData(wireframe.getDefaultParent());
+        codec.decode(doc.documentElement, model);
+    
+        Util.initSharedData(wireframe.getDefaultParent(), wireframe);
       }
 
       var htmlToolbox = document.getElementById('toolbox');

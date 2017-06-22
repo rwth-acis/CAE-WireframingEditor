@@ -4,11 +4,20 @@ import {
     mxCodec,
     mxUtils,
     mxEvent,
-    mxCodecRegistry
+    mxCodecRegistry,
+    mxPoint
 } from './../misc/mxExport.js';
 import Util from '../misc/Util';
 import Y from 'yjs';
 import $ from 'jquery';
+import CONST from '../misc/Constants.js';
+
+import SharedTag from '../tags/SharedTag.js';
+import MicroserviceCallTag from '../tags/MicroserviceCallTag.js';
+import EventTag from '../tags/EventTag.js';
+import FunctionTag from '../tags/FunctionTag.js';
+import IWCReqTag from '../tags/IWCReqTag.js';
+import IWCRespTag from '../tags/IWCRespTag.js';
 
 UIControl.prototype = new mxCell();
 UIControl.prototype.constructor = UIControl;
@@ -20,9 +29,10 @@ function UIControl(geometry, style) {
     uiObj.setAttribute('id', '');
     uiObj.setAttribute('class', '');
     uiObj.setAttribute('uiType', this.constructor.name.toLowerCase());
-
+    var tagsObj = xmlDoc.createElement('tagRoot');
+    uiObj.append(tagsObj);
     var comboAttr = {};
-    this.tagCounter = 0;
+    var tagCounter = 0;
     
     mxCell.call(this, uiObj, geometry, style);
 
@@ -72,7 +82,57 @@ function UIControl(geometry, style) {
             return true;
         } else return false;
     }
+    this.getTagCounter = function(){
+        return tagCounter;
+    }
 
+    this.increaseTagCounter = function(){
+        tagCounter++;
+    }
+    this.decreaseTagCounter = function(){
+        tagCounter--;
+    }
+    this.addTag = function(tagObj){
+        tagsObj.append(tagObj)
+    }
+    this.createTags = function(){
+        var that = this;
+        var tags = [];
+        this.value.childNodes[0].childNodes.forEach(function(node){
+            var tag;
+            var point =  new mxPoint(-CONST.TAG.SIZE * that.getTagCounter(), 0);
+            switch(node.getAttribute('tagType')){   
+                case SharedTag.name.toLowerCase(): {
+                    tag = new SharedTag(that, point);
+                    break;
+                }
+                case MicroserviceCallTag.name.toLowerCase():{
+                    tag = new MicroserviceCallTag(that, point);
+                    break;
+                }
+                case EventTag.name.toLowerCase():{
+                    tag = new EventTag(that, point);
+                    break;
+                }
+                case FunctionTag.name.toLowerCase():{
+                    tag = new FunctionTag(that, point);
+                    break;
+                }
+                case IWCReqTag.name.toLowerCase():{
+                    tag = new IWCReqTag(that, point);
+                    break;
+                }
+                case IWCRespTag.name.toLowerCase():{
+                    tag = new IWCRespTag(that, point);
+                    break;
+                }
+            }
+            tag.tagObj = node;
+            tags.push(tag);
+            that.increaseTagCounter();
+        });
+        return tags;
+    }
     return this;
 }
 

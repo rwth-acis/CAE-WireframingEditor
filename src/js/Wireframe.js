@@ -139,7 +139,7 @@ function Wireframe(container, model) {
                 {
                     var doc = mxUtils.parseXml(event.value.data);
                     var codec = new mxCodec(doc);
-                    var elt = doc.documentElement.childNodes[0];
+                    var elt = doc.documentElement.childNodes[1];
                     var cells = [];
                     while (elt != null) {
                         var cell = codec.decode(elt);
@@ -204,7 +204,7 @@ function Wireframe(container, model) {
                     var cell = that.getModel().getCell(event.value.id);
                     if (cell && tag) {
                         mxGraph.prototype.addCellOverlay.apply(that, [cell, tag]);
-                        cell.tagCounter++;
+                        cell.increaseTagCounter();
                         var ref = $('#' + cell.getId() + '_tagTree').jstree(true);
                         if (ref) {
                             ref.create_node(null, {
@@ -243,7 +243,7 @@ function Wireframe(container, model) {
                                 var tag = cell.overlays[j];
                                 if (tag.hasOwnProperty('tagObj') && tag.tagObj.getAttribute('_id') === id) {
                                     that.removeCellOverlay(cell, tag);
-                                    cell.tagCounter--;
+                                    cell.decreaseTagCounter();
                                 }
                             }
                         }

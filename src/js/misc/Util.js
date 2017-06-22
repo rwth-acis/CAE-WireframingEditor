@@ -1,5 +1,5 @@
 /*global y*/
-import { mxCodec, mxUtils, mxForm } from './mxExport.js';
+import { mxCodec, mxUtils, mxForm, mxGraph } from './mxExport.js';
 import $ from 'jquery';
 
 /**
@@ -54,13 +54,18 @@ Util.Save = function (graph) {
     y.share.data.set('model', xml);
 }
 
-Util.initSharedData = function (parent) {
+Util.initSharedData = function (parent, graph) {
     var uiControl;
     for (var i = 0; i < parent.children.length; i++) {
         uiControl = parent.children[i];
         uiControl.initShared();
+        var tags = uiControl.createTags();
+        for(var j=0; j<tags.length;j++){
+            mxGraph.prototype.addCellOverlay.apply(graph, [uiControl, tags[j]]);
+            tags[j].initShared();
+        }
         if(uiControl.constructor.name === 'DivContainer'){
-            this.initSharedData(uiControl);
+            this.initSharedData(uiControl, graph);
         }
     }    
 }

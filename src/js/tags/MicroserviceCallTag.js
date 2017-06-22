@@ -26,4 +26,25 @@ MicroserviceCallTag.prototype.createShared = function (createdByLocalUser) {
     }
 }
 
+MicroserviceCallTag.prototype.initShared = function(){
+    var ytext = y.share.attrs.get(this.getId() + '_path', Y.Text);
+    if (!ytext)
+        y.share.attrs.set(this.getId() + '_path', Y.Text);
+
+    ytext = y.share.attrs.get(this.getId() + '_content', Y.Text);
+    if (!ytext)
+        y.share.attrs.set(this.getId() + '_content', Y.Text);
+
+    var val = y.share.attrs.get(this.getId() + '_authorize');
+    if (val)
+        this.setBooleanAttributeValue('authorize', val);
+    
+    val = y.share.attrs.get(this.getId() + '_methodType');
+    if (val)
+        this.setComboAttributeValue('methodType', val);
+    
+    val = y.share.attrs.get(this.getId() + '_contentType');
+    if (val)
+        this.setComboAttributeValue('contentType', val);
+}
 export default MicroserviceCallTag;

@@ -24,4 +24,14 @@ FunctionTag.prototype.createShared = function (createdByLocalUser) {
     }
 }
 
+FunctionTag.prototype.initShared = function(){
+    var ytext = y.share.attrs.get(this.getId() + '_name', Y.Text);
+    if (!ytext)
+        y.share.attrs.set(this.getId() + '_name', Y.Text);
+
+    ytext = y.share.attrs.get(this.getId() + '_returnParameter', Y.Text);
+    if (!ytext)
+        y.share.attrs.set(this.getId() + '_returnParameter', Y.Text);
+}
+
 export default FunctionTag;

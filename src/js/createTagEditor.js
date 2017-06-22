@@ -64,7 +64,7 @@ function createTagEditor(cell, $editor, graph) {
         var $createBtn = $('<button>').text('Create');
         $createBtn.click(function () {
             var val = $tagEditor.find('td:contains("Tag") + td select option:selected').text();
-            var tag = new tagAliasMap[val](cell.getId(), new mxPoint(-CONST.TAG.SIZE * cell.tagCounter, 0));
+            var tag = new tagAliasMap[val](cell, new mxPoint(-CONST.TAG.SIZE * cell.getTagCounter(), 0));
             if (tag.tagObj.getAttribute('_isUnique')) {
                 if (Util.containsTagType(cell, tag))//Tag type is only allowed once, so dont add it
                     return;

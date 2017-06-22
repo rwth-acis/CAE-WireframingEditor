@@ -15,7 +15,6 @@ var mxClient = mxLib.mxClient;
 var mxEditor = mxLib.mxEditor;
 var mxGraph = mxLib.mxGraph;
 var mxGraphModel = mxLib.mxGraphModel;
-
 var mxCell = mxLib.mxCell;
 window.mxCell = mxCell; //for the encoding and decoding
 

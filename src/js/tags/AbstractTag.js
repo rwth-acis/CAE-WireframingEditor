@@ -20,13 +20,16 @@ mxUtils.extend(AbstractTag, mxCellOverlay);
  * @param {mxPoint} offset 
  * @param {*} cursor 
  */
-function AbstractTag(cellId, image, tooltip, offset, cursor) {
+function AbstractTag(cell, image, tooltip, offset, cursor) {
     var comboAttr = {};
     var xmlDoc = mxUtils.createXmlDocument();
     this.tagObj = xmlDoc.createElement('tagObj');
     this.tagObj.setAttribute('tagType', this.constructor.name.toLowerCase());
-    this.tagObj.setAttribute('_id', cellId + '_'+ Util.GUID());
     
+    if(cell){    
+        this.tagObj.setAttribute('_id', cell.getId() + '_'+ Util.GUID());
+        cell.addTag(this.tagObj);
+    }
     mxCellOverlay.call(this, image, tooltip, mxConstants.ALIGN_RIGHT, mxConstants.ALIGN_TOP, offset, cursor);
 
     this.getId = function(){
@@ -75,4 +78,5 @@ AbstractTag.prototype.setComboAttributeValue = function (name, value) {
 AbstractTag.prototype.createShared = function(){
     //nothing to do here
 }
+AbstractTag.prototype.initShared = function(){}
 export default AbstractTag;
