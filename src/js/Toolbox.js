@@ -103,6 +103,10 @@ function Toolbox(container, editor) {
         input.click();
     });
 
+    editor.addAction(CONST.ACTIONS.SAVE, function(){
+        Util.Save(editor.graph);
+    })
+
     y.share.action.observe(function (event) {
         switch (event.name) {
             case mxEvent.UNDO:
@@ -185,6 +189,9 @@ function Toolbox(container, editor) {
         return item;
     }
 
+    this.addSeparator();
+    var item = this.addItem('Save', CONST.IMAGES.SAVE, CONST.ACTIONS.SAVE);
+    $(item).addClass('wfSave');
     this.addSeparator();
     this.addItem("Copy", CONST.IMAGES.COPY, CONST.ACTIONS.COPY);
     this.addItem("Paste", CONST.IMAGES.PASTE, CONST.ACTIONS.SHARED.PASTE);

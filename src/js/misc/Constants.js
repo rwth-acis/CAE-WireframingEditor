@@ -16,7 +16,8 @@ var constants = {
         IMPORT: 'import',
         MOVE_TAG: 'moveTag',
         DELETE_TAG: 'deleteTag', 
-        RENAME_TAG: 'renameTag'
+        RENAME_TAG: 'renameTag',
+        SAVE : 'save'
     },
     IMAGES: {
         COPY: 'images/toolbox/copy.png',
@@ -37,7 +38,8 @@ var constants = {
         FUNC_TAG: 'images/tags/func.png',
         IWC_REQ_TAG: 'images/tags/IWCRequest.png',
         IWC_RESP_TAG: 'images/tags/IWCResponse.png',
-        DEFAULT_USER: 'images/user.png'
+        DEFAULT_USER: 'images/user.png',
+        SAVE : 'images/toolbox/save.png'
     },
     TAG: {
         SIZE: 20,

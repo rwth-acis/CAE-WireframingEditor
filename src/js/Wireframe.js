@@ -264,9 +264,12 @@ function Wireframe(container, model) {
                 }
             case CONST.ACTIONS.RENAME_TAG:
                 {
+                    //TODO
                     break;
                 }
         }
+        if(event.value.userId === y.db.userId)
+            Util.Save(that);
     });
     //------------------------------------------------------------------------------------------------------------------------
     //--------------------------------------End Yjs Observer for actions------------------------------------------------------
@@ -280,6 +283,7 @@ function Wireframe(container, model) {
                     var elt = cell.value.cloneNode(true);
                     elt.setAttribute('label', cell.get$node().val());
                     that.model.setValue(cell, elt);
+                    Util.Save(that);
                 });
                 cell.get$node().css('width', cell.geometry.width - 15).css('height', cell.geometry.height - 15);
 

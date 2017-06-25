@@ -8,7 +8,8 @@
     "build": "webpack --env=dev --progress --profile --colors",
     "start": "webpack-dev-server",
     "build:dev": "webpack --env=dev --progress --profile --colors",
-    "build:dist": "webpack --env=prod --progress --profile --colors --optimize-minimize"
+    "build:dist": "webpack --env=prod --progress --profile --colors --optimize-minimize",
+    "test:mocha": "mocha test"
   },
   "author": "Mario Rosenstengel",
   "license": "MIT",
@@ -19,6 +20,8 @@
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.11.1",
     "html-webpack-plugin": "^2.28.0",
+    "mocha": "^3.4.2",
+    "mocha-loader": "^1.1.1",
     "style-loader": "^0.18.1",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"

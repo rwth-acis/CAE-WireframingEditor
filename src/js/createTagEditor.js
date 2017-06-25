@@ -66,7 +66,7 @@ function createTagEditor(cell, $editor, graph) {
             var val = $tagEditor.find('td:contains("Tag") + td select option:selected').text();
             var tag = new tagAliasMap[val](cell, new mxPoint(-CONST.TAG.SIZE * cell.getTagCounter(), 0));
             if (tag.tagObj.getAttribute('_isUnique')) {
-                if (Util.containsTagType(cell, tag))//Tag type is only allowed once, so dont add it
+                if (cell.containsTagType(tag))//Tag type is only allowed once, so dont add it
                     return;
             }
             graph.addCellOverlay(cell, tag);

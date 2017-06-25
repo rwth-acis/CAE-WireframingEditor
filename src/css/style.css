@@ -268,3 +268,7 @@
 .tagAttribute {
     display: inline-block;
 }
+
+.wfSave {
+    opacity: 0.5;
+}

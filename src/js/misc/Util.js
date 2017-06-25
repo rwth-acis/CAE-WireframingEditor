@@ -52,6 +52,12 @@ Util.Save = function (graph) {
     var result = encoder.encode(graph.getModel());
     var xml = mxUtils.getXml(result);
     y.share.data.set('model', xml);
+    var $save = $('.wfSave');
+    $save.css('opacity', 1.0);
+
+    setTimeout(function(){
+        $save.css('opacity', 0.5);
+    }, 750);
 }
 
 Util.initSharedData = function (parent, graph) {
@@ -91,17 +97,6 @@ Util.createFormFromCellAttributes = function(className, obj, entity){
             }
         }
     return form;
-}
-
-Util.containsTagType = function(cell, tag){
-    if(cell.hasOwnProperty('overlays') && cell.overlays){ 
-        for(var i=0;i<cell.overlays.length; i++){
-            var t = cell.overlays[i];
-            if(t.constructor.name === tag.constructor.name)
-                return true;
-        }                
-    }
-    return false;
 }
 
 Util.bindSharedAttributes = function(entity, form){

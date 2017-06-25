@@ -1,4 +1,3 @@
-/*global y*/
 import {
     mxWindow
 } from './misc/mxExport.js';
@@ -40,6 +39,7 @@ function PropertyEditor(cell, graph) {
     
     var htmlEditorTemplate = '<div id="propertyEditor_' + cell.getId() + '"><ul></ul>';
 
+    //Check if property editor already exists
     var $htmlEditor = $('#propertyEditor_' + cell.getId());
     if ($htmlEditor.length == 0) {
         var $htmlEditor = $($.parseHTML(htmlEditorTemplate)[0]);
@@ -58,6 +58,7 @@ function PropertyEditor(cell, graph) {
             var data = serializeForm(form);
             cell.setValueFromJson(data);
             propertyEditorWnd.destroy();
+            Util.Save(graph);
         }).text('Ok'));
         var propertyEditorWnd = new mxWindow("Properties", $htmlEditor[0], '300', '200', '100%', '40%', true, true);
         propertyEditorWnd.setVisible(true);
