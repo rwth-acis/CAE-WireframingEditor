@@ -16,9 +16,9 @@ function RadioButton(geometry) {
     if (!geometry)
         geometry = new mxGeometry(0, 0, 150, 30);
     UIText.call(this, text, geometry);
-    this.value.setAttribute('checked', false);
-    this.value.setAttribute('autofocus', false);
-    this.value.setAttribute('disabled', false);
+    this.value.setAttribute('_checked', false);
+    this.value.setAttribute('_autofocus', false);
+    this.value.setAttribute('_disabled', false);
 
     this.initDOM = function () {
         this.set$node
@@ -42,12 +42,12 @@ RadioButton.prototype.initShared = function () {
     UIText.prototype.initShared.call(this);
     var val = y.share.attrs.get(this.getId() + '_checked');
     if (val)
-        this.setBooleanAttributeValue('checked', val);
+        this.setBooleanAttributeValue('_checked', val);
     val = y.share.attrs.get(this.getId() + '_autofocus');
     if (val)
-        this.setBooleanAttributeValue('autofocus', val);
+        this.setBooleanAttributeValue('_autofocus', val);
     val = y.share.attrs.get(this.getId() + '_disabled');
     if (val)
-        this.setBooleanAttributeValue('disabled', val);
+        this.setBooleanAttributeValue('_disabled', val);
 }
 export default RadioButton;

@@ -10,13 +10,13 @@ MicroserviceCallTag.Alias = CONST.TAG.ALIAS.MICRO_CALL;
 function MicroserviceCallTag(cellId, offset) {
     AbstractTag.call(this, cellId, new mxImage(CONST.IMAGES.MICROSERVICECALL, CONST.TAG.SIZE, CONST.TAG.SIZE), 'Microservice call', offset);
 
-    this.tagObj.setAttribute('methodType', 'GET');
-    this.tagObj.setAttribute('contentType', 'application/json');
-    this.tagObj.setAttribute('path', '');
-    this.tagObj.setAttribute('authorize', true);
-    this.tagObj.setAttribute('content', '');
-    this.addComboAttr('methodType',  ['GET', 'POST', 'PUT', 'DELETE']);
-    this.addComboAttr('contentType',  ['application/json', 'text/plain', 'CUSTOM']);
+    this.tagObj.setAttribute('_methodType', 'GET');
+    this.tagObj.setAttribute('_contentType', 'application/json');
+    this.tagObj.setAttribute('_path', '');
+    this.tagObj.setAttribute('_authorize', true);
+    this.tagObj.setAttribute('_content', '');
+    this.addComboAttr('_methodType',  ['GET', 'POST', 'PUT', 'DELETE']);
+    this.addComboAttr('_contentType',  ['application/json', 'text/plain', 'CUSTOM']);
 }
 
 MicroserviceCallTag.prototype.createShared = function (createdByLocalUser) {
@@ -37,14 +37,14 @@ MicroserviceCallTag.prototype.initShared = function(){
 
     var val = y.share.attrs.get(this.getId() + '_authorize');
     if (val)
-        this.setBooleanAttributeValue('authorize', val);
+        this.setBooleanAttributeValue('_authorize', val);
     
     val = y.share.attrs.get(this.getId() + '_methodType');
     if (val)
-        this.setComboAttributeValue('methodType', val);
+        this.setComboAttributeValue('_methodType', val);
     
     val = y.share.attrs.get(this.getId() + '_contentType');
     if (val)
-        this.setComboAttributeValue('contentType', val);
+        this.setComboAttributeValue('_contentType', val);
 }
 export default MicroserviceCallTag;

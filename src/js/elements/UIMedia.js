@@ -7,13 +7,13 @@ UIMedia.prototype.constructor = UIMedia;
 
 function UIMedia(geometry, style) {
     UIControl.call(this, geometry, style);
-    this.value.setAttribute('src', '');
-    this.value.setAttribute('controls', true);
-    this.value.setAttribute('autoplay', false);
-    this.value.setAttribute('muted', false);
-    this.value.setAttribute('loop', false);
-    this.value.setAttribute('preload', 'auto');
-    this.addComboAttr('preload',  ['auto', 'metadata', 'none']);
+    this.value.setAttribute('_src', '');
+    this.value.setAttribute('_controls', true);
+    this.value.setAttribute('_autoplay', false);
+    this.value.setAttribute('_muted', false);
+    this.value.setAttribute('_loop', false);
+    this.value.setAttribute('_preload', 'auto');
+    this.addComboAttr('_preload',  ['auto', 'metadata', 'none']);
 
     return this;
 }
@@ -30,23 +30,23 @@ UIMedia.prototype.initShared = function(){
 
     var val = y.share.attrs.get(this.getId() + '_controls');
     if (val)
-        this.setBooleanAttributeValue('controls', val);
+        this.setBooleanAttributeValue('_controls', val);
 
     val = y.share.attrs.get(this.getId() + '_autoplay');
     if (val)
-        this.setBooleanAttributeValue('autoplay', val);
+        this.setBooleanAttributeValue('_autoplay', val);
 
     val = y.share.attrs.get(this.getId() + '_muted');
     if (val)
-        this.setBooleanAttributeValue('muted', val);
+        this.setBooleanAttributeValue('_muted', val);
 
     val = y.share.attrs.get(this.getId() + '_loop');
     if (val)
-        this.setBooleanAttributeValue('loop', val);
+        this.setBooleanAttributeValue('_loop', val);
     
     val = y.share.attrs.get(this.getId() + '_preload');
     if (val && typeof val === 'string')
-        this.setComboAttributeValue('preload', val);
+        this.setComboAttributeValue('_preload', val);
 }
 
 UIMedia.registerCodec = function(ctor){

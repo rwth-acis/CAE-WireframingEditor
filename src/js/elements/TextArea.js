@@ -17,13 +17,13 @@ function TextArea(geometry) {
         geometry = new mxGeometry(0, 0, 320, 80);
 
     UIText.call(this, text, geometry);
-    this.value.setAttribute('placeholder', '');
-    this.value.setAttribute('autofocus', false);
-    this.value.setAttribute('maxlength', '');
-    this.value.setAttribute('readonly', false);
-    this.value.setAttribute('disabled', false);
-    this.value.setAttribute('cols', '');
-    this.value.setAttribute('rows', '');
+    this.value.setAttribute('_placeholder', '');
+    this.value.setAttribute('_autofocus', false);
+    this.value.setAttribute('_maxlength', '');
+    this.value.setAttribute('_readonly', false);
+    this.value.setAttribute('_disabled', false);
+    this.value.setAttribute('_cols', '');
+    this.value.setAttribute('_rows', '');
     this.initDOM = function () {
         UIText.prototype.initDOM.call(this, 'textarea');
         var $node = this.get$node()
@@ -64,14 +64,14 @@ TextArea.prototype.initShared = function(){
 
     var val = y.share.attrs.get(this.getId() + '_autofocus');
     if (val)
-        this.setBooleanAttributeValue('autofocus', val);
+        this.setBooleanAttributeValue('_autofocus', val);
     
     val = y.share.attrs.get(this.getId() + '_readonly');
     if (val)
-        this.setBooleanAttributeValue('readonly', val);
+        this.setBooleanAttributeValue('_readonly', val);
     
     val = y.share.attrs.get(this.getId() + '_disabled');
     if (val)
-        this.setBooleanAttributeValue('disabled', val);
+        this.setBooleanAttributeValue('_disabled', val);
 }
 export default TextArea;

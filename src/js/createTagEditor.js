@@ -65,7 +65,7 @@ function createTagEditor(cell, $editor, graph) {
         $createBtn.click(function () {
             var val = $tagEditor.find('td:contains("Tag") + td select option:selected').text();
             var tag = new tagAliasMap[val](cell, new mxPoint(-CONST.TAG.SIZE * cell.getTagCounter(), 0));
-            if (tag.tagObj.getAttribute('_isUnique')) {
+            if (tag.tagObj.getAttribute('isUnique')) {
                 if (cell.containsTagType(tag))//Tag type is only allowed once, so dont add it
                     return;
             }
@@ -101,7 +101,7 @@ function createTagEditor(cell, $editor, graph) {
                 var tag = overlays[i];
                 if (types.hasOwnProperty(tag.constructor.name)) {
                     $tree.jstree(true).create_node(null, {
-                        id: tag.tagObj.getAttribute('_id'),
+                        id: tag.tagObj.getAttribute('id'),
                         type: tag.constructor.name,
                         text: tag.constructor.Alias,
                         state: {
@@ -119,7 +119,7 @@ function createTagEditor(cell, $editor, graph) {
             var overlays = cell.overlays;
             var tagId = sel.selected[0];
             for (var i = 0; i < overlays.length; i++) {
-                if (types.hasOwnProperty(overlays[i].constructor.name) && overlays[i].tagObj.getAttribute('_id') === tagId) {
+                if (types.hasOwnProperty(overlays[i].constructor.name) && overlays[i].tagObj.getAttribute('id') === tagId) {
                     var form = Util.createFormFromCellAttributes('tagAttribute', overlays[i].tagObj, overlays[i]);
                     Util.bindSharedAttributes(overlays[i], form);
                     var $tagAttrs = $('<div>').attr('id', cell.getId() + '_tagAttribute').addClass('tagAttribute').append(form.body);
@@ -139,6 +139,7 @@ function createTagEditor(cell, $editor, graph) {
                 position: event.position,
                 cellId: cell.getId()
             });
+
         });
 
         $tree.on('delete_node.jstree', function () {

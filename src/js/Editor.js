@@ -67,22 +67,22 @@ function Editor(wireframe, palette) {
             if(event.name.indexOf('_label') != -1){
                 cell.bindLabel(event.value);
             }else if(typeof event.value === 'boolean'){
-                name = event.name.substring(event.name.indexOf('_')+1);
+                name = event.name.substring(event.name.indexOf('_'));
                 cell.setBooleanAttributeValue(name, event.value);
             }
             else if(typeof event.value === 'string'){
-                name = event.name.substring(event.name.indexOf('_')+1);
+                name = event.name.substring(event.name.indexOf('_'));
                 cell.setComboAttributeValue(name, event.value);
             }
         }else{
             var tag = cell.getTagById(arr[0] + '_' + arr[1]);
             if(tag){
             if(typeof event.value === 'boolean'){
-                name = event.name.substring(event.name.lastIndexOf('_')+1);
+                name = event.name.substring(event.name.lastIndexOf('_'));
                 tag.setBooleanAttributeValue(name, event.value);
             }
             else if(typeof event.value === 'string'){
-                name = event.name.substring(event.name.lastIndexOf('_')+1);
+                name = event.name.substring(event.name.lastIndexOf('_'));
                 tag.setComboAttributeValue(name, event.value);
             }
             }

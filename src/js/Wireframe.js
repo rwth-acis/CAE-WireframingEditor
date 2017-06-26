@@ -205,10 +205,11 @@ function Wireframe(container, model) {
                     if (cell && tag) {
                         mxGraph.prototype.addCellOverlay.apply(that, [cell, tag]);
                         cell.increaseTagCounter();
+                        cell.addTag(tag);
                         var ref = $('#' + cell.getId() + '_tagTree').jstree(true);
                         if (ref) {
                             ref.create_node(null, {
-                                id: tag.tagObj.getAttribute('_id'),
+                                id: tag.tagObj.getAttribute('id'),
                                 type: tag.constructor.name,
                                 text: tag.constructor.Alias,
                                 state: {
@@ -241,7 +242,7 @@ function Wireframe(container, model) {
                             var id = event.value.selected[i];
                             for (var j = 0; cell.overlays && j < cell.overlays.length; j++) {
                                 var tag = cell.overlays[j];
-                                if (tag.hasOwnProperty('tagObj') && tag.tagObj.getAttribute('_id') === id) {
+                                if (tag.hasOwnProperty('tagObj') && tag.tagObj.getAttribute('id') === id) {
                                     that.removeCellOverlay(cell, tag);
                                     cell.decreaseTagCounter();
                                 }
@@ -260,6 +261,7 @@ function Wireframe(container, model) {
                             that.cellRenderer.redraw(state);
                         }
                     }
+                    
                     break;
                 }
             case CONST.ACTIONS.RENAME_TAG:

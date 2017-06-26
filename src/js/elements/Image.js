@@ -23,7 +23,7 @@ function Image(geometry) {
         mxConstants.STYLE_EDITABLE + "=0;";
 
     UIControl.call(this, geometry, style);
-    this.setAttribute('src','');
+    this.setAttribute('_src','');
     return this;
 }
 Image.prototype.createShared = function(createdByLocalUser){

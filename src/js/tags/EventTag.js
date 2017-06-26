@@ -10,8 +10,8 @@ EventTag.Alias = CONST.TAG.ALIAS.EVENT;
 function EventTag(cellId, offset){
     AbstractTag.call(this, cellId, new mxImage(CONST.IMAGES.EVENT_TAG, CONST.TAG.SIZE, CONST.TAG.SIZE), 'Event', offset);
    
-    this.tagObj.setAttribute('eventCause', '');
-    this.tagObj.setAttribute('name', '');
+    this.tagObj.setAttribute('_eventCause', '');
+    this.tagObj.setAttribute('_name', '');
 }
 
 EventTag.prototype.createShared = function (createdByLocalUser) {

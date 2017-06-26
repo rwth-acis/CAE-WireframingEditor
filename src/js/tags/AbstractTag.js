@@ -6,13 +6,14 @@ import {
     mxCodecRegistry,
     mxObjectCodec
 } from '../misc/mxExport.js';
-import Util from '../misc/Util.js';
 import $ from 'jquery';
+import Util from '../misc/Util.js';
 
 mxUtils.extend(AbstractTag, mxCellOverlay);
 
 /**
  * Abstract tag class for interacitivty tags
+ * @param {UIControl | AbstractTag} entity
  * @param {mxImage} image 
  * @param {string} tooltip 
  * @param {string} align 
@@ -20,20 +21,18 @@ mxUtils.extend(AbstractTag, mxCellOverlay);
  * @param {mxPoint} offset 
  * @param {*} cursor 
  */
-function AbstractTag(cell, image, tooltip, offset, cursor) {
+function AbstractTag(entity, image, tooltip, offset, cursor) {
     var comboAttr = {};
     var xmlDoc = mxUtils.createXmlDocument();
     this.tagObj = xmlDoc.createElement('tagObj');
     this.tagObj.setAttribute('tagType', this.constructor.name.toLowerCase());
-    
-    if(cell){    
-        this.tagObj.setAttribute('_id', cell.getId() + '_'+ Util.GUID());
-        cell.addTag(this.tagObj);
-    }
+    this.tagObj.setAttribute('parent', '#');
     mxCellOverlay.call(this, image, tooltip, mxConstants.ALIGN_RIGHT, mxConstants.ALIGN_TOP, offset, cursor);
-
+    if(entity)
+        this.tagObj.setAttribute('id', entity.getId() + '_'+ Util.GUID());
+    
     this.getId = function(){
-        return this.tagObj.getAttribute('_id');
+        return this.tagObj.getAttribute('id');
     }
 
     this.getComboAttr = function (name) {
@@ -47,6 +46,7 @@ function AbstractTag(cell, image, tooltip, offset, cursor) {
             return true;
         } else return false;
     }
+    
 }
 
 AbstractTag.prototype.toXML = function () {
@@ -64,19 +64,20 @@ AbstractTag.registerCodec = function (ctor) {
 AbstractTag.prototype.setBooleanAttributeValue = function (name, value) {
     this.tagObj.setAttribute(name, value);
     var id = this.getId().substring(0, this.getId().indexOf('_'));
-    var $input = $('#' + id + '_tagAttribute').find('td:contains(' + name + ') + td input');
+    var $input = $('#' + id + '_tagAttribute').find('td:contains(' + name.substr(1) + ') + td input');
     if ($input.length > 0)
         $input[0].checked = value;
 }
 AbstractTag.prototype.setComboAttributeValue = function (name, value) {
     this.tagObj.setAttribute(name, value);
     var id = this.getId().substring(0, this.getId().indexOf('_'));
-    var $select = $('#' + id + '_tagAttribute').find('td:contains(' + name + ') + td select');
+    var $select = $('#' + id + '_tagAttribute').find('td:contains(' + name.substr(1) + ') + td select');
     if ($select.length > 0)
         $select.find('option[value="' + value + '"]').prop('selected', true);
 }
 AbstractTag.prototype.createShared = function(){
     //nothing to do here
 }
+
 AbstractTag.prototype.initShared = function(){}
 export default AbstractTag;

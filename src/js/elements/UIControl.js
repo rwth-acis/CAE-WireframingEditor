@@ -23,15 +23,20 @@ UIControl.prototype = new mxCell();
 UIControl.prototype.constructor = UIControl;
 window.UIControl = UIControl;
 
+/**
+ * Base class for all UI components of the editor
+ * @param {mxGeometry} geometry 
+ * @param {string} style 
+ */
 function UIControl(geometry, style) {
     var that = this;
     var xmlDoc = mxUtils.createXmlDocument();
     var uiObj = xmlDoc.createElement('uiObj');
-    uiObj.setAttribute('id', '');
-    uiObj.setAttribute('class', '');
+    uiObj.setAttribute('_id', '');
+    uiObj.setAttribute('_class', '');
     uiObj.setAttribute('uiType', this.constructor.name.toLowerCase());
-    var tagsObj = xmlDoc.createElement('tagRoot');
-    uiObj.append(tagsObj);
+    var tagRoot = xmlDoc.createElement('tagRoot');
+    uiObj.append(tagRoot);
     var comboAttr = {};
     var tagCounter = 0;
 
@@ -39,7 +44,7 @@ function UIControl(geometry, style) {
 
     this.setVertex(true);
 
-    this.funct = function (wf, evt /*, cell*/ ) {
+    this.funct = function (wf, evt /*, cell*/) {
         wf.stopEditing(false);
 
         //encode UIControl
@@ -93,15 +98,16 @@ function UIControl(geometry, style) {
     this.decreaseTagCounter = function () {
         tagCounter--;
     }
-    this.addTag = function (tagObj) {
-        tagsObj.append(tagObj)
+    this.addTag = function (tag) {
+        //tagRoot.append(tag.tagObj);
+        uiObj.getElementsByTagName('tagRoot')[0].appendChild(tag.tagObj);
+        this.value = uiObj;
     }
     this.createTags = function () {
         var that = this;
         var tags = [];
-        this.value.childNodes[0].childNodes.forEach(function (node) {
+        var _createTag = function (node, point) {
             var tag;
-            var point = new mxPoint(-CONST.TAG.SIZE * that.getTagCounter(), 0);
             switch (node.getAttribute('tagType')) {
                 case SharedTag.name.toLowerCase():
                     {
@@ -134,10 +140,21 @@ function UIControl(geometry, style) {
                         break;
                     }
             }
+            return tag;
+        }
+        var children = this.value.childNodes[0].childNodes;
+        do{
+            var node = children[0];
+            var point = new mxPoint(-CONST.TAG.SIZE * that.getTagCounter(), 0);
+            var tag = _createTag(node, point);
             tag.tagObj = node;
             tags.push(tag);
+            tagRoot.append(tag.tagObj);
             that.increaseTagCounter();
-        });
+        }
+        while(children.length > 0);
+            
+        
         return tags;
     }
 
@@ -157,13 +174,13 @@ UIControl.prototype.createShared = function (createdByLocalUser) {
 }
 UIControl.prototype.setBooleanAttributeValue = function (name, value) {
     this.value.setAttribute(name, value);
-    var $input = $('#propertyEditor_' + this.getId() + ' #attributesTab').find('td:contains(' + name + ') + td input');
+    var $input = $('#propertyEditor_' + this.getId() + ' #attributesTab').find('td:contains(' + name.substr(1) + ') + td input');
     if ($input.length > 0)
         $input[0].checked = value;
 }
 UIControl.prototype.setComboAttributeValue = function (name, value) {
     this.value.setAttribute(name, value);
-    var $select = $('#propertyEditor_' + this.getId() + ' #attributesTab').find('td:contains(' + name + ') + td select');
+    var $select = $('#propertyEditor_' + this.getId() + ' #attributesTab').find('td:contains(' + name.substr(1) + ') + td select');
     if ($select.length > 0)
         $select.find('option[value=' + value + ']').prop('selected', true);
 }
@@ -181,7 +198,7 @@ UIControl.prototype.getTagById = function (id) {
         for (var i = 0; i < this.overlays.length; i++) {
             var tag = this.overlays[i];
             if (tag.constructor.name !== 'UserOverlay') {
-                if (tag.tagObj.getAttribute('_id') === id) {
+                if (tag.tagObj.getAttribute('id') === id) {
                     return tag;
                 }
             }
@@ -189,6 +206,7 @@ UIControl.prototype.getTagById = function (id) {
     }
     return null;
 }
+
 UIControl.prototype.containsTagType = function (tag) {
     if (this.hasOwnProperty('overlays') && this.overlays) {
         for (var i = 0; i < this.overlays.length; i++) {

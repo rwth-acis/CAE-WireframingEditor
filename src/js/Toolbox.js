@@ -16,6 +16,11 @@ import CONST from './misc/Constants.js';
 Toolbox.prototype = new mxDefaultToolbar();
 Toolbox.prototype.constructor = Toolbox;
 
+/**
+ * The toolbox of the editor
+ * @param {DOM} container 
+ * @param {mxEditor} editor 
+ */
 function Toolbox(container, editor) {
     mxDefaultToolbar.call(this, container, editor);
 
@@ -119,7 +124,9 @@ function Toolbox(container, editor) {
                     that._editor.undo();
                 break;
             case mxEvent.REDO:
-                //that._editor.execute("redo");
+            /**
+ * 
+ */    //that._editor.execute("redo");
                 if (event.value !== y.db.userId) {
                     var cells = that._editor.graph.getSelectionCells();
                     that._editor.redo();

@@ -18,10 +18,10 @@ function TextBox(geometry) {
     if(!geometry)
         geometry = new mxGeometry(0, 0, 120, 30);
     UIText.call(this, text, geometry);
-    this.setAttribute('autofocus', false);
-    this.setAttribute('disabled', false);
-    this.setAttribute('autocomplete', 'off');
-    this.addComboAttr('autocomplete',  ['off', 'on']);
+    this.setAttribute('_autofocus', false);
+    this.setAttribute('_disabled', false);
+    this.setAttribute('_autocomplete', 'off');
+    this.addComboAttr('_autocomplete',  ['off', 'on']);
     this.initDOM = function(){
         UIText.prototype.initDOM.call(this);
         var $node =this.get$node()
@@ -34,12 +34,12 @@ TextBox.prototype.initShared = function(){
     UIText.prototype.initShared.call(this);
     var val = y.share.attrs.get(this.getId() + '_disabled');
     if (val)
-        this.setBooleanAttributeValue('disabled', val);
+        this.setBooleanAttributeValue('_disabled', val);
     val = y.share.attrs.get(this.getId() + '_autofocus');
     if (val)
-        this.setBooleanAttributeValue('autofocus', val);
+        this.setBooleanAttributeValue('_autofocus', val);
     val = y.share.attrs.get(this.getId() + '_autocomplete');
     if (val && typeof val === 'string')
-        this.setComboAttributeValue('autocomplete', val);
+        this.setComboAttributeValue('_autocomplete', val);
 }   
 export default TextBox;

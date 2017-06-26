@@ -49,6 +49,7 @@ Util.GUID = function () {
 
 Util.Save = function (graph) {
     var encoder = new mxCodec();
+    //encoder.encodeDefaults = true;
     var result = encoder.encode(graph.getModel());
     var xml = mxUtils.getXml(result);
     y.share.data.set('model', xml);
@@ -62,6 +63,7 @@ Util.Save = function (graph) {
 
 Util.initSharedData = function (parent, graph) {
     var uiControl;
+    if(!parent.children) return;
     for (var i = 0; i < parent.children.length; i++) {
         uiControl = parent.children[i];
         uiControl.initShared();
@@ -82,18 +84,18 @@ Util.createFormFromCellAttributes = function(className, obj, entity){
     var attr;
         for (var i = 0; i < attrs.length; i++) {
             attr = attrs[i];
-            if (attr.name === 'label' || attr.name === 'uiType' || attr.name === 'tagType' || attr.name === '_id' || attr.name === '_isUnique') continue; //skip the label and the ui-type
+            if (attr.name[0] !== '_') continue; //skip the label and the ui-type
             if (attr.value.indexOf('true') != -1 || attr.value.indexOf('false') != -1) //a boolean value
-                form.addCheckbox(attr.name, attr.value.indexOf('true') != -1 ? true : false);
+                form.addCheckbox(attr.name.substr(1), attr.value.indexOf('true') != -1 ? true : false);
             else {
                 var values = entity.getComboAttr(attr.name);
                 if (values) {
-                    var combo = form.addCombo(attr.name);
+                    var combo = form.addCombo(attr.name.substr(1));
                     for (var j = 0; j < values.length; j++) {
                         form.addOption(combo, values[j], values[j], attr.value === values[j]);
                     }
                 } else
-                    form.addText(attr.name, attr.value);
+                    form.addText(attr.name.substr(1), attr.value);
             }
         }
     return form;

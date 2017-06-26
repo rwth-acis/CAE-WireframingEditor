@@ -16,10 +16,10 @@ function Button(geometry) {
     if (!geometry)
         geometry = new mxGeometry(0, 0, 100, 50);
     UIText.call(this, text, geometry);
-    this.value.setAttribute('disabled', false);
-    this.value.setAttribute('autofocus', false);
-    this.value.setAttribute('type', 'button');
-    this.addComboAttr('type', ['button', 'reset', 'submit']);
+    this.value.setAttribute('_disabled', false);
+    this.value.setAttribute('_autofocus', false);
+    this.value.setAttribute('_type', 'button');
+    this.addComboAttr('_type', ['button', 'reset', 'submit']);
 
     this.initDOM = function () {
         UIText.prototype.initDOM.call(this);
@@ -36,7 +36,7 @@ function Button(geometry) {
         UIText.prototype.createShared.call(this, createdByLocalUser);
         if (createdByLocalUser) {
             var ytext = y.share.attrs.set(this.getId() + '_type', Y.Text);
-            ytext.insert(0, this.value.getAttribute('type'));
+            ytext.insert(0, this.value.getAttribute('_type'));
         }
     };
     
@@ -46,13 +46,13 @@ Button.prototype.initShared = function(){
     UIText.prototype.initShared.call(this);
     var val = y.share.attrs.get(this.getId() + '_disabled');
     if (val)
-        this.setBooleanAttributeValue('disabled', val);
+        this.setBooleanAttributeValue('_disabled', val);
     val = y.share.attrs.get(this.getId() + '_autofocus');
     if (val)
-        this.setBooleanAttributeValue('autofocus', val);
+        this.setBooleanAttributeValue('_autofocus', val);
 
     val = y.share.attrs.get(this.getId() + '_type');
     if (val && typeof val === 'string')
-        this.setComboAttributeValue('type', val);
+        this.setComboAttributeValue('_type', val);
 }
 export default Button;

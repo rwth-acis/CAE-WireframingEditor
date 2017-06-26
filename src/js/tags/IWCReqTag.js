@@ -10,8 +10,8 @@ IWCReqTag.Alias = CONST.TAG.ALIAS.IWC_CALL;
 function IWCReqTag(cellId, offset){
     AbstractTag.call(this, cellId, new mxImage(CONST.IMAGES.IWC_REQ_TAG, CONST.TAG.SIZE-4, CONST.TAG.SIZE-4), 'IWC Request', offset);
     
-    this.tagObj.setAttribute('intentAction', '');
-    this.tagObj.setAttribute('content', '');
+    this.tagObj.setAttribute('_intentAction', '');
+    this.tagObj.setAttribute('_content', '');
 }
 
 IWCReqTag.prototype.createShared = function (createdByLocalUser) {
