@@ -12,8 +12,10 @@ module.exports = {
   },
   devtool: 'inline-source-map',
   entry: {
-    app: './src/index.js'
-    //"bundle.css" : ['./src/css/style.css',  './node_modules/jquery-ui/themes/base/theme.css', './node_modules/jquery-ui/themes/base/tabs.css']
+    app: './src/index.js',
+    'yVendor': ['yjs', 'y-websockets-client', 'y-map', 'y-array', 'y-text', 'y-memory'],
+    'jVendor': ['jquery', 'jquery-ui', 'jstree'],
+    'mxVendor': ['mxgraph']
   },
   output: {
     filename: '[name].js',
@@ -40,7 +42,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin({
+    /*new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: function (module) {
         // this assumes your vendor imports exist in the node_modules directory
@@ -50,6 +52,9 @@ module.exports = {
     //CommonChunksPlugin will now extract all the common modules from vendor and main bundles
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest' //But since there are no more common modules between them we end up with just the runtime code included in the manifest file
+    }),*/
+    new webpack.optimize.CommonsChunkPlugin({
+      name: ['yVendor', 'jVendor', 'mxVendor']
     }),
     new HtmlWebpackPlugin({
       title: 'CAE Wireframing Editor',
@@ -76,7 +81,7 @@ module.exports = {
     {
       from: './node_modules/jquery-ui/themes/base/images',
       to: './images'
-    }, 
+    },
     {
       from: './node_modules/jstree/dist/themes/default/32px.png',
       to: './images/32px.png'
