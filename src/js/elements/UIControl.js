@@ -103,6 +103,9 @@ function UIControl(geometry, style) {
         uiObj.getElementsByTagName('tagRoot')[0].appendChild(tag.tagObj);
         this.value = uiObj;
     }
+    this.getUIObject = function () {
+        return uiObj;
+    }
     this.createTags = function () {
         var that = this;
         var tags = [];
@@ -143,7 +146,7 @@ function UIControl(geometry, style) {
             return tag;
         }
         var children = this.value.childNodes[0].childNodes;
-        do{
+        while (children && children.length > 0) {
             var node = children[0];
             var point = new mxPoint(-CONST.TAG.SIZE * that.getTagCounter(), 0);
             var tag = _createTag(node, point);
@@ -152,9 +155,7 @@ function UIControl(geometry, style) {
             tagRoot.append(tag.tagObj);
             that.increaseTagCounter();
         }
-        while(children.length > 0);
-            
-        
+        that.value = that.getUIObject();
         return tags;
     }
 

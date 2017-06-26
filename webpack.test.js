@@ -8,11 +8,11 @@ module.exports = {
   devServer: {
     contentBase: path.join(__dirname, "dist"),
     compress: true,
-    port: 8080
+    port: 8081
   },
   devtool: 'inline-source-map',
   entry: {
-    app: './src/index.js'
+    app: './tests/index.js'
     //"bundle.css" : ['./src/css/style.css',  './node_modules/jquery-ui/themes/base/theme.css', './node_modules/jquery-ui/themes/base/tabs.css']
   },
   output: {
@@ -53,7 +53,7 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       title: 'CAE Wireframing Editor',
-      template: './src/index.ejs',
+      template: './tests/index.ejs',
       inject: 'head'
 
     }),
