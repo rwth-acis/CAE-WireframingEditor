@@ -105,8 +105,7 @@ function Wireframe(container, model) {
             var e = evt.getProperty('event');
             new PropertyEditor(cell, that, e.x, e.y);
         }
-
-    })
+    });
     that.moveCells = function (cells, dx, dy, clone, target, evt, mapping, shared) {
         var cells = mxGraph.prototype.moveCells.apply(this, arguments);
         if (cells.length > 0 && sharedAction && !shared) {
@@ -244,7 +243,7 @@ function Wireframe(container, model) {
                         $tree.jstree(true).delete_node(event.value.selected);
                     //delete attribute form of the tag
                     $('#propertyEditor_' + event.value.cellId).find('.tagAttribute').parent().remove();
-                    var cell = that.getModel().getCell(event.value.cellId);
+                    var cell = that.getModel().getCell(event.value.cellId);                    
                     if (cell) {
                         for (var i = 0; i < event.value.selected.length; i++) {
                             var id = event.value.selected[i];
@@ -252,6 +251,7 @@ function Wireframe(container, model) {
                                 var tag = cell.overlays[j];
                                 if (tag.hasOwnProperty('tagObj') && tag.tagObj.getAttribute('id') === id) {
                                     that.removeCellOverlay(cell, tag);
+                                    cell.removeTagById(id);
                                     cell.decreaseTagCounter();
                                 }
                             }
@@ -268,6 +268,7 @@ function Wireframe(container, model) {
                             }
                             that.cellRenderer.redraw(state);
                         }
+                       
                     }
                     
                     break;

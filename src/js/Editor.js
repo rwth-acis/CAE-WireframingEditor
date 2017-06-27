@@ -74,6 +74,15 @@ function Editor(wireframe, palette) {
                 name = event.name.substring(event.name.indexOf('_'));
                 cell.setComboAttributeValue(name, event.value);
             }
+            /*else if(event.value.constructor.name=== 'YText'){
+                event.value.observe(function(evt){
+                    var value = evt.object.toString();
+                    var path = evt.object.getPath()[0];
+                    //var cell = that.graph.getModel().getCell(path.substring(0, path.indexOf('_')));
+                    var attrName = path.substring(path.indexOf('_'));
+                    cell.value.setAttribute(attrName, value);
+                });
+            }*/
         }else{
             var tag = cell.getTagById(arr[0] + '_' + arr[1]);
             if(tag){

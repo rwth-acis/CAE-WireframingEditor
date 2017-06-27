@@ -34,7 +34,7 @@ function PropertyEditor(cell, graph, x, y) {
                 } else {
                     value = $(elem).find(':selected').text();
                 }
-                obj[name] = value;
+                obj['_'+name] = value;
             }
         });
         return obj;

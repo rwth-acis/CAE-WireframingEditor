@@ -78,7 +78,7 @@ function createTagEditor(cell, $editor, graph) {
             var ref = $('#' + cell.getId() + '_tagTree').jstree(true);
             var sel = ref.get_selected();
             if (sel.length > 0) {
-                y.share.action.set(CONST.ACTIONS.DELETE_TAG, { cellId: cell.getId(), selected: sel });
+                y.share.action.set(CONST.ACTIONS.DELETE_TAG, {userId: y.db.userId,  cellId: cell.getId(), selected: sel });
             }
         });
 

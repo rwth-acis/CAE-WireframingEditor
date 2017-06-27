@@ -103,6 +103,18 @@ function UIControl(geometry, style) {
         uiObj.getElementsByTagName('tagRoot')[0].appendChild(tag.tagObj);
         this.value = uiObj;
     }
+    this.removeTagById = function(tagId){
+        var r = uiObj.getElementsByTagName('tagRoot')[0];
+        for(var i=0;i<r.childNodes.length; i++){
+            var t = r.childNodes[i];
+            if(t.getAttribute('id') === tagId){
+                r.removeChild(t);
+                this.value = uiObj;
+                return true;
+            }
+        }
+        return false;
+    }
     this.getUIObject = function () {
         return uiObj;
     }
@@ -145,6 +157,7 @@ function UIControl(geometry, style) {
             }
             return tag;
         }
+
         var children = this.value.childNodes[0].childNodes;
         while (children && children.length > 0) {
             var node = children[0];
