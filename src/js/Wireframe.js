@@ -17,6 +17,7 @@ import UserOverlay from './overlays/UserOverlay.js';
 import EnableAwareness from './Awareness.js';
 import $ from 'jquery';
 import CONST from './misc/Constants.js';
+import PropertyEditor from './PropertyEditor.js';
 
 window.mxGeometry = mxGeometry;
 Wireframe.prototype = new mxGraph();
@@ -98,7 +99,14 @@ function Wireframe(container, model) {
     };
     that.addListener(mxEvent.CELLS_MOVED, SharedCellsMovedEvent);
     that.addListener(mxEvent.CELLS_RESIZED, SharedCellResizedEvent);
+    that.addListener(mxEvent.DOUBLE_CLICK, function(sender, evt){
+        var cell = evt.getProperty('cell');
+        if(cell){
+            var e = evt.getProperty('event');
+            new PropertyEditor(cell, that, e.x, e.y);
+        }
 
+    })
     that.moveCells = function (cells, dx, dy, clone, target, evt, mapping, shared) {
         var cells = mxGraph.prototype.moveCells.apply(this, arguments);
         if (cells.length > 0 && sharedAction && !shared) {

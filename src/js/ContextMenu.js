@@ -25,8 +25,8 @@ function ContextMenu(editor) {
             }
             menu.addSeparator();
         } else {
-            menu.addItem('Show Attributes', CONST.IMAGES.FLASH, function () {
-                new PropertyEditor(cell, editor.graph);
+            menu.addItem('Show Attributes', CONST.IMAGES.FLASH, function (event) {
+                new PropertyEditor(cell, editor.graph, event.x, event.y);
             });
             menu.addSeparator();
         }

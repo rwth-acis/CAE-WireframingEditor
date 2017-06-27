@@ -9,8 +9,11 @@ import Util from './misc/Util.js';
 /**
  * Generates the property editor for the given cell
  * @param {mxCell} cell 
+ * @param {Wireframe} wireframe
+ * @param {Integer} x
+ * @param {Integer} y
  */
-function PropertyEditor(cell, graph) {
+function PropertyEditor(cell, graph, x, y) {
     /**
      * Serialize the data of the given form as json
      * @param {mxForm} form 
@@ -60,7 +63,7 @@ function PropertyEditor(cell, graph) {
             propertyEditorWnd.destroy();
             Util.Save(graph);
         }).text('Ok'));
-        var propertyEditorWnd = new mxWindow("Properties", $htmlEditor[0], '300', '200', '100%', '40%', true, true);
+        var propertyEditorWnd = new mxWindow("Properties", $htmlEditor[0], x, y, '100%', '40%', true, true);
         propertyEditorWnd.setVisible(true);
         propertyEditorWnd.setMaximizable(false);
         propertyEditorWnd.setResizable(false);
