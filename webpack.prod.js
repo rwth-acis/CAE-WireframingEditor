@@ -40,7 +40,7 @@ module.exports = {
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['yVendor', 'jVendor', 'mxVendor']
+            name: ['yVendor', 'jVendor', 'mxVendor', 'manifest']
         }),
         /*new webpack.optimize.CommonsChunkPlugin({
             name: 'jVendor'
