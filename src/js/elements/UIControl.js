@@ -10,6 +10,7 @@ import {
 import Util from '../misc/Util';
 import Y from 'yjs';
 import $ from 'jquery';
+import _ from 'lodash';
 import CONST from '../misc/Constants.js';
 
 import SharedTag from '../tags/SharedTag.js';
@@ -99,21 +100,12 @@ function UIControl(geometry, style) {
         tagCounter--;
     }
     this.addTag = function (tag) {
-        //tagRoot.append(tag.tagObj);
-        uiObj.getElementsByTagName('tagRoot')[0].appendChild(tag.tagObj);
-        this.value = uiObj;
+        this.value.getElementsByTagName('tagRoot')[0].appendChild(tag.tagObj);
     }
     this.removeTagById = function(tagId){
-        var r = uiObj.getElementsByTagName('tagRoot')[0];
-        for(var i=0;i<r.childNodes.length; i++){
-            var t = r.childNodes[i];
-            if(t.getAttribute('id') === tagId){
-                r.removeChild(t);
-                this.value = uiObj;
-                return true;
-            }
-        }
-        return false;
+        var r = this.value.getElementsByTagName('tagRoot')[0];
+        var t= r.childNodes.item(tagId);
+        r.removeChild(t);
     }
     this.getUIObject = function () {
         return uiObj;
@@ -159,16 +151,19 @@ function UIControl(geometry, style) {
         }
 
         var children = this.value.childNodes[0].childNodes;
-        while (children && children.length > 0) {
-            var node = children[0];
+        var arr = Array.prototype.slice.call(children)
+
+        for (var i=0;i< arr.length;i++) {
             var point = new mxPoint(-CONST.TAG.SIZE * that.getTagCounter(), 0);
-            var tag = _createTag(node, point);
-            tag.tagObj = node;
+            var tag = _createTag(arr[i], point);
+            tag.tagObj = arr[i];
             tags.push(tag);
-            tagRoot.append(tag.tagObj);
+            this.value.getElementsByTagName('tagRoot')[0].appendChild(tag.tagObj);
             that.increaseTagCounter();
         }
-        that.value = that.getUIObject();
+        
+        
+        //that.value.get = that.getUIObject();
         return tags;
     }
 
@@ -191,21 +186,18 @@ UIControl.prototype.setBooleanAttributeValue = function (name, value) {
     var $input = $('#propertyEditor_' + this.getId() + ' #attributesTab').find('td:contains(' + name.substr(1) + ') + td input');
     if ($input.length > 0)
         $input[0].checked = value;
+    $('.wfSave').click();
 }
 UIControl.prototype.setComboAttributeValue = function (name, value) {
     this.value.setAttribute(name, value);
     var $select = $('#propertyEditor_' + this.getId() + ' #attributesTab').find('td:contains(' + name.substr(1) + ') + td select');
     if ($select.length > 0)
         $select.find('option[value=' + value + ']').prop('selected', true);
+    $('.wfSave').click();
 }
 UIControl.prototype.initShared = function () {
-    var ytext = y.share.attrs.get(this.getId() + '_id', Y.Text);
-    if (!ytext)
-        y.share.attrs.set(this.getId() + '_id', Y.Text);
-
-    ytext = y.share.attrs.get(this.getId() + '_class', Y.Text);
-    if (!ytext)
-        y.share.attrs.set(this.getId() + '_class', Y.Text);
+    this.initYText('_id');
+    this.initYText('_class');
 }
 UIControl.prototype.getTagById = function (id) {
     if (this.hasOwnProperty('overlays') && this.overlays) {
@@ -230,6 +222,28 @@ UIControl.prototype.containsTagType = function (tag) {
         }
     }
     return false;
+}
+
+UIControl.prototype.getYTextObserver = function(){
+    var that = this;
+    var observer = _.debounce(function (evt) {
+        var value = evt.object.toString();
+        var path = evt.object.getPath()[0];
+        var attrName = path.substring(path.indexOf('_'));
+        that.value.setAttribute(attrName, value);
+        $('.wfSave').click();
+    }, 500);
+    return observer;
+}
+
+UIControl.prototype.initYText = function(attrName){
+    var ytext =y.share.attrs.get(this.getId() + attrName, Y.Text);
+    if (!ytext)
+        y.share.attrs.set(this.getId() + attrName, Y.Text);
+    else{
+         ytext.observe(this.getYTextObserver());
+         this.value.setAttribute(attrName, ytext.toString());
+    }
 }
 
 export default UIControl;

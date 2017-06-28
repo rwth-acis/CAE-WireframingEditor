@@ -38,7 +38,6 @@ export default function () {
           var doc = mxUtils.parseXml(xml);
           var codec = new mxCodec(doc);
           codec.decode(doc.documentElement, model);
-
           Util.initSharedData(wireframe.getDefaultParent(), wireframe);
         }
 

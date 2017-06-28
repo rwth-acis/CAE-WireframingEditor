@@ -34,8 +34,6 @@ VideoPlayer.prototype.createShared = function(createdByLocalUser){
 
 VideoPlayer.prototype.initShared = function(){
     UIMedia.prototype.initShared.call(this);
-    var ytext = y.share.attrs.get(this.getId() + '_poster', Y.Text);
-    if (!ytext)
-        y.share.attrs.set(this.getId() + '_poster', Y.Text);
+    this.initYText('_poster');
 }
 export default VideoPlayer;

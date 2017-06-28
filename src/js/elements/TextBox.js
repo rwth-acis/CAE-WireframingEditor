@@ -32,14 +32,5 @@ function TextBox(geometry) {
 }
 TextBox.prototype.initShared = function(){
     UIText.prototype.initShared.call(this);
-    var val = y.share.attrs.get(this.getId() + '_disabled');
-    if (val)
-        this.setBooleanAttributeValue('_disabled', val);
-    val = y.share.attrs.get(this.getId() + '_autofocus');
-    if (val)
-        this.setBooleanAttributeValue('_autofocus', val);
-    val = y.share.attrs.get(this.getId() + '_autocomplete');
-    if (val && typeof val === 'string')
-        this.setComboAttributeValue('_autocomplete', val);
 }   
 export default TextBox;

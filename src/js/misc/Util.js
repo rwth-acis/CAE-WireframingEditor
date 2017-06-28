@@ -109,8 +109,9 @@ Util.bindSharedAttributes = function(entity, form){
             if ($input.length > 0) {
                 if ($input.attr('type') === 'text') {
                     var ytext = y.share.attrs.get(id + '_' + name);
-                    if (ytext)
+                    if (ytext){
                         ytext.bind($input[0]);
+                    }
                     //else //should actually not happen but add something to mxLog if ytext does not exists for whatever reason
                 } else if ($input.attr('type') === 'checkbox') {
                     $input.change(function () {

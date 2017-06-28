@@ -35,8 +35,6 @@ Image.prototype.createShared = function(createdByLocalUser){
 
 Image.prototype.initShared = function(){
     UIControl.prototype.initShared.call(this);
-    var ytext = y.share.attrs.get(this.getId() + '_src', Y.Text);
-    if (!ytext)
-        y.share.attrs.set(this.getId() + '_src', Y.Text);
+    this.initYText('_src');
 }
 export default Image;

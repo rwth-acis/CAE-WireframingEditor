@@ -40,7 +40,7 @@ function Toolbox(container, editor) {
 
     /*eslint-disable no-unused-vars*/
     editor.addAction(CONST.ACTIONS.SHARED.DELETE, function (editor, cell) {
-        y.share.action.set(mxEvent.REMOVE, Util.getIdsOfSelectedCells(that._editor.graph));
+        y.share.action.set(mxEvent.REMOVE, {userId: y.db.userId, cells : Util.getIdsOfSelectedCells(that._editor.graph)});
     });
 
     /*eslint-disable no-unused-vars*/
@@ -91,7 +91,7 @@ function Toolbox(container, editor) {
 
         //$(input).change(function(){});
         //input.addEventListener('change', function(){});
-        input.onchange =  function () {
+        input.onchange = function () {
             var fileReader, files, file;
             fileReader = new FileReader();
             fileReader.onload = function (e) {
@@ -108,7 +108,7 @@ function Toolbox(container, editor) {
         input.click();
     });
 
-    editor.addAction(CONST.ACTIONS.SAVE, function(){
+    editor.addAction(CONST.ACTIONS.SAVE, function () {
         Util.Save(editor.graph);
     })
 
@@ -124,9 +124,6 @@ function Toolbox(container, editor) {
                     that._editor.undo();
                 break;
             case mxEvent.REDO:
-            /**
- * 
- */    //that._editor.execute("redo");
                 if (event.value !== y.db.userId) {
                     var cells = that._editor.graph.getSelectionCells();
                     that._editor.redo();
@@ -135,8 +132,10 @@ function Toolbox(container, editor) {
                     that._editor.redo();
                 break;
             case mxEvent.REMOVE:
-                that._editor.graph.setSelectionCells(Util.getCellsFromIdList(that._editor.graph, event.value));
+                that._editor.graph.setSelectionCells(Util.getCellsFromIdList(that._editor.graph, event.value.cells));
                 that._editor.execute("delete");
+                if(y.db.userId === event.value.userId)
+                    Util.Save(that._editor.graph);
                 break;
             case mxEvent.GROUP_CELLS:
                 var group = that._editor.graph.groupCells(null, 20, Util.getCellsFromIdList(that._editor.graph, event.value.ids));

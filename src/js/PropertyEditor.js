@@ -13,33 +13,7 @@ import Util from './misc/Util.js';
  * @param {Integer} x
  * @param {Integer} y
  */
-function PropertyEditor(cell, graph, x, y) {
-    /**
-     * Serialize the data of the given form as json
-     * @param {mxForm} form 
-     * @return the data as json
-     */
-    var serializeForm = function (form) {
-        var obj = {};
-        $(form.body).find('tr').map(function (i, elem) {
-            var name = $(elem).find('td:first').text();
-            if (name.length > 0) {
-                var value;
-                var $input = $(elem).find('input');
-                if ($input.length > 0) {
-                    if ($input.attr('type') === 'checkbox')
-                        value = $input.prop('checked');
-                    else
-                        value = $input.val();
-                } else {
-                    value = $(elem).find(':selected').text();
-                }
-                obj['_'+name] = value;
-            }
-        });
-        return obj;
-    }
-    
+function PropertyEditor(cell, graph, x, y) {   
     var htmlEditorTemplate = '<div id="propertyEditor_' + cell.getId() + '"><ul></ul>';
 
     //Check if property editor already exists
@@ -57,17 +31,11 @@ function PropertyEditor(cell, graph, x, y) {
         
         var $attrsForm = $htmlEditor.find('#attributesTab');
         $attrsForm.append(form.body);
-        $(form.body).append($('<button>').click(function () {
-            var data = serializeForm(form);
-            cell.setValueFromJson(data);
-            propertyEditorWnd.destroy();
-            Util.Save(graph);
-        }).text('Ok'));
         var propertyEditorWnd = new mxWindow("Properties", $htmlEditor[0], x, y, '100%', '40%', true, true);
         propertyEditorWnd.setVisible(true);
         propertyEditorWnd.setMaximizable(false);
         propertyEditorWnd.setResizable(false);
-        propertyEditorWnd.setClosable(false);
+        propertyEditorWnd.setClosable(true);
 
         Util.bindSharedAttributes(cell, form);
 

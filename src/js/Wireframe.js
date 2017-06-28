@@ -207,12 +207,14 @@ function Wireframe(container, model) {
                         return obj;
                     };
                     var tag = codec.decode(doc.documentElement);
-                    tag.createShared(y.db.userId === event.value.userId);
+                    
                     var cell = that.getModel().getCell(event.value.id);
                     if (cell && tag) {
                         mxGraph.prototype.addCellOverlay.apply(that, [cell, tag]);
                         cell.increaseTagCounter();
                         cell.addTag(tag);
+                        tag.setCell(cell);
+                        tag.createShared(y.db.userId === event.value.userId);
                         var ref = $('#' + cell.getId() + '_tagTree').jstree(true);
                         if (ref) {
                             ref.create_node(null, {

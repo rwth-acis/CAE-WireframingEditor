@@ -24,29 +24,7 @@ UIMedia.prototype.createShared = function(createdByLocalUser){
 }
 UIMedia.prototype.initShared = function(){
     UIControl.prototype.initShared.call(this);
-    var ytext = y.share.attrs.get(this.getId() + '_src', Y.Text);
-    if (!ytext)
-        y.share.attrs.set(this.getId() + '_src', Y.Text);
-
-    var val = y.share.attrs.get(this.getId() + '_controls');
-    if (val)
-        this.setBooleanAttributeValue('_controls', val);
-
-    val = y.share.attrs.get(this.getId() + '_autoplay');
-    if (val)
-        this.setBooleanAttributeValue('_autoplay', val);
-
-    val = y.share.attrs.get(this.getId() + '_muted');
-    if (val)
-        this.setBooleanAttributeValue('_muted', val);
-
-    val = y.share.attrs.get(this.getId() + '_loop');
-    if (val)
-        this.setBooleanAttributeValue('_loop', val);
-    
-    val = y.share.attrs.get(this.getId() + '_preload');
-    if (val && typeof val === 'string')
-        this.setComboAttributeValue('_preload', val);
+    this.initYText('_src');
 }
 
 UIMedia.registerCodec = function(ctor){

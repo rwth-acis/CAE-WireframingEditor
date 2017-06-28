@@ -22,13 +22,8 @@ EventTag.prototype.createShared = function (createdByLocalUser) {
 }
 
 EventTag.prototype.initShared = function(){
-    var ytext = y.share.attrs.get(this.getId() + '_name', Y.Text);
-    if (!ytext)
-        y.share.attrs.set(this.getId() + '_name', Y.Text);
-
-    ytext = y.share.attrs.get(this.getId() + '_eventCause', Y.Text);
-    if (!ytext)
-        y.share.attrs.set(this.getId() + '_eventCause', Y.Text);
+    this.initYText('_name');
+    this.initYText('_eventCause');
 }
 
 export default EventTag;

@@ -63,37 +63,34 @@ function Editor(wireframe, palette) {
         var arr = event.name.split('_');
         var id = arr[0];
         var cell = that.graph.getModel().getCell(id);
-        if(arr.length == 2){
-            if(event.name.indexOf('_label') != -1){
+        if (arr.length == 2) {
+            if (event.name.indexOf('_label') != -1) {
                 cell.bindLabel(event.value);
-            }else if(typeof event.value === 'boolean'){
+            } else if (typeof event.value === 'boolean') {
                 name = event.name.substring(event.name.indexOf('_'));
                 cell.setBooleanAttributeValue(name, event.value);
             }
-            else if(typeof event.value === 'string'){
+            else if (typeof event.value === 'string') {
                 name = event.name.substring(event.name.indexOf('_'));
                 cell.setComboAttributeValue(name, event.value);
             }
-            /*else if(event.value.constructor.name=== 'YText'){
-                event.value.observe(function(evt){
-                    var value = evt.object.toString();
-                    var path = evt.object.getPath()[0];
-                    //var cell = that.graph.getModel().getCell(path.substring(0, path.indexOf('_')));
-                    var attrName = path.substring(path.indexOf('_'));
-                    cell.value.setAttribute(attrName, value);
-                });
-            }*/
-        }else{
+            else if (event.value.constructor.name === 'YText') {
+                event.value.observe(cell.getYTextObserver());
+            }
+        } else {
             var tag = cell.getTagById(arr[0] + '_' + arr[1]);
-            if(tag){
-            if(typeof event.value === 'boolean'){
-                name = event.name.substring(event.name.lastIndexOf('_'));
-                tag.setBooleanAttributeValue(name, event.value);
-            }
-            else if(typeof event.value === 'string'){
-                name = event.name.substring(event.name.lastIndexOf('_'));
-                tag.setComboAttributeValue(name, event.value);
-            }
+            if (tag) {
+                if (typeof event.value === 'boolean') {
+                    name = event.name.substring(event.name.lastIndexOf('_'));
+                    tag.setBooleanAttributeValue(name, event.value);
+                }
+                else if (typeof event.value === 'string') {
+                    name = event.name.substring(event.name.lastIndexOf('_'));
+                    tag.setComboAttributeValue(name, event.value);
+                }
+                else if (event.value.constructor.name === 'YText') {
+                    event.value.observe(tag.getYTextObserver());
+                }
             }
         }
     });
@@ -120,48 +117,48 @@ function Editor(wireframe, palette) {
     };
     //-------------------------------------------------------------------
 
-    var yfUIComponents  = {
-       "UI Component Container": DivContainer,
-       "TextNode" : TextNode,
-       "Button": Button, 
-       "Link" : Link, 
-       "TextBox" : TextBox, 
-       "Paragraph of Text" : Paragraph, 
-       "TextArea" : TextArea, 
-       "Checkbox" : CheckBox,
-       "Radio Button" : RadioBtn,
-       "Image" : Image,
-       "Audio Player" : AudioPlayer,
-       "Video Player" : VideoPlayer
+    var yfUIComponents = {
+        "UI Component Container": DivContainer,
+        "TextNode": TextNode,
+        "Button": Button,
+        "Link": Link,
+        "TextBox": TextBox,
+        "Paragraph of Text": Paragraph,
+        "TextArea": TextArea,
+        "Checkbox": CheckBox,
+        "Radio Button": RadioBtn,
+        "Image": Image,
+        "Audio Player": AudioPlayer,
+        "Video Player": VideoPlayer
     };
 
     var yfShapeMapping = {
-        "TextNode" : mxConstants.STYLE_SHAPE + '=textnode;',
-        "Button" : mxConstants.STYLE_SHAPE + '=button;', 
+        "TextNode": mxConstants.STYLE_SHAPE + '=textnode;',
+        "Button": mxConstants.STYLE_SHAPE + '=button;',
         "Link": mxConstants.STYLE_SHAPE + '=link;' + mxConstants.STYLE_FILLCOLOR + "=none;",
-        "TextBox" : mxConstants.STYLE_SHAPE + '=textbox;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;',
-        "Paragraph of Text" : mxConstants.STYLE_SHAPE + '=paragraph;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;',
+        "TextBox": mxConstants.STYLE_SHAPE + '=textbox;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;',
+        "Paragraph of Text": mxConstants.STYLE_SHAPE + '=paragraph;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;',
         "TextArea": mxConstants.STYLE_SHAPE + '=textarea;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;',
-        "Checkbox" : mxConstants.STYLE_SHAPE + '=checkbox;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;',
-        "Radio Button" : mxConstants.STYLE_SHAPE + '=radio;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;',
+        "Checkbox": mxConstants.STYLE_SHAPE + '=checkbox;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;',
+        "Radio Button": mxConstants.STYLE_SHAPE + '=radio;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;',
     };
 
-    
-    var addUIComponent = function(componentName){
+
+    var addUIComponent = function (componentName) {
         var cell, type, shapeCell;
         cell = new yfUIComponents[componentName]();
-        if(yfShapeMapping.hasOwnProperty(componentName))
+        if (yfShapeMapping.hasOwnProperty(componentName))
             shapeCell = new UIControl(cell.geometry, yfShapeMapping[componentName]);
-        else 
+        else
             shapeCell = cell;
         type = palette.createItem(shapeCell, componentName, false);
         cell.makeTypeDraggable(type, wireframe);
     }
-    
-    this.getUIComponents = function(){
+
+    this.getUIComponents = function () {
         return yfUIComponents;
     }
-    for(var componentName in yfUIComponents){
+    for (var componentName in yfUIComponents) {
         addUIComponent(componentName);
     }
     palette.addLine(); //conclude with a horizontal line at the end

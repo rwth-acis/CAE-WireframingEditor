@@ -27,7 +27,7 @@ function TextArea(geometry) {
     this.initDOM = function () {
         UIText.prototype.initDOM.call(this, 'textarea');
         var $node = this.get$node()
-            $node.css('overflow', 'hidden')
+        $node.css('overflow', 'hidden')
             .css('resize', 'none')
             .text(text);
         this.set$node($node);
@@ -44,34 +44,11 @@ TextArea.prototype.createShared = function (createdByLocalUser) {
     }
 }
 
-TextArea.prototype.initShared = function(){
+TextArea.prototype.initShared = function () {
     UIText.prototype.initShared.call(this);
-    var ytext = y.share.attrs.get(this.getId() + '_placeholder', Y.Text);
-    if (!ytext)
-        y.share.attrs.set(this.getId() + '_placeholder', Y.Text);
-
-    ytext = y.share.attrs.get(this.getId() + '_maxlength', Y.Text);
-    if (!ytext)
-        y.share.attrs.set(this.getId() + '_maxlength', Y.Text);
-
-    ytext = y.share.attrs.get(this.getId() + '_cols', Y.Text);
-    if (!ytext)
-        y.share.attrs.set(this.getId() + '_cols', Y.Text);
-
-    ytext = y.share.attrs.get(this.getId() + '_rows', Y.Text);
-    if (!ytext)
-        y.share.attrs.set(this.getId() + '_rows', Y.Text);
-
-    var val = y.share.attrs.get(this.getId() + '_autofocus');
-    if (val)
-        this.setBooleanAttributeValue('_autofocus', val);
-    
-    val = y.share.attrs.get(this.getId() + '_readonly');
-    if (val)
-        this.setBooleanAttributeValue('_readonly', val);
-    
-    val = y.share.attrs.get(this.getId() + '_disabled');
-    if (val)
-        this.setBooleanAttributeValue('_disabled', val);
+    this.initYText('_placeholder');
+    this.initYText('_maxlength');
+    this.initYText('_cols');
+    this.initYText('_rows');
 }
 export default TextArea;

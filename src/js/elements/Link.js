@@ -16,7 +16,7 @@ function Link(geometry) {
     if(!geometry)
         geometry = new mxGeometry(0, 0, 50, 30)
     UIText.call(this, text, geometry);
-    this.value.setAttribute('href', '');
+    this.value.setAttribute('_href', '');
 
     this.initDOM = function () {
         UIText.prototype.initDOM.call(this);
@@ -40,8 +40,6 @@ Link.prototype.createShared = function(createdByLocalUser){
 
 Link.prototype.initShared = function(){
     UIText.prototype.initShared.call(this);
-    var ytext = y.share.attrs.get(this.getId() + '_href', Y.Text);
-    if (!ytext)
-        y.share.attrs.set(this.getId() + '_href', Y.Text);
+    this.initYText('_href');
 }
 export default Link;

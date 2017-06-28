@@ -22,12 +22,7 @@ IWCRespTag.prototype.createShared = function (createdByLocalUser) {
 }
 
 IWCRespTag.prototype.initShared = function(){
-    var ytext = y.share.attrs.get(this.getId() + '_intentAction', Y.Text);
-    if (!ytext)
-        y.share.attrs.set(this.getId() + '_intentAction', Y.Text);
-
-    ytext = y.share.attrs.get(this.getId() + '_content', Y.Text);
-    if (!ytext)
-        y.share.attrs.set(this.getId() + '_content', Y.Text);
+    this.initYText('_intentAction');
+    this.initYText('_content');
 }
 export default IWCRespTag;

@@ -40,14 +40,5 @@ RadioButton.prototype.bindLabel = function (ytext) {
 
 RadioButton.prototype.initShared = function () {
     UIText.prototype.initShared.call(this);
-    var val = y.share.attrs.get(this.getId() + '_checked');
-    if (val)
-        this.setBooleanAttributeValue('_checked', val);
-    val = y.share.attrs.get(this.getId() + '_autofocus');
-    if (val)
-        this.setBooleanAttributeValue('_autofocus', val);
-    val = y.share.attrs.get(this.getId() + '_disabled');
-    if (val)
-        this.setBooleanAttributeValue('_disabled', val);
 }
 export default RadioButton;
