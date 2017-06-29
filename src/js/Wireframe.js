@@ -14,10 +14,11 @@ import {
 } from './misc/mxExport.js';
 import Util from './misc/Util.js';
 import UserOverlay from './overlays/UserOverlay.js';
+import EditOverlay from './overlays/EditOverlay.js';
 import EnableAwareness from './Awareness.js';
 import $ from 'jquery';
 import CONST from './misc/Constants.js';
-import PropertyEditor from './PropertyEditor.js';
+//import PropertyEditor from './PropertyEditor.js';
 
 window.mxGeometry = mxGeometry;
 Wireframe.prototype = new mxGraph();
@@ -102,8 +103,29 @@ function Wireframe(container, model) {
     that.addListener(mxEvent.DOUBLE_CLICK, function(sender, evt){
         var cell = evt.getProperty('cell');
         if(cell){
-            var e = evt.getProperty('event');
-            new PropertyEditor(cell, that, e.x, e.y);
+            if(cell.hasOwnProperty('get$node')){
+                cell.get$node().css('pointer-events', 'auto');
+                cell.get$node().focus();
+            }
+            //var e = evt.getProperty('event');
+            //new PropertyEditor(cell, that, e.x, e.y);
+        }
+    });
+    that.getSelectionModel().addListener(mxEvent.CHANGE, function(sender, event){
+        var deselected = event.getProperty('added');
+        for(var i=0;i<deselected.length;i++){
+            if(deselected[i].hasOwnProperty('get$node'))
+                deselected[i].get$node().css('pointer-events', 'none');
+            mxGraph.prototype.removeCellOverlay.call(that, deselected[i], deselected[i].getEditOverlay());
+
+        }
+        var selected = event.getProperty('removed');
+        if(selected){
+            for(var i=0;i<selected.length;i++){
+                var editOverlay = new EditOverlay();
+                mxGraph.prototype.addCellOverlay.call(that, selected[i], editOverlay);
+                editOverlay.bindClickEvent(that);
+            }
         }
     });
     that.moveCells = function (cells, dx, dy, clone, target, evt, mapping, shared) {
@@ -126,7 +148,7 @@ function Wireframe(container, model) {
     };
 
     that.addCellOverlay = function (cell, overlay) {
-        if (overlay instanceof UserOverlay) {
+        if (overlay instanceof UserOverlay || overlay instanceof EditOverlay) {
             mxGraph.prototype.addCellOverlay.apply(this, arguments);
         } else {
             y.share.action.set(mxEvent.ADD_OVERLAY, {
@@ -263,7 +285,7 @@ function Wireframe(container, model) {
                         if (state.overlays) {
                             for (var o in state.overlays.map) {
                                 var tag = state.overlays.map[o].overlay;
-                                if (tag.constructor.name !== 'UserOverlay') {
+                                if (tag.constructor.name !== 'UserOverlay' || tag.constructor.name !== 'EditOverlay') {
                                     tag.offset.x = -k * CONST.TAG.SIZE;
                                     k++;
                                 }

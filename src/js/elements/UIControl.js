@@ -203,7 +203,7 @@ UIControl.prototype.getTagById = function (id) {
     if (this.hasOwnProperty('overlays') && this.overlays) {
         for (var i = 0; i < this.overlays.length; i++) {
             var tag = this.overlays[i];
-            if (tag.constructor.name !== 'UserOverlay') {
+            if (tag.constructor.name !== 'UserOverlay' || tag.constructor.name !== 'EditOverlay') {
                 if (tag.tagObj.getAttribute('id') === id) {
                     return tag;
                 }
@@ -212,7 +212,6 @@ UIControl.prototype.getTagById = function (id) {
     }
     return null;
 }
-
 UIControl.prototype.containsTagType = function (tag) {
     if (this.hasOwnProperty('overlays') && this.overlays) {
         for (var i = 0; i < this.overlays.length; i++) {
@@ -223,7 +222,6 @@ UIControl.prototype.containsTagType = function (tag) {
     }
     return false;
 }
-
 UIControl.prototype.getYTextObserver = function(){
     var that = this;
     var observer = _.debounce(function (evt) {
@@ -235,7 +233,6 @@ UIControl.prototype.getYTextObserver = function(){
     }, 500);
     return observer;
 }
-
 UIControl.prototype.initYText = function(attrName){
     var ytext =y.share.attrs.get(this.getId() + attrName, Y.Text);
     if (!ytext)
@@ -243,6 +240,20 @@ UIControl.prototype.initYText = function(attrName){
     else{
          ytext.observe(this.getYTextObserver());
          this.value.setAttribute(attrName, ytext.toString());
+    }
+}
+UIControl.prototype.toXML = function () {
+    var codec = new mxCodec();
+    var result = codec.encode(this);
+    return mxUtils.getXml(result);
+}
+UIControl.prototype.getEditOverlay = function(){
+    if (this.hasOwnProperty('overlays') && this.overlays) {
+        for (var i = 0; i < this.overlays.length; i++) {
+            var t = this.overlays[i];
+            if (t.constructor.name === 'EditOverlay')
+                return t;
+        }
     }
 }
 

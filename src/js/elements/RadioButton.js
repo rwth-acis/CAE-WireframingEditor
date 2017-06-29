@@ -23,6 +23,7 @@ function RadioButton(geometry) {
     this.initDOM = function () {
         this.set$node
             ($('<div>')
+                .css('pointer-events', 'none')
                 .append($('<input>').attr('type', 'radio').attr('checked', true))
                 .append($('<input>').attr('type', 'input')
                     .css('font-size', 15)

@@ -37,7 +37,9 @@ UIText.prototype.initDOM = function(element){
         _$node = $('<' + dom + '>')
             .css('width', this.geometry.width - 15)
             .css('height', this.geometry.height - 15)
-            .css('font-size', 15);
+            .css('font-size', 15)
+            .css('pointer-events', 'none');
+        
     this.set$node(_$node);
 };
 
@@ -46,8 +48,9 @@ UIText.prototype.createShared = function (createdByLocalUser) {
     if (createdByLocalUser) {
         var ytext = y.share.attrs.set(this.getId() + '_label', Y.Text);
         ytext.insert(0, this.value.getAttribute('label'));
+        var that = this;
         ytext.observe(function(event){
-            this.value.setAttribute('label', event.value);
+            that.value.setAttribute('label', event.object.toString());
         });
     }
 };

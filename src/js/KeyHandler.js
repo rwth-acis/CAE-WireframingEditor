@@ -12,8 +12,8 @@ KeyHandler.prototype.constructor = KeyHandler;
 function KeyHandler(editor){
     mxDefaultKeyHandler.call(this, editor);
 
-    //delete-key
-    this.bindAction(46, CONST.ACTIONS.SHARED.DELETE);
+    //CTRL+delete-key
+    this.bindAction(46, CONST.ACTIONS.SHARED.DELETE, 17);
     
     //CTRL+G for shared grouping
     this.bindAction(71, CONST.ACTIONS.SHARED.GROUP, 17);

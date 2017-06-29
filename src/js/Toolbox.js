@@ -29,8 +29,8 @@ function Toolbox(container, editor) {
 
     /*eslint-disable no-unused-vars*/
     editor.addAction(CONST.ACTIONS.SHARED.PASTE, function (editor, cell) {
-        var encoder = new mxCodec();
-        var result = encoder.encode(mxClipboard.getCells());
+        var codec = new mxCodec();
+        var result = codec.encode(mxClipboard.getCells());
         var xml = mxUtils.getXml(result);
         y.share.action.set(CONST.ACTIONS.SHARED.PASTE, {
             userId: y.db.userId,
@@ -38,9 +38,8 @@ function Toolbox(container, editor) {
         });
     });
 
-    /*eslint-disable no-unused-vars*/
     editor.addAction(CONST.ACTIONS.SHARED.DELETE, function (editor, cell) {
-        y.share.action.set(mxEvent.REMOVE, {userId: y.db.userId, cells : Util.getIdsOfSelectedCells(that._editor.graph)});
+        y.share.action.set(mxEvent.REMOVE, { userId: y.db.userId, cells: Util.getIdsOfSelectedCells(that._editor.graph) });
     });
 
     /*eslint-disable no-unused-vars*/
@@ -63,7 +62,6 @@ function Toolbox(container, editor) {
 
     /*eslint-disable no-unused-vars*/
     editor.addAction(CONST.ACTIONS.SHARED.GROUP, function (editor, cell) {
-
         y.share.action.set(mxEvent.GROUP_CELLS, {
             userId: y.db.userId,
             ids: Util.getIdsOfSelectedCells(that._editor.graph)
@@ -134,7 +132,7 @@ function Toolbox(container, editor) {
             case mxEvent.REMOVE:
                 that._editor.graph.setSelectionCells(Util.getCellsFromIdList(that._editor.graph, event.value.cells));
                 that._editor.execute("delete");
-                if(y.db.userId === event.value.userId)
+                if (y.db.userId === event.value.userId)
                     Util.Save(that._editor.graph);
                 break;
             case mxEvent.GROUP_CELLS:
@@ -155,7 +153,7 @@ function Toolbox(container, editor) {
                 var selectedCells = that._editor.graph.getSelectionCells();
 
                 var doc = mxUtils.parseXml(event.value.xml);
-                var elt = doc.documentElement.firstChild;
+                var elt = doc.documentElement.firstChild.childNodes[1];
                 var cells = [];
                 while (elt != null) {
                     var codec = new mxCodec();

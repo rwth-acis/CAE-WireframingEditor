@@ -22,6 +22,7 @@ function CheckBox(geometry) {
     this.initDOM = function () {
         this.set$node(
             $('<div>')
+            .css('pointer-events', 'none')
             .append($('<input>').attr('type', 'checkbox').attr('checked', true))
             .append($('<input>')
                 .attr('type', 'input')
