@@ -30,6 +30,9 @@ function Wireframe(container, model) {
 
     that.foldingEnabled = false;
     that.autoExtend = false;
+    that.collapseToPreferredSize = false;
+    that.extendParentsOnAdd = false;
+    that.extendParents = false;
     that.setHtmlLabels(true);
     that.setTooltips(true); //enable tooltips for overlays
     this.dropEnabled = true;

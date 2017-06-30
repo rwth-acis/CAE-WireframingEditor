@@ -1,14 +1,14 @@
 import PropertyEditor from './PropertyEditor.js';
 import CONST from './misc/Constants.js';
 import Util from './misc/Util.js';
-
+import WireframeLayout from './WireframeLayout.js';
 /**
  * The class builds the context menu for the wireframing editor
  * @param {mxEditor} editor
  */
 function ContextMenu(editor) {
     editor.graph.popupMenuHandler.factoryMethod = function (menu, cell, evt) {
-        return createPopupMenu(null, menu, cell, evt);
+        return createPopupMenu(editor.graph, menu, cell, evt);
     };
 
     function createPopupMenu(graph, menu, cell) {
@@ -24,6 +24,7 @@ function ContextMenu(editor) {
                 }, sub);
             }
             menu.addSeparator();
+
         } else {
             menu.addItem('Show Attributes', CONST.IMAGES.FLASH, function (event) {
                 new PropertyEditor(cell, editor.graph, event.x, event.y);
@@ -37,9 +38,6 @@ function ContextMenu(editor) {
             editor.execute(CONST.ACTIONS.SHARED.REDO);
         });
         if (cell == null) {
-            menu.addItem('Save', null, function(){
-                Util.Save(editor.graph);
-            });
         } else {
             menu.addSeparator();
             //TODO copy & paste for context menu needs rework
@@ -61,6 +59,11 @@ function ContextMenu(editor) {
             });
 
         }
+        menu.addItem('Apply Layout', null, function(){
+            var layout = new WireframeLayout(graph, false);
+            layout.resizeVertices = false;
+            layout.execute(cell || graph.getDefaultParent());
+        });
     };
     return this;
 };
