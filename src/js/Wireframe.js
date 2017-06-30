@@ -100,10 +100,10 @@ function Wireframe(container, model) {
     };
     that.addListener(mxEvent.CELLS_MOVED, SharedCellsMovedEvent);
     that.addListener(mxEvent.CELLS_RESIZED, SharedCellResizedEvent);
-    that.addListener(mxEvent.DOUBLE_CLICK, function(sender, evt){
+    that.addListener(mxEvent.DOUBLE_CLICK, function (sender, evt) {
         var cell = evt.getProperty('cell');
-        if(cell){
-            if(cell.hasOwnProperty('get$node')){
+        if (cell) {
+            if (cell.hasOwnProperty('get$node')) {
                 cell.get$node().css('pointer-events', 'auto');
                 cell.get$node().focus();
             }
@@ -111,17 +111,17 @@ function Wireframe(container, model) {
             //new PropertyEditor(cell, that, e.x, e.y);
         }
     });
-    that.getSelectionModel().addListener(mxEvent.CHANGE, function(sender, event){
+    that.getSelectionModel().addListener(mxEvent.CHANGE, function (sender, event) {
         var deselected = event.getProperty('added');
-        for(var i=0;i<deselected.length;i++){
-            if(deselected[i].hasOwnProperty('get$node'))
+        for (var i = 0; i < deselected.length; i++) {
+            if (deselected[i].hasOwnProperty('get$node'))
                 deselected[i].get$node().css('pointer-events', 'none');
             mxGraph.prototype.removeCellOverlay.call(that, deselected[i], deselected[i].getEditOverlay());
 
         }
         var selected = event.getProperty('removed');
-        if(selected){
-            for(var i=0;i<selected.length;i++){
+        if (selected) {
+            for (var i = 0; i < selected.length; i++) {
                 var editOverlay = new EditOverlay();
                 mxGraph.prototype.addCellOverlay.call(that, selected[i], editOverlay);
                 editOverlay.bindClickEvent(that);
@@ -229,11 +229,10 @@ function Wireframe(container, model) {
                         return obj;
                     };
                     var tag = codec.decode(doc.documentElement);
-                    
+
                     var cell = that.getModel().getCell(event.value.id);
                     if (cell && tag) {
                         mxGraph.prototype.addCellOverlay.apply(that, [cell, tag]);
-                        cell.increaseTagCounter();
                         cell.addTag(tag);
                         tag.setCell(cell);
                         tag.createShared(y.db.userId === event.value.userId);
@@ -258,6 +257,15 @@ function Wireframe(container, model) {
                     if (event.value.userId !== y.db.userId) {
                         $('#' + event.value.cellId + '_tagTree').jstree(true).move_node(event.value.node, event.value.parent, event.value.position);
                     }
+                    var cell = that.getModel().getCell(event.value.cellId);
+                    var tag = cell.getTagById(event.value.node);
+                    cell.removeTagById(tag.getId());
+                    tag.tagObj.setAttribute('parent', event.value.parent);
+                    if (event.value.parent !== '#') {
+                        var parentTag = cell.getTagById(event.value.parent);
+                        parentTag.addChildTag(tag);
+                    }
+                    cell.addTag(tag);
                     break;
                 }
             case CONST.ACTIONS.DELETE_TAG:
@@ -267,7 +275,7 @@ function Wireframe(container, model) {
                         $tree.jstree(true).delete_node(event.value.selected);
                     //delete attribute form of the tag
                     $('#propertyEditor_' + event.value.cellId).find('.tagAttribute').parent().remove();
-                    var cell = that.getModel().getCell(event.value.cellId);                    
+                    var cell = that.getModel().getCell(event.value.cellId);
                     if (cell) {
                         for (var i = 0; i < event.value.selected.length; i++) {
                             var id = event.value.selected[i];
@@ -276,7 +284,18 @@ function Wireframe(container, model) {
                                 if (tag.hasOwnProperty('tagObj') && tag.tagObj.getAttribute('id') === id) {
                                     that.removeCellOverlay(cell, tag);
                                     cell.removeTagById(id);
-                                    cell.decreaseTagCounter();
+                                    var removeAllChilds = function (cell, tag) {
+                                        //remove childs
+                                        var childs = tag.getChildTags();
+                                        for (var key in childs) {
+                                            if (childs.hasOwnProperty(key)) {
+                                                cell.removeTagById(key);
+                                                that.removeCellOverlay(cell, childs[key]);
+                                                removeAllChilds(cell, childs[key]);
+                                            }
+                                        }
+                                    }
+                                    removeAllChilds(cell, tag);
                                 }
                             }
                         }
@@ -292,9 +311,9 @@ function Wireframe(container, model) {
                             }
                             that.cellRenderer.redraw(state);
                         }
-                       
+
                     }
-                    
+
                     break;
                 }
             case CONST.ACTIONS.RENAME_TAG:
@@ -303,7 +322,7 @@ function Wireframe(container, model) {
                     break;
                 }
         }
-        if(event.value.userId === y.db.userId)
+        if (event.value.userId === y.db.userId)
             Util.Save(that);
     });
     //------------------------------------------------------------------------------------------------------------------------

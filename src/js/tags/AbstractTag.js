@@ -26,6 +26,7 @@ mxUtils.extend(AbstractTag, mxCellOverlay);
  */
 function AbstractTag(entity, image, tooltip, offset, cursor) {
     var comboAttr = {};
+    var childTags = {};
     var xmlDoc = mxUtils.createXmlDocument();
     this.tagObj = xmlDoc.createElement('tagObj');
     this.tagObj.setAttribute('tagType', this.constructor.name.toLowerCase());
@@ -57,6 +58,14 @@ function AbstractTag(entity, image, tooltip, offset, cursor) {
     }
     this.setCell = function(cell){
         _cell = cell;
+    }
+
+    this.addChildTag = function(tag){
+        childTags[tag.getId()] = tag;
+    }
+
+    this.getChildTags = function(){
+        return childTags;
     }
     
 }

@@ -56,74 +56,77 @@ Util.Save = function (graph) {
     var $save = $('.wfSave');
     $save.css('opacity', 1.0);
 
-    setTimeout(function(){
+    setTimeout(function () {
         $save.css('opacity', 0.5);
     }, 750);
 }
 
 Util.initSharedData = function (parent, graph) {
     var uiControl;
-    if(!parent.children) return;
+    if (!parent.children) return;
     for (var i = 0; i < parent.children.length; i++) {
         uiControl = parent.children[i];
         uiControl.initShared();
         var tags = uiControl.createTags();
-        for(var j=0; j<tags.length;j++){
-            mxGraph.prototype.addCellOverlay.apply(graph, [uiControl, tags[j]]);
-            tags[j].initShared();
+        for (var key in tags) {
+            if (tags.hasOwnProperty(key)) {
+                var tag = tags[key];
+                mxGraph.prototype.addCellOverlay.apply(graph, [uiControl, tag]);
+                tag.initShared();
+            }
         }
-        if(uiControl.constructor.name === 'DivContainer'){
+        if (uiControl.constructor.name === 'DivContainer') {
             this.initSharedData(uiControl, graph);
         }
-    }    
+    }
 }
 
-Util.createFormFromCellAttributes = function(className, obj, entity){
+Util.createFormFromCellAttributes = function (className, obj, entity) {
     var form = new mxForm(className);
     var attrs = obj.attributes;
     var attr;
-        for (var i = 0; i < attrs.length; i++) {
-            attr = attrs[i];
-            if (attr.name[0] !== '_') continue; //skip the label and the ui-type
-            if (attr.value.indexOf('true') != -1 || attr.value.indexOf('false') != -1) //a boolean value
-                form.addCheckbox(attr.name.substr(1), attr.value.indexOf('true') != -1 ? true : false);
-            else {
-                var values = entity.getComboAttr(attr.name);
-                if (values) {
-                    var combo = form.addCombo(attr.name.substr(1));
-                    for (var j = 0; j < values.length; j++) {
-                        form.addOption(combo, values[j], values[j], attr.value === values[j]);
-                    }
-                } else
-                    form.addText(attr.name.substr(1), attr.value);
-            }
+    for (var i = 0; i < attrs.length; i++) {
+        attr = attrs[i];
+        if (attr.name[0] !== '_') continue; //skip the label and the ui-type
+        if (attr.value.indexOf('true') != -1 || attr.value.indexOf('false') != -1) //a boolean value
+            form.addCheckbox(attr.name.substr(1), attr.value.indexOf('true') != -1 ? true : false);
+        else {
+            var values = entity.getComboAttr(attr.name);
+            if (values) {
+                var combo = form.addCombo(attr.name.substr(1));
+                for (var j = 0; j < values.length; j++) {
+                    form.addOption(combo, values[j], values[j], attr.value === values[j]);
+                }
+            } else
+                form.addText(attr.name.substr(1), attr.value);
         }
+    }
     return form;
 }
 
-Util.bindSharedAttributes = function(entity, form){
+Util.bindSharedAttributes = function (entity, form) {
     var id = entity.getId();
-        $(form.body).find('tr').map(function (i, elem) {
-            var name = $(elem).find('td:first').text();
-            var $input = $(elem).find('input');
-            if ($input.length > 0) {
-                if ($input.attr('type') === 'text') {
-                    var ytext = y.share.attrs.get(id + '_' + name);
-                    if (ytext){
-                        ytext.bind($input[0]);
-                    }
-                    //else //should actually not happen but add something to mxLog if ytext does not exists for whatever reason
-                } else if ($input.attr('type') === 'checkbox') {
-                    $input.change(function () {
-                        y.share.attrs.set(id + '_' + name, this.checked);
-                    });
+    $(form.body).find('tr').map(function (i, elem) {
+        var name = $(elem).find('td:first').text();
+        var $input = $(elem).find('input');
+        if ($input.length > 0) {
+            if ($input.attr('type') === 'text') {
+                var ytext = y.share.attrs.get(id + '_' + name);
+                if (ytext) {
+                    ytext.bind($input[0]);
                 }
-            } else {
-                $(elem).find('select').change(function () {
-                    //var optionSelected = $("option:selected", this);
-                    y.share.attrs.set(id + '_' + name, this.value);
+                //else //should actually not happen but add something to mxLog if ytext does not exists for whatever reason
+            } else if ($input.attr('type') === 'checkbox') {
+                $input.change(function () {
+                    y.share.attrs.set(id + '_' + name, this.checked);
                 });
             }
-        });
+        } else {
+            $(elem).find('select').change(function () {
+                //var optionSelected = $("option:selected", this);
+                y.share.attrs.set(id + '_' + name, this.value);
+            });
+        }
+    });
 }
 export default Util;

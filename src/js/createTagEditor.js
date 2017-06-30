@@ -100,7 +100,7 @@ function createTagEditor(cell, $editor, graph) {
             for (var i = 0; i < overlays.length; i++) {
                 var tag = overlays[i];
                 if (types.hasOwnProperty(tag.constructor.name)) {
-                    $tree.jstree(true).create_node(null, {
+                    $tree.jstree(true).create_node(tag.tagObj.getAttribute('parent'), {
                         id: tag.tagObj.getAttribute('id'),
                         type: tag.constructor.name,
                         text: tag.constructor.Alias,
@@ -139,7 +139,6 @@ function createTagEditor(cell, $editor, graph) {
                 position: event.position,
                 cellId: cell.getId()
             });
-
         });
 
         $tree.on('delete_node.jstree', function () {

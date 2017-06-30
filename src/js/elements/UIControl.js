@@ -93,26 +93,29 @@ function UIControl(geometry, style) {
         return tagCounter;
     }
 
-    this.increaseTagCounter = function () {
-        tagCounter++;
-    }
-    this.decreaseTagCounter = function () {
-        tagCounter--;
-    }
     this.addTag = function (tag) {
         this.value.getElementsByTagName('tagRoot')[0].appendChild(tag.tagObj);
+        tagCounter++;
     }
     this.removeTagById = function(tagId){
         var r = this.value.getElementsByTagName('tagRoot')[0];
-        var t= r.childNodes.item(tagId);
-        r.removeChild(t);
+        var arr = Array.prototype.slice.call(r.childNodes);
+        for (var i=0;i< arr.length;i++) {
+            if(tagId === arr[i].getAttribute('id')){
+                r.removeChild(arr[i]);
+                tagCounter--;
+                return true;
+            }
+        }
+
+        return false;
     }
     this.getUIObject = function () {
         return uiObj;
     }
     this.createTags = function () {
         var that = this;
-        var tags = [];
+        var tags = {};
         var _createTag = function (node, point) {
             var tag;
             switch (node.getAttribute('tagType')) {
@@ -157,9 +160,14 @@ function UIControl(geometry, style) {
             var point = new mxPoint(-CONST.TAG.SIZE * that.getTagCounter(), 0);
             var tag = _createTag(arr[i], point);
             tag.tagObj = arr[i];
-            tags.push(tag);
+            tags[tag.getId()]  = tag;
             this.value.getElementsByTagName('tagRoot')[0].appendChild(tag.tagObj);
-            that.increaseTagCounter();
+            tagCounter++;
+            if(tag.tagObj.getAttribute('parent') !== '#'){
+                var parentTag = tags[tag.tagObj.getAttribute('parent')];
+                if(parentTag)
+                    parentTag.addChildTag(tag);
+            }
         }
         
         
@@ -203,7 +211,7 @@ UIControl.prototype.getTagById = function (id) {
     if (this.hasOwnProperty('overlays') && this.overlays) {
         for (var i = 0; i < this.overlays.length; i++) {
             var tag = this.overlays[i];
-            if (tag.constructor.name !== 'UserOverlay' || tag.constructor.name !== 'EditOverlay') {
+            if (tag.constructor.name !== 'UserOverlay' && tag.constructor.name !== 'EditOverlay') {
                 if (tag.tagObj.getAttribute('id') === id) {
                     return tag;
                 }
