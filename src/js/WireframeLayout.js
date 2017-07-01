@@ -2,12 +2,7 @@ import { mxUtils, mxPartitionLayout, mxRectangle } from './misc/mxExport.js';
 mxUtils.extend(WireframeLayout, mxPartitionLayout);
 
 function WireframeLayout(graph, spacing, border) {
-
     mxPartitionLayout.call(this, graph, true, spacing, border);
-
-}
-WireframeLayout.prototype.moveCell = function (cell, x, y) {
-    mxPartitionLayout.prototype.moveCell.apply(this, arguments);
 }
 
 WireframeLayout.prototype.execute = function (parent) {

@@ -16,6 +16,7 @@ import Util from './misc/Util.js';
 import UserOverlay from './overlays/UserOverlay.js';
 import EditOverlay from './overlays/EditOverlay.js';
 import EnableAwareness from './Awareness.js';
+import WireframeLayout from './WireframeLayout.js';
 import $ from 'jquery';
 import CONST from './misc/Constants.js';
 //import PropertyEditor from './PropertyEditor.js';
@@ -180,10 +181,22 @@ function Wireframe(container, model) {
                         cells.push(cell);
                         elt = elt.nextSibling;
                     }
-                    that.addCells(cells);
+                    that.getModel().beginUpdate();
+                    try {
+                        if (event.value.parent)
+                            that.addCells(cells, that.getModel().getCell(event.value.parent));
+                        else
+                            that.addCells(cells);
+                    }
+                    finally {
+                        that.getModel().endUpdate();
+                    }
+
                     for (var i = 0; i < cells.length; i++) {
                         cells[i].createShared(event.value.userId === y.db.userId);
                     }
+                    if(event.value.userId === y.db.userId)
+                        that.setSelectionCells(cells);
 
                     break;
                 }
@@ -324,6 +337,15 @@ function Wireframe(container, model) {
                     //TODO
                     break;
                 }
+            case CONST.ACTIONS.SHARED.APPLY_LAYOUT : {
+                var layout = new WireframeLayout(that, false);
+                layout.resizeVertices = false;
+                if(event.value.cellId)
+                    layout.execute(that.getModel().getCell(event.value.cellId));
+                else
+                    layout.execute(that.getDefaultParent());
+                break;
+            }
         }
         if (event.value.userId === y.db.userId)
             Util.Save(that);

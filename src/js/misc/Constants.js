@@ -7,7 +7,8 @@ var constants = {
             UNDO: 'shared_undo',
             REDO: 'shared_redo',
             PASTE: 'shared_paste',
-            GRAPH_RESIZE: 'graphResize'
+            GRAPH_RESIZE: 'graphResize',
+            APPLY_LAYOUT: 'applyLayout'
         },
         COPY: 'copy',
         PASTE: 'paste',

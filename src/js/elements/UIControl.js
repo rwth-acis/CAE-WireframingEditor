@@ -45,17 +45,17 @@ function UIControl(geometry, style) {
 
     this.setVertex(true);
 
-    this.funct = function (wf, evt /*, cell*/) {
+    this.funct = function (wf, evt,  dropTarget, x0, y0) {
         wf.stopEditing(false);
 
         //encode UIControl
         var encoder = new mxCodec();
 
-        var pt = wf.getPointForEvent(evt);
+        //var pt = wf.getPointForEvent(evt);
+        
         var v = wf.getModel().cloneCell(that);
-        v.geometry.x = pt.x;
-        v.geometry.y = pt.y;
-
+        v.geometry.x = dropTarget ? Math.abs(x0 - dropTarget.geometry.x) : x0;
+        v.geometry.y = dropTarget ? Math.abs(y0 - dropTarget.geometry.y) : y0;
         var result = encoder.encode(v);
 
         var xml = mxUtils.getXml(result);
@@ -63,7 +63,8 @@ function UIControl(geometry, style) {
         y.share.action.set(mxEvent.ADD_VERTEX, {
             userId: y.db.userId,
             id: Util.GUID(),
-            data: xml
+            data: xml,
+            parent : dropTarget ? dropTarget.getId() : null
         });
     }
     this.makeTypeDraggable = function (type, wireframe) {

@@ -54,9 +54,10 @@ var codec = new mxObjectCodec(new mxPoint());
 mxCodecRegistry.register(codec);
 
 var mxPartitionLayout = mxLib.mxPartitionLayout;
+var mxGraphLayout = mxLib.mxGraphLayout;
 export {
     mxClient, mxEditor, mxGraph, mxGraphModel, mxCell, mxCodec, mxCodecRegistry, mxEvent, mxGraphHandler, mxConstants,mxImage, 
     mxKeyHandler, mxRubberband, mxUtils, mxRectangle, mxToolbar, mxStencil, mxStencilRegistry, mxWindow, mxShape, mxGeometry, mxDefaultKeyHandler,
     mxForm, mxDefaultToolbar, mxLog, mxClipboard, mxCellRenderer, mxObjectCodec, mxCellOverlay,
-    mxPoint, mxCellHighlight, mxPartitionLayout
+    mxPoint, mxCellHighlight, mxPartitionLayout, mxGraphLayout
 };

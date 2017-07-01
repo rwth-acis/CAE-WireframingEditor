@@ -1,7 +1,7 @@
+/*global y*/
 import PropertyEditor from './PropertyEditor.js';
 import CONST from './misc/Constants.js';
-import Util from './misc/Util.js';
-import WireframeLayout from './WireframeLayout.js';
+
 /**
  * The class builds the context menu for the wireframing editor
  * @param {mxEditor} editor
@@ -60,9 +60,7 @@ function ContextMenu(editor) {
 
         }
         menu.addItem('Apply Layout', null, function(){
-            var layout = new WireframeLayout(graph, false);
-            layout.resizeVertices = false;
-            layout.execute(cell || graph.getDefaultParent());
+            y.share.action.set(CONST.ACTIONS.SHARED.APPLY_LAYOUT, {userId: y.db.userId, cellId : cell ? cell.getId(): null});
         });
     };
     return this;
