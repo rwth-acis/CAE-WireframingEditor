@@ -11,8 +11,12 @@ import {mxCellOverlay, mxUtils, mxConstants, mxImage}  from '../misc/mxExport.js
  * @param {*} offset 
  * @param {*} cursor 
  */
-function UserOverlay(username, imageURL, offset, cursor){
-    mxCellOverlay.call(this, new mxImage(CONST.IMAGES.DEFAULT_USER || imageURL, CONST.TAG.SIZE, CONST.TAG.SIZE), username, mxConstants.ALIGN_RIGHT, mxConstants.ALIGN_BOTTOM, offset, cursor);
+function UserOverlay(userId, username, imageURL, offset, cursor){
+    mxCellOverlay.call(this, new mxImage(imageURL || CONST.IMAGES.DEFAULT_USER, CONST.TAG.SIZE, CONST.TAG.SIZE), username, mxConstants.ALIGN_RIGHT, mxConstants.ALIGN_BOTTOM, offset, cursor);
+    var _userId = userId;
+    this.getUserId = function(){
+        return _userId;
+    }
 }
 
 export default UserOverlay;

@@ -2,7 +2,7 @@ require(['./../css/style.css', './../../node_modules/jquery-ui/themes/base/theme
 import $ from 'jquery';
 import 'jquery-ui/ui/widgets/resizable';
 import 'jquery-ui/ui/widgets/draggable';
-import { mxClient, mxUtils, mxCodec, mxEvent, mxLog } from './misc/mxExport.js';
+import { mxClient, mxUtils, mxCodec, mxEvent } from './misc/mxExport.js';
 import YjsSync from './misc/YjsSync.js';
 import CONST from './misc/Constants.js';
 import Util from './misc/Util.js';
@@ -12,16 +12,15 @@ import Wireframe from './Wireframe.js';
 import Palette from './Palette.js';
 import Editor from './Editor.js';
 import Toolbox from './Toolbox.js';
-
+import UserWindow from './User.js';
 export default function () {
     if (!mxClient.isBrowserSupported()) {
       // Displays an error message if the browser is not supported.
       mxUtils.error('Browser is not supported!', 200, false);
     } else {
       YjsSync().done(function (y) {
-
+        UserWindow();
         var model = new WireframeModel();
-        mxLog.show();
         var container = document.getElementById('wireframe');
         //disable default context menu
         mxEvent.disableContextMenu(container);

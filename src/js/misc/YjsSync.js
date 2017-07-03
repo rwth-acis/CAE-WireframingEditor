@@ -22,7 +22,8 @@ export default function (space) {
             attrs: 'Map',
             data : 'Map',
             awareness : 'Map', 
-            users : 'Map'
+            users : 'Map',
+            join : 'Map'
         }
     }).then(function (y) {
         window.y = y;

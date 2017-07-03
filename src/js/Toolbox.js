@@ -3,7 +3,6 @@ import {
     mxDefaultToolbar,
     mxEvent,
     mxCodec,
-    mxLog,
     mxClient,
     mxClipboard,
     mxUtils,
@@ -43,11 +42,11 @@ function Toolbox(container, editor) {
     });
 
     /*eslint-disable no-unused-vars*/
-    editor.addAction(CONST.ACTIONS.CONSOLE, function (editor, cell) {
-        if (mxLog.isVisible())
-            mxLog.setVisible(false);
-        else
-            mxLog.setVisible(true);
+    editor.addAction(CONST.ACTIONS.SHOW_USER_LIST, function (editor, cell) {
+        var $window = $('#userList').parents('.mxWindow').parents('.mxWindow');
+        if($window.is(':visible'))
+            $window.hide();
+        else $window.show();
     });
 
     /*eslint-disable no-unused-vars*/
@@ -212,7 +211,7 @@ function Toolbox(container, editor) {
     this.addItem("Import", CONST.IMAGES.IMPORT, CONST.ACTIONS.IMPORT);
     this.addItem("Export", CONST.IMAGES.EXPORT, CONST.ACTIONS.EXPORT);
     this.addSeparator();
-    this.addItem("Console", CONST.IMAGES.CONSOLE, CONST.ACTIONS.CONSOLE);
+    this.addItem("User List", CONST.IMAGES.USER_LIST, CONST.ACTIONS.SHOW_USER_LIST);
     this.addSeparator();
 
     return this;

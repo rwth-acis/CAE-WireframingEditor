@@ -1,12 +1,13 @@
 /*global y*/
-import {mxEvent, mxCellHighlight} from './misc/mxExport.js';
+import { mxEvent, mxCellHighlight, mxPoint } from './misc/mxExport.js';
 import UserOverlay from './overlays/UserOverlay';
-    /**
-     * Enables cell hightlighting and overlays for user informations
-     * @param {Wireframe} wireframe 
-     */
-    function Awareness(wireframe){
-     var highlightMap = {};
+import CONST from './misc/Constants.js';
+/**
+ * Enables cell hightlighting and overlays for user informations
+ * @param {Wireframe} wireframe 
+ */
+function Awareness(wireframe) {
+    var highlightMap = {};
 
     wireframe.getSelectionModel().addListener(mxEvent.CHANGE, function (sender, evt) {
         var unselectedCells = evt.getProperty('added');
@@ -27,38 +28,67 @@ import UserOverlay from './overlays/UserOverlay';
 
     y.share.awareness.observe(function (event) {
         if (event.name != y.db.userId) {
+            var userInfo = y.share.users.get(event.name);
+
             //unhighlight cells
             var unhighlightCells = event.value.unhighlight;
             for (var i = 0; i < unhighlightCells.length; i++) {
-                var highlight = highlightMap[unhighlightCells[i]];
+                var highlightId = unhighlightCells[i] + '_' + event.name;
+                var highlight = highlightMap[highlightId];
                 if (highlight) {
                     highlight.hide();
-                    delete highlightMap[unhighlightCells[i]];
+                    delete highlightMap[highlightId];
                     var cell = wireframe.getModel().getCell(unhighlightCells[i]);
                     if (cell) {
                         for (var j = 0; cell.overlays && j < cell.overlays.length; j++) {
-                            if (cell.overlays[j] instanceof UserOverlay) {
+                            if (cell.overlays[j] instanceof UserOverlay && cell.overlays[j].getUserId() === event.name) {
                                 wireframe.removeCellOverlay(cell, cell.overlays[j]);
                                 j--;
                             }
+                        }
+                        var k = 0;
+                        var state = wireframe.view.getState(cell);
+                        if (state.overlays) {
+                            for (var o in state.overlays.map) {
+                                var tag = state.overlays.map[o].overlay;
+                                if (tag instanceof UserOverlay) {
+                                    tag.offset.x = -k * CONST.TAG.SIZE;
+                                    k++;
+                                }
+                            }
+                            wireframe.cellRenderer.redraw(state);
                         }
                     }
                 }
             }
 
-            //highlight cells
-            var highlightCells = event.value.highlight;
-            for (var i = 0; i < highlightCells.length; i++) {
-                var highlight = new mxCellHighlight(wireframe, '#ff0000', 2);
-                highlightMap[highlightCells[i]] = highlight;
-                var cell = wireframe.getModel().getCell(highlightCells[i]);
-                if (cell) {
-                    highlight.highlight(wireframe.view.getState(cell));
-                    var overlay = new UserOverlay(event.name);
-                    wireframe.addCellOverlay(cell, overlay);
+
+                //highlight cells
+                var highlightCells = event.value.highlight;
+                for (var i = 0; i < highlightCells.length; i++) {
+                    var highlight = new mxCellHighlight(wireframe, userInfo ? userInfo.color : '#672d2d', 2);
+                    highlightMap[highlightCells[i] + '_' + event.name] = highlight;
+                    var cell = wireframe.getModel().getCell(highlightCells[i]);
+                    if (cell) {
+                        highlight.highlight(wireframe.view.getState(cell));
+                        var overlay;
+                        var offset = null;
+                        var userOverlayCount = 0;
+                        if (cell.overlays && cell.overlays.length > 0) {
+                            for (var j = 0; j < cell.overlays.length; j++) {
+                                if (cell.overlays[i] instanceof UserOverlay)
+                                    userOverlayCount++;
+                            }
+                            offset = new mxPoint(-CONST.TAG.SIZE * userOverlayCount, 0)
+                        }
+                        if (userInfo)
+                            overlay = new UserOverlay(event.name, userInfo.name, userInfo.image, offset);
+                        else
+                            overlay = new UserOverlay(event.name, 'Unknown User', null, offset);
+                        wireframe.addCellOverlay(cell, overlay);
+                    }
                 }
             }
-        }
-    });
+        });
 }
 export default Awareness;

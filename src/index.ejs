@@ -1,5 +1,7 @@
 <html>
+  <meta name="google-signin-client_id" content="448687105038-ta7e3j4dnd39l774ovqq3ilieerb9nhg.apps.googleusercontent.com">
   <head>  
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
   <div id="paletteContainer">
@@ -7,7 +9,8 @@
     <div class="hsplit"></div>
   </div>
   <div id="mainContainer">
-    <div id='toolbox'></div>
+    <div id='toolbox'>
+  </div>
     <div id="wireframeContainer">
       <div id="wireframeWrap">
         <div id="draggingBar">
@@ -19,6 +22,10 @@
       </div>
     </div>
   </div>
+  </div>
+  <div id="userList">
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <table style="background-color: white"></table>
   </div>
 </body>
 </html>

@@ -36,7 +36,10 @@ var mxGeometry = mxLib.mxGeometry;
 var mxDefaultKeyHandler = mxLib.mxDefaultKeyHandler;
 var mxForm = mxLib.mxForm;
 var mxDefaultToolbar = mxLib.mxDefaultToolbar;
+
 var mxLog = mxLib.mxLog;
+window.mxLog = mxLog;
+
 var mxClipboard = mxLib.mxClipboard;
 var mxWindow = mxLib.mxWindow;
 var mxShape = mxLib.mxShape;

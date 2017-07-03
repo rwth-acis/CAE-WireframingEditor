@@ -12,7 +12,7 @@ var constants = {
         },
         COPY: 'copy',
         PASTE: 'paste',
-        CONSOLE: 'toggleConsole',
+        SHOW_USER_LIST: 'showUserList',
         EXPORT: 'export',
         IMPORT: 'import',
         MOVE_TAG: 'moveTag',
@@ -28,7 +28,6 @@ var constants = {
         REDO: 'images/toolbox/redo2.png',
         GROUP: 'images/toolbox/group.png',
         UNGROUP: 'images/toolbox/ungroup.png',
-        CONSOLE: 'images/toolbox/console.png',
         ADD: 'images/toolbox/add.png',
         FLASH: 'images/toolbox/flash.png',
         IMPORT: 'images/toolbox/import.png',
@@ -40,7 +39,8 @@ var constants = {
         IWC_REQ_TAG: 'images/tags/IWCRequest.png',
         IWC_RESP_TAG: 'images/tags/IWCResponse.png',
         DEFAULT_USER: 'images/user.png',
-        SAVE : 'images/toolbox/save.png'
+        SAVE : 'images/toolbox/save.png',
+        USER_LIST : 'images/toolbox/list.png'
     },
     TAG: {
         SIZE: 20,
