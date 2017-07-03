@@ -15,7 +15,8 @@ module.exports = {
     app: './src/index.js',
     'yVendor': ['yjs', 'y-websockets-client', 'y-map', 'y-array', 'y-text', 'y-memory'],
     'jVendor': ['jquery', 'jquery-ui', 'jstree', 'lodash'],
-    'mxVendor': ['mxgraph']
+    'mxVendor': ['mxgraph'],
+    'vendor' : ['lodash', 'randomcolor']
   },
   output: {
     filename: '[name].js',
@@ -54,7 +55,7 @@ module.exports = {
       name: 'manifest' //But since there are no more common modules between them we end up with just the runtime code included in the manifest file
     }),*/
     new webpack.optimize.CommonsChunkPlugin({
-      name: ['yVendor', 'jVendor', 'mxVendor']
+      name: ['yVendor', 'jVendor', 'mxVendor', 'vendor', 'manifest']
     }),
     new HtmlWebpackPlugin({
       title: 'CAE Wireframing Editor',

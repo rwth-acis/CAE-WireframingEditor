@@ -12,7 +12,8 @@ module.exports = {
         //"bundle.css" : ['./src/css/style.css',  './node_modules/jquery-ui/themes/base/theme.css', './node_modules/jquery-ui/themes/base/tabs.css']
         'yVendor' :  ['yjs', 'y-websockets-client', 'y-map', 'y-array', 'y-text', 'y-memory'],
         'jVendor' : ['jquery', 'jquery-ui', 'jstree'],
-        'mxVendor' : ['mxgraph']
+        'mxVendor' : ['mxgraph'],
+        'vendor' : ['lodash', 'randomcolor']
     },
     output: {
         filename: '[name].js',
@@ -40,7 +41,7 @@ module.exports = {
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
-            name: ['yVendor', 'jVendor', 'mxVendor', 'manifest']
+            name: ['yVendor', 'jVendor', 'mxVendor', 'vendor', 'manifest']
         }),
         /*new webpack.optimize.CommonsChunkPlugin({
             name: 'jVendor'
