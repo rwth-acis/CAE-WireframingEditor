@@ -28,22 +28,22 @@ function createTagEditor(cell, $editor, graph) {
     //jstree types
     var types = {};
     types[EventTag.name] = {
-        icon: "./" + CONST.IMAGES.EVENT_TAG
+        icon:  CONST.IMAGES.EVENT_TAG
     };
     types[MicroserviceCallTag.name] = {
-        icon: "./" + CONST.IMAGES.MICROSERVICECALL
+        icon:  CONST.IMAGES.MICROSERVICECALL
     };
     types[FunctionTag.name] = {
-        icon: "./" + CONST.IMAGES.FUNC_TAG
+        icon:  CONST.IMAGES.FUNC_TAG
     };
     types[IWCReqTag.name] = {
-        icon: "./" + CONST.IMAGES.IWC_REQ_TAG
+        icon:  CONST.IMAGES.IWC_REQ_TAG
     };
     types[IWCRespTag.name] = {
-        icon: "./" + CONST.IMAGES.IWC_RESP_TAG
+        icon:  CONST.IMAGES.IWC_RESP_TAG
     };
     types[SharedTag.name] = {
-        icon: "./" + CONST.IMAGES.YJS
+        icon:  CONST.IMAGES.YJS
     };
 
     var supportedTags = CONST.TAG.MAPPING[cell.constructor.name];

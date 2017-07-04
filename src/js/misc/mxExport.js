@@ -1,7 +1,7 @@
 import mxGraphLib from "../../../node_modules/mxgraph/javascript/dist/build.js";
-
+import CONST from './Constants.js';
 var mxLib = mxGraphLib({
-    mxImageBasePath: "images",
+    mxImageBasePath: CONST.MXGRAPH.IMAGE_BASE_PATH,
     mxBasePath: ".",
     mxLoadStylesheets: false,
     mxLoadResources: false

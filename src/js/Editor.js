@@ -1,9 +1,6 @@
 /*global y*/
 import {
     mxEditor,
-    mxUtils,
-    mxStencil,
-    mxStencilRegistry,
     mxConstants,
     mxCellRenderer,
     mxGraph
@@ -14,6 +11,15 @@ import ContextMenu from './ContextMenu.js';
 
 import VideoPlayerShape from './shapes/VideoShape.js';
 import AudioPlayerShape from './shapes/AudioShape.js';
+import ButtonShape from './shapes/ButtonShape.js';
+import TextNodeShape from './shapes/TextNodeShape.js';
+import LinkShape from './shapes/LinkShape.js';
+import ParagraphShape from './shapes/ParagraphShape.js';
+import TextAreaShape from './shapes/TextAreaShape.js';
+import TextBoxShape from './shapes/TextBoxShape.js';
+import CheckboxShape from './shapes/CheckboxShape.js';
+import RadioButtonShape from './shapes/RadioButtonShape.js';
+import ImageShape from './shapes/ImageShape.js';
 
 import Link from './elements/Link.js';
 import TextBox from './elements/TextBox.js';
@@ -42,21 +48,30 @@ function Editor(wireframe, palette) {
     //Editor.prototype.disableContextMenu = false;
     new ContextMenu(this);
     //Load stencils 
-    var xml = mxUtils.load('html5stencils.xml');
-    var root = xml.getDocumentElement();
-    var shape = root.firstChild;
-
-    while (shape != null) {
-        if (shape.nodeType == mxConstants.NODETYPE_ELEMENT) {
-            var stencil = new mxStencil(shape);
-            //var stencilName = shape.getAttribute('name');
-            mxStencilRegistry.addStencil(shape.getAttribute('name'), stencil);
+    /*$.get(CONST.STENCILS, function (xml) {
+        var root = xml.getDocumentElement();
+        var shape = root.firstChild;
+        while (shape != null) {
+            if (shape.nodeType == mxConstants.NODETYPE_ELEMENT) {
+                var stencil = new mxStencil(shape);
+                //var stencilName = shape.getAttribute('name');
+                mxStencilRegistry.addStencil(shape.getAttribute('name'), stencil);
+            }
+            shape = shape.nextSibling;
         }
-        shape = shape.nextSibling;
-    }
+    });*/
 
     mxCellRenderer.prototype.defaultShapes[VideoPlayerShape.prototype.cst.SHAPE] = VideoPlayerShape;
     mxCellRenderer.prototype.defaultShapes[AudioPlayerShape.prototype.cst.SHAPE] = AudioPlayerShape;
+    mxCellRenderer.prototype.defaultShapes["button"] = ButtonShape;
+    mxCellRenderer.prototype.defaultShapes["link"] = LinkShape;
+    mxCellRenderer.prototype.defaultShapes["textbox"] = TextBoxShape;
+    mxCellRenderer.prototype.defaultShapes["paragraph"] = ParagraphShape;
+    mxCellRenderer.prototype.defaultShapes["textarea"] = TextAreaShape;
+    mxCellRenderer.prototype.defaultShapes["checkbox"] = CheckboxShape;
+    mxCellRenderer.prototype.defaultShapes["radio"] = RadioButtonShape;
+    mxCellRenderer.prototype.defaultShapes["image"] = ImageShape;
+    mxCellRenderer.prototype.defaultShapes["textnode"] = TextNodeShape;
 
     y.share.attrs.observe(function (event) {
         var name;

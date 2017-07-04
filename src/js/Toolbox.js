@@ -3,7 +3,6 @@ import {
     mxDefaultToolbar,
     mxEvent,
     mxCodec,
-    mxClient,
     mxClipboard,
     mxUtils,
     mxRectangle
@@ -186,33 +185,33 @@ function Toolbox(container, editor) {
 
     this.addSeparator = function (icon) {
         //The first two lines are from the addSeperator(icon) of mxDefaultToolbar
-        icon = icon || mxClient.imageBasePath + '/separator.gif';
+        icon = icon || CONST.IMAGES.SEPERATOR;
         var item = this.toolbar.addSeparator(icon);
         $(item).addClass("mxSeparator");
         return item;
     }
 
-    this.addSeparator();
+    //this.addSeparator();
     var item = this.addItem('Save', CONST.IMAGES.SAVE, CONST.ACTIONS.SAVE);
     $(item).addClass('wfSave');
-    this.addSeparator();
+    //this.addSeparator();
     this.addItem("Copy", CONST.IMAGES.COPY, CONST.ACTIONS.COPY);
     this.addItem("Paste", CONST.IMAGES.PASTE, CONST.ACTIONS.SHARED.PASTE);
-    this.addSeparator();
+    //  this.addSeparator();
     this.addItem("Delete", CONST.IMAGES.DELETE, CONST.ACTIONS.SHARED.DELETE);
-    this.addSeparator();
+    //this.addSeparator();
     //this.addItem("Cut", "images/toolbox/cut.gif", "shared_cut");
     this.addItem("Undo", CONST.IMAGES.UNDO, CONST.ACTIONS.SHARED.UNDO);
     this.addItem("Redo", CONST.IMAGES.REDO, CONST.ACTIONS.SHARED.REDO);
-    this.addSeparator();
+    //this.addSeparator();
     this.addItem("Group", CONST.IMAGES.GROUP, CONST.ACTIONS.SHARED.GROUP);
     this.addItem("Ungroup", CONST.IMAGES.UNGROUP, CONST.ACTIONS.SHARED.UNGROUP);
-    this.addSeparator();
+    //this.addSeparator();
     this.addItem("Import", CONST.IMAGES.IMPORT, CONST.ACTIONS.IMPORT);
     this.addItem("Export", CONST.IMAGES.EXPORT, CONST.ACTIONS.EXPORT);
-    this.addSeparator();
+    //this.addSeparator();
     this.addItem("User List", CONST.IMAGES.USER_LIST, CONST.ACTIONS.SHOW_USER_LIST);
-    this.addSeparator();
+    //this.addSeparator();
 
     return this;
 }

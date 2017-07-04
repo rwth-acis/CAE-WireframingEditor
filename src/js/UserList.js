@@ -2,7 +2,7 @@
 import { mxWindow } from './misc/mxExport.js';
 import $ from 'jquery';
 import randomColor from 'randomcolor';
-function UserWindow() {
+function UserList(user) {
     var $userList = $('#userList');
     var $userTable = $userList.find('table');
 
@@ -16,7 +16,6 @@ function UserWindow() {
     wnd.setClosable(true);
     wnd.destroyOnClose = false;
 
-    var joinUser = function () {
         window.onbeforeunload = function () {
             y.share.join.set('leave', y.db.userId);
         };
@@ -55,30 +54,14 @@ function UserWindow() {
         });
 
         $('.g-signin2').hide();
-        var profile = auth2.currentUser.get().getBasicProfile();
         var color = randomColor();
-        var $userEntry = getUserEntry(y.db.userId, profile.getName(), profile.getImageUrl(), color);
+        var $userEntry = getUserEntry(y.db.userId, user.name, user.imageUrl, color);
         $userTable.append($userEntry);
         $userTable.append($('<tr><th>Collaborators</th></tr>'));
         height += 50;
         wnd.setSize(width, height);
-        y.share.users.set(y.db.userId, { name: profile.getName(), image: profile.getImageUrl(), color: color });
-        y.share.join.set(y.db.userId, false);
-    }
-
-    var auth2 = gapi.auth2.init();
-    if (auth2.isSignedIn.get()) {
-        joinUser();
-    }
-    else {
-        auth2.isSignedIn.listen(function (isSignedIn) {
-            if (isSignedIn)
-                joinUser();
-        })
-    }
-
-
-
+        y.share.users.set(y.db.userId, { name: user.name, image: user.imageUrl, color: color });
+        y.share.join.set(y.db.userId, false); 
 }
 
-export default UserWindow;
+export default UserList;

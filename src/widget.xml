@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs
+    title="CAE-WireframingEditor"
+    description="Wireframing Editor for the CAE"
+    author="Mario Rosenstengel"
+    author_email="rosenst@dbis.rwth-aachen.de"
+    width="650"
+    height="650">
+
+	
+  </ModulePrefs>
+  <Content type="html">
+    <![CDATA[
+        <%=html%>
+    ]]>
+  </Content>
+</Module>

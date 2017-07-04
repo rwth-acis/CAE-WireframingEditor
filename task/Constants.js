@@ -1,4 +1,4 @@
-var widgetMode = true;
+var widgetMode = false;
 var basePath ='http://localhost:8080/';
 var constants = {
     STENCILS : 'html5stencils.xml',

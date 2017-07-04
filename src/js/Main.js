@@ -12,14 +12,14 @@ import Wireframe from './Wireframe.js';
 import Palette from './Palette.js';
 import Editor from './Editor.js';
 import Toolbox from './Toolbox.js';
-import UserWindow from './User.js';
-export default function () {
+export default function (login) {
     if (!mxClient.isBrowserSupported()) {
       // Displays an error message if the browser is not supported.
       mxUtils.error('Browser is not supported!', 200, false);
     } else {
       YjsSync().done(function (y) {
-        UserWindow();
+        if(login)
+          login();
         var model = new WireframeModel();
         var container = document.getElementById('wireframe');
         //disable default context menu

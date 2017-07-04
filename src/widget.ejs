@@ -1,0 +1,29 @@
+ <% for (var css in htmlWebpackPlugin.files.css) { %>
+  <link href="<!=basePath!><%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
+<% } %>
+<% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+<script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
+<% } %>
+  <div id="paletteContainer">
+    <div id="palette"></div>
+    <div class="hsplit"></div>
+  </div>
+  <div id="mainContainer">
+    <div id='toolbox'>
+  </div>
+    <div id="wireframeContainer">
+      <div id="wireframeWrap">
+        <div id="draggingBar">
+          <span class="ui-icon ui-icon-closethick"></span>
+          <span class="ui-icon ui-icon-minusthick"></span>
+          <span class="ui-icon ui-icon-plusthick"></span>
+        </div>
+        <div id="wireframe"></div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div id="userList">
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <table style="background-color: white"></table>
+  </div>
