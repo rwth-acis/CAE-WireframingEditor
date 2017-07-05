@@ -72,10 +72,6 @@ module.exports = {
       to: 'images'
     },
     {
-      from: 'src/js/shapes/html5stencils.xml',
-      to: 'html5stencils.xml'
-    },
-    {
       from: './node_modules/mxgraph/javascript/src/images',
       to: './images'
     },

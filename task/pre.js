@@ -1,9 +1,14 @@
 var fs = require('fs');
 var _ = require('lodash');
-fs.readFile('src/js/misc/Constants.js', 'utf8', function(err, data){
-    fs.writeFile('task/Constants.js', data);
-    var compile = _.template(data);
-    var output = compile({basePath: "http://localhost:8080/"});
-    output = output.replace('var widgetMode = false;', 'var widgetMode = true;');
-    fs.writeFile('src/js/misc/Constants.js', output);
+console.log('Run preprocessing task to build widget.');
+fs.readFile('task/config.json', 'utf8', function (err, config) {
+    var jsonConfig = JSON.parse(config);
+    fs.readFile('src/js/misc/Constants.js', 'utf8', function (err, data) {
+        fs.writeFile('Constants.js', data); //make a copy of Constants.js
+        var compile = _.template(data);
+        var output = compile({ basePath: jsonConfig.basePath });
+        output = output.replace('var widgetMode = false;', 'var widgetMode = true;');
+        fs.writeFile('src/js/misc/Constants.js', output);
+        console.log('Preprocess Finished');
+    });
 });

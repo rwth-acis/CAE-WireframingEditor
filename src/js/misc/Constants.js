@@ -1,7 +1,6 @@
-var widgetMode = true;
-var basePath ='http://localhost:8080/';
+var widgetMode = false;
+var basePath ='<%=basePath%>';
 var constants = {
-    STENCILS : 'html5stencils.xml',
     MXGRAPH : {
         IMAGE_BASE_PATH: "images"
     },
@@ -47,7 +46,8 @@ var constants = {
         DEFAULT_USER: 'images/user.png',
         SAVE : 'images/toolbox/save.png',
         USER_LIST : 'images/toolbox/list.png',
-        SEPERATOR : 'images/toolbox/separator.gif'
+        SEPERATOR : 'images/toolbox/separator.gif',
+        IMAGE_SHAPE : 'images/image.png'
     },
     TAG: {
         SIZE: 20,
@@ -78,7 +78,6 @@ constants.TAG.MAPPING = {
 }
 //add base path to urls if not null
 if(widgetMode){
-    constants.STENCILS = basePath + constants.STENCILS;
     constants.MXGRAPH.IMAGE_BASE_PATH = basePath + constants.MXGRAPH.IMAGE_BASE_PATH;
     for(var key in constants.IMAGES){
         constants.IMAGES[key] = basePath + constants.IMAGES[key];
