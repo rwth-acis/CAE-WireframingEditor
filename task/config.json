@@ -1,3 +1,4 @@
 {
-    "basePath": "http://localhost:8080/"
+    "_basePath": "http://localhost:8080/",
+    "basePath": "https://rwth-acis.github.io/CAE-WireframingEditor/role/"
 }

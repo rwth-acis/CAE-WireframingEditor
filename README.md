@@ -17,4 +17,17 @@ For development we highly recommend to use the webpack development server. There
 $ npm run start
 ```
 Point your browser to http://localhost:8080/.
-The port can be changed in the webpack.dev.js-file.
+The port can be changed in the *webpack.dev.js*-file.
+
+### Production Build
+The production build does not contain any source map and the files are uglified.
+```sh
+$ npm run build:dist
+```
+
+### Widget Build
+The widget build resues the configuration of the production build. Additionally the application is wrapped in a widget-file which can be deployed on the ROLE SDK.
+**NOTE!** Make sure to set the *basePath* in the *config.json* located in the *task*-folder for the widget to be deployed.
+```sh
+$ npm run build:widget
+```
