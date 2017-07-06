@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+  <ModulePrefs
+    title="CAE-WireframingEditor"
+    description="Wireframing Editor for the CAE"
+    author="Mario Rosenstengel"
+    author_email="rosenst@dbis.rwth-aachen.de"
+    width="650"
+    height="650">
+
+	
+  </ModulePrefs>
+  <Content type="html">
+    <![CDATA[
+         
+  <link href="https://rwth-acis.github.io/CAE-WireframingEditor/role/css/bundle.css" rel="stylesheet">
+
+
+<script src="manifest.js"></script>
+
+<script src="vendor.js"></script>
+
+<script src="mxVendor.js"></script>
+
+<script src="jVendor.js"></script>
+
+<script src="yVendor.js"></script>
+
+<script src="app.js"></script>
+
+  <div id="paletteContainer">
+    <div id="palette"></div>
+    <div class="hsplit"></div>
+  </div>
+  <div id="mainContainer">
+    <div id='toolbox'>
+  </div>
+    <div id="wireframeContainer">
+      <div id="wireframeWrap">
+        <div id="draggingBar">
+          <span class="ui-icon ui-icon-closethick"></span>
+          <span class="ui-icon ui-icon-minusthick"></span>
+          <span class="ui-icon ui-icon-plusthick"></span>
+        </div>
+        <div id="wireframe"></div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div id="userList">
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <table style="background-color: white"></table>
+  </div>
+    ]]>
+  </Content>
+</Module>
