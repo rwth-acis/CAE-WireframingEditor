@@ -2,7 +2,7 @@ require(['./../css/style.css', './../../node_modules/jquery-ui/themes/base/theme
 import $ from 'jquery';
 import 'jquery-ui/ui/widgets/resizable';
 import 'jquery-ui/ui/widgets/draggable';
-import { mxClient, mxUtils, mxCodec, mxEvent } from './misc/mxExport.js';
+import { mxClient, mxUtils, mxCodec, mxEvent, mxRectangle } from './misc/mxExport.js';
 import YjsSync from './misc/YjsSync.js';
 import CONST from './misc/Constants.js';
 import Util from './misc/Util.js';
@@ -12,7 +12,12 @@ import Wireframe from './Wireframe.js';
 import Palette from './Palette.js';
 import Editor from './Editor.js';
 import Toolbox from './Toolbox.js';
-export default function (login) {
+/**
+ * The Main function of the Wireframing editor
+ * @param {GoogleLogin || RoleLogin} login 
+ * @param {boolean} disableDragging 
+ */
+export default function (login, disableDragging) {
     if (!mxClient.isBrowserSupported()) {
       // Displays an error message if the browser is not supported.
       mxUtils.error('Browser is not supported!', 200, false);
@@ -36,15 +41,25 @@ export default function (login) {
         if (xml) {
           var doc = mxUtils.parseXml(xml);
           var codec = new mxCodec(doc);
-          codec.decode(doc.documentElement, model);
+          codec.decode(doc.documentElement.firstChild, model);
           Util.initSharedData(wireframe.getDefaultParent(), wireframe);
+          model.initMetaFromXml(doc.documentElement);
+          $('#wireframeWrap').css('width', model.getAttribute('width')).css('height', model.getAttribute('height'));
+          wireframe.maximumGraphBounds = new mxRectangle(0, 0, model.getAttribute('width'), model.getAttribute('height'));
+         
+          var name = model.getAttribute('_name');
+          if(name.length > 0){
+            $('#draggingBar').append(name);
+          }
+          model.initSharedData();
         }
 
         var htmlToolbox = document.getElementById('toolbox');
         new Toolbox(htmlToolbox, editor);
 
         $('#wireframeWrap').resizable({
-          handles: "n, e, s, w, se, sw, nw, ne",
+          //handles: "n, e, s, w, se, sw, nw, ne",
+          handles : "se",
           containment: '#wireframeContainer',
           //aspectRatio: 4/3,
           minWidth: 320,
@@ -60,14 +75,17 @@ export default function (login) {
               dHeight: ui.size.height - ui.originalSize.height,
               dWidth: ui.size.width - ui.originalSize.width
             });
-
+            model.setAttribute('height', ui.size.height);
+            model.setAttribute('width', ui.size.width);
+            Util.Save(wireframe);
           }
         });
-
-        $("#wireframeWrap").draggable({
-          handle: "#draggingBar",
-          containment: '#wireframeContainer'
-        });
+        if(!disableDragging){
+          $("#wireframeWrap").draggable({
+            handle: "#draggingBar",
+            containment: '#wireframeContainer'
+          });
+        }
 
         $('.hsplit').click(function () {
           var $palette = $('#palette');

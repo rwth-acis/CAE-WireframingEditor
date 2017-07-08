@@ -14,6 +14,10 @@ function ContextMenu(editor) {
     function createPopupMenu(graph, menu, cell) {
 
         if (cell == null) {
+            menu.addItem('Edit Attributes', CONST.IMAGES.FLASH, function (event) {
+                new PropertyEditor(null, editor.graph, event.x, event.y);
+            });
+            menu.addSeparator();
             var sub = menu.addItem('Create..', CONST.IMAGES.ADD);
             menu.createSubmenu(sub);
             var UIComponents = editor.getUIComponents();
@@ -26,7 +30,7 @@ function ContextMenu(editor) {
             menu.addSeparator();
 
         } else {
-            menu.addItem('Show Attributes', CONST.IMAGES.FLASH, function (event) {
+            menu.addItem('Edit Attributes', CONST.IMAGES.FLASH, function (event) {
                 new PropertyEditor(cell, editor.graph, event.x, event.y);
             });
             menu.addSeparator();

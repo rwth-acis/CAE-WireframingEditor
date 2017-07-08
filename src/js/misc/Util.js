@@ -51,7 +51,12 @@ Util.Save = function (graph) {
     var encoder = new mxCodec();
     //encoder.encodeDefaults = true;
     var result = encoder.encode(graph.getModel());
-    var xml = mxUtils.getXml(result);
+    var meta = graph.getModel().getMeta();
+    if(meta.hasChildNodes())
+        meta.replaceChild(result, meta.getElementsByTagName('WireframeModel')[0]);
+    else 
+        meta.appendChild(result);
+    var xml = mxUtils.getXml(meta);
     y.share.data.set('model', xml);
     var $save = $('.wfSave');
     $save.css('opacity', 1.0);
@@ -105,7 +110,7 @@ Util.createFormFromCellAttributes = function (className, obj, entity) {
 }
 
 Util.bindSharedAttributes = function (entity, form) {
-    var id = entity.getId();
+    var id = entity ? entity.getId() : 'meta';
     $(form.body).find('tr').map(function (i, elem) {
         var name = $(elem).find('td:first').text();
         var $input = $(elem).find('input');
@@ -114,6 +119,8 @@ Util.bindSharedAttributes = function (entity, form) {
                 var ytext = y.share.attrs.get(id + '_' + name);
                 if (ytext) {
                     ytext.bind($input[0]);
+                    if(!entity && name === 'name')
+                        ytext.bind($('#draggingBar')[0]);
                 }
                 //else //should actually not happen but add something to mxLog if ytext does not exists for whatever reason
             } else if ($input.attr('type') === 'checkbox') {
