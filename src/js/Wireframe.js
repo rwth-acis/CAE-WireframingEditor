@@ -29,8 +29,10 @@ function Wireframe(container, model) {
     var that = this;
     mxGraph.call(this, container, model);
 
+    that.defaultOverlap = 0;
     that.foldingEnabled = false;
     that.autoExtend = false;
+    that.allowAutoPanning = false;
     that.collapseToPreferredSize = false;
     that.extendParentsOnAdd = false;
     that.extendParents = false;
@@ -195,8 +197,10 @@ function Wireframe(container, model) {
                     for (var i = 0; i < cells.length; i++) {
                         cells[i].createShared(event.value.userId === y.db.userId);
                     }
-                    if(event.value.userId === y.db.userId)
+                    if(event.value.userId === y.db.userId){
                         that.setSelectionCells(cells);
+                        $('#wireframe').focus();    
+                    }
 
                     break;
                 }

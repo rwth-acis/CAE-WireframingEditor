@@ -37,7 +37,7 @@ function PropertyEditor(cell, graph, x, y) {
 
         var $attrsForm = $htmlEditor.find('#attributesTab');
         $attrsForm.append(form.body);
-        var propertyEditorWnd = new mxWindow("Properties", $htmlEditor[0], x, y, '100%', '40%', true, true);
+        var propertyEditorWnd = new mxWindow((cell ? cell.constructor.name : 'Widget') + ' Attributes', $htmlEditor[0], x, y, '100%', '40%', true, true);
         propertyEditorWnd.setVisible(true);
         propertyEditorWnd.setMaximizable(false);
         propertyEditorWnd.setResizable(false);

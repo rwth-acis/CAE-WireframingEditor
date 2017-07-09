@@ -37,13 +37,16 @@ function Toolbox(container, editor) {
     });
 
     editor.addAction(CONST.ACTIONS.SHARED.DELETE, function (editor, cell) {
-        y.share.action.set(mxEvent.REMOVE, { userId: y.db.userId, cells: Util.getIdsOfSelectedCells(that._editor.graph) });
+        y.share.action.set(mxEvent.REMOVE, {
+            userId: y.db.userId,
+            cells: Util.getIdsOfSelectedCells(that._editor.graph)
+        });
     });
 
     /*eslint-disable no-unused-vars*/
     editor.addAction(CONST.ACTIONS.SHOW_USER_LIST, function (editor, cell) {
         var $window = $('#userList').parents('.mxWindow').parents('.mxWindow');
-        if($window.is(':visible'))
+        if ($window.is(':visible'))
             $window.hide();
         else $window.show();
     });
@@ -118,6 +121,7 @@ function Toolbox(container, editor) {
                     that._editor.graph.setSelectionCells(cells);
                 } else
                     that._editor.undo();
+                Util.Save(that._editor.graph);
                 break;
             case mxEvent.REDO:
                 if (event.value !== y.db.userId) {
@@ -126,6 +130,7 @@ function Toolbox(container, editor) {
                     that._editor.graph.setSelectionCells(cells);
                 } else
                     that._editor.redo();
+                Util.Save(that._editor.graph);
                 break;
             case mxEvent.REMOVE:
                 that._editor.graph.setSelectionCells(Util.getCellsFromIdList(that._editor.graph, event.value.cells));
@@ -178,7 +183,7 @@ function Toolbox(container, editor) {
                     $('#draggingBar').css("width", "+=" + event.value.dWidth).css("height", "+=" + event.value.dHeight);
                 }
                 var prevBounds = that._editor.graph.maximumGraphBounds;
-                that._editor.graph.maximumGraphBounds = new mxRectangle(0, 0, prevBounds.width + event.value.dWidth, prevBounds.height + event.value.height);
+                that._editor.graph.maximumGraphBounds = new mxRectangle(0, 0, prevBounds.width + event.value.dWidth, prevBounds.height + event.value.dHeight);
                 break;
         }
     });

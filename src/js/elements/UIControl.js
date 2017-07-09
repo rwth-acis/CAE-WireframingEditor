@@ -45,14 +45,14 @@ function UIControl(geometry, style) {
 
     this.setVertex(true);
 
-    this.funct = function (wf, evt,  dropTarget, x0, y0) {
+    this.funct = function (wf, evt, dropTarget, x0, y0) {
         wf.stopEditing(false);
 
         //encode UIControl
         var encoder = new mxCodec();
 
         //var pt = wf.getPointForEvent(evt);
-        
+
         var v = wf.getModel().cloneCell(that);
         v.geometry.x = dropTarget ? Math.abs(x0 - dropTarget.geometry.x) : x0;
         v.geometry.y = dropTarget ? Math.abs(y0 - dropTarget.geometry.y) : y0;
@@ -64,11 +64,16 @@ function UIControl(geometry, style) {
             userId: y.db.userId,
             id: Util.GUID(),
             data: xml,
-            parent : dropTarget ? dropTarget.getId() : null
+            parent: dropTarget ? dropTarget.getId() : null
         });
     }
     this.makeTypeDraggable = function (type, wireframe) {
-        mxUtils.makeDraggable(type, wireframe, that.funct);
+        var preview = document.createElement('div');
+        preview.style.width = that.geometry.width+'px';
+        preview.style.height = that.geometry.height + 'px';
+        preview.style.border = 'black 0.5px dashed';
+
+        mxUtils.makeDraggable(type, wireframe, that.funct, preview, 0, 0);
     }
 
     this.setValueFromJson = function (json) {
@@ -98,11 +103,11 @@ function UIControl(geometry, style) {
         this.value.getElementsByTagName('tagRoot')[0].appendChild(tag.tagObj);
         tagCounter++;
     }
-    this.removeTagById = function(tagId){
+    this.removeTagById = function (tagId) {
         var r = this.value.getElementsByTagName('tagRoot')[0];
         var arr = Array.prototype.slice.call(r.childNodes);
-        for (var i=0;i< arr.length;i++) {
-            if(tagId === arr[i].getAttribute('id')){
+        for (var i = 0; i < arr.length; i++) {
+            if (tagId === arr[i].getAttribute('id')) {
                 r.removeChild(arr[i]);
                 tagCounter--;
                 return true;
@@ -157,21 +162,21 @@ function UIControl(geometry, style) {
         var children = this.value.childNodes[0].childNodes;
         var arr = Array.prototype.slice.call(children)
 
-        for (var i=0;i< arr.length;i++) {
+        for (var i = 0; i < arr.length; i++) {
             var point = new mxPoint(-CONST.TAG.SIZE * that.getTagCounter(), 0);
             var tag = _createTag(arr[i], point);
             tag.tagObj = arr[i];
-            tags[tag.getId()]  = tag;
+            tags[tag.getId()] = tag;
             this.value.getElementsByTagName('tagRoot')[0].appendChild(tag.tagObj);
             tagCounter++;
-            if(tag.tagObj.getAttribute('parent') !== '#'){
+            if (tag.tagObj.getAttribute('parent') !== '#') {
                 var parentTag = tags[tag.tagObj.getAttribute('parent')];
-                if(parentTag)
+                if (parentTag)
                     parentTag.addChildTag(tag);
             }
         }
-        
-        
+
+
         //that.value.get = that.getUIObject();
         return tags;
     }
@@ -231,7 +236,7 @@ UIControl.prototype.containsTagType = function (tag) {
     }
     return false;
 }
-UIControl.prototype.getYTextObserver = function(){
+UIControl.prototype.getYTextObserver = function () {
     var that = this;
     var observer = _.debounce(function (evt) {
         var value = evt.object.toString();
@@ -242,13 +247,13 @@ UIControl.prototype.getYTextObserver = function(){
     }, 500);
     return observer;
 }
-UIControl.prototype.initYText = function(attrName){
-    var ytext =y.share.attrs.get(this.getId() + attrName, Y.Text);
+UIControl.prototype.initYText = function (attrName) {
+    var ytext = y.share.attrs.get(this.getId() + attrName, Y.Text);
     if (!ytext)
         y.share.attrs.set(this.getId() + attrName, Y.Text);
-    else{
-         ytext.observe(this.getYTextObserver());
-         this.value.setAttribute(attrName, ytext.toString());
+    else {
+        ytext.observe(this.getYTextObserver());
+        this.value.setAttribute(attrName, ytext.toString());
     }
 }
 UIControl.prototype.toXML = function () {
@@ -256,7 +261,7 @@ UIControl.prototype.toXML = function () {
     var result = codec.encode(this);
     return mxUtils.getXml(result);
 }
-UIControl.prototype.getEditOverlay = function(){
+UIControl.prototype.getEditOverlay = function () {
     if (this.hasOwnProperty('overlays') && this.overlays) {
         for (var i = 0; i < this.overlays.length; i++) {
             var t = this.overlays[i];

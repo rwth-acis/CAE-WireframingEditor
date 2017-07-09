@@ -45,7 +45,7 @@ export default function (login, disableDragging) {
           Util.initSharedData(wireframe.getDefaultParent(), wireframe);
           model.initMetaFromXml(doc.documentElement);
           $('#wireframeWrap').css('width', model.getAttribute('width')).css('height', model.getAttribute('height'));
-          wireframe.maximumGraphBounds = new mxRectangle(0, 0, model.getAttribute('width'), model.getAttribute('height'));
+          wireframe.maximumGraphBounds = new mxRectangle(0, 0, parseInt(model.getAttribute('width')), parseInt(model.getAttribute('height')));
          
           var name = model.getAttribute('_name');
           if(name.length > 0){
