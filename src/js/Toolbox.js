@@ -96,7 +96,7 @@ function Toolbox(container, editor) {
             fileReader.onload = function (e) {
                 var data = e.target.result;
                 y.share.data.set('model', data);
-                window.location.reload();
+                y.share.action.set('reload', true);
                 //TODO improve import
             };
             files = this.files;
@@ -135,6 +135,7 @@ function Toolbox(container, editor) {
             case mxEvent.REMOVE:
                 that._editor.graph.setSelectionCells(Util.getCellsFromIdList(that._editor.graph, event.value.cells));
                 that._editor.execute("delete");
+                that._editor.graph.updateBounds();
                 if (y.db.userId === event.value.userId)
                     Util.Save(that._editor.graph);
                 break;
@@ -144,13 +145,15 @@ function Toolbox(container, editor) {
                     //that._editor.graph.setSelectionCells(group);
                     that._editor.graph.getSelectionModel().setCell(group);
                     group.createShared(true);
+
                 }
+                that._editor.graph.updateBounds();
                 break;
             case mxEvent.UNGROUP_CELLS:
                 var cells = that._editor.graph.ungroupCells(Util.getCellsFromIdList(that._editor.graph, event.value.ids));
                 if (y.db.userId === event.value.userId)
                     that._editor.graph.setSelectionCells(cells);
-
+                that._editor.graph.updateBounds();
                 break;
             case CONST.ACTIONS.SHARED.PASTE:
                 var selectedCells = that._editor.graph.getSelectionCells();
@@ -178,12 +181,15 @@ function Toolbox(container, editor) {
             case CONST.ACTIONS.SHARED.GRAPH_RESIZE: //event triggerd in index.html
                 if (y.db.userId !== event.value.userId) {
                     //var size = $('#wireframeWrap').css(["width", "height"]);
-                    $('#wireframeWrap').css("width", "+=" + event.value.dWidth).css("height", "+=" + event.value.dHeight);
-                    $('#wireframe').css("width", "+=" + event.value.dWidth).css("height", "+=" + event.value.dHeight);
-                    $('#draggingBar').css("width", "+=" + event.value.dWidth).css("height", "+=" + event.value.dHeight);
+                    $('#wireframeWrap').css("width",  event.value.width).css("height",  event.value.height);
+                    $('#wireframe').css("width",  event.value.width).css("height",  event.value.height);
+                    $('#draggingBar').css("width",  event.value.width);
                 }
                 var prevBounds = that._editor.graph.maximumGraphBounds;
-                that._editor.graph.maximumGraphBounds = new mxRectangle(0, 0, prevBounds.width + event.value.dWidth, prevBounds.height + event.value.dHeight);
+                that._editor.graph.maximumGraphBounds = new mxRectangle(0, 0, prevBounds.width + event.value.width, prevBounds.height + event.value.height);
+                break;
+            case 'reload':
+                window.location.reload();
                 break;
         }
     });

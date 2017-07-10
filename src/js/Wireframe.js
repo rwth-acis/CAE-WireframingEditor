@@ -145,10 +145,18 @@ function Wireframe(container, model) {
     }
 
     that.resizeCells = function (cells, bounds, recurse, shared) {
-        var cells = mxGraph.prototype.resizeCells.apply(this, arguments);
-        if (cells.length > 0 && sharedAction && !shared) {
+        var cells;
+        that.getModel().beginUpdate();
+        try {
+            cells = mxGraph.prototype.resizeCells.apply(this, arguments);
+        } finally {
+            that.getModel().endUpdate();
+            that.updateBounds();
+        }
+        if (cells && cells.length > 0 && sharedAction && !shared) {
             y.share.action.set(mxEvent.RESIZE, sharedAction);
             sharedAction = null;
+
         }
         return cells;
     };
@@ -163,6 +171,12 @@ function Wireframe(container, model) {
                 xml: overlay.toXML()
             });
         }
+    }
+
+    that.updateBounds = function () {
+        var bounds = that.getBoundingBox(that.getDefaultParent().children);
+        $('#wireframeWrap').resizable('option', 'minWidth', bounds.x + bounds.width);
+        $('#wireframeWrap').resizable('option', 'minHeight', bounds.y + bounds.height);
     }
 
     //------------------------------------------------------------------------------------------------------------------------
@@ -189,17 +203,20 @@ function Wireframe(container, model) {
                             that.addCells(cells, that.getModel().getCell(event.value.parent));
                         else
                             that.addCells(cells);
+
                     }
                     finally {
                         that.getModel().endUpdate();
+                        if (!event.value.parent)
+                            that.updateBounds();
                     }
 
                     for (var i = 0; i < cells.length; i++) {
                         cells[i].createShared(event.value.userId === y.db.userId);
                     }
-                    if(event.value.userId === y.db.userId){
+                    if (event.value.userId === y.db.userId) {
                         that.setSelectionCells(cells);
-                        $('#wireframe').focus();    
+                        $('#wireframe').focus();
                     }
 
                     break;
@@ -215,20 +232,31 @@ function Wireframe(container, model) {
                         }
                         that.addListener(mxEvent.CELLS_MOVED, SharedCellsMovedEvent);
                     }
+                    that.updateBounds();
                     break;
                 }
             case mxEvent.RESIZE:
                 {
                     if (event.value.userId !== y.db.userId) {
+                        that.removeListener(SharedCellResizedEvent);
                         var cells = Util.getCellsFromIdList(that, event.value.ids);
                         var bounds = [];
                         for (var i = 0; i < event.value.bounds.length; i++) {
                             var bound = event.value.bounds[i];
                             bounds.push(new mxRectangle(bound.x, bound.y, bound.width, bound.height));
                         }
-                        if (cells.length > 0)
-                            that.resizeCells(cells, bounds, false, true);
+                        if (cells.length > 0) {
+                            that.getModel().beginUpdate();
+                            try {
+                                that.resizeCells(cells, bounds, false, true);
+                            } finally {
+                                that.getModel().endUpdate();
+                                that.updateBounds();
+                                that.addListener(mxEvent.CELLS_RESIZED, SharedCellResizedEvent);
+                            }
+                        }
                     }
+
                     break;
                 }
             case mxEvent.ADD_OVERLAY:
@@ -341,10 +369,10 @@ function Wireframe(container, model) {
                     //TODO
                     break;
                 }
-            case CONST.ACTIONS.SHARED.APPLY_LAYOUT : {
+            case CONST.ACTIONS.SHARED.APPLY_LAYOUT: {
                 var layout = new WireframeLayout(that, false);
                 layout.resizeVertices = false;
-                if(event.value.cellId)
+                if (event.value.cellId)
                     layout.execute(that.getModel().getCell(event.value.cellId));
                 else
                     layout.execute(that.getDefaultParent());

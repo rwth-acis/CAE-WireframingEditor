@@ -22,8 +22,8 @@ function WireframeModel() {
     meta.setAttribute('_description', '');
     meta.setAttribute('_developerName', '');
     meta.setAttribute('_developerMail', '');
-    meta.setAttribute('width', '');
-    meta.setAttribute('height', '');
+    meta.setAttribute('width', '500');
+    meta.setAttribute('height', '500');
     meta.setAttribute('_mircoserviceAddress', '');
     mxGraphModel.call(this);
 

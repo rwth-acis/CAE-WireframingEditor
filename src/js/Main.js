@@ -46,7 +46,7 @@ export default function (login, disableDragging) {
           model.initMetaFromXml(doc.documentElement);
           $('#wireframeWrap').css('width', model.getAttribute('width')).css('height', model.getAttribute('height'));
           wireframe.maximumGraphBounds = new mxRectangle(0, 0, parseInt(model.getAttribute('width')), parseInt(model.getAttribute('height')));
-         
+          var bounds = wireframe.getBoundingBox(wireframe.getDefaultParent().children);
           var name = model.getAttribute('_name');
           if(name.length > 0){
             $('#draggingBar').append(name);
@@ -62,8 +62,8 @@ export default function (login, disableDragging) {
           handles : "se",
           containment: '#wireframeContainer',
           //aspectRatio: 4/3,
-          minWidth: 320,
-          minHeight: 200,
+          minWidth: bounds ? bounds.x + bounds.width : 320,
+          minHeight: bounds ? bounds.y + bounds.height : 200,
           alsoResize: "#wireframe, #draggingBar",
           classes: {
             "ui-resizable-se": "ui-icon ui-icon-grip-diagonal-se"
@@ -72,12 +72,12 @@ export default function (login, disableDragging) {
             //propagate graph resize to other users; handled in Toolbox.js
             y.share.action.set(CONST.ACTIONS.SHARED.GRAPH_RESIZE, {
               userId: y.db.userId,
-              dHeight: ui.size.height - ui.originalSize.height,
-              dWidth: ui.size.width - ui.originalSize.width
+              height: ui.size.height,
+              width: ui.size.width
             });
             model.setAttribute('height', ui.size.height);
             model.setAttribute('width', ui.size.width);
-            Util.Save(wireframe);
+            Util.Save(wireframe); 
           }
         });
         if(!disableDragging){
