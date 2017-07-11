@@ -284,6 +284,7 @@ function Wireframe(container, model) {
                         cell.addTag(tag);
                         tag.setCell(cell);
                         tag.createShared(y.db.userId === event.value.userId);
+                        tag.bindClickEvent(that);
                         var ref = $('#' + cell.getId() + '_tagTree').jstree(true);
                         if (ref) {
                             ref.create_node(null, {

@@ -49,5 +49,6 @@ function PropertyEditor(cell, graph, x, y) {
         
         $htmlEditor.tabs();
     }
+    return $htmlEditor;
 }
 export default PropertyEditor;

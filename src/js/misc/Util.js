@@ -78,6 +78,7 @@ Util.initSharedData = function (parent, graph) {
                 var tag = tags[key];
                 mxGraph.prototype.addCellOverlay.apply(graph, [uiControl, tag]);
                 tag.initShared();
+                tag.bindClickEvent(graph);
             }
         }
         if (uiControl.constructor.name === 'DivContainer') {

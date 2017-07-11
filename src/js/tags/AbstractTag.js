@@ -5,12 +5,14 @@ import {
     mxConstants,
     mxCodec,
     mxCodecRegistry,
-    mxObjectCodec
+    mxObjectCodec,
+    mxEvent
 } from '../misc/mxExport.js';
 import $ from 'jquery';
 import Util from '../misc/Util.js';
 import Y from 'yjs';
 import _ from 'lodash';
+import PropertyEditor from '../PropertyEditor.js';
 
 mxUtils.extend(AbstractTag, mxCellOverlay);
 
@@ -67,6 +69,15 @@ function AbstractTag(entity, image, tooltip, offset, cursor) {
     this.getChildTags = function(){
         return childTags;
     }
+
+    this.bindClickEvent = function(graph){
+        this.addListener(mxEvent.CLICK, function(sender, event){
+            var mouseEvent = event.getProperty('event');
+            var $editor = new PropertyEditor(event.getProperty('cell'), graph, mouseEvent.x, mouseEvent.y);
+            $editor.tabs("option", "active", 1);
+            $('.jstree').jstree(true).select_node(this.getId());
+        });
+    };
     
 }
 
