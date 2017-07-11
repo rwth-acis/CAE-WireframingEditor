@@ -9,8 +9,8 @@ import Y from 'yjs';
 mxUtils.extend(FunctionTag, AbstractTag);
 AbstractTag.registerCodec(FunctionTag);
 FunctionTag.Alias = CONST.TAG.ALIAS.FUNC;
-function FunctionTag(cellId, offset) {
-    AbstractTag.call(this, cellId, new mxImage(CONST.IMAGES.FUNC_TAG, CONST.TAG.SIZE, CONST.TAG.SIZE), 'Javascript Function', offset);
+function FunctionTag(cell, offset) {
+    AbstractTag.call(this, cell, new mxImage(CONST.IMAGES.FUNC_TAG, CONST.TAG.SIZE, CONST.TAG.SIZE), 'Javascript Function', offset);
 
     this.tagObj.setAttribute('_name', '');
     this.tagObj.setAttribute('_returnParameter', '');

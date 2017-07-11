@@ -1,6 +1,10 @@
 var widgetMode = false;
 var basePath ='<%=basePath%>';
 var constants = {
+    PROMISE : {
+        CONFIG : 'data/config.json', 
+        VLS : 'data/config.json'
+    },
     MXGRAPH : {
         IMAGE_BASE_PATH: "images"
     },
@@ -43,6 +47,7 @@ var constants = {
         FUNC_TAG: 'images/tags/func.png',
         IWC_REQ_TAG: 'images/tags/IWCRequest.png',
         IWC_RESP_TAG: 'images/tags/IWCResponse.png',
+        DEFAULT_TAG : 'images/tags/default.png',
         DEFAULT_USER: 'images/user.png',
         SAVE : 'images/toolbox/save.png',
         USER_LIST : 'images/toolbox/list.png',
@@ -53,7 +58,7 @@ var constants = {
         SIZE: 20,
         ALIAS: {
             EVENT: 'Event',
-            MICRO_CALL: 'Mircoservice Call',
+            MICRO_CALL: 'Microservice Call',
             FUNC: 'Function',
             IWC_CALL: 'IWC Call',
             IWC_RESP: 'IWC Response',

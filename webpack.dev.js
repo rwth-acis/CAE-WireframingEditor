@@ -39,7 +39,11 @@ module.exports = {
     {
       test: /\.(jpeg|png|gif|svg)$/i,
       loader: "file-loader?name=../images/[name].[ext]&emitFile=false"
-    }
+    },
+    {
+        test: /\.json$/,
+        use: 'json-loader'
+      }
     ]
   },
   plugins: [

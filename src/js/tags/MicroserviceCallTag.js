@@ -7,8 +7,8 @@ import Y from 'yjs';
 mxUtils.extend(MicroserviceCallTag, AbstractTag);
 AbstractTag.registerCodec(MicroserviceCallTag);
 MicroserviceCallTag.Alias = CONST.TAG.ALIAS.MICRO_CALL;
-function MicroserviceCallTag(cellId, offset) {
-    AbstractTag.call(this, cellId, new mxImage(CONST.IMAGES.MICROSERVICECALL, CONST.TAG.SIZE, CONST.TAG.SIZE), 'Microservice call', offset);
+function MicroserviceCallTag(cell, offset) {
+    AbstractTag.call(this, cell, new mxImage(CONST.IMAGES.MICROSERVICECALL, CONST.TAG.SIZE, CONST.TAG.SIZE), 'Microservice call', offset);
 
     this.tagObj.setAttribute('_methodType', 'GET');
     this.tagObj.setAttribute('_contentType', 'application/json');

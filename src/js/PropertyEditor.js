@@ -3,7 +3,7 @@ import {
 } from './misc/mxExport.js';
 import $ from 'jquery';
 import 'jquery-ui/ui/widgets/tabs';
-import createTagEditor from './createTagEditor.js';
+import TagEditor from './TagEditor.js';
 import Util from './misc/Util.js';
 
 /**
@@ -45,7 +45,7 @@ function PropertyEditor(cell, graph, x, y) {
         
         Util.bindSharedAttributes(cell ? cell : null, form);
         if(cell)
-            createTagEditor(cell, $htmlEditor, graph);
+            TagEditor(cell, $htmlEditor, graph);
         
         $htmlEditor.tabs();
     }

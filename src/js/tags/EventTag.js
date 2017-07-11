@@ -7,8 +7,8 @@ import Y from 'yjs';
 mxUtils.extend(EventTag, AbstractTag);
 AbstractTag.registerCodec(EventTag);
 EventTag.Alias = CONST.TAG.ALIAS.EVENT;
-function EventTag(cellId, offset){
-    AbstractTag.call(this, cellId, new mxImage(CONST.IMAGES.EVENT_TAG, CONST.TAG.SIZE, CONST.TAG.SIZE), 'Event', offset);
+function EventTag(cell, offset){
+    AbstractTag.call(this, cell, new mxImage(CONST.IMAGES.EVENT_TAG, CONST.TAG.SIZE, CONST.TAG.SIZE), 'Event', offset);
    
     this.tagObj.setAttribute('_eventCause', '');
     this.tagObj.setAttribute('_name', '');
