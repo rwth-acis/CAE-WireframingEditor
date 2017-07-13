@@ -8,14 +8,15 @@ import CONST from '../misc/Constants.js';
 import Y from 'yjs';
 import TagRegistry from './TagRegistry.js';
 mxUtils.extend(GenericTag, AbstractTag);
-AbstractTag.registerCodec(GenericTag);
+//AbstractTag.registerCodec(GenericTag);
 
 function GenericTag(cell, offset, className) {
     var reg = TagRegistry.get(className);
     AbstractTag.call(this, cell, new mxImage(reg.image, CONST.TAG.SIZE, CONST.TAG.SIZE), className, offset);
-    
-    this.initAttributes = function (className) {
-        var reg = TagRegistry.get(className);
+    this.tagObj.setAttribute('tagType', className);
+
+    this.initAttributes = function () {
+        var reg = TagRegistry.get(this.tagObj.getAttribute('tagType'));
         for (var attrKey in reg.attrs) {
             var type = reg.attrs[attrKey];
             if (type === 'string')
@@ -45,6 +46,6 @@ function GenericTag(cell, offset, className) {
         }
     }
 
-    this.initAttributes(className);
+    this.initAttributes();
 }
 export default GenericTag;

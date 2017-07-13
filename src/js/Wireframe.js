@@ -283,6 +283,7 @@ function Wireframe(container, model) {
                         mxGraph.prototype.addCellOverlay.apply(that, [cell, tag]);
                         cell.addTag(tag);
                         tag.setCell(cell);
+                        if(tag.hasOwnProperty('initAttributes')) tag.initAttributes();
                         tag.createShared(y.db.userId === event.value.userId);
                         tag.bindClickEvent(that);
                         var ref = $('#' + cell.getId() + '_tagTree').jstree(true);

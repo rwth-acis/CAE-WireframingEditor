@@ -32,7 +32,6 @@ function AbstractTag(entity, image, tooltip, offset, cursor) {
     var xmlDoc = mxUtils.createXmlDocument();
     this.tagObj = xmlDoc.createElement('tagObj');
     //take the tooltip as tag type if it is a generic tag else the constructor description
-    this.tagObj.setAttribute('tagType', this.constructor.name.toLowerCase() === 'generictag' ? tooltip : this.constructor.name.toLowerCase());
     this.tagObj.setAttribute('parent', '#');
 
     var _cell = entity;

@@ -23,7 +23,7 @@ function CheckBox(geometry) {
         this.set$node(
             $('<div>')
             .css('pointer-events', 'none')
-            .append($('<input>').attr('type', 'checkbox').attr('checked', true))
+            .append($('<input>').attr('type', 'checkbox').attr('checked', true).attr('disabled', true))
             .append($('<input>')
                 .attr('type', 'input')
                 .css('font-size', 15)
