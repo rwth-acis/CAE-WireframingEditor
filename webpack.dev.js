@@ -16,7 +16,7 @@ module.exports = {
     'yVendor': ['yjs', 'y-websockets-client', 'y-map', 'y-array', 'y-text', 'y-memory'],
     'jVendor': ['jquery', 'jquery-ui', 'jstree', 'lodash'],
     'mxVendor': ['mxgraph'],
-    'vendor' : ['lodash', 'randomcolor']
+    'vendor': ['lodash', 'randomcolor']
   },
   output: {
     filename: '[name].js',
@@ -25,22 +25,22 @@ module.exports = {
   },
   module: {
     rules: [{
-      test: /\.css$/,
-      use: ExtractTextPlugin.extract({
-        fallback: "style-loader",
-        use: {
-          loader: "css-loader",
-          options: {
-            url: true
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: {
+            loader: "css-loader",
+            options: {
+              url: true
+            }
           }
-        }
-      })
-    },
-    {
-      test: /\.(jpeg|png|gif|svg)$/i,
-      loader: "file-loader?name=../images/[name].[ext]&emitFile=false"
-    },
-    {
+        })
+      },
+      {
+        test: /\.(jpeg|png|gif|svg)$/i,
+        loader: "file-loader?name=../images/[name].[ext]&emitFile=false"
+      },
+      {
         test: /\.json$/,
         use: 'json-loader'
       }
@@ -72,25 +72,25 @@ module.exports = {
       allChunks: true
     }),
     new CopyWebpackPlugin([{
-      from: 'src/images',
-      to: 'images'
-    },
-    {
-      from: './node_modules/mxgraph/javascript/src/images',
-      to: './images'
-    },
-    {
-      from: './node_modules/jquery-ui/themes/base/images',
-      to: './images'
-    },
-    {
-      from: './node_modules/jstree/dist/themes/default/32px.png',
-      to: './images/32px.png'
-    },
-    {
-      from: './node_modules/jstree/dist/themes/default/throbber.gif',
-      to: './images/throbber.gif'
-    }
+        from: 'src/images',
+        to: 'images'
+      },
+      {
+        from: './node_modules/mxgraph/javascript/src/images',
+        to: './images'
+      },
+      {
+        from: './node_modules/jquery-ui/themes/base/images',
+        to: './images'
+      },
+      {
+        from: './node_modules/jstree/dist/themes/default/32px.png',
+        to: './images/32px.png'
+      },
+      {
+        from: './node_modules/jstree/dist/themes/default/throbber.gif',
+        to: './images/throbber.gif'
+      }
     ])
   ]
 };

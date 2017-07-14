@@ -111,9 +111,7 @@ function UIControl(geometry, style) {
 
         return false;
     }
-    this.getUIObject = function () {
-        return uiObj;
-    }
+   
     this.createTags = function () {
         var that = this;
         var tags = {};
@@ -142,8 +140,6 @@ function UIControl(geometry, style) {
             }
         }
 
-
-        //that.value.get = that.getUIObject();
         return tags;
     }
 

@@ -16,8 +16,9 @@ import Toolbox from './Toolbox.js';
  * The Main function of the Wireframing editor
  * @param {GoogleLogin || RoleLogin} login 
  * @param {boolean} disableDragging 
+ * @param {$.Deferred()} deferred for testing build only. not used in development or production build
  */
-export default function (login, disableDragging) {
+export default function (login, disableDragging, deferred) {
     if (!mxClient.isBrowserSupported()) {
       // Displays an error message if the browser is not supported.
       mxUtils.error('Browser is not supported!', 200, false);
@@ -102,6 +103,8 @@ export default function (login, disableDragging) {
             $('#toolbox').css('left', '+=' + paletteWidth);
           }
         });
+        //For testing only
+        if(deferred) deferred.resolve(editor);
       });
     }
 }
