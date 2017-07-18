@@ -7,8 +7,8 @@ import GenericTag from './GenericTag.js';
 function TagRegistry() {
     var _descriptions = {};
     var _registry = {};
-    _registry[SharedTag.Alias.toLowerCase()] = SharedTag;
-    _descriptions[SharedTag.Alias.toLowerCase()] = {
+    _registry[SharedTag.Alias] = SharedTag;
+    _descriptions[SharedTag.Alias] = {
         image : SharedTag.IMAGE
     };
 

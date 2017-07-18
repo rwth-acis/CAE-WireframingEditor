@@ -179,6 +179,7 @@
     height: 7px;
     right: 0px;
     bottom: -18px;
+    z-index: 1!important;
 }
 /*
 .ui-resizable-sw {

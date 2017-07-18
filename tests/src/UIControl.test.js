@@ -1,9 +1,15 @@
 /*global y*/
 import {expect} from 'chai';
+import TagTest from './Tag.test.js';
 
+/**
+ * @param {XmlDocument} uiObj the uiObj from XML
+ * @param {Wireframe} wireframe 
+ */
 export default function(uiObj, wireframe){
     var cell = wireframe.getModel().getCell(uiObj.id);
     var type = uiObj.getElementsByTagName(cell.constructor.name)[0];
+    var tags = uiObj.getElementsByTagName('tagObj');
     describe('UI element check ' + cell.constructor.name + ':' + cell.getId(), function(){
         it('Check cell and type of cell', function(){
             expect(cell).to.be.not.null;
@@ -48,11 +54,13 @@ export default function(uiObj, wireframe){
         });
 
         it('Check number of tags and overlays', function(){
-            var tags = uiObj.getElementsByTagName('tagObj');
-
             expect(tags.length).to.be.equal(cell.overlays ? cell.overlays.length : 0);
             expect(tags.length).to.be.equal(cell.getTagCounter());
             expect(tags.length).to.be.equal(cell.value.getElementsByTagName('tagObj').length);
         });
+        
+        for(var i=0;i<tags.length;i++){
+            TagTest(tags[i], cell, wireframe);
+        }
     });
 };

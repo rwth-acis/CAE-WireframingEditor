@@ -290,7 +290,7 @@ function Wireframe(container, model) {
                         if (ref) {
                             ref.create_node(null, {
                                 id: tag.tagObj.getAttribute('id'),
-                                type: tag.constructor.name === 'GenericTag' ? tag.tagObj.getAttribute('tagType') : tag.constructor.name,
+                                type:  tag.tagObj.getAttribute('tagType'),
                                 text: tag.constructor.Alias || tag.tagObj.getAttribute('tagType'),
                                 state: {
                                     selected: false,
