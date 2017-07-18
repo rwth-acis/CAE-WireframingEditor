@@ -1,7 +1,11 @@
 var widgetMode = false;
-var basePath ='<%=basePath%>';
+var basePath = '<%=basePath%>';
 var constants = {
-    MXGRAPH : {
+    DATA: {
+        CONFIG: 'data/config.json',
+        VLS: 'data/config.json'
+    },
+    MXGRAPH: {
         IMAGE_BASE_PATH: "images"
     },
     ACTIONS: {
@@ -21,9 +25,9 @@ var constants = {
         EXPORT: 'export',
         IMPORT: 'import',
         MOVE_TAG: 'moveTag',
-        DELETE_TAG: 'deleteTag', 
+        DELETE_TAG: 'deleteTag',
         RENAME_TAG: 'renameTag',
-        SAVE : 'save'
+        SAVE: 'save'
     },
     IMAGES: {
         COPY: 'images/toolbox/copy.png',
@@ -43,27 +47,28 @@ var constants = {
         FUNC_TAG: 'images/tags/func.png',
         IWC_REQ_TAG: 'images/tags/IWCRequest.png',
         IWC_RESP_TAG: 'images/tags/IWCResponse.png',
+        DEFAULT_TAG: 'images/tags/default.png',
         DEFAULT_USER: 'images/user.png',
-        SAVE : 'images/toolbox/save.png',
-        USER_LIST : 'images/toolbox/list.png',
-        SEPERATOR : 'images/toolbox/separator.gif',
-        IMAGE_SHAPE : 'images/image.png'
+        SAVE: 'images/toolbox/save.png',
+        USER_LIST: 'images/toolbox/list.png',
+        SEPERATOR: 'images/toolbox/separator.gif',
+        IMAGE_SHAPE: 'images/image.png'
     },
     TAG: {
-        SIZE: 20,
+        SIZE: 20/*,
         ALIAS: {
             EVENT: 'Event',
-            MICRO_CALL: 'Mircoservice Call',
+            MICRO_CALL: 'Microservice Call',
             FUNC: 'Function',
             IWC_CALL: 'IWC Call',
             IWC_RESP: 'IWC Response',
             SHARED: 'Share'
-        },
+        }*/
     }
 };
 
 //Specify which elements supports which interactivity tags
-var T = constants.TAG.ALIAS;
+/*var T = constants.TAG.ALIAS;
 constants.TAG.MAPPING = {
     Button: [T.EVENT, T.FUNC, T.MICRO_CALL, T.IWC_CALL, T.IWC_RESP],
     TextArea: [T.SHARED],
@@ -75,12 +80,14 @@ constants.TAG.MAPPING = {
     Link: [T.EVENT, T.FUNC, T.MICRO_CALL, T.IWC_CALL, T.IWC_RESP],
     DivContainer: [T.EVENT, T.FUNC, T.MICRO_CALL, T.IWC_CALL, T.IWC_RESP],
     Image: [T.EVENT, T.FUNC, T.MICRO_CALL, T.IWC_CALL, T.IWC_RESP]
-}
+}*/
 //add base path to urls if not null
-if(widgetMode){
+if (widgetMode) {
     constants.MXGRAPH.IMAGE_BASE_PATH = basePath + constants.MXGRAPH.IMAGE_BASE_PATH;
-    for(var key in constants.IMAGES){
+    for (var key in constants.DATA) 
+        constants.DATA[key] = basePath + constants.DATA[key];
+
+    for (var key in constants.IMAGES) 
         constants.IMAGES[key] = basePath + constants.IMAGES[key];
-    }
 }
 export default constants;

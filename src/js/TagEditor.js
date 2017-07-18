@@ -1,5 +1,6 @@
 /*global y*/
 import $ from 'jquery';
+import _ from 'lodash';
 import '../../node_modules/jstree/dist/jstree.min.js';
 import CONST from './misc/Constants.js';
 import {
@@ -8,45 +9,19 @@ import {
 } from './misc/mxExport.js';
 import Util from './misc/Util.js';
 
-import SharedTag from './tags/SharedTag.js';
-import MicroserviceCallTag from './tags/MicroserviceCallTag.js';
-import EventTag from './tags/EventTag.js';
-import FunctionTag from './tags/FunctionTag.js';
-import IWCReqTag from './tags/IWCReqTag.js';
-import IWCRespTag from './tags/IWCRespTag.js';
+import TagRegistry from './tags/TagRegistry.js';
 
-function createTagEditor(cell, $editor, graph) {
-
-    var tagAliasMap = {};
-    tagAliasMap[CONST.TAG.ALIAS.EVENT] = EventTag;
-    tagAliasMap[CONST.TAG.ALIAS.MICRO_CALL] = MicroserviceCallTag;
-    tagAliasMap[CONST.TAG.ALIAS.SHARED] = SharedTag;
-    tagAliasMap[CONST.TAG.ALIAS.FUNC] = FunctionTag;
-    tagAliasMap[CONST.TAG.ALIAS.IWC_CALL] = IWCReqTag;
-    tagAliasMap[CONST.TAG.ALIAS.IWC_RESP] = IWCRespTag;
-
+function TagEditor(cell, $editor, graph) {   
     //jstree types
     var types = {};
-    types[EventTag.name] = {
-        icon:  CONST.IMAGES.EVENT_TAG
-    };
-    types[MicroserviceCallTag.name] = {
-        icon:  CONST.IMAGES.MICROSERVICECALL
-    };
-    types[FunctionTag.name] = {
-        icon:  CONST.IMAGES.FUNC_TAG
-    };
-    types[IWCReqTag.name] = {
-        icon:  CONST.IMAGES.IWC_REQ_TAG
-    };
-    types[IWCRespTag.name] = {
-        icon:  CONST.IMAGES.IWC_RESP_TAG
-    };
-    types[SharedTag.name] = {
-        icon:  CONST.IMAGES.YJS
-    };
+    var registry = TagRegistry.get();
+    for(var key in registry)
+        types[key] = { icon : registry[key].image };
+    
+    var tagClasses = TagRegistry.getClasses();
 
-    var supportedTags = CONST.TAG.MAPPING[cell.constructor.name];
+    //var supportedTags = CONST.TAG.MAPPING[cell.constructor.name];
+    var supportedTags= _.keys(tagClasses);
     if (supportedTags && supportedTags.length > 0) {
         //Initialize the tag editor here
         var htmlTagTab = '<li><a href="#tagsTab">Interactivity</a></li>';
@@ -58,13 +33,16 @@ function createTagEditor(cell, $editor, graph) {
         var $tagEditor = $editor.find('#tagsTab');
         var tagForm = new mxForm('tagForm');
         var combo = tagForm.addCombo('Tag');
+        
         for (var i = 0; i < supportedTags.length; i++) {
             tagForm.addOption(combo, supportedTags[i], supportedTags[i]);
         }
         var $createBtn = $('<button>').text('Create');
         $createBtn.click(function () {
             var val = $tagEditor.find('td:contains("Tag") + td select option:selected').text();
-            var tag = new tagAliasMap[val](cell, new mxPoint(-CONST.TAG.SIZE * cell.getTagCounter(), 0));
+            var tag;
+            if(tagClasses.hasOwnProperty(val))
+                tag = new tagClasses[val](cell, new mxPoint(-CONST.TAG.SIZE * cell.getTagCounter(), 0), val);
             if (tag.tagObj.getAttribute('isUnique')) {
                 if (cell.containsTagType(tag))//Tag type is only allowed once, so dont add it
                     return;
@@ -99,11 +77,11 @@ function createTagEditor(cell, $editor, graph) {
             var overlays = cell.overlays;
             for (var i = 0; i < overlays.length; i++) {
                 var tag = overlays[i];
-                if (types.hasOwnProperty(tag.constructor.name)) {
+                if (tag.hasOwnProperty('tagObj') && types.hasOwnProperty(tag.tagObj.getAttribute('tagType'))) {
                     $tree.jstree(true).create_node(tag.tagObj.getAttribute('parent'), {
                         id: tag.tagObj.getAttribute('id'),
-                        type: tag.constructor.name,
-                        text: tag.constructor.Alias,
+                        type: tag.tagObj.getAttribute('tagType'),
+                        text: tag.tagObj.getAttribute('tagType'),
                         state: {
                             selected: false
                         }
@@ -119,7 +97,8 @@ function createTagEditor(cell, $editor, graph) {
             var overlays = cell.overlays;
             var tagId = sel.selected[0];
             for (var i = 0; i < overlays.length; i++) {
-                if (types.hasOwnProperty(overlays[i].constructor.name) && overlays[i].tagObj.getAttribute('id') === tagId) {
+                if ((types.hasOwnProperty(overlays[i].constructor.name) || types.hasOwnProperty(overlays[i].tooltip))
+                        && overlays[i].tagObj.getAttribute('id') === tagId) {
                     var form = Util.createFormFromCellAttributes('tagAttribute', overlays[i].tagObj, overlays[i]);
                     Util.bindSharedAttributes(overlays[i], form);
                     var $tagAttrs = $('<div>').attr('id', cell.getId() + '_tagAttribute').addClass('tagAttribute').append(form.body);
@@ -153,4 +132,4 @@ function createTagEditor(cell, $editor, graph) {
     }
 }
 
-export default createTagEditor;
+export default TagEditor;

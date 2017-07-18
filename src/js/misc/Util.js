@@ -93,7 +93,7 @@ Util.createFormFromCellAttributes = function (className, obj, entity) {
     var attr;
     for (var i = 0; i < attrs.length; i++) {
         attr = attrs[i];
-        if (attr.name[0] !== '_') continue; //skip the label and the ui-type
+        if (attr.name[0] !== '_') continue; //skip non-html-element attributes
         if (attr.value.indexOf('true') != -1 || attr.value.indexOf('false') != -1) //a boolean value
             form.addCheckbox(attr.name.substr(1), attr.value.indexOf('true') != -1 ? true : false);
         else {

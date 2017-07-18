@@ -34,10 +34,6 @@ function Button(geometry) {
 
     this.createShared = function (createdByLocalUser) {
         UIText.prototype.createShared.call(this, createdByLocalUser);
-        if (createdByLocalUser) {
-            var ytext = y.share.attrs.set(this.getId() + '_type', Y.Text);
-            ytext.insert(0, this.value.getAttribute('_type'));
-        }
     };
     
     return this;

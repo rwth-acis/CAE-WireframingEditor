@@ -283,14 +283,15 @@ function Wireframe(container, model) {
                         mxGraph.prototype.addCellOverlay.apply(that, [cell, tag]);
                         cell.addTag(tag);
                         tag.setCell(cell);
+                        if(tag.hasOwnProperty('initAttributes')) tag.initAttributes();
                         tag.createShared(y.db.userId === event.value.userId);
                         tag.bindClickEvent(that);
                         var ref = $('#' + cell.getId() + '_tagTree').jstree(true);
                         if (ref) {
                             ref.create_node(null, {
                                 id: tag.tagObj.getAttribute('id'),
-                                type: tag.constructor.name,
-                                text: tag.constructor.Alias,
+                                type:  tag.tagObj.getAttribute('tagType'),
+                                text: tag.constructor.Alias || tag.tagObj.getAttribute('tagType'),
                                 state: {
                                     selected: false,
                                     opened: true

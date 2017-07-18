@@ -13,12 +13,7 @@ import $ from 'jquery';
 import _ from 'lodash';
 import CONST from '../misc/Constants.js';
 
-import SharedTag from '../tags/SharedTag.js';
-import MicroserviceCallTag from '../tags/MicroserviceCallTag.js';
-import EventTag from '../tags/EventTag.js';
-import FunctionTag from '../tags/FunctionTag.js';
-import IWCReqTag from '../tags/IWCReqTag.js';
-import IWCRespTag from '../tags/IWCRespTag.js';
+import TagRegistry from '../tags/TagRegistry.js';
 
 UIControl.prototype = new mxCell();
 UIControl.prototype.constructor = UIControl;
@@ -116,46 +111,15 @@ function UIControl(geometry, style) {
 
         return false;
     }
-    this.getUIObject = function () {
-        return uiObj;
-    }
+   
     this.createTags = function () {
         var that = this;
         var tags = {};
         var _createTag = function (node, point) {
             var tag;
-            switch (node.getAttribute('tagType')) {
-                case SharedTag.name.toLowerCase():
-                    {
-                        tag = new SharedTag(that, point);
-                        break;
-                    }
-                case MicroserviceCallTag.name.toLowerCase():
-                    {
-                        tag = new MicroserviceCallTag(that, point);
-                        break;
-                    }
-                case EventTag.name.toLowerCase():
-                    {
-                        tag = new EventTag(that, point);
-                        break;
-                    }
-                case FunctionTag.name.toLowerCase():
-                    {
-                        tag = new FunctionTag(that, point);
-                        break;
-                    }
-                case IWCReqTag.name.toLowerCase():
-                    {
-                        tag = new IWCReqTag(that, point);
-                        break;
-                    }
-                case IWCRespTag.name.toLowerCase():
-                    {
-                        tag = new IWCRespTag(that, point);
-                        break;
-                    }
-            }
+            var C = TagRegistry.getClass(node.getAttribute('tagType'));            
+            if(C)
+                tag = new C(that, point, node.getAttribute('tagType'));
             return tag;
         }
 
@@ -176,8 +140,6 @@ function UIControl(geometry, style) {
             }
         }
 
-
-        //that.value.get = that.getUIObject();
         return tags;
     }
 
