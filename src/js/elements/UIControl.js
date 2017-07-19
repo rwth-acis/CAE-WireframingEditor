@@ -5,9 +5,12 @@ import {
     mxUtils,
     mxEvent,
     mxCodecRegistry,
-    mxPoint
+    mxPoint,
+    mxGeometry,
+    mxConstants
 } from './../misc/mxExport.js';
 import Util from '../misc/Util';
+import ComboAttributeMap from '../misc/ComboAttributeMap.js';
 import Y from 'yjs';
 import $ from 'jquery';
 import _ from 'lodash';
@@ -18,7 +21,6 @@ import TagRegistry from '../tags/TagRegistry.js';
 UIControl.prototype = new mxCell();
 UIControl.prototype.constructor = UIControl;
 window.UIControl = UIControl;
-
 /**
  * Base class for all UI components of the editor
  * @param {mxGeometry} geometry 
@@ -26,6 +28,8 @@ window.UIControl = UIControl;
  */
 function UIControl(geometry, style) {
     var that = this;
+
+    var comboAttrMap = new ComboAttributeMap();
     var xmlDoc = mxUtils.createXmlDocument();
     var uiObj = xmlDoc.createElement('uiObj');
     uiObj.setAttribute('_id', '');
@@ -33,9 +37,15 @@ function UIControl(geometry, style) {
     uiObj.setAttribute('uiType', this.constructor.name.toLowerCase());
     var tagRoot = xmlDoc.createElement('tagRoot');
     uiObj.append(tagRoot);
-    var comboAttr = {};
     var tagCounter = 0;
-
+    if (!geometry)
+        geometry = new mxGeometry(0, 0, 128, 128);
+    if(!style)
+        style =style = mxConstants.STYLE_SHAPE + "=default;" +
+        mxConstants.STYLE_FILLCOLOR + "=white;" +
+        mxConstants.STYLE_STROKECOLOR + '=black;' +
+        mxConstants.STYLE_ASPECT + '=fixed;' +
+        mxConstants.STYLE_EDITABLE + "=0;";
     mxCell.call(this, uiObj, geometry, style);
 
     this.setVertex(true);
@@ -77,18 +87,6 @@ function UIControl(geometry, style) {
                 this.value.setAttribute(key, json[key]);
             }
         }
-    }
-
-    this.getComboAttr = function (name) {
-        if (comboAttr.hasOwnProperty(name))
-            return comboAttr[name];
-        else return undefined;
-    }
-    this.addComboAttr = function (name, values) {
-        if (!comboAttr.hasOwnProperty(name)) {
-            comboAttr[name] = values;
-            return true;
-        } else return false;
     }
     this.getTagCounter = function () {
         return tagCounter;
@@ -143,6 +141,10 @@ function UIControl(geometry, style) {
         return tags;
     }
 
+    this.getComboAttrMap = function(){
+        return comboAttrMap;
+    }
+
     return this;
 }
 
@@ -151,6 +153,8 @@ UIControl.registerCodec = function (ctor) {
     codec.template = new ctor();
     mxCodecRegistry.register(codec);
 }
+UIControl.registerCodec(UIControl);
+
 UIControl.prototype.createShared = function (createdByLocalUser) {
     if (createdByLocalUser) {
         y.share.attrs.set(this.getId() + '_id', Y.Text);

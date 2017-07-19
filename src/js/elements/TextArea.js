@@ -9,7 +9,8 @@ TextArea.prototype = new UIText();
 TextArea.prototype.constructor = TextArea;
 UIText.registerCodec(TextArea);
 window.TextArea = TextArea;
-
+TextArea.HTML_NODE_NAME = 'textarea';
+TextArea.NAME = "Multi-Line Text Area";
 function TextArea(geometry) {
     var text = 'Multi-Line text input area';
     // var text = 'hallo';

@@ -1,4 +1,3 @@
-/*global y*/
 import UIText from './UIText.js';
 import $ from 'jquery';
 import {

@@ -25,7 +25,7 @@ function GenericTag(cell, offset, className) {
                 this.tagObj.setAttribute('_' + attrKey, true);
             else {
                 this.tagObj.setAttribute('_' + attrKey, type[0]);
-                this.addComboAttr('_' + attrKey, type);
+                this.getComboAttrMap().addComboAttr('_' + attrKey, type);
             }
         }
     }

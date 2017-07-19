@@ -97,7 +97,7 @@ Util.createFormFromCellAttributes = function (className, obj, entity) {
         if (attr.value.indexOf('true') != -1 || attr.value.indexOf('false') != -1) //a boolean value
             form.addCheckbox(attr.name.substr(1), attr.value.indexOf('true') != -1 ? true : false);
         else {
-            var values = entity.getComboAttr(attr.name);
+            var values = entity.getComboAttrMap().getComboAttr(attr.name);
             if (values) {
                 var combo = form.addCombo(attr.name.substr(1));
                 for (var j = 0; j < values.length; j++) {

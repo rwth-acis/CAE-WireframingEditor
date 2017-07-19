@@ -7,6 +7,8 @@ import {
 import $ from 'jquery';
 import Y from 'yjs';
 import _ from 'lodash';
+import ComboAttributeMap from './misc/ComboAttributeMap.js';
+import vls from '../data/vls.json';
 
 mxUtils.extend(WireframeModel, mxGraphModel);
 
@@ -18,13 +20,28 @@ window.WireframeModel = WireframeModel;
 function WireframeModel() {
     var xmlDoc = mxUtils.createXmlDocument();
     var meta = xmlDoc.createElement('WireframeMeta');
-    meta.setAttribute('_name', '');
-    meta.setAttribute('_description', '');
-    meta.setAttribute('_developerName', '');
-    meta.setAttribute('_developerMail', '');
+    var comboAttrMap = new ComboAttributeMap();
+    for(var key in vls.nodes){
+        var node = vls.nodes[key];
+        if(node.label === 'Widget'){
+            for(var attrKey in node.attributes){
+                var attr = node.attributes[attrKey];
+                if(attr.value === 'string')
+                    meta.setAttribute(attr.key, '');
+                else if(attr.value === 'boolean')
+                    meta.setAttribute(attr.key, true);
+                else if(attr.hasOwnProperty('options')){
+                    var values = Object.keys(attr.options);
+                    comboAttrMap.addComboAttr(attr.key, values);
+                    meta.setAttribute(attr.key, values[0]);
+                }
+            }
+        }
+
+    }
+ 
     meta.setAttribute('width', '500');
     meta.setAttribute('height', '500');
-    meta.setAttribute('_mircoserviceAddress', '');
     mxGraphModel.call(this);
 
     this.getMeta = function () {
@@ -41,8 +58,8 @@ function WireframeModel() {
     this.initMetaFromXml = function (m) {
         meta = m;
     }
-    this.getComboAttr = function () {
-        return undefined;
+    this.getComboAttrMap = function () {
+        return comboAttrMap;
     }
 
     var initYText = function (attrName) {

@@ -46,7 +46,7 @@ export default function(uiObj, wireframe){
             var m_obj = cell.value;
             for(var i=0;i<m_obj.attributes.length;i++){
                 var m_attr = m_obj.attributes[i];
-                if(m_attr.name[0] == '_' && !cell.getComboAttr(m_attr.name) && m_attr.value !== 'true' && m_attr.value !== 'false'){
+                if(m_attr.name[0] == '_' && !cell.getComboAttrMap().getComboAttr(m_attr.name) && m_attr.value !== 'true' && m_attr.value !== 'false'){
                     var ytext = y.share.attrs.get(cell.getId() + m_attr.name);
                     expect(ytext).to.be.not.null;
                 }

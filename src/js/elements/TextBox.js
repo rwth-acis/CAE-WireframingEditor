@@ -21,7 +21,7 @@ function TextBox(geometry) {
     this.setAttribute('_autofocus', false);
     this.setAttribute('_disabled', false);
     this.setAttribute('_autocomplete', 'off');
-    this.addComboAttr('_autocomplete',  ['off', 'on']);
+    this.getComboAttrMap().addComboAttr('_autocomplete',  ['off', 'on']);
     this.initDOM = function(){
         UIText.prototype.initDOM.call(this);
         var $node =this.get$node()

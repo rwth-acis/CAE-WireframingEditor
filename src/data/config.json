@@ -1,6 +1,9 @@
 {   
-    "html_elements": {
-        "exclude" : ["br", "CUSTOM"]
+    "html": {
+        "exclude" : ["br", "CUSTOM"],
+        "map":{
+            "input" :"TextBox"
+        }
     },
     "tags": [
         {

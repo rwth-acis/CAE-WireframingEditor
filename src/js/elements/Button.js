@@ -1,5 +1,3 @@
-/*global y*/
-import Y from 'yjs';
 import UIText from './UIText.js';
 import {
     mxGeometry
@@ -10,6 +8,8 @@ Button.prototype.constructor = Button;
 UIText.registerCodec(Button);
 //Global for the codec converter
 window.Button = Button;
+Button.HTML_NODE_NAME = 'button';
+Button.NAME = "Button";
 
 function Button(geometry) {
     var text = 'Button';
@@ -19,7 +19,7 @@ function Button(geometry) {
     this.value.setAttribute('_disabled', false);
     this.value.setAttribute('_autofocus', false);
     this.value.setAttribute('_type', 'button');
-    this.addComboAttr('_type', ['button', 'reset', 'submit']);
+    this.getComboAttrMap().addComboAttr('_type', ['button', 'reset', 'submit']);
 
     this.initDOM = function () {
         UIText.prototype.initDOM.call(this);

@@ -24,7 +24,7 @@ export default function(x_tagObj, cell, wireframe){
         it('Check attributes in Yjs', function(){
             for(var i=0;i<x_tagObj.attributes.length;i++){
                 var x_attr = x_tagObj.attributes[i];
-                if(x_attr.name[0] === '_' && !t.getComboAttr(x_attr.name) && x_attr.value !== 'true' && x_attr.value !== 'false'){
+                if(x_attr.name[0] === '_' && !t.getComboAttrMap().getComboAttr(x_attr.name) && x_attr.value !== 'true' && x_attr.value !== 'false'){
                     var ytext = y.share.attrs.get(x_tagObj.id + x_attr.name);
                     expect(ytext).to.be.not.null;
                 }

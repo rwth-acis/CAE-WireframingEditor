@@ -13,6 +13,7 @@ import Util from '../misc/Util.js';
 import Y from 'yjs';
 import _ from 'lodash';
 import PropertyEditor from '../PropertyEditor.js';
+import ComboAttributeMap from '../misc/ComboAttributeMap.js';
 
 mxUtils.extend(AbstractTag, mxCellOverlay);
 
@@ -27,8 +28,8 @@ mxUtils.extend(AbstractTag, mxCellOverlay);
  * @param {*} cursor 
  */
 function AbstractTag(entity, image, tooltip, offset, cursor) {
-    var comboAttr = {};
     var childTags = {};
+    var comboAttrMap = new ComboAttributeMap();
     var xmlDoc = mxUtils.createXmlDocument();
     this.tagObj = xmlDoc.createElement('tagObj');
     //take the tooltip as tag type if it is a generic tag else the constructor description
@@ -43,16 +44,8 @@ function AbstractTag(entity, image, tooltip, offset, cursor) {
         return this.tagObj.getAttribute('id');
     }
 
-    this.getComboAttr = function (name) {
-        if (comboAttr.hasOwnProperty(name))
-            return comboAttr[name];
-        else return undefined;
-    }
-    this.addComboAttr = function (name, values) {
-        if (!comboAttr.hasOwnProperty(name)) {
-            comboAttr[name] = values;
-            return true;
-        } else return false;
+    this.getComboAttrMap = function(){
+        return comboAttrMap;
     }
 
     this.getCell = function(){

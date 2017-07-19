@@ -13,7 +13,7 @@ function UIMedia(geometry, style) {
     this.value.setAttribute('_muted', false);
     this.value.setAttribute('_loop', false);
     this.value.setAttribute('_preload', 'auto');
-    this.addComboAttr('_preload',  ['auto', 'metadata', 'none']);
+    this.getComboAttrMap().addComboAttr('_preload',  ['auto', 'metadata', 'none']);
 
     return this;
 }
