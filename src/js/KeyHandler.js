@@ -33,6 +33,8 @@ function KeyHandler(editor){
     //CTRL+V for shared paste
     this.bindAction(86, CONST.ACTIONS.PASTE, 17);
 
+    //CTRL+U
+    this.bindAction(85, CONST.ACTIONS.SHOW_USER_LIST, 17);
     return this;
 }
 export default KeyHandler;

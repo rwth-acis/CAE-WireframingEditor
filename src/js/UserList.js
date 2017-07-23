@@ -2,7 +2,7 @@
 import { mxWindow } from './misc/mxExport.js';
 import $ from 'jquery';
 import randomColor from 'randomcolor';
-function UserList(user) {
+function UserList(user, visible) {
     var $userList = $('#userList');
     var $userTable = $userList.find('table');
 
@@ -10,7 +10,7 @@ function UserList(user) {
     var height = 50;
     var width = 210;
     var wnd = new mxWindow("User List", $userList[0], 600, 100, width, height, false, true);
-    wnd.setVisible(true);
+    wnd.setVisible(visible !== undefined ? visible : true);
     wnd.setMaximizable(false);
     wnd.setResizable(true);
     wnd.setClosable(true);

@@ -64,6 +64,8 @@ function Editor(wireframe, palette) {
     mxCellRenderer.prototype.defaultShapes["image"] = ImageShape;
     mxCellRenderer.prototype.defaultShapes["textnode"] = TextNodeShape;
     mxCellRenderer.prototype.defaultShapes["default"] = DefaultShape;
+    
+    //TODO rework the callback for Wireframe model attributes
     y.share.attrs.observe(function (event) {
         var name;
         var arr = event.name.split('_');

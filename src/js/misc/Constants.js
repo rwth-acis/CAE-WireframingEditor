@@ -1,10 +1,6 @@
 var widgetMode = false;
 var basePath = '<%=basePath%>';
 var constants = {
-    DATA: {
-        CONFIG: 'data/config.json',
-        VLS: 'data/config.json'
-    },
     MXGRAPH: {
         IMAGE_BASE_PATH: "images"
     },
@@ -84,9 +80,7 @@ constants.TAG.MAPPING = {
 //add base path to urls if not null
 if (widgetMode) {
     constants.MXGRAPH.IMAGE_BASE_PATH = basePath + constants.MXGRAPH.IMAGE_BASE_PATH;
-    for (var key in constants.DATA) 
-        constants.DATA[key] = basePath + constants.DATA[key];
-
+    
     for (var key in constants.IMAGES) 
         constants.IMAGES[key] = basePath + constants.IMAGES[key];
 }

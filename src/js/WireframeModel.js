@@ -18,28 +18,35 @@ mxCodecRegistry.addAlias('WireframeModel', 'mxGraphModel');
 window.WireframeModel = WireframeModel;
 
 function WireframeModel() {
+    var that = this;
     var xmlDoc = mxUtils.createXmlDocument();
     var meta = xmlDoc.createElement('WireframeMeta');
     var comboAttrMap = new ComboAttributeMap();
-    for(var key in vls.nodes){
+    var exclude = ['width', 'height'];
+    var strAttrs = [];
+    for (var key in vls.nodes) {
         var node = vls.nodes[key];
-        if(node.label === 'Widget'){
-            for(var attrKey in node.attributes){
+        if (node.label === 'Widget') {
+            for (var attrKey in node.attributes) {
                 var attr = node.attributes[attrKey];
-                if(attr.value === 'string')
-                    meta.setAttribute(attr.key, '');
-                else if(attr.value === 'boolean')
-                    meta.setAttribute(attr.key, true);
-                else if(attr.hasOwnProperty('options')){
-                    var values = Object.keys(attr.options);
-                    comboAttrMap.addComboAttr(attr.key, values);
-                    meta.setAttribute(attr.key, values[0]);
-                }
+                if (exclude.indexOf(attr.key) === -1) {
+                    if (attr.value === 'string'){
+                        meta.setAttribute('_' + attr.key, '');
+                        strAttrs.push('_'+attr.key);
+                    }
+                    else if (attr.value === 'boolean')
+                        meta.setAttribute('_' + attr.key, true);
+                    else if (attr.hasOwnProperty('options')) {
+                        var values = Object.keys(attr.options);
+                        comboAttrMap.addComboAttr('_' + attr.key, values);
+                        meta.setAttribute('_' + attr.key, values[0]);
+                    }
+                }   
             }
         }
 
     }
- 
+
     meta.setAttribute('width', '500');
     meta.setAttribute('height', '500');
     mxGraphModel.call(this);
@@ -67,11 +74,11 @@ function WireframeModel() {
         if (!ytext)
             y.share.attrs.set('meta' + attrName, Y.Text);
         else {
-            ytext.observe(getYTextObserver());
+            ytext.observe(that.getYTextObserver());
             meta.setAttribute(attrName, ytext.toString());
         }
     }
-    var getYTextObserver = function () {
+    this.getYTextObserver = function () {
         var observer = _.debounce(function (evt) {
             var value = evt.object.toString();
             var path = evt.object.getPath()[0];
@@ -82,11 +89,9 @@ function WireframeModel() {
         return observer;
     }
     this.initSharedData = function () {
-        initYText('_name');
-        initYText('_description');
-        initYText('_developerName');
-        initYText('_developerMail');
-        initYText('_mircoserviceAddress');
+        for(var i=0;i<strAttrs.length;i++){
+            initYText(strAttrs[i]);
+        }
     }
 }
 

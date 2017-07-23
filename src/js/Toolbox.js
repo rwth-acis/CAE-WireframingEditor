@@ -221,7 +221,8 @@ function Toolbox(container, editor) {
     this.addItem("Import", CONST.IMAGES.IMPORT, CONST.ACTIONS.IMPORT);
     this.addItem("Export", CONST.IMAGES.EXPORT, CONST.ACTIONS.EXPORT);
     //this.addSeparator();
-    this.addItem("User List", CONST.IMAGES.USER_LIST, CONST.ACTIONS.SHOW_USER_LIST);
+    //this.addItem("User List", CONST.IMAGES.USER_LIST, CONST.ACTIONS.SHOW_USER_LIST);
+
     //this.addSeparator();
 
     return this;

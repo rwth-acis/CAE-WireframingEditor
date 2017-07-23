@@ -126,6 +126,7 @@ AbstractTag.prototype.initYText = function(attrName){
     var ytext =y.share.attrs.get(this.getId() + attrName, Y.Text);
     if (!ytext)
         y.share.attrs.set(this.getId() + attrName, Y.Text);
+        //observer should be registered in callback
     else{
          ytext.observe(this.getYTextObserver());
          this.tagObj.setAttribute(attrName, ytext.toString());

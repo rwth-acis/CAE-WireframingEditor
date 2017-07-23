@@ -77,10 +77,10 @@ module.exports = {
             from: './node_modules/jstree/dist/themes/default/throbber.gif',
             to: './images/throbber.gif'
         }
-        ]),
+        ])/*,
         new webpack.optimize.UglifyJsPlugin({
             exclude: ['yVendor.js'],
             mangle: false
-        })
+        })*/
     ]
 };

@@ -175,8 +175,10 @@ function Wireframe(container, model) {
 
     that.updateBounds = function () {
         var bounds = that.getBoundingBox(that.getDefaultParent().children);
-        $('#wireframeWrap').resizable('option', 'minWidth', bounds.x + bounds.width);
-        $('#wireframeWrap').resizable('option', 'minHeight', bounds.y + bounds.height);
+        if(bounds){
+            $('#wireframeWrap').resizable('option', 'minWidth', bounds.x + bounds.width);
+            $('#wireframeWrap').resizable('option', 'minHeight', bounds.y + bounds.height);
+        }
     }
 
     //------------------------------------------------------------------------------------------------------------------------
