@@ -36,7 +36,6 @@ import AudioPlayer from './elements/AudioPlayer.js';
 import DivContainer from './elements/DivContainer.js';
 
 import config from '../data/config.json';
-import vls from '../data/vls.json';
 
 Editor.prototype = new mxEditor();
 Editor.prototype.constructor = Editor;

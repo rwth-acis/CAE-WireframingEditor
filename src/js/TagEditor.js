@@ -14,7 +14,7 @@ import TagRegistry from './tags/TagRegistry.js';
 function TagEditor(cell, $editor, graph) {   
     //jstree types
     var types = {};
-    var registry = TagRegistry.get();
+    var registry = TagRegistry.getDescription();
     for(var key in registry)
         types[key] = { icon : registry[key].image };
     

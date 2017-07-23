@@ -14,6 +14,7 @@ function GoogleLogin() {
                 profile = auth2.currentUser.get().getBasicProfile();
             UserList({ name: profile.getName(), imageUrl: profile.getImageUrl() });
         });
+        UserList();
     }
 }
 export default GoogleLogin;

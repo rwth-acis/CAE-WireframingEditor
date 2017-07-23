@@ -45,16 +45,18 @@ function GenericTag(cell, offset, className) {
 
     this.createShared = function (createdByLocalUser) {
         if (createdByLocalUser) {
-            for (var attrKey in reg.attrs) {
-                if (reg.attrs.hasOwnProperty(attrKey) && reg.attrs[attrKey] === 'string')
+            var attrs = TagRegistry.get(this.tagObj.getAttribute('tagType')).attrs;
+            for (var attrKey in attrs) {
+                if (attrs.hasOwnProperty(attrKey) && attrs[attrKey] === 'string')
                     y.share.attrs.set(this.getId() + '_' + attrKey, Y.Text);
             }
         }
     }
 
     this.initShared = function () {
-        for (var attrKey in reg.attrs) {
-            if (reg.attrs.hasOwnProperty(attrKey) && reg.attrs[attrKey] === 'string')
+        var attrs = TagRegistry.get(this.tagObj.getAttribute('tagType')).attrs;
+        for (var attrKey in attrs) {
+            if (attrs.hasOwnProperty(attrKey) && attrs[attrKey] === 'string')
                 this.initYText('_' + attrKey);
         }
     }

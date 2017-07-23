@@ -8,7 +8,6 @@ import $ from 'jquery';
 import Y from 'yjs';
 import _ from 'lodash';
 import ComboAttributeMap from './misc/ComboAttributeMap.js';
-import vls from '../data/vls.json';
 
 mxUtils.extend(WireframeModel, mxGraphModel);
 

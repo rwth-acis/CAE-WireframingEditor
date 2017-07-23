@@ -1,6 +1,5 @@
 import CONST from '../misc/Constants.js';
 import config from '../../data/config.json';
-import vls from '../../data/vls.json';
 import SharedTag from './SharedTag.js';
 import GenericTag from './GenericTag.js';
 
@@ -45,7 +44,10 @@ function TagRegistry() {
 
     return {
         get: function (nodeClassName) {
-            return _descriptions.hasOwnProperty(nodeClassName) ? _descriptions[nodeClassName] : _descriptions;
+            return _descriptions.hasOwnProperty(nodeClassName) ? _descriptions[nodeClassName] : null;
+        },
+        getDescription : function(){
+            return _descriptions;
         },
         getClass : function(name){
             return _registry.hasOwnProperty(name) ? _registry[name] : null;
