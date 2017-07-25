@@ -34,6 +34,7 @@
     "lodash": "^4.17.4",
     "mxgraph": "^3.7.2-2",
     "randomcolor": "^0.5.3",
+    "syncmeta-plugin": "git+https://github.com/Mari0/syncmeta-plugin.git",
     "y-array": "^10.1.2",
     "y-map": "^10.1.0",
     "y-memory": "^8.0.8",

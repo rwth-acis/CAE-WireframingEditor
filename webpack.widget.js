@@ -9,7 +9,7 @@ module.exports = {
     //devtool: 'inline-source-map', 
     entry: {
         app: './src/widget.js',
-        //"bundle.css" : ['./src/css/style.css',  './node_modules/jquery-ui/themes/base/theme.css', './node_modules/jquery-ui/themes/base/tabs.css']
+        //"bundle.css" : ['./src/css/style.css', './node_modules/jquery-ui/themes/base/theme.css', './node_modules/jquery-ui/themes/base/tabs.css', './node_modules/mxgraph/javascript/src/css/common.css', './node_modules/jstree/dist/themes/default/style.min.css'],
         'yVendor': ['yjs', 'y-websockets-client', 'y-map', 'y-array', 'y-text', 'y-memory'],
         'jVendor': ['jquery', 'jquery-ui', 'jstree'],
         'mxVendor': ['mxgraph'],

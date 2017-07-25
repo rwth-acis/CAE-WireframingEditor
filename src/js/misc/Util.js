@@ -57,7 +57,7 @@ Util.Save = function (graph) {
     else 
         meta.appendChild(result);
     var xml = mxUtils.getXml(meta);
-    y.share.data.set('model', xml);
+    y.share.data.set('wireframe', xml);
     var $save = $('.wfSave');
     $save.css('opacity', 1.0);
 

@@ -35,6 +35,8 @@ function KeyHandler(editor){
 
     //CTRL+U
     this.bindAction(85, CONST.ACTIONS.SHOW_USER_LIST, 17);
-    return this;
+
+    //CTRL+P
+    this.bindAction(80, CONST.ACTIONS.SHOW_CONSOLE, 17);
 }
 export default KeyHandler;

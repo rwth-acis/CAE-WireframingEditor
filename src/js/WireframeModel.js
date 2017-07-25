@@ -1,4 +1,4 @@
-/*global y*/
+/*global y, vls*/
 import {
     mxGraphModel,
     mxUtils,
@@ -23,27 +23,28 @@ function WireframeModel() {
     var comboAttrMap = new ComboAttributeMap();
     var exclude = ['width', 'height'];
     var strAttrs = [];
-    for (var key in vls.nodes) {
-        var node = vls.nodes[key];
-        if (node.label === 'Widget') {
-            for (var attrKey in node.attributes) {
-                var attr = node.attributes[attrKey];
-                if (exclude.indexOf(attr.key) === -1) {
-                    if (attr.value === 'string'){
-                        meta.setAttribute('_' + attr.key, '');
-                        strAttrs.push('_'+attr.key);
+    if (window.hasOwnProperty('vls')) {
+        for (var key in vls.nodes) {
+            var node = vls.nodes[key];
+            if (node.label === 'Widget') {
+                for (var attrKey in node.attributes) {
+                    var attr = node.attributes[attrKey];
+                    if (exclude.indexOf(attr.key) === -1) {
+                        if (attr.value === 'string') {
+                            meta.setAttribute('_' + attr.key, '');
+                            strAttrs.push('_' + attr.key);
+                        } else if (attr.value === 'boolean')
+                            meta.setAttribute('_' + attr.key, true);
+                        else if (attr.hasOwnProperty('options')) {
+                            var values = Object.keys(attr.options);
+                            comboAttrMap.addComboAttr('_' + attr.key, values);
+                            meta.setAttribute('_' + attr.key, values[0]);
+                        }
                     }
-                    else if (attr.value === 'boolean')
-                        meta.setAttribute('_' + attr.key, true);
-                    else if (attr.hasOwnProperty('options')) {
-                        var values = Object.keys(attr.options);
-                        comboAttrMap.addComboAttr('_' + attr.key, values);
-                        meta.setAttribute('_' + attr.key, values[0]);
-                    }
-                }   
+                }
             }
-        }
 
+        }
     }
 
     meta.setAttribute('width', '500');
@@ -88,7 +89,7 @@ function WireframeModel() {
         return observer;
     }
     this.initSharedData = function () {
-        for(var i=0;i<strAttrs.length;i++){
+        for (var i = 0; i < strAttrs.length; i++) {
             initYText(strAttrs[i]);
         }
     }

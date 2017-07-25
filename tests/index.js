@@ -34,7 +34,7 @@ $(function () {
             wnd.setResizable(true);
             wnd.setScrollable(true);
             wnd.setMaximizable(true);
-            var doc = mxUtils.parseXml(y.share.data.get('model'));
+            var doc = mxUtils.parseXml(y.share.data.get('wireframe'));
 
             WireframeTest(doc.documentElement, editor.graph);
 

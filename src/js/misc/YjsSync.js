@@ -23,7 +23,12 @@ export default function (space) {
             data : 'Map',
             awareness : 'Map', 
             users : 'Map',
-            join : 'Map'
+            join : 'Map',
+            //Syncmeta stuff not used by the Wireframe
+            nodes: 'Map',
+            edges : 'Map', 
+            select: 'Map', 
+            canvas: 'Map'
         }
     }).then(function (y) {
         window.y = y;

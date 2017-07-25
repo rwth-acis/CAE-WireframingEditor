@@ -5,7 +5,8 @@ import {
     mxCodec,
     mxClipboard,
     mxUtils,
-    mxRectangle
+    mxRectangle,
+    mxLog
 } from './misc/mxExport.js';
 import $ from 'jquery';
 import Util from './misc/Util.js';
@@ -80,8 +81,15 @@ function Toolbox(container, editor) {
     editor.addAction(CONST.ACTIONS.EXPORT, function () {
         var link = document.createElement('a');
         link.download = "wireframe.xml";
-        link.href = 'data:,' + encodeURI(y.share.data.get('model'));
+        link.href = 'data:,' + encodeURI(y.share.data.get('wireframe'));
         link.click();
+    });
+
+    editor.addAction(CONST.ACTIONS.SHOW_CONSOLE, function () {
+        if (mxLog.isVisible())
+            mxLog.hide();
+        else
+            mxLog.show();
     });
 
     editor.addAction(CONST.ACTIONS.IMPORT, function () {
@@ -95,7 +103,7 @@ function Toolbox(container, editor) {
             fileReader = new FileReader();
             fileReader.onload = function (e) {
                 var data = e.target.result;
-                y.share.data.set('model', data);
+                y.share.data.set('wireframe', data);
                 y.share.action.set('reload', true);
                 //TODO improve import
             };
@@ -181,9 +189,9 @@ function Toolbox(container, editor) {
             case CONST.ACTIONS.SHARED.GRAPH_RESIZE: //event triggerd in index.html
                 if (y.db.userId !== event.value.userId) {
                     //var size = $('#wireframeWrap').css(["width", "height"]);
-                    $('#wireframeWrap').css("width",  event.value.width).css("height",  event.value.height);
-                    $('#wireframe').css("width",  event.value.width).css("height",  event.value.height);
-                    $('#draggingBar').css("width",  event.value.width);
+                    $('#wireframeWrap').css("width", event.value.width).css("height", event.value.height);
+                    $('#wireframe').css("width", event.value.width).css("height", event.value.height);
+                    $('#draggingBar').css("width", event.value.width);
                 }
                 var prevBounds = that._editor.graph.maximumGraphBounds;
                 that._editor.graph.maximumGraphBounds = new mxRectangle(0, 0, prevBounds.width + event.value.width, prevBounds.height + event.value.height);

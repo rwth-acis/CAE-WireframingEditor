@@ -38,7 +38,7 @@ export default function (disableDragging) {
     var editor = new Editor(wireframe, palette);
 
     //After the editor the add elements to window
-    var xml = y.share.data.get('model');
+    var xml = y.share.data.get('wireframe');
     if (xml) {
       var doc = mxUtils.parseXml(xml);
       var codec = new mxCodec(doc);
