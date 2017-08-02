@@ -1,4 +1,4 @@
-/*global y*/
+/*global y, vls*/
 import {
     mxEditor,
     mxConstants,

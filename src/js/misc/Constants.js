@@ -24,7 +24,8 @@ var constants = {
         MOVE_TAG: 'moveTag',
         DELETE_TAG: 'deleteTag',
         RENAME_TAG: 'renameTag',
-        SAVE: 'save'
+        SAVE: 'save',
+        SYNC: 'sync'
     },
     IMAGES: {
         COPY: 'images/toolbox/copy.png',
@@ -49,7 +50,8 @@ var constants = {
         SAVE: 'images/toolbox/save.png',
         USER_LIST: 'images/toolbox/list.png',
         SEPERATOR: 'images/toolbox/separator.gif',
-        IMAGE_SHAPE: 'images/image.png'
+        IMAGE_SHAPE: 'images/image.png',
+        SYNC: 'images/toolbox/sync.png'
     },
     TAG: {
         SIZE: 20/*,

@@ -1,3 +1,4 @@
+/*global y*/
 require(['./../css/style.css', './../../node_modules/jquery-ui/themes/base/theme.css', './../../node_modules/jquery-ui/themes/base/tabs.css', '../../node_modules/mxgraph/javascript/src/css/common.css', '../../node_modules/jstree/dist/themes/default/style.min.css']);
 import $ from 'jquery';
 import 'jquery-ui/ui/widgets/resizable';

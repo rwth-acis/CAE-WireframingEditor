@@ -11,6 +11,7 @@ import {
 import $ from 'jquery';
 import Util from './misc/Util.js';
 import CONST from './misc/Constants.js';
+import FrontendComponentMapper from './mapper/CAE.js';
 
 Toolbox.prototype = new mxDefaultToolbar();
 Toolbox.prototype.constructor = Toolbox;
@@ -118,6 +119,12 @@ function Toolbox(container, editor) {
     editor.addAction(CONST.ACTIONS.SAVE, function () {
         Util.Save(editor.graph);
     })
+
+    editor.addAction(CONST.ACTIONS.SYNC, function(editor){
+        var frontendModel = new FrontendComponentMapper(editor.graph);
+        y.share.data.set('model', frontendModel);
+        y.share.canvas.set('ReloadWidgetOperation', 'import');
+    });
 
     y.share.action.observe(function (event) {
         switch (event.name) {
@@ -230,7 +237,7 @@ function Toolbox(container, editor) {
     this.addItem("Export", CONST.IMAGES.EXPORT, CONST.ACTIONS.EXPORT);
     //this.addSeparator();
     //this.addItem("User List", CONST.IMAGES.USER_LIST, CONST.ACTIONS.SHOW_USER_LIST);
-
+    this.addItem('Synchronize with Syncmeta', CONST.IMAGES.SYNC, CONST.ACTIONS.SYNC);
     //this.addSeparator();
 
     return this;

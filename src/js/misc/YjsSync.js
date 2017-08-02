@@ -7,6 +7,7 @@ import yText from 'y-text';
 import yArray from 'y-array';
 Y.extend(yArray, yWebsocketsClient, yMemory, yMap, yText);
 
+window.Y = Y;
 export default function (space) {
     var deferred = $.Deferred();
     Y({
