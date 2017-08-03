@@ -3,6 +3,7 @@ var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var DashboardPlugin = require('webpack-dashboard/plugin');
 
 module.exports = {
   devServer: {
@@ -47,6 +48,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new DashboardPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: ['yVendor', 'jVendor', 'mxVendor', 'vendor', 'manifest']
     }),
