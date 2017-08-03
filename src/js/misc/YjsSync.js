@@ -23,8 +23,8 @@ export default function (space) {
             attrs: 'Map',
             data : 'Map',
             awareness : 'Map', 
-            users : 'Map',
-            join : 'Map',
+            yfUsers : 'Map',
+            yfJoin : 'Map',
             //Syncmeta stuff not used by the Wireframe
             nodes: 'Map',
             edges : 'Map', 

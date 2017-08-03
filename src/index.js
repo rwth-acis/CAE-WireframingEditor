@@ -4,17 +4,18 @@ import GoogleLogin from './js/GoogleLogin.js';
 import YjsSync from './js/misc/YjsSync.js';
 import SyncMeta from 'syncmeta-plugin';
 import Main from './js/Main.js';
+import TagRegistry from './js/tags/TagRegistry.js';
 import { mxEvent } from './js/misc/mxExport.js';
 $(function () {
     YjsSync('yireframetesting').done(function (y) {
         var vls = y.share.data.get('metamodel');
-        if (vls) {
+        if (vls) 
             window.vls = vls;
-        }
         else {
-            var vls = require('./data/vls.json');
+            vls = require('./data/vls.json');
             window.vls = vls;
         }
+        TagRegistry.initFromVLS(vls);
         //Important load a vls before calling Main
         var editor = Main();
         GoogleLogin();
@@ -42,7 +43,7 @@ $(function () {
         SyncMeta.onNodeAdd(function (event) {
             mxLog.writeln('Node was created in SyncMeta: ' + JSON.stringify(event));
         });
-
+        
         editor.graph.addListener(mxEvent.CELLS_ADDED, function (graph, event) {
             var cells = event.getProperty('cells');
             for (var i = 0; i < cells.length; i++) {
@@ -67,6 +68,6 @@ $(function () {
                 }, 500);
             }
         });
-
+        
     });
 });

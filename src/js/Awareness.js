@@ -28,7 +28,7 @@ function Awareness(wireframe) {
 
     y.share.awareness.observe(function (event) {
         if (event.name != y.db.userId) {
-            var userInfo = y.share.users.get(event.name);
+            var userInfo = y.share.yfUsers.get(event.name);
 
             //unhighlight cells
             var unhighlightCells = event.value.unhighlight;
