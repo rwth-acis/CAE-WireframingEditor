@@ -122,12 +122,11 @@ function Wireframe(container, model) {
         for (var i = 0; i < deselected.length; i++) {
             if (deselected[i].hasOwnProperty('get$node'))
                 deselected[i].get$node().css('pointer-events', 'none');
-            mxGraph.prototype.removeCellOverlay.call(that, deselected[i], deselected[i].getEditOverlay());
-
+                mxGraph.prototype.removeCellOverlay.call(that, deselected[i], deselected[i].getEditOverlay());
         }
         var selected = event.getProperty('removed');
         if (selected) {
-            for (var i = 0; i < selected.length; i++) {
+            for (var i = 0; i < selected.length && selected[i]; i++) {
                 var editOverlay = new EditOverlay();
                 mxGraph.prototype.addCellOverlay.call(that, selected[i], editOverlay);
                 editOverlay.bindClickEvent(that);

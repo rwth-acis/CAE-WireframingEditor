@@ -7,6 +7,8 @@ import {
 Link.prototype = new UIText();
 Link.prototype.constructor = Link;
 UIText.registerCodec(Link);
+Link.HTML_NODE_NAME = 'a';
+Link.NAME = "Link";
 
 //Global for the codec converter
 window.Link = Link;

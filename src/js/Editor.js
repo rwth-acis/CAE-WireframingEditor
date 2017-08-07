@@ -128,7 +128,8 @@ function Editor(wireframe, palette) {
     htmlNodeMap[Paragraph.HTML_NODE_NAME] = Paragraph.NAME;
     htmlNodeMap[Button.HTML_NODE_NAME] = Button.NAME;
     htmlNodeMap[TextArea.HTML_NODE_NAME] = TextArea.NAME;
-
+    htmlNodeMap[Link.HTML_NODE_NAME] = Link.NAME;
+    
     var vlsComponents = {};
      for(var key in vls.nodes){
         var node = vls.nodes[key];
