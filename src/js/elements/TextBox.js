@@ -6,7 +6,8 @@ import {
 
 TextBox.prototype = new UIText();
 TextBox.prototype.constructor = TextBox;
-
+TextBox.HTML_NODE_NAME = 'input';
+TextBox.NAME = "TextBox";
 var codec = mxUtils.clone(mxCodecRegistry.getCodec(mxCell));
 codec.template = new TextBox();
 codec.isCellCodec   = function(){return true;};

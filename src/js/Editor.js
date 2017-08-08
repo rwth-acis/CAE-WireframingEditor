@@ -63,7 +63,7 @@ function Editor(wireframe, palette) {
     mxCellRenderer.prototype.defaultShapes["image"] = ImageShape;
     mxCellRenderer.prototype.defaultShapes["textnode"] = TextNodeShape;
     mxCellRenderer.prototype.defaultShapes["default"] = DefaultShape;
-    
+
     //TODO rework the callback for Wireframe model attributes
     y.share.attrs.observe(function (event) {
         var name;
@@ -129,45 +129,46 @@ function Editor(wireframe, palette) {
     htmlNodeMap[Button.HTML_NODE_NAME] = Button.NAME;
     htmlNodeMap[TextArea.HTML_NODE_NAME] = TextArea.NAME;
     htmlNodeMap[Link.HTML_NODE_NAME] = Link.NAME;
-    
+    htmlNodeMap[TextBox.HTML_NODE_NAME] = TextBox.NAME;
+
     var vlsComponents = {};
-     for(var key in vls.nodes){
+    for (var key in vls.nodes) {
         var node = vls.nodes[key];
-        if(node.label === 'HTML Element'){
-            for(var attrKey in node.attributes){
+        if (node.label === 'HTML Element') {
+            for (var attrKey in node.attributes) {
                 var attr = node.attributes[attrKey];
-                if(attr.value === 'HTML Type'){
+                if (attr.value === 'HTML Type') {
                     var elements = attr.options;
-                    for(var e in elements){
-                        if(config.html.exclude.indexOf(e) === -1){
-                            if(config.html.map.hasOwnProperty(e))
+                    for (var e in elements) {
+                        if (config.html.exclude.indexOf(e) === -1) {
+                            if (config.html.map.hasOwnProperty(e))
                                 vlsComponents[e] = config.html.map[e];
-                            else if(htmlNodeMap.hasOwnProperty(e))
+                            else if (htmlNodeMap.hasOwnProperty(e))
                                 vlsComponents[e] = htmlNodeMap[e];
-                            else 
+                            else
                                 vlsComponents[e] = 'Default';
                         }
                     }
                 }
             }
         }
-     }
-    
+    }
+
     var yfUIComponents = {
         "TextNode": TextNode,
-        "Link": Link,
-        "TextBox": TextBox,
         "Checkbox": CheckBox,
         "Radio Button": RadioBtn,
         "Image": Image,
         "Audio Player": AudioPlayer,
         "Video Player": VideoPlayer,
-        "Default" : UIControl
+        "Default": UIControl
     };
     yfUIComponents[DivContainer.NAME] = DivContainer;
     yfUIComponents[Button.NAME] = Button;
     yfUIComponents[TextArea.NAME] = TextArea;
     yfUIComponents[Paragraph.NAME] = Paragraph;
+    yfUIComponents[TextBox.NAME] = TextBox;
+    yfUIComponents[Link.NAME] = Link;
 
     var yfShapeMapping = {
         "TextNode": mxConstants.STYLE_SHAPE + '=textnode;',
@@ -192,7 +193,13 @@ function Editor(wireframe, palette) {
         type = palette.createItem(shapeCell, componentName === 'Default' ? tmp : componentName, false);
         cell.makeTypeDraggable(type, wireframe);
     }
-
+    this.getUIComponentFromHTMLName = function (name) {
+        if (htmlNodeMap.hasOwnProperty(name)) {
+            if (yfUIComponents.hasOwnProperty(htmlNodeMap[name])) {
+                return yfUIComponents[htmlNodeMap[name]];
+            }
+        }
+    }
     this.getUIComponents = function () {
         return yfUIComponents;
     }

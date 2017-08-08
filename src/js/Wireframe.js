@@ -141,7 +141,7 @@ function Wireframe(container, model) {
             sharedAction = null;
         }
         return cells;
-    }
+    };
 
     that.resizeCells = function (cells, bounds, recurse, shared) {
         var cells;
@@ -170,7 +170,7 @@ function Wireframe(container, model) {
                 xml: overlay.toXML()
             });
         }
-    }
+    };
 
     that.updateBounds = function () {
         var bounds = that.getBoundingBox(that.getDefaultParent().children);
@@ -178,7 +178,7 @@ function Wireframe(container, model) {
             $('#wireframeWrap').resizable('option', 'minWidth', bounds.x + bounds.width);
             $('#wireframeWrap').resizable('option', 'minHeight', bounds.y + bounds.height);
         }
-    }
+    };
 
     //------------------------------------------------------------------------------------------------------------------------
     //--------------------------------------Begin Yjs Observer for actions----------------------------------------------------

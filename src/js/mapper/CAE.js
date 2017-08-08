@@ -53,11 +53,10 @@ function FrontendComponentMapper(graph) {
         
         if(cell.parent.id != '1'){
             var childEdgeId = Util.GUID();
-            var childEdgeLabel = attrCompiled({ id: edgeId, attrName: 'label', value: '""', option: false });
+            var childEdgeLabel = attrCompiled({ id: childEdgeId, attrName: 'label', value: '""', option: false });
             var childEdge = JSON.parse(edgeCompiled({ type: 'hasChild', labelAttr: childEdgeLabel, srcId: cell.parent.id, targetId: cell.id }));
             frontendModel.edges[childEdgeId] =childEdge;
         }
-
         frontendModel.edges[edgeId] = edge;
     }
     function recursion(parent) {
