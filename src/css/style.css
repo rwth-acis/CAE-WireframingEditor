@@ -272,6 +272,10 @@
     display: inline-block;
 }
 
+.jstree-contextmenu {
+    z-index: 1000;
+}
+
 .wfSave {
     opacity: 0.5;
 }

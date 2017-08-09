@@ -12,6 +12,7 @@ import $ from 'jquery';
 import Util from './misc/Util.js';
 import CONST from './misc/Constants.js';
 import FrontendComponentMapper from './mapper/CAE.js';
+import HierachyTree from './HierachyTree.js';
 
 Toolbox.prototype = new mxDefaultToolbar();
 Toolbox.prototype.constructor = Toolbox;
@@ -125,6 +126,13 @@ function Toolbox(container, editor) {
         y.share.data.set('model', frontendModel);
         y.share.canvas.set('ReloadWidgetOperation', 'import');
     });
+
+    editor.addAction(CONST.ACTIONS.HIERACHY_TREE, function(editor){
+        if(HierachyTree.isVisible())
+            HierachyTree.hide();
+        else 
+            HierachyTree.show();
+    })
 
     y.share.action.observe(function (event) {
         switch (event.name) {

@@ -25,7 +25,8 @@ var constants = {
         DELETE_TAG: 'deleteTag',
         RENAME_TAG: 'renameTag',
         SAVE: 'save',
-        SYNC: 'sync'
+        SYNC: 'sync',
+        HIERACHY_TREE: 'hierachy'
     },
     IMAGES: {
         COPY: 'images/toolbox/copy.png',

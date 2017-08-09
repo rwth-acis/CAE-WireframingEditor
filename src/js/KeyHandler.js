@@ -38,5 +38,8 @@ function KeyHandler(editor){
 
     //CTRL+P
     this.bindAction(80, CONST.ACTIONS.SHOW_CONSOLE, 17);
+
+    //CTRL+I
+    this.bindAction(73, CONST.ACTIONS.HIERACHY_TREE, 17);
 }
 export default KeyHandler;

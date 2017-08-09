@@ -18,6 +18,7 @@ import Wireframe from './Wireframe.js';
 import Palette from './Palette.js';
 import Editor from './Editor.js';
 import Toolbox from './Toolbox.js';
+import HierachyTree from './HierachyTree.js';
 /**
  * The Main function of the Wireframing editor
  * @param {boolean} disableDragging 
@@ -58,7 +59,7 @@ export default function (disableDragging) {
 
     var htmlToolbox = document.getElementById('toolbox');
     new Toolbox(htmlToolbox, editor);
-
+    HierachyTree.init(editor.graph);
     $('#wireframeWrap').resizable({
       //handles: "n, e, s, w, se, sw, nw, ne",
       handles: "se",

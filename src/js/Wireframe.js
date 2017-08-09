@@ -19,6 +19,7 @@ import EnableAwareness from './Awareness.js';
 import WireframeLayout from './WireframeLayout.js';
 import $ from 'jquery';
 import CONST from './misc/Constants.js';
+import HierachyTree from './HierachyTree.js';
 //import PropertyEditor from './PropertyEditor.js';
 
 window.mxGeometry = mxGeometry;
@@ -211,7 +212,7 @@ function Wireframe(container, model) {
                         if (!event.value.parent)
                             that.updateBounds();
                     }
-
+                    HierachyTree.add(cell);
                     for (var i = 0; i < cells.length; i++) {
                         cells[i].createShared(event.value.userId === y.db.userId);
                     }
