@@ -1,6 +1,7 @@
 /*global y*/
 import { mxCodec, mxUtils, mxForm, mxGraph } from './mxExport.js';
 import $ from 'jquery';
+import CAELiveMapper from '../mapper/CAELiveMapper.js';
 
 /**
  * Some helper functions
@@ -120,6 +121,9 @@ Util.bindSharedAttributes = function (entity, form) {
                 var ytext = y.share.attrs.get(id + '_' + name);
                 if (ytext) {
                     ytext.bind($input[0]);
+                    //var caeYText = CAELiveMapper.getSharedWidgetAttr('_'+name);
+                    //if(caeYText != undefined)
+                    //    caeYText.bind($input[0]);
                     if(!entity && name === 'name')
                         ytext.bind($('#draggingBar')[0]);
                 }

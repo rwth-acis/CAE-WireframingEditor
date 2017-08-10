@@ -18,6 +18,6 @@ $(function () {
         //Important load a vls before calling Main
         var editor = Main();
         GoogleLogin();
-        //CAELiveMapper(editor);
+        CAELiveMapper.init(editor);
     });
 });

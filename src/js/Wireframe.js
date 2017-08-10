@@ -225,15 +225,17 @@ function Wireframe(container, model) {
                 }
             case mxEvent.MOVE:
                 {
+                    var parent = that.getModel().getCell(event.value.parentId);
                     if (event.value.userId !== y.db.userId) {
                         that.removeListener(SharedCellsMovedEvent);
                         var cells = Util.getCellsFromIdList(that, event.value.ids);
                         if (cells.length > 0) {
                             if (event.value.dx != 0 || event.value.dy != 0)
-                                that.moveCells(cells, event.value.dx, event.value.dy, false, that.getModel().getCell(event.value.parentId), null, null, true);
+                                that.moveCells(cells, event.value.dx, event.value.dy, false, parent, null, null, true);
                         }
                         that.addListener(mxEvent.CELLS_MOVED, SharedCellsMovedEvent);
                     }
+                    HierachyTree.move(event.value.ids, event.value.parentId, parent.children.length);
                     that.updateBounds();
                     break;
                 }

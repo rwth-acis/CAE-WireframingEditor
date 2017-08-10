@@ -64,26 +64,27 @@ function HierachyTree() {
                         var cell = graph.model.getCell(event.value);
                         var index = cell.parent.getIndex(cell);
                         if(index > 0){
-                            cell.parent.insert(cell, (--index));
-                            $tree.jstree(true).move_node(cell.id, cell.parent.id, index);
+                            index--;
+                            cell.parent.insert(cell, index);
+                            $tree.jstree(true).move_node(cell.id, cell.parent.id === '1' ? '#' : cell.parent.id, index);
                         }
                         break;
                     }
                     case 'downIndex': {
                         var cell = graph.model.getCell(event.value);
                         var index = cell.parent.getIndex(cell);
-                        if(index < cell.parent.children.length -1){
-                            cell.parent.insert(cell, (++index));
-                            $tree.jstree().move_node(cell.id, cell.parent.id === '1' ? null : cell.parent.id, index);
+                        if(index < cell.parent.children.length-1){
+                            index++;
+                            cell.parent.insert(cell, index);
+                            $tree.jstree(true).move_node(cell.id, cell.parent.id === '1' ? '#' : cell.parent.id, index+1);
                         }
-
                         break;
                     }
                 }
             });
             wnd = new mxWindow('Hierachy', $tree[0], 300, 200, '100%', '40%', true, true);
             wnd.destroyOnClose = false;
-            wnd.setVisible(true);
+            wnd.setVisible(false);
             wnd.setMaximizable(false);
             wnd.setResizable(false);
             wnd.setClosable(true);
@@ -98,7 +99,7 @@ function HierachyTree() {
             return wnd.isVisible();
         },
         add: function (cell) {
-            $tree.jstree(true).create_node(cell.parent.id === '1' ? null : cell.parent.id, {
+            $tree.jstree(true).create_node(cell.parent.id === '1' ? '#' : cell.parent.id, {
                 id: cell.id,
                 text: cell.constructor.NAME,
                 state: {
@@ -109,6 +110,10 @@ function HierachyTree() {
         },
         remove : function(cells){
             $tree.jstree(true).delete_node(cells);
+        },
+        move : function(cell, parent, position){
+            $tree.jstree(true).move_node(cell, parent === '1' ? '#' : parent, position);
+
         }
     }
 }

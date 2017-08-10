@@ -43,19 +43,29 @@ function FrontendComponentMapper(graph) {
         id = Util.GUID();
         attributes[id] = JSON.parse(attrCompiled({ id: cell.id, attrName: 'static', value: false, option: false }));
         id = Util.GUID();
-        attributes[id] = JSON.parse(attrCompiled({ id: cell.id, attrName: 'collaborative', value: false, option: false }));
+        var shared = false;
+        if (cell.overlays) {
+            for (var i = 0; i < cell.overlays.length; i++) {
+                var overlay = cell.overlays[i];
+                if(overlay.constructor.name === 'SharedTag'){
+                    shared = true;
+                    break;
+                }
+            }
+        }
+        attributes[id] = JSON.parse(attrCompiled({ id: cell.id, attrName: 'collaborative', value: shared, option: false }));
         var node = JSON.parse(nodeCompiled({ type: 'HTML Element', labelAttr: label, attributes: JSON.stringify(attributes) }));
         frontendModel.nodes[cell.id] = node;
 
         var edgeId = Util.GUID();
         var edgeLabel = attrCompiled({ id: edgeId, attrName: 'label', value: '""', option: false });
         var edge = JSON.parse(edgeCompiled({ type: 'Widget to HTML Element', labelAttr: edgeLabel, srcId: widgetNodeId, targetId: cell.id }));
-        
-        if(cell.parent.id != '1'){
+
+        if (cell.parent.id != '1') {
             var childEdgeId = Util.GUID();
             var childEdgeLabel = attrCompiled({ id: childEdgeId, attrName: 'label', value: '""', option: false });
             var childEdge = JSON.parse(edgeCompiled({ type: 'hasChild', labelAttr: childEdgeLabel, srcId: cell.parent.id, targetId: cell.id }));
-            frontendModel.edges[childEdgeId] =childEdge;
+            frontendModel.edges[childEdgeId] = childEdge;
         }
         frontendModel.edges[edgeId] = edge;
     }
@@ -63,7 +73,7 @@ function FrontendComponentMapper(graph) {
         for (var i = 0; i < parent.children.length; i++) {
             var cell = parent.children[i];
             mapHTMLElement(cell);
-            if(cell.children)
+            if (cell.children)
                 recursion(cell);
         }
 
