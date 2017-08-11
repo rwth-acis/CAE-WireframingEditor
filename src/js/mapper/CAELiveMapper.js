@@ -1,7 +1,8 @@
 /*global y, mxLog*/
-import { mxEvent, mxCodec, mxUtils } from '../misc/mxExport.js';
+import { mxEvent, mxCodec, mxUtils, mxPoint, mxGraph } from '../misc/mxExport.js';
 import CONST from '../misc/Constants.js';
 import SyncMeta from 'syncmeta-plugin';
+import TagRegistry from '../tags/TagRegistry.js';
 
 /**
  * Live mapper for the CAE
@@ -19,7 +20,7 @@ function CAELiveMapper() {
             var widgetNodeId = null;
             var hasChildMap = {};
             var nodeCreateMap = {};
-            var mxCellsAddedFlag = true, mxCellsRemoveFlag = true;
+            var mxCellsAddedFlag = true, mxCellsRemoveFlag = true, mxCellOverlayAddFlag = true;
             if (model) {
                 for (var key in model.nodes) {
                     if (model.nodes.hasOwnProperty(key)) {
@@ -124,35 +125,60 @@ function CAELiveMapper() {
             });
             SyncMeta.onNodeAttributeChange(function (value, entity, entityValueId) {
                 var cell = editor.graph.model.getCell(entity);
-                var UIControl = editor.getUIComponentFromHTMLName(value);
-                if (!value || !cell || cell.constructor.HTML_NODE_NAME === value || entityValueId.indexOf('[type]') == -1) return;
-                if (UIControl) {
-                    mxCellsRemoveFlag = false;
-                    y.share.action.set(mxEvent.REMOVE, {
-                        userId: y.db.userId,
-                        cells: [entity]
-                    });
+                var attr = entityValueId.substring(entityValueId.indexOf('[') + 1, entityValueId.length - 1);
+                switch (attr) {
+                    case 'type': {
+                        if (!value || !cell || cell.constructor.HTML_NODE_NAME === value) return;
+                        var UIControl = editor.getUIComponentFromHTMLName(value);
+                        if (UIControl) {
+                            mxCellsRemoveFlag = false;
+                            y.share.action.set(mxEvent.REMOVE, {
+                                userId: y.db.userId,
+                                cells: [entity]
+                            });
 
-                    var uiControl = new UIControl();
-                    uiControl.geometry.x = cell.geometry.x;
-                    uiControl.geometry.y = cell.geometry.y;
-                    var encoder = new mxCodec();
-                    var result = encoder.encode(uiControl);
+                            var uiControl = new UIControl();
+                            uiControl.geometry.x = cell.geometry.x;
+                            uiControl.geometry.y = cell.geometry.y;
+                            var encoder = new mxCodec();
+                            var result = encoder.encode(uiControl);
 
-                    var xml = mxUtils.getXml(result);
-                    mxCellsAddedFlag = false;
-                    y.share.action.set(mxEvent.ADD_VERTEX, {
-                        userId: y.db.userId,
-                        id: entity,
-                        data: xml,
-                        parent: cell.parent
-                    });
-                } else {
-                    y.share.action.set(mxEvent.REMOVE, {
-                        userId: y.db.userId,
-                        cells: [entity]
-                    });
+                            var xml = mxUtils.getXml(result);
+                            mxCellsAddedFlag = false;
+                            y.share.action.set(mxEvent.ADD_VERTEX, {
+                                userId: y.db.userId,
+                                id: entity,
+                                data: xml,
+                                parent: cell.parent
+                            });
+                        } else {
+                            y.share.action.set(mxEvent.REMOVE, {
+                                userId: y.db.userId,
+                                cells: [entity]
+                            });
+                        }
+                        break;
+                    }
+                    case 'collaborative': {
+                        if (value) {
+                            var Tag = TagRegistry.getClass('Shared');
+                            var tag = new Tag(cell, new mxPoint(-CONST.TAG.SIZE * cell.getTagCounter(), 0));
+                            mxCellOverlayAddFlag = false;
+                            editor.graph.addCellOverlay(cell, tag);
+                        }
+                        else {
+                            var tagId;
+                            for (var i = 0; cell.overlays && i < cell.overlays.length; i++) {
+                                var overlay = cell.overlays[i];
+                                if (overlay.constructor.name === 'SharedTag')
+                                    tagId = overlay.getId();
+                            }
+                            y.share.action.set(CONST.ACTIONS.DELETE_TAG, { userId: y.db.userId, cellId: cell.getId(), selected: [tagId], types: ['SharedTag'], fromSyncMeta: true });
+                        }
+                        break;
+                    }
                 }
+
             });
 
             editor.graph.addListener(mxEvent.CELLS_ADDED, function (graph, event) {
@@ -229,12 +255,31 @@ function CAELiveMapper() {
                 }
 
             });
-            
+
             y.share.action.observe(function (event) {
                 switch (event.name) {
+                    case mxEvent.ADD_OVERLAY: {
+                        if (!mxCellOverlayAddFlag) {
+                            mxCellOverlayAddFlag = true;
+                            return;
+                        }
+                        if(event.value.fromSyncMeta) return;
+                        if (event.value.xml.indexOf('SharedTag') != -1)
+                            SyncMeta.setAttributeValue(event.value.id, 'collaborative', true);
+                        break;
+                    }
                     case CONST.ACTIONS.SHARED.GRAPH_RESIZE: {
                         SyncMeta.setAttributeValue(widgetNodeId, 'width', event.value.width.toString());
                         SyncMeta.setAttributeValue(widgetNodeId, 'height', event.value.height.toString());
+                        break;
+                    }
+                    case CONST.ACTIONS.DELETE_TAG: {
+                        if (event.value.fromSyncMeta) return;
+                        for (var i = 0; i < event.value.types.length; i++) {
+                            var type = event.value.types[i];
+                            if (type === 'SharedTag')
+                                SyncMeta.setAttributeValue(event.value.cellId, 'collaborative', false);
+                        }
                         break;
                     }
                 }

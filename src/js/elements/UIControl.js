@@ -137,7 +137,6 @@ function UIControl(geometry, style) {
                     parentTag.addChildTag(tag);
             }
         }
-
         return tags;
     }
 
@@ -236,5 +235,4 @@ UIControl.prototype.getEditOverlay = function () {
         }
     }
 }
-
 export default UIControl;

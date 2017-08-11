@@ -275,6 +275,9 @@
 .jstree-contextmenu {
     z-index: 1000;
 }
+#hierachyTree{
+    background-color: white;
+}
 
 .wfSave {
     opacity: 0.5;

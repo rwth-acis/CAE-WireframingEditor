@@ -59,7 +59,7 @@ export default function (disableDragging) {
 
     var htmlToolbox = document.getElementById('toolbox');
     new Toolbox(htmlToolbox, editor);
-    HierachyTree.init(editor.graph);
+    HierachyTree.init(editor);
     $('#wireframeWrap').resizable({
       //handles: "n, e, s, w, se, sw, nw, ne",
       handles: "se",

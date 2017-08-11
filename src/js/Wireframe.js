@@ -20,7 +20,6 @@ import WireframeLayout from './WireframeLayout.js';
 import $ from 'jquery';
 import CONST from './misc/Constants.js';
 import HierachyTree from './HierachyTree.js';
-//import PropertyEditor from './PropertyEditor.js';
 
 window.mxGeometry = mxGeometry;
 Wireframe.prototype = new mxGraph();
@@ -161,14 +160,15 @@ function Wireframe(container, model) {
         return cells;
     };
 
-    that.addCellOverlay = function (cell, overlay) {
+    that.addCellOverlay = function (cell, overlay, fromSyncMeta) {
         if (overlay instanceof UserOverlay || overlay instanceof EditOverlay) {
             mxGraph.prototype.addCellOverlay.apply(this, arguments);
         } else {
             y.share.action.set(mxEvent.ADD_OVERLAY, {
                 userId: y.db.userId,
                 id: cell.getId(),
-                xml: overlay.toXML()
+                xml: overlay.toXML(),
+                fromSyncMeta : !fromSyncMeta ? false : true
             });
         }
     };

@@ -1,4 +1,3 @@
-/*global vls*/
 import CONST from '../misc/Constants.js';
 import config from '../../data/config.json';
 import SharedTag from './SharedTag.js';

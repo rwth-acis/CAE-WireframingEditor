@@ -159,24 +159,27 @@ function Toolbox(container, editor) {
                 that._editor.graph.setSelectionCells(Util.getCellsFromIdList(that._editor.graph, event.value.cells));
                 that._editor.execute("delete");
                 that._editor.graph.updateBounds();
+                HierachyTree.remove(event.value.cells);
                 if (y.db.userId === event.value.userId)
                     Util.Save(that._editor.graph);
                 break;
             case mxEvent.GROUP_CELLS:
-                var group = that._editor.graph.groupCells(null, 20, Util.getCellsFromIdList(that._editor.graph, event.value.ids));
+                var cells = Util.getCellsFromIdList(that._editor.graph, event.value.ids);
+                var group = that._editor.graph.groupCells(null, 20, cells);
                 if (y.db.userId === event.value.userId) {
                     //that._editor.graph.setSelectionCells(group);
                     that._editor.graph.getSelectionModel().setCell(group);
                     group.createShared(true);
-
                 }
                 that._editor.graph.updateBounds();
+                HierachyTree.group(group, cells);
                 break;
             case mxEvent.UNGROUP_CELLS:
                 var cells = that._editor.graph.ungroupCells(Util.getCellsFromIdList(that._editor.graph, event.value.ids));
                 if (y.db.userId === event.value.userId)
                     that._editor.graph.setSelectionCells(cells);
                 that._editor.graph.updateBounds();
+                HierachyTree.ungroup(cells);
                 break;
             case CONST.ACTIONS.SHARED.PASTE:
                 var selectedCells = that._editor.graph.getSelectionCells();
