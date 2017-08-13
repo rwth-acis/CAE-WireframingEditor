@@ -10,6 +10,15 @@ import TagRegistry from './TagRegistry.js';
 mxUtils.extend(GenericTag, AbstractTag);
 AbstractTag.registerCodec(GenericTag);
 
+/**
+ * @classdesc A generic tag class that represents a tag defined in the VLS
+ * @constructor
+ * @abstract
+ * @extends AbstractTag
+ * @param {UIControl | AbstractTag} cell a tag or a ui element
+ * @param {*} offset the offset
+ * @param {String} className the node class as defined in the VLS
+ */
 function GenericTag(cell, offset, className) {
 
     var reg;

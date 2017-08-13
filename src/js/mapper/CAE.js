@@ -1,5 +1,14 @@
+/**
+ * @module FrontendComponentMapper
+ */
 import _ from 'lodash';
 import Util from '../misc/Util.js';
+
+/**
+ * Map a wireframe model to a CAE frontend component model
+ * @param {Wireframe} graph the wireframe to transform to a SyncMeta model 
+ * @return {Object} the CAE frontend component model
+ */
 function FrontendComponentMapper(graph) {
     var frontendModel = {
         attributes: {},

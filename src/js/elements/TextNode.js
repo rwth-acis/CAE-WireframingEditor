@@ -9,6 +9,12 @@ UIText.registerCodec(TextNode);
 //Global for the codec converter
 window.TextNode = TextNode;
 
+/**
+ * @classdesc A HTMl textnode element
+ * @constructor
+ * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 150, 50)] the width, height, x and y of the ui element
+ * @extends UIText
+ */
 function TextNode(geometry) {
     var text = 'A simple TextNode...';
     if(!geometry)

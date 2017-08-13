@@ -8,8 +8,11 @@ Palette.prototype = new mxToolbar();
 Palette.prototype.constructor = Palette;
 
 /**
- * The palette of the wireframing editor
- * @param {DOM} container 
+ * The palette consists of all ui elments supported by the editor
+ * @classdesc The palette of the wireframing editor
+ * @constructor
+ * @param {DOM} container the container
+ * @extends mxToolbar
  */
 function Palette(container) {
     mxToolbar.call(this, container);

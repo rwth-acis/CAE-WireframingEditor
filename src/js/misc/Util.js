@@ -1,15 +1,16 @@
 /*global y*/
 import { mxCodec, mxUtils, mxForm, mxGraph } from './mxExport.js';
 import $ from 'jquery';
-import CAELiveMapper from '../mapper/CAELiveMapper.js';
 
 /**
  * Some helper functions
+ * @constructor
  */
 function Util() { }
 
 /**
  * Returns the Ids for cells currently selected in the graph
+ * @param {Wireframe} graph the wireframe
  * @return{array} array of ids
  */
 Util.getIdsOfSelectedCells = function (graph) {
@@ -23,7 +24,9 @@ Util.getIdsOfSelectedCells = function (graph) {
 
 /**
  * Returns the cells for the given ids
+ * @param {Wireframe} graph the wireframe
  * @param {array} ids the ids as string to look for 
+ * @return {UIControl[]} an array of ui elements
  */
 Util.getCellsFromIdList = function (graph, ids) {
     var cells = [];
@@ -48,6 +51,11 @@ Util.GUID = function () {
     return _p8() + _p8(true) + _p8(true) + _p8();
 }
 
+/**
+ * Serializes the current wireframe to XML and stores it in y.share.data.wireframe
+ * @param {Wireframe} graph the wireframe
+ * @return  {undefined}
+ */
 Util.Save = function (graph) {
     var encoder = new mxCodec();
     //encoder.encodeDefaults = true;

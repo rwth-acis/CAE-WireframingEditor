@@ -4,10 +4,14 @@ KeyHandler.prototype = new mxDefaultKeyHandler();
 KeyHandler.prototype.constructor = KeyHandler;
 
 /**
- * The KeyHandler for the Wireframing Editor
+ * Defines the keyboard shortcuts and their actions
+ * 
  * For key codes see:
  * https://www.cambiaresearch.com/articles/15/javascript-char-codes-key-codes
- * @param {mxGraph} graph 
+ * @classdesc The KeyHandler for the Wireframing Editor
+ * @constructor
+ * @param {mxEditor} editor the wireframeing editor 
+ * @extends mxDefaultKeyHandler
  */
 function KeyHandler(editor){
     mxDefaultKeyHandler.call(this, editor);

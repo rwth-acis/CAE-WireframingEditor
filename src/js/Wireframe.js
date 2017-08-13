@@ -25,6 +25,13 @@ window.mxGeometry = mxGeometry;
 Wireframe.prototype = new mxGraph();
 Wireframe.prototype.constructor = Wireframe;
 
+/**
+ * @classdesc The class represents the visuale representation of the wireframe
+ * @constructor
+ * @param {DOM} container the div container containning the canvas
+ * @param {WireframeModel} model represents the model of the wireframe
+ * @extends mxGraph
+ */
 function Wireframe(container, model) {
     var that = this;
     mxGraph.call(this, container, model);

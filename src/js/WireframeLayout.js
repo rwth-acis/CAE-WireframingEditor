@@ -1,6 +1,14 @@
 import { mxUtils, mxPartitionLayout, mxRectangle } from './misc/mxExport.js';
 mxUtils.extend(WireframeLayout, mxPartitionLayout);
 
+/**
+ * @classdesc A simple Layout for Wireframes based on the PartitionLayout from mxGraph
+ * @constructor
+ * @param {Wireframe} graph the wireframe 
+ * @param {*} spacing the spacing
+ * @param {*} border the border
+ * @extends mxPartitionLayout
+ */
 function WireframeLayout(graph, spacing, border) {
     mxPartitionLayout.call(this, graph, true, spacing, border);
 }

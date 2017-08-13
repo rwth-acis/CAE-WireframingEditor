@@ -9,13 +9,34 @@ TextArea.prototype = new UIText();
 TextArea.prototype.constructor = TextArea;
 UIText.registerCodec(TextArea);
 window.TextArea = TextArea;
+
+/**
+ * The HTML node name
+ * @static 
+ * @default textarea
+ * @readonly
+ */
 TextArea.HTML_NODE_NAME = 'textarea';
+
+/**
+ * The Name of element in the Wireframing editor
+ * @static 
+ * @default Multi-Line Text Area
+ * @readonly
+ */
 TextArea.NAME = "Multi-Line Text Area";
+
+/**
+ * @classdesc A HTMl textarea element
+ * @constructor
+ * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 200, 50)] the width, height, x and y of the ui element
+ * @extends UIText
+ */
 function TextArea(geometry) {
     var text = 'Multi-Line text input area';
     // var text = 'hallo';
     if (!geometry)
-        geometry = new mxGeometry(0, 0, 320, 80);
+        geometry = new mxGeometry(0, 0, 200, 50);
 
     UIText.call(this, text, geometry);
     this.value.setAttribute('_placeholder', '');

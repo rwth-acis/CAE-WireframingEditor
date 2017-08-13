@@ -1,6 +1,13 @@
 /*global gapi*/
+/**
+ * @module
+ */
 import UserList from './UserList.js';
 
+/**
+ * Log in to google and generates the user list
+ * @return {undefined}
+ */
 function GoogleLogin() {
     var auth2 = gapi.auth2.init();
     var profile;

@@ -1,10 +1,19 @@
-/*global gapi, y*/
+/*global  y*/
+/**
+ * @module
+ */
 import {
     mxWindow
 } from './misc/mxExport.js';
 import $ from 'jquery';
 import randomColor from 'randomcolor';
 
+/**
+ * Generate a user list wrapped in a mxWindow
+ * @param {Object} user the object consists of the data about the user
+ * @param {Boolean} visible true if the mxWindow is visible or false if not 
+ * @return {undefined}
+ */
 function UserList(user, visible) {
     var $userList = $('#userList');
     var $userTable = $userList.find('table');

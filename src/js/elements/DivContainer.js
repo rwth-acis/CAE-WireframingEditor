@@ -9,8 +9,29 @@ import UIControl from './UIControl.js';
 mxUtils.extend(DivContainer, UIControl);
 window.DivContainer = DivContainer;
 UIControl.registerCodec(DivContainer);
+
+/**
+ * The HTML node name
+ * @static 
+ * @default div
+ * @readonly
+ */
 DivContainer.HTML_NODE_NAME = 'div';
+
+/**
+ * The Name of element in the Wireframing editor
+ * @static 
+ * @default UI Component Container
+ * @readonly
+ */
 DivContainer.NAME = "UI Component Container";
+
+/**
+ * @classdesc A HTMl div element
+ * @constructor
+ * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 250, 300)] the width, height, x and y of the ui element
+ * @extends UIControl
+ */
 function DivContainer(geometry) {
     if (!geometry)
         geometry = new mxGeometry(0, 0, 250, 300);
@@ -29,7 +50,5 @@ function DivContainer(geometry) {
     UIControl.call(this, geometry, style);
     this.setAttribute('label', 'Container');
     this.setConnectable(false);
-
-    return this;
 }
 export default DivContainer;

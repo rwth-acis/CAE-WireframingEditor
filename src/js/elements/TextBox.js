@@ -6,7 +6,21 @@ import {
 
 TextBox.prototype = new UIText();
 TextBox.prototype.constructor = TextBox;
+
+/**
+ * The HTML node name
+ * @static 
+ * @default input
+ * @readonly
+ */
 TextBox.HTML_NODE_NAME = 'input';
+
+/**
+ * The Name of element in the Wireframing editor
+ * @static 
+ * @default TextBox
+ * @readonly
+ */
 TextBox.NAME = "TextBox";
 var codec = mxUtils.clone(mxCodecRegistry.getCodec(mxCell));
 codec.template = new TextBox();
@@ -14,6 +28,12 @@ codec.isCellCodec   = function(){return true;};
 mxCodecRegistry.register(codec);
 window.TextBox = TextBox;
 
+/**
+ * @classdesc A HTMl textbox element
+ * @constructor
+ * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 120, 30)] the width, height, x and y of the ui element
+ * @extends UIText
+ */
 function TextBox(geometry) {
     var text = 'Some Text...';
     if(!geometry)

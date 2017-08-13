@@ -33,6 +33,8 @@ AudioShape.prototype.cst = {
  * Function: paintVertexShape
  * 
  * Paints the vertex shape.
+ * 
+ * @return {undefined}
  */
 AudioShape.prototype.paintVertexShape = function (c, x, y, w, h) {
     var bgColor = mxUtils.getValue(this.style, mxConstants.STYLE_FILLCOLOR, 'white');
@@ -63,6 +65,19 @@ AudioShape.prototype.background = function (c, x, y, w, h, bgColor, frameColor) 
     c.fillAndStroke();
 };
 
+/**
+ * @param  {} c
+ * @param  {Number} x
+ * @param  {Number} y
+ * @param  {Number} w
+ * @param  {Number} h
+ * @param  {} buttonColor
+ * @param  {} frameColor
+ * @param  {} filledColor
+ * @param  {} emptyColor
+ * @param  {} barHeight
+ * @return {undefined}
+ */
 AudioShape.prototype.otherShapes = function (c, x, y, w, h, buttonColor, frameColor, filledColor, emptyColor, barHeight) {
     var barPos = mxUtils.getValue(this.style, AudioShape.prototype.cst.BAR_POS, '20');
     barPos = Math.max(0, barPos);

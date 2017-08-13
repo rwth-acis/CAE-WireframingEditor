@@ -9,6 +9,12 @@ UIText.registerCodec(CheckBox);
 //Global for the codec converter
 window.CheckBox = CheckBox;
 
+/**
+ * @classdesc A HTMl checkbox element
+ * @constructor
+ * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 150, 30)] the width, height, x and y of the ui element
+ * @extends UIText
+ */
 function CheckBox(geometry) {
     var text = 'Option';
     if (!geometry)
@@ -32,7 +38,6 @@ function CheckBox(geometry) {
                 .css('border-style', 'initial')
                 .val(text)));
     }
-    return this;
 }
 CheckBox.prototype.bindLabel = function(ytext){
     ytext.bind(this.get$node().find('input[type="input"]')[0]);

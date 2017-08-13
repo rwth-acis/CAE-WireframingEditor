@@ -6,9 +6,29 @@ import {
 import $ from 'jquery';
 import '../../node_modules/jstree/dist/jstree.min.js';
 
+/**
+ * @classdesc the hierachy tree visualize the hierachical structure of the ui elements in the wireframing editor and allows to edit the hierachy structure
+ * @constructor
+ * @requires jQuery
+ * @requires jsTree
+ */
 function HierachyTree() {
+    /**
+     * The html dom element as string
+     * @member {String}
+     */
     var htmlTree = '<div id="hierachyTree"></div>';
+    
+    /**
+     * the mxWindows-instance that contains the hierachy tree in the DOM
+     * @member {mxWindow}
+     */
     var wnd;
+
+    /**
+     * The jsTree that handles and visualize the hierachy tree
+     * @member {jsTree}
+     */
     var $tree = $($.parseHTML(htmlTree)).jstree({
         core: {
             multiple: false,
@@ -58,6 +78,12 @@ function HierachyTree() {
         }
     };
     return {
+        /**
+         * Initialize the hierachy tree in a seperate mxWindow-instance
+         * @param {mxEditor} editor the wireframing editor instance
+         * @return {undefined}
+         * @memberof HierachyTree
+         */
         init: function (editor) {
             function buildTree(parent) {
                 if (!parent.children) return;
@@ -137,15 +163,36 @@ function HierachyTree() {
             wnd.setResizable(false);
             wnd.setClosable(true);
         },
+        /**
+         * Show the mxWindow that displays the hierachy tree
+         * @return {undefined}
+         * @memberof HierachyTree
+         */
         show: function () {
             wnd.setVisible(true);
         },
+        /**
+         * Hide the mxWindow that displays the hierachy tree
+         * @return {undefined}
+         * @memberof HierachyTree
+         */
         hide: function () {
             wnd.setVisible(false);
         },
+        /**
+         * Check if the mxWindow-instance that displays the hierachy tree is visible
+         * @return {Boolean} true if the mxWindow is visible else false
+         * @memberof HierachyTree
+         */
         isVisible: function () {
             return wnd.isVisible();
         },
+        /**
+         * Add a ui element to the hierachy tree
+         * @param {UIObject} cell the ui element to add to the hierachy tree
+         * @return {undefined}
+         * @memberof HierachyTree
+         */
         add: function (cell) {
             $tree.jstree(true).create_node(cell.parent.id === '1' ? '#' : cell.parent.id, {
                 id: cell.id,
@@ -157,13 +204,35 @@ function HierachyTree() {
                 pos: cell.parent.getIndex(cell)
             });
         },
+        /**
+         * Remove a set of cells from the hierachy tree
+         * @param {String[]} cells an array of strings containing the id of the cells to remove
+         * @return {undefined}
+         * @memberof HierachyTree
+         */
         remove: function (cells) {
             $tree.jstree(true).delete_node(cells);
         },
+        /**
+         * Move a entry in the hierachy tree
+         * @param {UIObject} cell the cell to move
+         * @param {UIObject} parent the new parent of the cell
+         * @param {Integer} position the new position of the cell
+         * @return {undefined}
+         * @memberof HierachyTree
+         */
         move: function (cell, parent, position) {
             $tree.jstree(true).move_node(cell, parent === '1' ? '#' : parent, position);
-
         },
+        /**
+         * Group a set of cells
+         * The functions creates the parent of the all elements in the cells array 
+         * and moves the cells to the new parent
+         * @param {UIObject} group the new parent
+         * @param {UIOObject[]} cells the children of the group 
+         * @return {undefined}
+         * @memberof HierachyTree
+         */
         group: function (group, cells) {
             $tree.jstree(true).create_node(group.parent.id === '1' ? '#' : group.parent.id, {
                 id: group.id,
@@ -180,6 +249,13 @@ function HierachyTree() {
 
             }
         },
+        /**
+         * Ungroup the cells from their parent
+         * The function recursively adds the children of the deleted parent to the hierachy tree
+         * @param {UIObject[]} cells the child cells which were ungrouped
+         * @param {undefined}
+         * @memberof HierachyTree
+         */
         ungroup: function (cells) {
             var helperFnc = function(cell){
                 $tree.jstree(true).create_node(cell.parent.id === '1' ? '#' : cell.parent.id, {

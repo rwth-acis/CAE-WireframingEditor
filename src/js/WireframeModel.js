@@ -16,6 +16,11 @@ codec.template = new WireframeModel();
 mxCodecRegistry.addAlias('WireframeModel', 'mxGraphModel');
 window.WireframeModel = WireframeModel;
 
+/**
+ * @classdesc The conceptual model behind the wireframe
+ * @constructor
+ * @extends mxGraphModel
+ */
 function WireframeModel() {
     var that = this;
     var xmlDoc = mxUtils.createXmlDocument();

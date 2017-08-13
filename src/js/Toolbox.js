@@ -18,9 +18,13 @@ Toolbox.prototype = new mxDefaultToolbar();
 Toolbox.prototype.constructor = Toolbox;
 
 /**
- * The toolbox of the editor
- * @param {DOM} container 
- * @param {mxEditor} editor 
+ * Defines the (shared) actions for copy & paste, undo & redo and grouping & ungrouping 
+ * @classdesc The toolbar of the editor
+ * @constructor
+ * @param {DOM} container the div container in the DOM 
+ * @param {mxEditor} editor the editor instance of the wireframing application
+ * @extends mxDefaultToolbar
+ * @requires HierachyTree
  */
 function Toolbox(container, editor) {
     mxDefaultToolbar.call(this, container, editor);

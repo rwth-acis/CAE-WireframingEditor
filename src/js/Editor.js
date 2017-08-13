@@ -40,6 +40,13 @@ import config from '../data/config.json';
 Editor.prototype = new mxEditor();
 Editor.prototype.constructor = Editor;
 
+/**
+ * @classdesc The main editor class of the wireframing editor 
+ * @constructor
+ * @param {Wireframe} wireframe the wireframe of the editor 
+ * @param {Palette} palette the palette
+ * @extends mxEditor 
+ */
 function Editor(wireframe, palette) {
     var that = this;
     mxEditor.call(this);
@@ -107,6 +114,8 @@ function Editor(wireframe, palette) {
     //-------------------------------------------------------------------
     /**
      * Overrides getLabel from mxGraph for the Wireframe-class
+     * @param {*} state the state
+     * @return {String} the label
      */
     that.graph.getLabel = function (state) {
         var label = mxGraph.prototype.getLabel.apply(this, arguments);

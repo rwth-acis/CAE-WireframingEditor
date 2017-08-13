@@ -1,18 +1,25 @@
 /*global y, mxLog*/
-import { mxEvent, mxCodec, mxUtils, mxPoint, mxGraph } from '../misc/mxExport.js';
+import { mxEvent, mxCodec, mxUtils, mxPoint } from '../misc/mxExport.js';
 import CONST from '../misc/Constants.js';
 import SyncMeta from 'syncmeta-plugin';
 import TagRegistry from '../tags/TagRegistry.js';
 
 /**
- * Live mapper for the CAE
- * @param {WireframeEditor} editor 
+ * @classdesc Live mapper for the CAE
+ * @constructor
+ * @requires syncmeta-plugin
  */
 function CAELiveMapper() {
 
     var widgetAttr = {};
 
     return {
+        /**
+         * Initialize the live mapping the the CAE frontend component model
+         * @param {mxEditor} editor the editor
+         * @return {undefined}
+         * @memberof CAELiveMapper
+         */
         init: function (editor) {
             //The live mapper starts here
             SyncMeta.init(y);
@@ -285,6 +292,12 @@ function CAELiveMapper() {
                 }
             });
         },
+        /**
+         * Get a shared widget attribute with the given name
+         * @param {String} name the name of the attribute
+         * @return {YText} the shared y-text object
+         * @memberof CAELiveMapper
+         */
         getSharedWidgetAttr: function (name) {
             return widgetAttr.hasOwnProperty(name) ? widgetAttr[name] : undefined;
         }

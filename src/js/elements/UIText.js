@@ -6,9 +6,21 @@ import UIControl from './UIControl.js';
 import $ from 'jquery';
 import Y from 'yjs';
 
+
 UIText.prototype = new UIControl();
 UIText.prototype.constructor = UIText;
 window.UIText = UIText;
+/**
+ * Abstract class for all UI components of the editor that consists of a text input
+ * @classdesc Class for all UI components of the editor that consists of a text input
+ * @constructor
+ * @abstract
+ * @param {String} text the text of the Label
+ * @param {mxGeometry} geometry the width, height, x and y of the ui element
+ * @extends UIControl
+ * @requires jQuery
+ * @requires Yjs
+ */
 function UIText(text, geometry) {
     var style = mxConstants.STYLE_SHAPE + "=rectangle;" +
         mxConstants.STYLE_EDITABLE + "=0;" +
@@ -19,18 +31,35 @@ function UIText(text, geometry) {
     UIControl.call(this, geometry, style);
     this.value.setAttribute('label', text);
 
+    /**
+     * The jquery-object represent the html input node
+     * @member {jQuery}
+     */
     var _$node = null;
 
+    /**
+     * Return the html input node
+     * @return {jQuery} the html input node
+     */
     this.get$node = function(){
         return _$node;
     }
 
+    /**
+     * Set the html input node
+     * @param {jQuery} $node the html input node
+     * @return {undefined}
+     */
     this.set$node =  function($node){
         _$node = $node;
     }
-    return this;
 }
 
+/**
+ * Create the inner html input element for the ui element
+ * @param {String} element the name of the html input element to create
+ * @return {undefined}
+ */
 UIText.prototype.initDOM = function(element){
     var _$node;
     var dom = element || 'input';

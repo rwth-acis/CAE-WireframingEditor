@@ -1,10 +1,17 @@
 /*global y*/
+/**
+ * @module
+ */
 import { mxEvent, mxCellHighlight, mxPoint } from './misc/mxExport.js';
 import UserOverlay from './overlays/UserOverlay';
 import CONST from './misc/Constants.js';
-/**
+/** 
+ *  The function realizes the awareness features for the Wireframe editor
  * Enables cell hightlighting and overlays for user informations
- * @param {Wireframe} wireframe 
+ * @param {Wireframe} wireframe the wireframe
+ * @return {undefined}
+ * @requires UserOverlay
+ * @method
  */
 function Awareness(wireframe) {
     var highlightMap = {};
