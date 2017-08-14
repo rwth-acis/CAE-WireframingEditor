@@ -6,6 +6,7 @@ import UserList from './UserList.js';
 
 /**
  * Log in to google and generates the user list
+ * @async
  * @return {undefined}
  */
 function GoogleLogin() {
@@ -13,13 +14,13 @@ function GoogleLogin() {
     var profile;
     if (auth2.isSignedIn.get()) {
         profile = auth2.currentUser.get().getBasicProfile();
-        UserList({ name: profile.getName(), imageUrl: profile.getImageUrl() });
+        UserList({ id: profile.getId(), name: profile.getName(), imageUrl: profile.getImageUrl() });
     }
     else {
         auth2.isSignedIn.listen(function (isSignedIn) {
             if (isSignedIn)
                 profile = auth2.currentUser.get().getBasicProfile();
-            UserList({ name: profile.getName(), imageUrl: profile.getImageUrl() });
+            UserList({ id: profile.getId(), name: profile.getName(), imageUrl: profile.getImageUrl() });
         });
         UserList();
     }

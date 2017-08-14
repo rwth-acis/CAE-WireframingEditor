@@ -11,6 +11,7 @@ UIMedia.prototype.constructor = UIMedia;
  * An abstract class representing HTML 5 media elements
  * @classdesc Base class for all UI media componets of the editor
  * @constructor
+ * @abstract
  * @param {mxGeometry} geometry the width, height, x and y of the ui element
  * @param {String} style the style as a string
  * @extends UIControl

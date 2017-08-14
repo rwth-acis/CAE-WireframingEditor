@@ -10,17 +10,55 @@ import randomColor from 'randomcolor';
 
 /**
  * Generate a user list wrapped in a mxWindow
+ * Retrieve all necessary infromation with y.share.yfUsers.get(y.db.userId) 
+ * @example y.share.yfUsers.get(y.db.userId) = 
+        {
+            id: "some id",
+            name: "Name Surname",
+            image: "A url",
+            color: "a color"
+        }
  * @param {Object} user the object consists of the data about the user
  * @param {Boolean} visible true if the mxWindow is visible or false if not 
  * @return {undefined}
  */
 function UserList(user, visible) {
+    /**
+     * the div html elements that contains the user list
+     * @member {jQuery}
+     */
     var $userList = $('#userList');
+
+    /**
+     * The user list table
+     * @member {jQuery}
+     */
     var $userTable = $userList.find('table');
 
+    /**
+     * The ids of all remote users
+     * @member {String[]}
+     */
     var remoteUsers = [];
+
+    /**
+     * The default height of the mxWindow 
+     * @default 50
+     * @member {Integer}
+     */
     var height = 50;
+    
+    /**
+     * The default width of the mxWindow
+     * @member {Integer}
+     * @default 210
+     */
     var width = 210;
+    
+    /**
+     * The mxWindow-instance of the user list
+     * @member {mxWindow}
+     */
     var wnd = new mxWindow("User List", $userList[0], 600, 100, width, height, false, true);
     wnd.setVisible(visible !== undefined ? visible : true);
     wnd.setMaximizable(false);
@@ -28,12 +66,25 @@ function UserList(user, visible) {
     wnd.setClosable(true);
     wnd.destroyOnClose = false;
 
+    /**
+     * @event
+     * @return {undefined}
+     * @memberof {UserList}
+     */
     window.onbeforeunload = function () {
         y.share.yfJoin.set('leave', y.db.userId);
     };
     window.onunload = function () {
         y.share.yfJoin.set('leave', y.db.userId);
     }
+    /**
+     * Generate a row entry for user list table
+     * @param {String} userId the user id
+     * @param {String} userName the name of the user
+     * @param {String} imageUrl the url to the avatar of the user
+     * @param {String} color the randomed color for the user
+     * @return {JQuery} the tr-element as a jquery object
+     */
     var getUserEntry = function (userId, userName, imageUrl, color) {
         var entry = '<tr id="' + userId + '" style="display: flex; background : ' + color + '"><td><img src="' + imageUrl + '" height="42" width="42"></td><td style="font-size: 15;color: white;padding : 12;">' + userName + '</td></tr>';
         return $(entry);
@@ -76,6 +127,7 @@ function UserList(user, visible) {
         height += 50;
         wnd.setSize(width, height);
         y.share.yfUsers.set(y.db.userId, {
+            id: user.id,
             name: user.name,
             image: user.imageUrl,
             color: color

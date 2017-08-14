@@ -267,7 +267,6 @@ function Wireframe(container, model) {
                             }
                         }
                     }
-
                     break;
                 }
             case mxEvent.ADD_OVERLAY:
@@ -295,7 +294,7 @@ function Wireframe(container, model) {
                         cell.addTag(tag);
                         tag.setCell(cell);
                         if(tag.hasOwnProperty('initAttributes')) tag.initAttributes();
-                        tag.createShared(y.db.userId === event.value.userId);
+                        tag.createShared(   );
                         tag.bindClickEvent(that);
                         var ref = $('#' + cell.getId() + '_tagTree').jstree(true);
                         if (ref) {
@@ -374,7 +373,6 @@ function Wireframe(container, model) {
                         }
 
                     }
-
                     break;
                 }
             case CONST.ACTIONS.RENAME_TAG:

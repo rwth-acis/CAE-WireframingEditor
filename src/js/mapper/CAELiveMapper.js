@@ -1,8 +1,10 @@
 /*global y, mxLog*/
-import { mxEvent, mxCodec, mxUtils, mxPoint } from '../misc/mxExport.js';
+import { mxEvent, mxCodec, mxUtils, mxPoint, mxGraph } from '../misc/mxExport.js';
 import CONST from '../misc/Constants.js';
 import SyncMeta from 'syncmeta-plugin';
 import TagRegistry from '../tags/TagRegistry.js';
+import $ from 'jquery';
+import SyncMetaSelectOverlay from '../overlays/SyncMetaSelectOverlay.js';
 
 /**
  * @classdesc Live mapper for the CAE
@@ -130,7 +132,7 @@ function CAELiveMapper() {
                     });
                 }
             });
-            SyncMeta.onNodeAttributeChange(function (value, entity, entityValueId) {
+            SyncMeta.onNodeAttributeChange(function (value, entity, entityValueId, userId) {
                 var cell = editor.graph.model.getCell(entity);
                 var attr = entityValueId.substring(entityValueId.indexOf('[') + 1, entityValueId.length - 1);
                 switch (attr) {
@@ -170,8 +172,28 @@ function CAELiveMapper() {
                         if (value) {
                             var Tag = TagRegistry.getClass('Shared');
                             var tag = new Tag(cell, new mxPoint(-CONST.TAG.SIZE * cell.getTagCounter(), 0));
-                            mxCellOverlayAddFlag = false;
-                            editor.graph.addCellOverlay(cell, tag);
+                            if (cell && tag && userId) {
+                                mxCellOverlayAddFlag = false;
+                                mxGraph.prototype.addCellOverlay.apply(editor.graph, [cell, tag]);
+                                cell.addTag(tag);   
+                                tag.setCell(cell);
+                                if (tag.hasOwnProperty('initAttributes')) tag.initAttributes();
+                                tag.createShared(y.share.yfUsers.get(y.db.userId).id === userId);
+                                tag.bindClickEvent(editor.graph);
+                                var ref = $('#' + cell.getId() + '_tagTree').jstree(true);
+                                if (ref) {
+                                    ref.create_node(null, {
+                                        id: tag.tagObj.getAttribute('id'),
+                                        type: tag.tagObj.getAttribute('tagType'),
+                                        text: tag.constructor.Alias || tag.tagObj.getAttribute('tagType'),
+                                        state: {
+                                            selected: false,
+                                            opened: true
+                                        }
+                                    });
+                                    //if (sel) ref.edit(sel);
+                                }
+                            }
                         }
                         else {
                             var tagId;
@@ -215,6 +237,10 @@ function CAELiveMapper() {
                 } else {
                     if (parent.id != '1') {
                         for (var i = 0; i < cells.length; i++) {
+                            if(hasChildMap.hasOwnProperty(cells[i].id)){
+                                SyncMeta.deleteEdge(hasChildMap[cells[i].id]);
+                                delete hasChildMap[cells[i].id];                                
+                            }
                             var edgeId = SyncMeta.createEdge('hasChild', parent.id, cells[i].id);
                             hasChildMap[cells[i].id] = edgeId;
                         }
@@ -236,9 +262,19 @@ function CAELiveMapper() {
                     mxCellsRemoveFlag = true;
                     return;
                 }
+                var recursiveDelete = function(parent){
+                    if(!parent.children) return;
+                    for(var i=0; i<parent.children.length; i++){
+                        var cell = parent.children[i];
+                        SyncMeta.deleteNode(cell.id);
+                        delete hasChildMap[cell.id];
+                    }
+                    recursiveDelete(cell);
+                }
                 var cells = event.getProperty('cells');
                 for (var i = 0; i < cells.length; i++) {
                     SyncMeta.deleteNode(cells[i].id);
+                    recursiveDelete(cells[i]);
                     setTimeout(function () {
                         SyncMeta.applyLayout();
                     }, 500);
@@ -270,7 +306,7 @@ function CAELiveMapper() {
                             mxCellOverlayAddFlag = true;
                             return;
                         }
-                        if(event.value.fromSyncMeta) return;
+                        if (event.value.fromSyncMeta) return;
                         if (event.value.xml.indexOf('SharedTag') != -1)
                             SyncMeta.setAttributeValue(event.value.id, 'collaborative', true);
                         break;
@@ -290,6 +326,24 @@ function CAELiveMapper() {
                         break;
                     }
                 }
+            });
+
+            y.share.select.observe(function(event){
+                var cell = editor.graph.model.getCell(event.value);
+                if(cell){
+                    var overlay = new SyncMetaSelectOverlay(null, new mxPoint(0, -cell.geometry.height));
+                    mxGraph.prototype.addCellOverlay.apply(editor.graph, [cell, overlay]);
+                }
+                var oldCell = editor.graph.model.getCell(event.oldValue);
+                if(oldCell){
+                    for(var i=0; oldCell.overlays && i < oldCell.overlays.length; i++){
+                        var overlay = oldCell.overlays[i];
+                        if(overlay instanceof SyncMetaSelectOverlay){
+                            mxGraph.prototype.removeCellOverlay.apply(editor.graph, [oldCell, overlay]);
+                        }
+                    }
+                }
+
             });
         },
         /**

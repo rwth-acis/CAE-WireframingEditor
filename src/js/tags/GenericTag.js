@@ -13,7 +13,6 @@ AbstractTag.registerCodec(GenericTag);
 /**
  * @classdesc A generic tag class that represents a tag defined in the VLS
  * @constructor
- * @abstract
  * @extends AbstractTag
  * @param {UIControl | AbstractTag} cell a tag or a ui element
  * @param {*} offset the offset

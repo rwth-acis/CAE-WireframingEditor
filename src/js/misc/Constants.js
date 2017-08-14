@@ -52,7 +52,8 @@ var constants = {
         USER_LIST: 'images/toolbox/list.png',
         SEPERATOR: 'images/toolbox/separator.gif',
         IMAGE_SHAPE: 'images/image.png',
-        SYNC: 'images/toolbox/sync.png'
+        SYNC: 'images/toolbox/sync.png',
+        SYNCMETA: 'images/syncmeta.png'
     },
     TAG: {
         SIZE: 20/*,
