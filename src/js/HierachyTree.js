@@ -253,7 +253,7 @@ function HierachyTree() {
          * Ungroup the cells from their parent
          * The function recursively adds the children of the deleted parent to the hierachy tree
          * @param {UIObject[]} cells the child cells which were ungrouped
-         * @param {undefined}
+         * @return {undefined}
          * @memberof HierachyTree
          */
         ungroup: function (cells) {
