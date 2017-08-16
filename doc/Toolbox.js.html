@@ -1,0 +1,314 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Source: Toolbox.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: Toolbox.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*global y*/
+import {
+    mxDefaultToolbar,
+    mxEvent,
+    mxCodec,
+    mxClipboard,
+    mxUtils,
+    mxRectangle,
+    mxLog
+} from &#x27;./misc/mxExport.js&#x27;;
+import $ from &#x27;jquery&#x27;;
+import Util from &#x27;./misc/Util.js&#x27;;
+import CONST from &#x27;./misc/Constants.js&#x27;;
+import FrontendComponentMapper from &#x27;./mapper/CAE.js&#x27;;
+import HierachyTree from &#x27;./HierachyTree.js&#x27;;
+
+Toolbox.prototype &#x3D; new mxDefaultToolbar();
+Toolbox.prototype.constructor &#x3D; Toolbox;
+
+/**
+ * Defines the (shared) actions for copy &amp;amp; paste, undo &amp;amp; redo and grouping &amp;amp; ungrouping 
+ * @classdesc The toolbar of the editor
+ * @constructor
+ * @param {DOM} container the div container in the DOM 
+ * @param {mxEditor} editor the editor instance of the wireframing application
+ * @extends mxDefaultToolbar
+ * @requires HierachyTree
+ */
+function Toolbox(container, editor) {
+    mxDefaultToolbar.call(this, container, editor);
+
+    this._editor &#x3D; editor;
+    var that &#x3D; this;
+
+    /*eslint-disable no-unused-vars*/
+    editor.addAction(CONST.ACTIONS.SHARED.PASTE, function (editor, cell) {
+        var codec &#x3D; new mxCodec();
+        var result &#x3D; codec.encode(mxClipboard.getCells());
+        var xml &#x3D; mxUtils.getXml(result);
+        y.share.action.set(CONST.ACTIONS.SHARED.PASTE, {
+            userId: y.db.userId,
+            xml: xml
+        });
+    });
+
+    editor.addAction(CONST.ACTIONS.SHARED.DELETE, function (editor, cell) {
+        y.share.action.set(mxEvent.REMOVE, {
+            userId: y.db.userId,
+            cells: Util.getIdsOfSelectedCells(that._editor.graph)
+        });
+    });
+
+    /*eslint-disable no-unused-vars*/
+    editor.addAction(CONST.ACTIONS.SHOW_USER_LIST, function (editor, cell) {
+        var $window &#x3D; $(&#x27;#userList&#x27;).parents(&#x27;.mxWindow&#x27;).parents(&#x27;.mxWindow&#x27;);
+        if ($window.is(&#x27;:visible&#x27;))
+            $window.hide();
+        else $window.show();
+    });
+
+    /*eslint-disable no-unused-vars*/
+    editor.addAction(CONST.ACTIONS.SHARED.UNDO, function (editor, cell) {
+        y.share.action.set(mxEvent.UNDO, y.db.userId);
+    });
+
+    /*eslint-disable no-unused-vars*/
+    editor.addAction(CONST.ACTIONS.SHARED.REDO, function (editor, cell) {
+        y.share.action.set(mxEvent.REDO, y.db.userId);
+    });
+
+    /*eslint-disable no-unused-vars*/
+    editor.addAction(CONST.ACTIONS.SHARED.GROUP, function (editor, cell) {
+        y.share.action.set(mxEvent.GROUP_CELLS, {
+            userId: y.db.userId,
+            ids: Util.getIdsOfSelectedCells(that._editor.graph)
+        });
+    });
+
+    /*eslint-disable no-unused-vars*/
+    editor.addAction(CONST.ACTIONS.SHARED.UNGROUP, function (editor, cell) {
+        y.share.action.set(mxEvent.UNGROUP_CELLS, {
+            userId: y.db.userId,
+            ids: Util.getIdsOfSelectedCells(that._editor.graph)
+        });
+    });
+
+    editor.addAction(CONST.ACTIONS.EXPORT, function () {
+        var link &#x3D; document.createElement(&#x27;a&#x27;);
+        link.download &#x3D; &quot;wireframe.xml&quot;;
+        link.href &#x3D; &#x27;data:,&#x27; + encodeURI(y.share.data.get(&#x27;wireframe&#x27;));
+        link.click();
+    });
+
+    editor.addAction(CONST.ACTIONS.SHOW_CONSOLE, function () {
+        if (mxLog.isVisible())
+            mxLog.hide();
+        else
+            mxLog.show();
+    });
+
+    editor.addAction(CONST.ACTIONS.IMPORT, function () {
+        var input &#x3D; document.createElement(&#x27;input&#x27;);
+        input.type &#x3D; &#x27;file&#x27;;
+
+        //$(input).change(function(){});
+        //input.addEventListener(&#x27;change&#x27;, function(){});
+        input.onchange &#x3D; function () {
+            var fileReader, files, file;
+            fileReader &#x3D; new FileReader();
+            fileReader.onload &#x3D; function (e) {
+                var data &#x3D; e.target.result;
+                y.share.data.set(&#x27;wireframe&#x27;, data);
+                y.share.action.set(&#x27;reload&#x27;, true);
+                //TODO improve import
+            };
+            files &#x3D; this.files;
+            if (!files || files.length &#x3D;&#x3D;&#x3D; 0) return;
+            file &#x3D; files[0];
+            fileReader.readAsText(file);
+        };
+        input.click();
+    });
+
+    editor.addAction(CONST.ACTIONS.SAVE, function () {
+        Util.Save(editor.graph);
+    })
+
+    editor.addAction(CONST.ACTIONS.SYNC, function(editor){
+        var frontendModel &#x3D; new FrontendComponentMapper(editor.graph);
+        y.share.data.set(&#x27;model&#x27;, frontendModel);
+        y.share.canvas.set(&#x27;ReloadWidgetOperation&#x27;, &#x27;import&#x27;);
+    });
+
+    editor.addAction(CONST.ACTIONS.HIERACHY_TREE, function(editor){
+        if(HierachyTree.isVisible())
+            HierachyTree.hide();
+        else 
+            HierachyTree.show();
+    })
+
+    y.share.action.observe(function (event) {
+        switch (event.name) {
+            case mxEvent.UNDO:
+                //that._editor.execute(&quot;undo&quot;);
+                if (event.value !&#x3D;&#x3D; y.db.userId) {
+                    var cells &#x3D; that._editor.graph.getSelectionCells();
+                    that._editor.undo();
+                    that._editor.graph.setSelectionCells(cells);
+                } else
+                    that._editor.undo();
+                Util.Save(that._editor.graph);
+                break;
+            case mxEvent.REDO:
+                if (event.value !&#x3D;&#x3D; y.db.userId) {
+                    var cells &#x3D; that._editor.graph.getSelectionCells();
+                    that._editor.redo();
+                    that._editor.graph.setSelectionCells(cells);
+                } else
+                    that._editor.redo();
+                Util.Save(that._editor.graph);
+                break;
+            case mxEvent.REMOVE:
+                that._editor.graph.setSelectionCells(Util.getCellsFromIdList(that._editor.graph, event.value.cells));
+                that._editor.execute(&quot;delete&quot;);
+                that._editor.graph.updateBounds();
+                HierachyTree.remove(event.value.cells);
+                if (y.db.userId &#x3D;&#x3D;&#x3D; event.value.userId)
+                    Util.Save(that._editor.graph);
+                break;
+            case mxEvent.GROUP_CELLS:
+                var cells &#x3D; Util.getCellsFromIdList(that._editor.graph, event.value.ids);
+                var group &#x3D; that._editor.graph.groupCells(null, 20, cells);
+                if (y.db.userId &#x3D;&#x3D;&#x3D; event.value.userId) {
+                    //that._editor.graph.setSelectionCells(group);
+                    that._editor.graph.getSelectionModel().setCell(group);
+                    group.createShared(true);
+                }
+                that._editor.graph.updateBounds();
+                HierachyTree.group(group, cells);
+                break;
+            case mxEvent.UNGROUP_CELLS:
+                var cells &#x3D; that._editor.graph.ungroupCells(Util.getCellsFromIdList(that._editor.graph, event.value.ids));
+                if (y.db.userId &#x3D;&#x3D;&#x3D; event.value.userId)
+                    that._editor.graph.setSelectionCells(cells);
+                that._editor.graph.updateBounds();
+                HierachyTree.ungroup(cells);
+                break;
+            case CONST.ACTIONS.SHARED.PASTE:
+                var selectedCells &#x3D; that._editor.graph.getSelectionCells();
+
+                var doc &#x3D; mxUtils.parseXml(event.value.xml);
+                var elt &#x3D; doc.documentElement.firstChild.childNodes[1];
+                var cells &#x3D; [];
+                while (elt !&#x3D; null) {
+                    var codec &#x3D; new mxCodec();
+                    var cell &#x3D; codec.decode(elt);
+                    cells.push(cell);
+                    elt &#x3D; elt.nextSibling;
+                }
+                mxClipboard.setCells(cells);
+                var pastedCells &#x3D; mxClipboard.paste(that._editor.graph);
+
+                if (event.value.userId !&#x3D;&#x3D; y.db.userId) {
+                    that._editor.graph.setSelectionCells(selectedCells);
+                } else {
+                    for (var i &#x3D; 0; i &amp;lt; pastedCells.length; i++)
+                        if (pastedCells[i].hasOwnProperty(&#x27;createShared&#x27;))
+                            pastedCells[i].createShared(true);
+                }
+                break;
+            case CONST.ACTIONS.SHARED.GRAPH_RESIZE: //event triggerd in index.html
+                if (y.db.userId !&#x3D;&#x3D; event.value.userId) {
+                    //var size &#x3D; $(&#x27;#wireframeWrap&#x27;).css([&quot;width&quot;, &quot;height&quot;]);
+                    $(&#x27;#wireframeWrap&#x27;).css(&quot;width&quot;, event.value.width).css(&quot;height&quot;, event.value.height);
+                    $(&#x27;#wireframe&#x27;).css(&quot;width&quot;, event.value.width).css(&quot;height&quot;, event.value.height);
+                    $(&#x27;#draggingBar&#x27;).css(&quot;width&quot;, event.value.width);
+                }
+                var prevBounds &#x3D; that._editor.graph.maximumGraphBounds;
+                that._editor.graph.maximumGraphBounds &#x3D; new mxRectangle(0, 0, prevBounds.width + event.value.width, prevBounds.height + event.value.height);
+                break;
+            case &#x27;reload&#x27;:
+                window.location.reload();
+                break;
+        }
+    });
+
+    this.addSeparator &#x3D; function (icon) {
+        //The first two lines are from the addSeperator(icon) of mxDefaultToolbar
+        icon &#x3D; icon || CONST.IMAGES.SEPERATOR;
+        var item &#x3D; this.toolbar.addSeparator(icon);
+        $(item).addClass(&quot;mxSeparator&quot;);
+        return item;
+    }
+
+    //this.addSeparator();
+    var item &#x3D; this.addItem(&#x27;Save&#x27;, CONST.IMAGES.SAVE, CONST.ACTIONS.SAVE);
+    $(item).addClass(&#x27;wfSave&#x27;);
+    //this.addSeparator();
+    this.addItem(&quot;Copy&quot;, CONST.IMAGES.COPY, CONST.ACTIONS.COPY);
+    this.addItem(&quot;Paste&quot;, CONST.IMAGES.PASTE, CONST.ACTIONS.SHARED.PASTE);
+    //  this.addSeparator();
+    this.addItem(&quot;Delete&quot;, CONST.IMAGES.DELETE, CONST.ACTIONS.SHARED.DELETE);
+    //this.addSeparator();
+    //this.addItem(&quot;Cut&quot;, &quot;images/toolbox/cut.gif&quot;, &quot;shared_cut&quot;);
+    this.addItem(&quot;Undo&quot;, CONST.IMAGES.UNDO, CONST.ACTIONS.SHARED.UNDO);
+    this.addItem(&quot;Redo&quot;, CONST.IMAGES.REDO, CONST.ACTIONS.SHARED.REDO);
+    //this.addSeparator();
+    this.addItem(&quot;Group&quot;, CONST.IMAGES.GROUP, CONST.ACTIONS.SHARED.GROUP);
+    this.addItem(&quot;Ungroup&quot;, CONST.IMAGES.UNGROUP, CONST.ACTIONS.SHARED.UNGROUP);
+    //this.addSeparator();
+    this.addItem(&quot;Import&quot;, CONST.IMAGES.IMPORT, CONST.ACTIONS.IMPORT);
+    this.addItem(&quot;Export&quot;, CONST.IMAGES.EXPORT, CONST.ACTIONS.EXPORT);
+    //this.addSeparator();
+    //this.addItem(&quot;User List&quot;, CONST.IMAGES.USER_LIST, CONST.ACTIONS.SHOW_USER_LIST);
+    this.addItem(&#x27;Synchronize with Syncmeta&#x27;, CONST.IMAGES.SYNC, CONST.ACTIONS.SYNC);
+    //this.addSeparator();
+
+    return this;
+}
+export default Toolbox;</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on August 16, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

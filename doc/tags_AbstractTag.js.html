@@ -1,0 +1,288 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Source: tags/AbstractTag.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: tags/AbstractTag.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*global y*/
+/**
+ * @module Tags
+ */
+import {
+    mxCellOverlay,
+    mxUtils,
+    mxConstants,
+    mxCodec,
+    mxCodecRegistry,
+    mxObjectCodec,
+    mxEvent
+} from &#x27;../misc/mxExport.js&#x27;;
+import $ from &#x27;jquery&#x27;;
+import Util from &#x27;../misc/Util.js&#x27;;
+import Y from &#x27;yjs&#x27;;
+import _ from &#x27;lodash&#x27;;
+import PropertyEditor from &#x27;../PropertyEditor.js&#x27;;
+import ComboAttributeMap from &#x27;../misc/ComboAttributeMap.js&#x27;;
+
+
+mxUtils.extend(AbstractTag, mxCellOverlay);
+
+/**
+ * @classdesc Abstract tag class for interacitivty tags.
+ * 
+ * Subclass of  {@link https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxCellOverlay-js.html#mxCellOverlay|mxCellOverlay}
+ * @constructor
+ * @abstract
+ * @extends mxCellOverlay
+ * @param {UIControl | AbstractTag} entity a tag or a ui element
+ * @param {mxImage} image the image for the tag
+ * @param {String} tooltip a description for the image
+ * @param {mxPoint} offset mxCellOverlay documentation 
+ * @param {*} cursor see mxCellOverlay documentation
+ * @requires ComboAttributeMap
+ * @requires Util
+ * @requires PropertyEditor
+ */
+function AbstractTag(entity, image, tooltip, offset, cursor) {
+    /**
+     * the child tags for the tag
+     * @member {Object}
+     */
+    var childTags &#x3D; {};
+
+    /**
+     * The map contains the key and the possible values as array for all combo attributes for the tag
+     * @member {ComboAttributeMap}
+     */
+    var comboAttrMap &#x3D; new ComboAttributeMap();
+    var xmlDoc &#x3D; mxUtils.createXmlDocument();
+
+    /**
+     * Contains the data of the attributes for the tag
+     * @member {XMLDocument}
+     */
+    this.tagObj &#x3D; xmlDoc.createElement(&#x27;tagObj&#x27;);
+    //take the tooltip as tag type if it is a generic tag else the constructor description
+    this.tagObj.setAttribute(&#x27;parent&#x27;, &#x27;#&#x27;);
+
+    /**
+     * The parent cell or tag
+     * @member {AbstractTag|UIControl}
+     */
+    var _cell &#x3D; entity;
+    mxCellOverlay.call(this, image, tooltip, mxConstants.ALIGN_RIGHT, mxConstants.ALIGN_TOP, offset, cursor);
+    if(entity)
+        this.tagObj.setAttribute(&#x27;id&#x27;, entity.getId() + &#x27;_&#x27;+ Util.GUID());
+    
+    
+    /**
+     * Get the identifier as String
+     * @return {String} the id of the tag as String
+     */
+    this.getId &#x3D; function(){
+        return this.tagObj.getAttribute(&#x27;id&#x27;);
+    }
+    /**
+     * Get the map of the combo attributes
+     * @return {undefined}
+     */
+    this.getComboAttrMap &#x3D; function(){
+        return comboAttrMap;
+    }
+
+    /**
+     * Get the cell of the tag
+     * @return {UIControl} the ui element of the tag
+     */
+    this.getCell &#x3D; function(){
+        return _cell;
+    }
+
+    /**
+     * @param {UIControl} cell a reference to the cell that contains the tag
+     * @return {undefined}
+     */
+    this.setCell &#x3D; function(cell){
+        _cell &#x3D; cell;
+    }
+
+    /**
+     * @param {AbstractTag} tag the tag to add as child 
+     * @return {undefined}
+     */
+    this.addChildTag &#x3D; function(tag){
+        childTags[tag.getId()] &#x3D; tag;
+    }
+
+    /**
+     * Get all child tags 
+     * @return {undefined}
+     */
+    this.getChildTags &#x3D; function(){
+        return childTags;
+    }
+
+    /**
+     * Click event for the property editor
+     * @param {Wireframe} graph the wireframe or graph
+     * @return {undefined}
+     */
+    this.bindClickEvent &#x3D; function(graph){
+        this.addListener(mxEvent.CLICK, function(sender, event){
+            var mouseEvent &#x3D; event.getProperty(&#x27;event&#x27;);
+            var $editor &#x3D; new PropertyEditor(event.getProperty(&#x27;cell&#x27;), graph, mouseEvent.x, mouseEvent.y);
+            $editor.tabs(&quot;option&quot;, &quot;active&quot;, 1);
+            $(&#x27;.jstree&#x27;).jstree(true).select_node(this.getId());
+        });
+    };
+    
+}
+
+/**
+ * Serializes the Tag to XML
+ * @return {XMLDocument} the XML representation of the Tag
+ */
+AbstractTag.prototype.toXML &#x3D; function () {
+    var encoder &#x3D; new mxCodec();
+    encoder.encodeDefaults &#x3D; true;
+    var result &#x3D; encoder.encode(this);
+    return mxUtils.getXml(result);
+}
+
+/**
+ * Register a constructor to the mxCodecRegistry
+ * @param {Function} ctor the constructor to register
+ * @return {undefined}
+ */
+AbstractTag.registerCodec &#x3D; function (ctor) {
+    var codec &#x3D; new mxObjectCodec();
+    codec.template &#x3D; new ctor();
+    mxCodecRegistry.register(codec);
+}
+/**
+ * Set the value for a boolean attribute in tagObj and the property editor
+ * @param  {String} name the name of the attribute
+ * @param  {Boolean} value true or false
+ * @return {undefined}
+ */
+AbstractTag.prototype.setBooleanAttributeValue &#x3D; function (name, value) {
+    this.tagObj.setAttribute(name, value);
+    var id &#x3D; this.getId().substring(0, this.getId().indexOf(&#x27;_&#x27;));
+    var $input &#x3D; $(&#x27;#&#x27; + id + &#x27;_tagAttribute&#x27;).find(&#x27;td:contains(&#x27; + name.substr(1) + &#x27;) + td input&#x27;);
+    if ($input.length &gt; 0)
+        $input[0].checked &#x3D; value;
+    $(&#x27;.wfSave&#x27;).click();
+}
+
+/**
+ * Set the value for the combo attribute in tabObj and the property editor
+ * @param {String} name the name of the attribute
+ * @param {String} value the value for combo attribute
+ * @return {undefined}
+ */
+AbstractTag.prototype.setComboAttributeValue &#x3D; function (name, value) {
+    this.tagObj.setAttribute(name, value);
+    var id &#x3D; this.getId().substring(0, this.getId().indexOf(&#x27;_&#x27;));
+    var $select &#x3D; $(&#x27;#&#x27; + id + &#x27;_tagAttribute&#x27;).find(&#x27;td:contains(&#x27; + name.substr(1) + &#x27;) + td select&#x27;);
+    if ($select.length &gt; 0)
+        $select.find(&#x27;option[value&#x3D;&quot;&#x27; + value + &#x27;&quot;]&#x27;).prop(&#x27;selected&#x27;, true);
+    $(&#x27;.wfSave&#x27;).click();
+}
+
+/**
+ * Create the shared data for the attribute
+ * Empty function
+ * @return {undefined}
+ */
+AbstractTag.prototype.createShared &#x3D; function(){}
+
+/**
+ * Initialize the shared data
+ * Empty function
+ * @return {undefined}
+ */
+AbstractTag.prototype.initShared &#x3D; function(){}
+
+/**
+ * Get the observer function for a string attribute
+ * @return {Function} the observer function for the ytext object
+ */
+AbstractTag.prototype.getYTextObserver &#x3D; function(){
+    var that &#x3D; this;
+    var observer &#x3D; _.debounce(function (evt) {
+        var value &#x3D; evt.object.toString();
+        var path &#x3D; evt.object.getPath()[0];
+        var attrName &#x3D; path.substring(path.lastIndexOf(&#x27;_&#x27;));
+        var cell &#x3D; that.getCell();
+        var tagRoot &#x3D; cell.value.getElementsByTagName(&#x27;tagRoot&#x27;)[0];
+        var tag &#x3D; tagRoot.getElementsByTagName(&#x27;tagObj&#x27;).namedItem(that.getId());
+        tag.setAttribute(attrName, value);
+        $(&#x27;.wfSave&#x27;).click();
+    },500);
+    return observer;
+}
+
+/**
+ * 
+ * @param {String} attrName the name of the attribute
+ * @return {undefined}
+ */
+AbstractTag.prototype.initYText &#x3D; function(attrName){
+    var ytext &#x3D;y.share.attrs.get(this.getId() + attrName, Y.Text);
+    if (!ytext)
+        y.share.attrs.set(this.getId() + attrName, Y.Text);
+        //observer should be registered in callback
+    else{
+         ytext.observe(this.getYTextObserver());
+         this.tagObj.setAttribute(attrName, ytext.toString());
+    }
+}
+export default AbstractTag;</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on August 16, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

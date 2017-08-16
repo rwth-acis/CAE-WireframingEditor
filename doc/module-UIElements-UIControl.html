@@ -1,0 +1,933 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Class: UIControl</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <div class="symbol-detail-labels"><span class="label label-kind">class</span>&nbsp;<span class="label label-inner">inner</span></div>
+            <h1><small><a href="module-UIElements.html">UIElements</a>~<wbr></small><span class="symbol-name">UIControl</span></h1>
+            <p class="source-link">Source: <a href="elements_UIControl.js.html#source-line-48">elements/<wbr>UIControl.<wbr>js:48</a></p>
+            <div class="symbol-classdesc">
+              <p>Base abstract class for all UI components of the editor.</p>
+            </div>
+            <dl class="dl-compact">
+            </dl>
+          </header>
+          <section id="summary">
+            <div class="summary-callout">
+              <h2 class="summary-callout-heading">Properties</h2>
+              <div class="summary-content">
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="module-UIElements-UIControl.html#~comboAttrMap">comboAttrMap</a></dt>
+                    <dd>
+                      <p>The map of combo attributes.</p>
+                    </dd>
+                    <dt><a href="module-UIElements-UIControl.html#~tagCounter">tagCounter</a></dt>
+                    <dd>
+                      <p>The number of tags assigned to the ui element.</p>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="module-UIElements-UIControl.html#~tagRoot">tagRoot</a></dt>
+                    <dd>
+                      <p>Contains the data of the tags assigned to the ui element.</p>
+                    </dd>
+                    <dt><a href="module-UIElements-UIControl.html#~uiObj">uiObj</a></dt>
+                    <dd>
+                      <p>Contains the data for the attributes of the ui element A ui element always has a 'id'- and 'class'-attribute.</p>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="summary-column">
+                </div>
+              </div>
+            </div>
+            <div class="summary-callout">
+              <h2 class="summary-callout-heading">Methods</h2>
+              <div class="summary-content">
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="module-UIElements-UIControl.html#.registerCodec">registerCodec(ctor)</a></dt>
+                    <dd>
+                      <p>Registers a ui element to the mxCodecRegistry.</p>
+                    </dd>
+                    <dt><a href="module-UIElements-UIControl.html#addTag">addTag(tag)</a></dt>
+                    <dd>
+                    </dd>
+                    <dt><a href="module-UIElements-UIControl.html#containsTagType">containsTagType(tag)</a></dt>
+                    <dd>
+                      <p>Check if the ui elements contains the tag.</p>
+                    </dd>
+                    <dt><a href="module-UIElements-UIControl.html#createShared">createShared(createdByLocalUser)</a></dt>
+                    <dd>
+                      <p>Create the shared attributes.</p>
+                    </dd>
+                    <dt><a href="module-UIElements-UIControl.html#createTags">createTags()</a></dt>
+                    <dd>
+                      <p>Creates the tags for the ui control.</p>
+                    </dd>
+                    <dt><a href="module-UIElements-UIControl.html#funct">funct(wf, evt, dropTarget, x0, y0)</a></dt>
+                    <dd>
+                    </dd>
+                    <dt><a href="module-UIElements-UIControl.html#getComboAttrMap">getComboAttrMap()</a></dt>
+                    <dd>
+                      <p>Get the combo attribute map for the ui element.</p>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="module-UIElements-UIControl.html#getEditOverlay">getEditOverlay()</a></dt>
+                    <dd>
+                      <p>Get the edit overlay for the ui element.</p>
+                    </dd>
+                    <dt><a href="module-UIElements-UIControl.html#getTagById">getTagById(id)</a></dt>
+                    <dd>
+                      <p>Get the tag by the id or null.</p>
+                    </dd>
+                    <dt><a href="module-UIElements-UIControl.html#getTagCounter">getTagCounter()</a></dt>
+                    <dd>
+                      <p>Get the current number of tags for the ui element.</p>
+                    </dd>
+                    <dt><a href="module-UIElements-UIControl.html#getYTextObserver">getYTextObserver()</a></dt>
+                    <dd>
+                      <p>Returns the observer function for a string attribute of a ui element.</p>
+                    </dd>
+                    <dt><a href="module-UIElements-UIControl.html#initShared">initShared()</a></dt>
+                    <dd>
+                      <p>Initialize shared attributes.</p>
+                    </dd>
+                    <dt><a href="module-UIElements-UIControl.html#initYText">initYText(attrName)</a></dt>
+                    <dd>
+                      <p>Create the attribute in y.share.attrs if it does not exists If it exists bind the Observer and initialize the attribute for the uiObj.</p>
+                    </dd>
+                    <dt><a href="module-UIElements-UIControl.html#makeTypeDraggable">makeTypeDraggable(type, wireframe)</a></dt>
+                    <dd>
+                      <p>Make a type draggable to the canvas.</p>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="module-UIElements-UIControl.html#removeTagById">removeTagById(tagId)</a></dt>
+                    <dd>
+                      <p>Remove a Tag by the id.</p>
+                    </dd>
+                    <dt><a href="module-UIElements-UIControl.html#setBooleanAttributeValue">setBooleanAttributeValue(name, value)</a></dt>
+                    <dd>
+                      <p>Set the value of a boolean attribute in the property editor and the ui element.</p>
+                    </dd>
+                    <dt><a href="module-UIElements-UIControl.html#setComboAttributeValue">setComboAttributeValue(name, value)</a></dt>
+                    <dd>
+                      <p>Set the value of a combo attribute in the property editor and the ui element.</p>
+                    </dd>
+                    <dt><a href="module-UIElements-UIControl.html#setType">setType(type)</a></dt>
+                    <dd>
+                      <p>Set the uiType attribute.</p>
+                    </dd>
+                    <dt><a href="module-UIElements-UIControl.html#setValueFromJson">setValueFromJson(json)</a></dt>
+                    <dd>
+                      <p>Set attribute values from json file.</p>
+                    </dd>
+                    <dt><a href="module-UIElements-UIControl.html#toXML">toXML()</a></dt>
+                    <dd>
+                      <p>Serializes the ui element to xml.</p>
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h2 id="UIControl">new&nbsp;<span class="symbol-name">UIControl</span><span class="signature"><span class="signature-params">(geometry, style, type)</span></span>
+            </h2>
+            <p>Base class for all UI components of the editor</p>
+            <section>
+              <h3>Parameters</h3>
+              <table class="jsdoc-details-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Optional</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <p>geometry</p>
+                    </td>
+                    <td>
+                      <p>mxGeometry</p>
+                    </td>
+                    <td>
+                      <p>&nbsp;</p>
+                    </td>
+                    <td>
+                      <p>the width, height, x and y of the ui element</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>style</p>
+                    </td>
+                    <td>
+                      <p>String</p>
+                    </td>
+                    <td>
+                      <p>&nbsp;</p>
+                    </td>
+                    <td>
+                      <p>the style of the ui element</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>type</p>
+                    </td>
+                    <td>
+                      <p>String</p>
+                    </td>
+                    <td>
+                      <p>&nbsp;</p>
+                    </td>
+                    <td>
+                      <p>the type of the ui element</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <dl class="dl-compact">
+              <dt>Extends</dt>
+              <dd>mxCells</dd>
+              <dt>Requires</dt>
+              <dd>module:TagRegistry</dd>
+              <dd>module:CONST</dd>
+              <dd>module:ComboAttributeMap</dd>
+            </dl>
+          </section>
+          <section>
+            <h2>Properties</h2>
+            <section>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~comboAttrMap"><span class="symbol-name">comboAttrMap</span><small class="property-type">
+            &nbsp;ComboAttributeMap</small></h3>
+              <p>The map of combo attributes. key is the attribute name. value is a array of possible values for the attribute.</p>
+              <dl class="dl-compact">
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~tagCounter"><span class="symbol-name">tagCounter</span><small class="property-type">
+            &nbsp;Integer</small></h3>
+              <p>The number of tags assigned to the ui element</p>
+              <dl class="dl-compact">
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~tagRoot"><span class="symbol-name">tagRoot</span><small class="property-type">
+            &nbsp;XMLDocument</small></h3>
+              <p>Contains the data of the tags assigned to the ui element. The xml document is appended to the uiObj</p>
+              <dl class="dl-compact">
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~uiObj"><span class="symbol-name">uiObj</span><small class="property-type">
+            &nbsp;XMLDocument</small></h3>
+              <p>Contains the data for the attributes of the ui element A ui element always has a 'id'- and 'class'-attribute</p>
+              <dl class="dl-compact">
+              </dl>
+            </section>
+            <h2>Methods</h2>
+            <section>
+              <div class="symbol-detail-labels"><span class="label label-static">static</span></div>
+              <h3 id=".registerCodec"><span class="symbol-name">registerCodec</span><span class="signature"><span class="signature-params">(ctor)</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Registers a ui element to the mxCodecRegistry</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>ctor</p>
+                      </td>
+                      <td>
+                        <p>function()</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the constructor to register to mxCodexRegistry</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <h3 id="addTag"><span class="symbol-name">addTag</span><span class="signature"><span class="signature-params">(tag)</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>tag</p>
+                      </td>
+                      <td>
+                        <p>AbstractTag</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the tag to add to the ui element</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <h3 id="containsTagType"><span class="symbol-name">containsTagType</span><span class="signature"><span class="signature-params">(tag)</span>&nbsp;&rarr; <span class="signature-returns"> Boolean</span></span>
+              </h3>
+              <p>Check if the ui elements contains the tag</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>tag</p>
+                      </td>
+                      <td>
+                        <p>AbstractTag</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the tag to check</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>Boolean</code>&nbsp;true if the ui element contains the tag else false</p>
+                </dd>
+              </dl>
+              <h3 id="createShared"><span class="symbol-name">createShared</span><span class="signature"><span class="signature-params">(createdByLocalUser)</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Create the shared attributes</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>createdByLocalUser</p>
+                      </td>
+                      <td>
+                        <p>boolean</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>Only the local user is allowed to create the shared types</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <h3 id="createTags"><span class="symbol-name">createTags</span><span class="signature"><span class="signature-params">()</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Creates the tags for the ui control</p>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <h3 id="funct"><span class="symbol-name">funct</span><span class="signature"><span class="signature-params">(wf, evt, dropTarget, x0, y0)</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <section>
+                <h4>Parameters</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>wf</p>
+                      </td>
+                      <td>
+                        <p><a href="Wireframe.html">Wireframe</a></p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>The wireframe</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>evt</p>
+                      </td>
+                      <td>
+                        <p>object</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>a event which is not used</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>dropTarget</p>
+                      </td>
+                      <td>
+                        <p>mxCell</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the target to add the new cell</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>x0</p>
+                      </td>
+                      <td>
+                        <p>Integer</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>x-coordinate</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>y0</p>
+                      </td>
+                      <td>
+                        <p>Integer</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>y-corrdinate</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <h3 id="getComboAttrMap"><span class="symbol-name">getComboAttrMap</span><span class="signature"><span class="signature-params">()</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Get the combo attribute map for the ui element</p>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <h3 id="getEditOverlay"><span class="symbol-name">getEditOverlay</span><span class="signature"><span class="signature-params">()</span>&nbsp;&rarr; <span class="signature-returns"> EditOverlay</span></span>
+              </h3>
+              <p>Get the edit overlay for the ui element</p>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>EditOverlay</code>&nbsp;the edit overlay for the ui element</p>
+                </dd>
+              </dl>
+              <h3 id="getTagById"><span class="symbol-name">getTagById</span><span class="signature"><span class="signature-params">(id)</span>&nbsp;&rarr; <span class="signature-returns"> (AbstractTag or Null)</span></span>
+              </h3>
+              <p>Get the tag by the id or null</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>id</p>
+                      </td>
+                      <td>
+                        <p>String</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the id of the tag</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>(AbstractTag or Null)</code>&nbsp;the tag or null</p>
+                </dd>
+              </dl>
+              <h3 id="getTagCounter"><span class="symbol-name">getTagCounter</span><span class="signature"><span class="signature-params">()</span>&nbsp;&rarr; <span class="signature-returns"> Integer</span></span>
+              </h3>
+              <p>Get the current number of tags for the ui element</p>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>Integer</code>&nbsp;the tag counter</p>
+                </dd>
+              </dl>
+              <h3 id="getYTextObserver"><span class="symbol-name">getYTextObserver</span><span class="signature"><span class="signature-params">()</span>&nbsp;&rarr; <span class="signature-returns"> function()</span></span>
+              </h3>
+              <p>Returns the observer function for a string attribute of a ui element</p>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>function()</code>&nbsp;the observer for a ytext</p>
+                </dd>
+              </dl>
+              <h3 id="initShared"><span class="symbol-name">initShared</span><span class="signature"><span class="signature-params">()</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Initialize shared attributes</p>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <h3 id="initYText"><span class="symbol-name">initYText</span><span class="signature"><span class="signature-params">(attrName)</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Create the attribute in y.share.attrs if it does not exists If it exists bind the Observer and initialize the attribute for the uiObj</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>attrName</p>
+                      </td>
+                      <td>
+                        <p>String</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the name of the attribute</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <h3 id="makeTypeDraggable"><span class="symbol-name">makeTypeDraggable</span><span class="signature"><span class="signature-params">(type, wireframe)</span></span>
+              </h3>
+              <p>Make a type draggable to the canvas</p>
+              <section>
+                <h4>Parameters</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>type</p>
+                      </td>
+                      <td>
+                        <p>object</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the type</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>wireframe</p>
+                      </td>
+                      <td>
+                        <p><a href="Wireframe.html">Wireframe</a></p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the wireframe</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+              </dl>
+              <h3 id="removeTagById"><span class="symbol-name">removeTagById</span><span class="signature"><span class="signature-params">(tagId)</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Remove a Tag by the id</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>tagId</p>
+                      </td>
+                      <td>
+                        <p>String</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the id of the tag as string</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <h3 id="setBooleanAttributeValue"><span class="symbol-name">setBooleanAttributeValue</span><span class="signature"><span class="signature-params">(name, value)</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Set the value of a boolean attribute in the property editor and the ui element</p>
+              <section>
+                <h4>Parameters</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>name</p>
+                      </td>
+                      <td>
+                        <p>String</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the name of the attribtue</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>value</p>
+                      </td>
+                      <td>
+                        <p>Boolean</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the boolean value</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <h3 id="setComboAttributeValue"><span class="symbol-name">setComboAttributeValue</span><span class="signature"><span class="signature-params">(name, value)</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Set the value of a combo attribute in the property editor and the ui element</p>
+              <section>
+                <h4>Parameters</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>name</p>
+                      </td>
+                      <td>
+                        <p>String</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the name of the attribute</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>value</p>
+                      </td>
+                      <td>
+                        <p>String</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>a value for the attribute</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <h3 id="setType"><span class="symbol-name">setType</span><span class="signature"><span class="signature-params">(type)</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Set the uiType attribute</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>type</p>
+                      </td>
+                      <td>
+                        <p>String</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the type of the ui control</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <h3 id="setValueFromJson"><span class="symbol-name">setValueFromJson</span><span class="signature"><span class="signature-params">(json)</span></span>
+              </h3>
+              <p>Set attribute values from json file</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>json</p>
+                      </td>
+                      <td>
+                        <p>any</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>a json</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+              </dl>
+              <h3 id="toXML"><span class="symbol-name">toXML</span><span class="signature"><span class="signature-params">()</span>&nbsp;&rarr; <span class="signature-returns"> XMLDocument</span></span>
+              </h3>
+              <p>Serializes the ui element to xml</p>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>XMLDocument</code>&nbsp;the xml representation of the ui element</p>
+                </dd>
+              </dl>
+            </section>
+          </section>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on August 16, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,337 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Source: HierachyTree.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: HierachyTree.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*global y*/
+import {
+    mxWindow,
+    mxEvent
+} from &#x27;./misc/mxExport.js&#x27;;
+import $ from &#x27;jquery&#x27;;
+import &#x27;../../node_modules/jstree/dist/jstree.min.js&#x27;;
+
+/**
+ * @classdesc the hierachy tree visualize the hierachical structure of the ui elements in the wireframing editor and allows to edit the hierachy structure
+ * @constructor
+ * @requires jQuery
+ * @requires jsTree
+ */
+function HierachyTree() {
+    /**
+     * The html dom element as string
+     * @member {String}
+     */
+    var htmlTree &#x3D; &#x27;&amp;lt;div id&#x3D;&quot;hierachyTree&quot;&gt;&amp;lt;/div&gt;&#x27;;
+    
+    /**
+     * the mxWindows-instance that contains the hierachy tree in the DOM
+     * @member {mxWindow}
+     */
+    var wnd;
+
+    /**
+     * The jsTree that handles and visualize the hierachy tree
+     * @member {jsTree}
+     */
+    var $tree &#x3D; $($.parseHTML(htmlTree)).jstree({
+        core: {
+            multiple: false,
+            check_callback: true,
+            themes: {
+                stripes: true,
+                ellipsis: true,
+                icons: false,
+                dots: true
+            }
+        },
+        contextmenu: {
+            items: {
+                up: {
+                    label: &#x27;Up&#x27;,
+                    title: &#x27;Move the element Up in the hierachy&#x27;,
+                    separator_after: true,
+                    action: function (event) {
+                        y.share.action.set(&#x27;upIndex&#x27;, event.reference.prevObject.attr(&#x27;id&#x27;));
+                    }
+                },
+                down: {
+                    label: &#x27;Down&#x27;,
+                    title: &#x27;Move the element down in the hierachy&#x27;,
+                    action: function (event) {
+                        y.share.action.set(&#x27;downIndex&#x27;, event.reference.prevObject.attr(&#x27;id&#x27;));
+                    }
+                }
+            }
+        },
+        plugins: [&quot;contextmenu&quot;]
+    });
+
+    var addRecursive &#x3D; function (parent) {
+        if (!parent.children) return false;
+        for (var i &#x3D; 0; i &amp;lt; parent.children.length; i++) {
+            var cell &#x3D; parent.children[i];
+            $tree.jstree(true).create_node(cell.parent.id &#x3D;&#x3D;&#x3D; &#x27;1&#x27; ? &#x27;#&#x27; : cell.parent.id, {
+                id: cell.id,
+                text: cell.constructor.NAME || cell.value.getAttribute(&#x27;uiType&#x27;),
+                state: {
+                    selected: false
+                },
+                pos: cell.parent.getIndex(cell)
+            });
+            addRecursive(cell);
+        }
+    };
+    return {
+        /**
+         * Initialize the hierachy tree in a seperate mxWindow-instance
+         * @param {mxEditor} editor the wireframing editor instance
+         * @return {undefined}
+         * @memberof HierachyTree
+         */
+        init: function (editor) {
+            function buildTree(parent) {
+                if (!parent.children) return;
+                for (var i &#x3D; 0; i &amp;lt; parent.children.length; i++) {
+                    var cell &#x3D; parent.children[i];
+                    $tree.jstree(true).create_node(cell.parent.id &#x3D;&#x3D;&#x3D; &#x27;1&#x27; ? null : cell.parent.id, {
+                        id: cell.id,
+                        text: cell.constructor.NAME || cell.value.getAttribute(&#x27;uiType&#x27;),
+                        state: {
+                            selected: false,
+                            opened: true
+                        }
+                    });
+                    buildTree(cell);
+                }
+            }
+            buildTree(editor.graph.getDefaultParent());
+            $tree.jstree(true).open_all();
+            document.body.appendChild($tree[0]);
+
+            y.share.action.observe(function (event) {
+                switch (event.name) {
+                    case &#x27;upIndex&#x27;: {
+                        var cell &#x3D; editor.graph.model.getCell(event.value);
+                        var index &#x3D; cell.parent.getIndex(cell);
+                        if (index &gt; 0) {
+                            index--;
+                            cell.parent.insert(cell, index);
+                            $tree.jstree(true).move_node(cell.id, cell.parent.id &#x3D;&#x3D;&#x3D; &#x27;1&#x27; ? &#x27;#&#x27; : cell.parent.id, index);
+                        }
+                        break;
+                    }
+                    case &#x27;downIndex&#x27;: {
+                        var cell &#x3D; editor.graph.model.getCell(event.value);
+                        var index &#x3D; cell.parent.getIndex(cell);
+                        if (index &amp;lt; cell.parent.children.length - 1) {
+                            index++;
+                            cell.parent.insert(cell, index);
+                            $tree.jstree(true).move_node(cell.id, cell.parent.id &#x3D;&#x3D;&#x3D; &#x27;1&#x27; ? &#x27;#&#x27; : cell.parent.id, index + 1);
+                        }
+                        break;
+                    }
+                }
+            });
+
+            var undoCallback &#x3D; function (edit, event) {
+                var edit &#x3D; event.getProperty(&#x27;edit&#x27;);
+                for (var i &#x3D; 0; i &amp;lt; edit.changes.length; i++) {
+                    var change &#x3D; edit.changes[i];
+                    if (change.constructor.name &#x3D;&#x3D;&#x3D; &#x27;mxRootChange&#x27;) {
+                        //TODO
+                    }
+                    else if (change.constructor.name &#x3D;&#x3D;&#x3D; &#x27;mxChildChange&#x27;) {
+                        if (!change.previous) {
+                            $tree.jstree(true).create_node(change.child.parent.id &#x3D;&#x3D;&#x3D; &#x27;1&#x27; ? &#x27;#&#x27; : change.child.parent.id, {
+                                id: change.child.id,
+                                text: change.child.constructor.NAME || change.child.value.getAttribute(&#x27;uiType&#x27;),
+                                state: {
+                                    selected: false,
+                                    opened: true
+                                },
+                                pos: change.child.parent.getIndex(change.child)
+                            });
+                            addRecursive(change.child);
+                        } else
+                            $tree.jstree(true).delete_node(change.child.id);
+                    }
+                }
+            };
+            editor.undoManager.addListener(mxEvent.UNDO, undoCallback);
+            editor.undoManager.addListener(mxEvent.REDO, undoCallback);
+
+            wnd &#x3D; new mxWindow(&#x27;Hierachy&#x27;, $tree[0], 300, 200, &#x27;100%&#x27;, &#x27;40%&#x27;, true, true);
+            wnd.destroyOnClose &#x3D; false;
+            wnd.setVisible(false);
+            wnd.setMaximizable(false);
+            wnd.setResizable(false);
+            wnd.setClosable(true);
+        },
+        /**
+         * Show the mxWindow that displays the hierachy tree
+         * @return {undefined}
+         * @memberof HierachyTree
+         */
+        show: function () {
+            wnd.setVisible(true);
+        },
+        /**
+         * Hide the mxWindow that displays the hierachy tree
+         * @return {undefined}
+         * @memberof HierachyTree
+         */
+        hide: function () {
+            wnd.setVisible(false);
+        },
+        /**
+         * Check if the mxWindow-instance that displays the hierachy tree is visible
+         * @return {Boolean} true if the mxWindow is visible else false
+         * @memberof HierachyTree
+         */
+        isVisible: function () {
+            return wnd.isVisible();
+        },
+        /**
+         * Add a ui element to the hierachy tree
+         * @param {UIObject} cell the ui element to add to the hierachy tree
+         * @return {undefined}
+         * @memberof HierachyTree
+         */
+        add: function (cell) {
+            $tree.jstree(true).create_node(cell.parent.id &#x3D;&#x3D;&#x3D; &#x27;1&#x27; ? &#x27;#&#x27; : cell.parent.id, {
+                id: cell.id,
+                text: cell.constructor.NAME || cell.value.getAttribute(&#x27;uiType&#x27;),
+                state: {
+                    selected: false,
+                    opened: true
+                },
+                pos: cell.parent.getIndex(cell)
+            });
+        },
+        /**
+         * Remove a set of cells from the hierachy tree
+         * @param {String[]} cells an array of strings containing the id of the cells to remove
+         * @return {undefined}
+         * @memberof HierachyTree
+         */
+        remove: function (cells) {
+            $tree.jstree(true).delete_node(cells);
+        },
+        /**
+         * Move a entry in the hierachy tree
+         * @param {UIObject} cell the cell to move
+         * @param {UIObject} parent the new parent of the cell
+         * @param {Integer} position the new position of the cell
+         * @return {undefined}
+         * @memberof HierachyTree
+         */
+        move: function (cell, parent, position) {
+            $tree.jstree(true).move_node(cell, parent &#x3D;&#x3D;&#x3D; &#x27;1&#x27; ? &#x27;#&#x27; : parent, position);
+        },
+        /**
+         * Group a set of cells
+         * The functions creates the parent of the all elements in the cells array 
+         * and moves the cells to the new parent
+         * @param {UIObject} group the new parent
+         * @param {UIOObject[]} cells the children of the group 
+         * @return {undefined}
+         * @memberof HierachyTree
+         */
+        group: function (group, cells) {
+            $tree.jstree(true).create_node(group.parent.id &#x3D;&#x3D;&#x3D; &#x27;1&#x27; ? &#x27;#&#x27; : group.parent.id, {
+                id: group.id,
+                text: group.constructor.NAME || group.value.getAttribute(&#x27;uiType&#x27;),
+                state: {
+                    selected: false,
+                    opened: true
+                },
+                pos: group.parent.getIndex(group)
+            });
+            for (var i &#x3D; 0; i &amp;lt; cells.length; i++) {
+                var cell &#x3D; cells[i];
+                $tree.jstree(true).move_node(cell.id, group.id, group.getIndex(cell));
+
+            }
+        },
+        /**
+         * Ungroup the cells from their parent
+         * The function recursively adds the children of the deleted parent to the hierachy tree
+         * @param {UIObject[]} cells the child cells which were ungrouped
+         * @return {undefined}
+         * @memberof HierachyTree
+         */
+        ungroup: function (cells) {
+            var helperFnc &#x3D; function(cell){
+                $tree.jstree(true).create_node(cell.parent.id &#x3D;&#x3D;&#x3D; &#x27;1&#x27; ? &#x27;#&#x27; : cell.parent.id, {
+                    id: cell.id,
+                    text: cell.constructor.NAME || cell.value.getAttribute(&#x27;uiType&#x27;),
+                    state: {
+                        selected: false,
+                        opened: true
+                    },
+                    pos: cell.parent.getIndex(cell)
+                });
+                if(cell.children){
+                    for(var i&#x3D;0;i&amp;lt;cell.children.length;i++){
+                        helperFnc(cell.children[i]);
+                    }
+                }
+            
+            }
+            for (var i &#x3D; 0; i &amp;lt; cells.length; i++) {
+                helperFnc(cells[i]);
+            }
+        }
+    }
+}
+export default new HierachyTree();</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on August 16, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

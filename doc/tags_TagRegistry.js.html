@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Source: tags/TagRegistry.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: tags/TagRegistry.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>import CONST from &#x27;../misc/Constants.js&#x27;;
+import config from &#x27;../../data/config.json&#x27;;
+import SharedTag from &#x27;./SharedTag.js&#x27;;
+import GenericTag from &#x27;./GenericTag.js&#x27;;
+
+/**
+ * @classdesc A registry for all generic and predefined tags
+ * 
+ * The class is a Singleton 
+ * @constructor
+ * @requires SharedTag
+ * @requires GenericTag
+ */
+function TagRegistry() {
+    /**
+     * The description map
+     * @member {Object}
+     */
+    var _descriptions &#x3D; {};
+    
+    /**
+     * The registry map containing all constructors
+     * @member {Object}
+     */
+    var _registry &#x3D; {};
+    
+    //Register the SharedTag
+    _registry[SharedTag.Alias] &#x3D; SharedTag;
+    _descriptions[SharedTag.Alias] &#x3D; {
+        image: SharedTag.IMAGE
+    };
+
+    return {
+        
+        /**
+         * Initialize the TagRegistry with the given VLS
+         * @static
+         * @param {Object} vls the VLS
+         * @return {undefined}
+         * @memberof TagRegistry
+         */
+        initFromVLS: function (vls) {
+            var findNodeClassInVLS &#x3D; function (nodeClassName, vls) {
+                var nodes &#x3D; vls.nodes;
+                for (var key in nodes) {
+                    if (nodes.hasOwnProperty(key) &amp;amp;&amp;amp; nodes[key].label &#x3D;&#x3D;&#x3D; nodeClassName)
+                        return nodes[key];
+                }
+                return false;
+            }
+            var tags &#x3D; config.tags;
+            if (tags) {
+                for (var i &#x3D; 0; i &amp;lt; tags.length; i++) {
+                    var node &#x3D; findNodeClassInVLS(tags[i].node_class, vls);
+                    var attrs &#x3D; {};
+
+                    for (var key in node.attributes) {
+                        var attr &#x3D; node.attributes[key];
+                        if (attr.hasOwnProperty(&#x27;options&#x27;)) {
+                            var values &#x3D; [];
+                            for (var v in attr.options)
+                                values.push(v);
+                            attrs[attr.key] &#x3D; values;
+                        } else
+                            attrs[attr.key] &#x3D; attr[&#x27;value&#x27;];
+                    }
+                    _descriptions[tags[i].node_class] &#x3D; {
+                        image: tags[i].options &amp;amp;&amp;amp; tags[i].options.imgConst ? CONST.IMAGES[tags[i].options.imgConst] : CONST.IMAGES.DEFAULT_TAG,
+                        attrs: attrs
+                    };
+                    _registry[tags[i].node_class] &#x3D; GenericTag;
+                }
+            }
+        },
+        /**
+         * 
+         * @param {String} nodeClassName get the dsecription for the given node class
+         * @return {Object|null} the object containing the description or null
+         * @memberof TagRegistry
+         */
+        get: function (nodeClassName) {
+            return _descriptions.hasOwnProperty(nodeClassName) ? _descriptions[nodeClassName] : null;
+        },
+        /**
+         * Get the whole description map
+         * @return {Object} the description map is returned
+         * @memberof TagRegistry
+         */
+        getDescription: function () {
+            return _descriptions;
+        },
+        /**
+         * Get the constructor for a given name
+         * @param {String} name the alias name of the class
+         * @return {Function|null} the constructor function or null
+         * @memberof TagRegistry
+         */
+        getClass: function (name) {
+            return _registry.hasOwnProperty(name) ? _registry[name] : null;
+        },
+        /**
+         * Get the whole registry map with all constructor functions for all predefined tags and generic tags from the VLS
+         * @return {Object} returns the registry map
+         * @memberof TagRegistry
+         */
+        getClasses: function () {
+            return _registry;
+        }
+    }
+}
+
+export default new TagRegistry();</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on August 16, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

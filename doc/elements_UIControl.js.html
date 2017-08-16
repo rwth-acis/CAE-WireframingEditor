@@ -1,0 +1,446 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Source: elements/UIControl.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: elements/UIControl.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*global y*/
+/**
+ * @module UIElements
+ */
+import {
+    mxCell,
+    mxCodec,
+    mxUtils,
+    mxEvent,
+    mxCodecRegistry,
+    mxPoint,
+    mxGeometry,
+    mxConstants
+} from &#x27;./../misc/mxExport.js&#x27;;
+import Util from &#x27;../misc/Util&#x27;;
+import ComboAttributeMap from &#x27;../misc/ComboAttributeMap.js&#x27;;
+import Y from &#x27;yjs&#x27;;
+import $ from &#x27;jquery&#x27;;
+import _ from &#x27;lodash&#x27;;
+import CONST from &#x27;../misc/Constants.js&#x27;;
+import TagRegistry from &#x27;../tags/TagRegistry.js&#x27;;
+
+
+UIControl.prototype &#x3D; new mxCell();
+UIControl.prototype.constructor &#x3D; UIControl;
+window.UIControl &#x3D; UIControl;
+
+/**
+ * The Name of element in the Wireframing editor
+ * @static 
+ * @default Default
+ * @readonly
+ */
+UIControl.NAME &#x3D; &quot;Default&quot;;
+
+/**
+ * Base class for all UI components of the editor
+ * @classdesc Base abstract class for all UI components of the editor. 
+ * @constructor 
+ * @param {mxGeometry} geometry the width, height, x and y of the ui element
+ * @param {String} style the style of the ui element
+ * @param {String} type the type of the ui element
+ * @extends mxCells
+ * @requires TagRegistry
+ * @requires CONST
+ * @requires ComboAttributeMap
+ */
+function UIControl(geometry, style, type) {
+    var that &#x3D; this;
+
+    /**
+     * The map of combo attributes.
+     * key is the attribute name. 
+     * value is a array of possible values for the attribute.
+     * @member {ComboAttributeMap} 
+     */
+    var comboAttrMap &#x3D; new ComboAttributeMap();
+
+    var xmlDoc &#x3D; mxUtils.createXmlDocument();
+    /**
+     * Contains the data for the attributes of the ui element
+     * A ui element always has a &#x27;id&#x27;- and &#x27;class&#x27;-attribute
+     * @member {XMLDocument}
+     */
+    var uiObj &#x3D; xmlDoc.createElement(&#x27;uiObj&#x27;);
+
+    uiObj.setAttribute(&#x27;_id&#x27;, &#x27;&#x27;);
+    uiObj.setAttribute(&#x27;_class&#x27;, &#x27;&#x27;);
+    uiObj.setAttribute(&#x27;uiType&#x27;, type || this.constructor.name.toLowerCase());
+    
+    /**
+     * Contains the data of the tags assigned to the ui element.
+     * The xml document is appended to the uiObj
+     * @member {XMLDocument}
+     */
+    var tagRoot &#x3D; xmlDoc.createElement(&#x27;tagRoot&#x27;);
+    uiObj.append(tagRoot);
+
+    /**
+     * The number of tags assigned to the ui element
+     * @member {Integer}
+     */
+    var tagCounter &#x3D; 0;
+    if (!geometry)
+        geometry &#x3D; new mxGeometry(0, 0, 78, 78 );
+    if(!style)
+        style &#x3D;style &#x3D; mxConstants.STYLE_SHAPE + &quot;&#x3D;default;&quot; +
+        mxConstants.STYLE_FILLCOLOR + &quot;&#x3D;white;&quot; +
+        mxConstants.STYLE_STROKECOLOR + &#x27;&#x3D;black;&#x27; +
+        mxConstants.STYLE_ASPECT + &#x27;&#x3D;fixed;&#x27; +
+        mxConstants.STYLE_EDITABLE + &quot;&#x3D;0;&quot;;
+    mxCell.call(this, uiObj, geometry, style);
+
+    this.setVertex(true);
+
+    /**
+     * @param  {Wireframe} wf The wireframe
+     * @param  {object} evt a event which is not used
+     * @param  {mxCell} dropTarget the target to add the new cell
+     * @param  {Integer} x0 x-coordinate
+     * @param  {Integer} y0 y-corrdinate
+     * @return {undefined}
+     */
+    this.funct &#x3D; function (wf, evt, dropTarget, x0, y0) {
+        wf.stopEditing(false);
+
+        //encode UIControl
+        var encoder &#x3D; new mxCodec();
+
+        //var pt &#x3D; wf.getPointForEvent(evt);
+
+        var v &#x3D; wf.getModel().cloneCell(that);
+        v.geometry.x &#x3D; dropTarget ? Math.abs(x0 - dropTarget.geometry.x) : x0;
+        v.geometry.y &#x3D; dropTarget ? Math.abs(y0 - dropTarget.geometry.y) : y0;
+        var result &#x3D; encoder.encode(v);
+
+        var xml &#x3D; mxUtils.getXml(result);
+
+        y.share.action.set(mxEvent.ADD_VERTEX, {
+            userId: y.db.userId,
+            id: Util.GUID(),
+            data: xml,
+            parent: dropTarget ? dropTarget.getId() : null
+        });
+    }
+    
+    /**
+     * Make a type draggable to the canvas
+     * @param {object} type the type
+     * @param {Wireframe} wireframe the wireframe
+     * @return{undefined}
+     */
+    this.makeTypeDraggable &#x3D; function (type, wireframe) {
+        var preview &#x3D; document.createElement(&#x27;div&#x27;);
+        preview.style.width &#x3D; that.geometry.width+&#x27;px&#x27;;
+        preview.style.height &#x3D; that.geometry.height + &#x27;px&#x27;;
+        preview.style.border &#x3D; &#x27;black 0.5px dashed&#x27;;
+
+        mxUtils.makeDraggable(type, wireframe, that.funct, preview, 0, 0);
+    }
+
+    /**
+     * Set attribute values from json file
+     * @param {any} json a json
+     * @return{undefined}
+     */
+    this.setValueFromJson &#x3D; function (json) {
+        for (var key in json) {
+            if (this.value.hasAttribute(key)) {
+                this.value.setAttribute(key, json[key]);
+            }
+        }
+    }
+
+    /**
+     * Get the current number of tags for the ui element
+     * @returns {Integer} the tag counter
+     */
+    this.getTagCounter &#x3D; function () {
+        return tagCounter;
+    }
+    
+    /**
+     * @param  {AbstractTag} tag the tag to add to the ui element
+     * @return {undefined}
+     */
+    this.addTag &#x3D; function (tag) {
+        this.value.getElementsByTagName(&#x27;tagRoot&#x27;)[0].appendChild(tag.tagObj);
+        tagCounter++;
+    }
+    
+    /**
+     * Remove a Tag by the id
+     * @param  {String} tagId the id of the tag as string
+     * @return {undefined}
+     */
+    this.removeTagById &#x3D; function (tagId) {
+        var r &#x3D; this.value.getElementsByTagName(&#x27;tagRoot&#x27;)[0];
+        var arr &#x3D; Array.prototype.slice.call(r.childNodes);
+        for (var i &#x3D; 0; i &amp;lt; arr.length; i++) {
+            if (tagId &#x3D;&#x3D;&#x3D; arr[i].getAttribute(&#x27;id&#x27;)) {
+                r.removeChild(arr[i]);
+                tagCounter--;
+                return true;
+            }
+        }
+
+        return false;
+    }
+   
+    /**
+     * Creates the tags for the ui control
+     * @return {undefined}
+     */
+    this.createTags &#x3D; function () {
+        var that &#x3D; this;
+        var tags &#x3D; {};
+        var _createTag &#x3D; function (node, point) {
+            var tag;
+            var C &#x3D; TagRegistry.getClass(node.getAttribute(&#x27;tagType&#x27;));            
+            if(C)
+                tag &#x3D; new C(that, point, node.getAttribute(&#x27;tagType&#x27;));
+            return tag;
+        }
+
+        var children &#x3D; this.value.childNodes[0].childNodes;
+        var arr &#x3D; Array.prototype.slice.call(children)
+
+        for (var i &#x3D; 0; i &amp;lt; arr.length; i++) {
+            var point &#x3D; new mxPoint(-CONST.TAG.SIZE * that.getTagCounter(), 0);
+            var tag &#x3D; _createTag(arr[i], point);
+            tag.tagObj &#x3D; arr[i];
+            tags[tag.getId()] &#x3D; tag;
+            this.value.getElementsByTagName(&#x27;tagRoot&#x27;)[0].appendChild(tag.tagObj);
+            tagCounter++;
+            if (tag.tagObj.getAttribute(&#x27;parent&#x27;) !&#x3D;&#x3D; &#x27;#&#x27;) {
+                var parentTag &#x3D; tags[tag.tagObj.getAttribute(&#x27;parent&#x27;)];
+                if (parentTag)
+                    parentTag.addChildTag(tag);
+            }
+        }
+        return tags;
+    }
+
+    /**
+     * Get the combo attribute map for the ui element
+     * @return {undefined}
+     */
+    this.getComboAttrMap &#x3D; function(){
+        return comboAttrMap;
+    }
+
+    /**
+     * Set the uiType attribute
+     * @param {String} type the type of the ui control
+     * @return {undefined}
+     */
+    this.setType &#x3D; function(type){
+        that.value.setAttribute(&#x27;uiType&#x27;, type);
+    }
+}
+
+/**
+ * Registers a ui element to the mxCodecRegistry
+ * @param  {Function} ctor the constructor to register to mxCodexRegistry
+ * @return {undefined}
+ */
+UIControl.registerCodec &#x3D; function (ctor) {
+    var codec &#x3D; mxUtils.clone(mxCodecRegistry.getCodec(mxCell));
+    codec.template &#x3D; new ctor();
+    mxCodecRegistry.register(codec);
+}
+UIControl.registerCodec(UIControl);
+
+/**
+ * Create the shared attributes
+ * @param  {boolean} createdByLocalUser Only the local user is allowed to create the shared types
+ * @return {undefined}
+ */
+UIControl.prototype.createShared &#x3D; function (createdByLocalUser) {
+    if (createdByLocalUser) {
+        y.share.attrs.set(this.getId() + &#x27;_id&#x27;, Y.Text);
+        y.share.attrs.set(this.getId() + &#x27;_class&#x27;, Y.Text);
+    }
+}
+
+/**
+ * Set the value of a boolean attribute in the property editor and the ui element
+ * @param  {String} name the name of the attribtue
+ * @param  {Boolean} value the boolean value
+ * @returns {undefined}
+ */
+UIControl.prototype.setBooleanAttributeValue &#x3D; function (name, value) {
+    this.value.setAttribute(name, value);
+    var $input &#x3D; $(&#x27;#propertyEditor_&#x27; + this.getId() + &#x27; #attributesTab&#x27;).find(&#x27;td:contains(&#x27; + name.substr(1) + &#x27;) + td input&#x27;);
+    if ($input.length &gt; 0)
+        $input[0].checked &#x3D; value;
+    $(&#x27;.wfSave&#x27;).click();
+}
+/**
+ * Set the value of a combo attribute in the property editor and the ui element
+ * @param  {String} name the name of the attribute
+ * @param  {String} value a value for the attribute 
+ * @return {undefined}
+ */
+UIControl.prototype.setComboAttributeValue &#x3D; function (name, value) {
+    this.value.setAttribute(name, value);
+    var $select &#x3D; $(&#x27;#propertyEditor_&#x27; + this.getId() + &#x27; #attributesTab&#x27;).find(&#x27;td:contains(&#x27; + name.substr(1) + &#x27;) + td select&#x27;);
+    if ($select.length &gt; 0)
+        $select.find(&#x27;option[value&#x3D;&#x27; + value + &#x27;]&#x27;).prop(&#x27;selected&#x27;, true);
+    $(&#x27;.wfSave&#x27;).click();
+}
+
+/**
+ * Initialize shared attributes
+ * @return {undefined}
+ */
+UIControl.prototype.initShared &#x3D; function () {
+    this.initYText(&#x27;_id&#x27;);
+    this.initYText(&#x27;_class&#x27;);
+}
+
+/**
+ * Get the tag by the id or null
+ * @param  {String} id the id of the tag
+ * @return {AbstractTag|Null} the tag or null 
+ */
+UIControl.prototype.getTagById &#x3D; function (id) {
+    if (this.hasOwnProperty(&#x27;overlays&#x27;) &amp;amp;&amp;amp; this.overlays) {
+        for (var i &#x3D; 0; i &amp;lt; this.overlays.length; i++) {
+            var tag &#x3D; this.overlays[i];
+            if (tag.constructor.name !&#x3D;&#x3D; &#x27;UserOverlay&#x27; &amp;amp;&amp;amp; tag.constructor.name !&#x3D;&#x3D; &#x27;EditOverlay&#x27;) {
+                if (tag.tagObj.getAttribute(&#x27;id&#x27;) &#x3D;&#x3D;&#x3D; id) {
+                    return tag;
+                }
+            }
+        }
+    }
+    return null;
+}
+
+/**
+ * Check if the ui elements contains the tag
+ * @param  {AbstractTag} tag the tag to check
+ * @return {Boolean}  true if the ui element contains the tag else false
+ */
+UIControl.prototype.containsTagType &#x3D; function (tag) {
+    if (this.hasOwnProperty(&#x27;overlays&#x27;) &amp;amp;&amp;amp; this.overlays) {
+        for (var i &#x3D; 0; i &amp;lt; this.overlays.length; i++) {
+            var t &#x3D; this.overlays[i];
+            if (t.constructor.name &#x3D;&#x3D;&#x3D; tag.constructor.name)
+                return true;
+        }
+    }
+    return false;
+}
+/**
+ * Returns the observer function for a string attribute of a ui element
+ * @return {Function} the observer for a ytext 
+ */
+UIControl.prototype.getYTextObserver &#x3D; function () {
+    var that &#x3D; this;
+    var observer &#x3D; _.debounce(function (evt) {
+        var value &#x3D; evt.object.toString();
+        var path &#x3D; evt.object.getPath()[0];
+        var attrName &#x3D; path.substring(path.indexOf(&#x27;_&#x27;));
+        that.value.setAttribute(attrName, value);
+        $(&#x27;.wfSave&#x27;).click();
+    }, 500);
+    return observer;
+}
+
+/**
+ * Create the attribute in y.share.attrs if it does not exists
+ * If it exists bind the Observer and initialize the attribute for the uiObj
+ * @param  {String} attrName the name of the attribute
+ * @return {undefined}
+ */
+UIControl.prototype.initYText &#x3D; function (attrName) {
+    var ytext &#x3D; y.share.attrs.get(this.getId() + attrName, Y.Text);
+    if (!ytext)
+        y.share.attrs.set(this.getId() + attrName, Y.Text);
+    else {
+        ytext.observe(this.getYTextObserver());
+        this.value.setAttribute(attrName, ytext.toString());
+    }
+}
+
+/**
+ * Serializes the ui element to xml
+ * @return {XMLDocument} the xml representation of the ui element
+ */
+UIControl.prototype.toXML &#x3D; function () {
+    var codec &#x3D; new mxCodec();
+    var result &#x3D; codec.encode(this);
+    return mxUtils.getXml(result);
+}
+
+/**
+ * Get the edit overlay for the ui element
+ * @return {EditOverlay} the edit overlay for the ui element
+ */
+UIControl.prototype.getEditOverlay &#x3D; function () {
+    if (this.hasOwnProperty(&#x27;overlays&#x27;) &amp;amp;&amp;amp; this.overlays) {
+        for (var i &#x3D; 0; i &amp;lt; this.overlays.length; i++) {
+            var t &#x3D; this.overlays[i];
+            if (t.constructor.name &#x3D;&#x3D;&#x3D; &#x27;EditOverlay&#x27;)
+                return t;
+        }
+    }
+}
+export default UIControl;</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on August 16, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

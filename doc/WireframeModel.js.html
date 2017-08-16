@@ -1,0 +1,159 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Source: WireframeModel.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: WireframeModel.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*global y, vls*/
+import {
+    mxGraphModel,
+    mxUtils,
+    mxCodecRegistry
+} from &#x27;./misc/mxExport.js&#x27;;
+import $ from &#x27;jquery&#x27;;
+import Y from &#x27;yjs&#x27;;
+import _ from &#x27;lodash&#x27;;
+import ComboAttributeMap from &#x27;./misc/ComboAttributeMap.js&#x27;;
+
+mxUtils.extend(WireframeModel, mxGraphModel);
+
+var codec &#x3D; mxCodecRegistry.getCodec(mxGraphModel);
+codec.template &#x3D; new WireframeModel();
+mxCodecRegistry.addAlias(&#x27;WireframeModel&#x27;, &#x27;mxGraphModel&#x27;);
+window.WireframeModel &#x3D; WireframeModel;
+
+/**
+ * @classdesc The conceptual model behind the wireframe
+ * @constructor
+ * @extends mxGraphModel
+ */
+function WireframeModel() {
+    var that &#x3D; this;
+    var xmlDoc &#x3D; mxUtils.createXmlDocument();
+    var meta &#x3D; xmlDoc.createElement(&#x27;WireframeMeta&#x27;);
+    var comboAttrMap &#x3D; new ComboAttributeMap();
+    var exclude &#x3D; [&#x27;width&#x27;, &#x27;height&#x27;];
+    var strAttrs &#x3D; [];
+    if (window.hasOwnProperty(&#x27;vls&#x27;)) {
+        for (var key in vls.nodes) {
+            var node &#x3D; vls.nodes[key];
+            if (node.label &#x3D;&#x3D;&#x3D; &#x27;Widget&#x27;) {
+                for (var attrKey in node.attributes) {
+                    var attr &#x3D; node.attributes[attrKey];
+                    if (exclude.indexOf(attr.key) &#x3D;&#x3D;&#x3D; -1) {
+                        if (attr.value &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
+                            meta.setAttribute(&#x27;_&#x27; + attr.key, &#x27;&#x27;);
+                            strAttrs.push(&#x27;_&#x27; + attr.key);
+                        } else if (attr.value &#x3D;&#x3D;&#x3D; &#x27;boolean&#x27;)
+                            meta.setAttribute(&#x27;_&#x27; + attr.key, true);
+                        else if (attr.hasOwnProperty(&#x27;options&#x27;)) {
+                            var values &#x3D; Object.keys(attr.options);
+                            comboAttrMap.addComboAttr(&#x27;_&#x27; + attr.key, values);
+                            meta.setAttribute(&#x27;_&#x27; + attr.key, values[0]);
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    meta.setAttribute(&#x27;width&#x27;, &#x27;500&#x27;);
+    meta.setAttribute(&#x27;height&#x27;, &#x27;500&#x27;);
+    mxGraphModel.call(this);
+
+    this.getMeta &#x3D; function () {
+        return meta;
+    }
+    this.setAttribute &#x3D; function (name, value) {
+        if (!meta.hasAttribute(name)) return false;
+        meta.setAttribute(name, value);
+        return true;
+    }
+    this.getAttribute &#x3D; function (name) {
+        return meta.getAttribute(name);
+    }
+    this.initMetaFromXml &#x3D; function (m) {
+        meta &#x3D; m;
+    }
+    this.getComboAttrMap &#x3D; function () {
+        return comboAttrMap;
+    }
+
+    var initYText &#x3D; function (attrName) {
+        var ytext &#x3D; y.share.attrs.get(&#x27;meta&#x27; + attrName, Y.Text);
+        if (!ytext)
+            y.share.attrs.set(&#x27;meta&#x27; + attrName, Y.Text);
+        else {
+            ytext.observe(that.getYTextObserver());
+            meta.setAttribute(attrName, ytext.toString());
+        }
+    }
+    this.getYTextObserver &#x3D; function () {
+        var observer &#x3D; _.debounce(function (evt) {
+            var value &#x3D; evt.object.toString();
+            var path &#x3D; evt.object.getPath()[0];
+            var attrName &#x3D; path.substring(path.indexOf(&#x27;_&#x27;));
+            meta.setAttribute(attrName, value);
+            $(&#x27;.wfSave&#x27;).click();
+        }, 500);
+        return observer;
+    }
+    this.initSharedData &#x3D; function () {
+        for (var i &#x3D; 0; i &amp;lt; strAttrs.length; i++) {
+            initYText(strAttrs[i]);
+        }
+    }
+}
+
+
+
+export default WireframeModel;</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on August 16, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,507 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Source: Wireframe.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: Wireframe.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*global y*/
+import {
+    mxGraph,
+    mxEvent,
+    mxGraphHandler,
+    mxCodec,
+    mxKeyHandler,
+    mxRubberband,
+    mxUtils,
+    mxRectangle,
+    mxGeometry,
+    mxConstants,
+    mxCodecRegistry
+} from &#x27;./misc/mxExport.js&#x27;;
+import Util from &#x27;./misc/Util.js&#x27;;
+import UserOverlay from &#x27;./overlays/UserOverlay.js&#x27;;
+import EditOverlay from &#x27;./overlays/EditOverlay.js&#x27;;
+import EnableAwareness from &#x27;./Awareness.js&#x27;;
+import WireframeLayout from &#x27;./WireframeLayout.js&#x27;;
+import $ from &#x27;jquery&#x27;;
+import CONST from &#x27;./misc/Constants.js&#x27;;
+import HierachyTree from &#x27;./HierachyTree.js&#x27;;
+
+window.mxGeometry &#x3D; mxGeometry;
+Wireframe.prototype &#x3D; new mxGraph();
+Wireframe.prototype.constructor &#x3D; Wireframe;
+
+/**
+ * @classdesc The class represents the visuale representation of the wireframe
+ * @constructor
+ * @param {DOM} container the div container containning the canvas
+ * @param {WireframeModel} model represents the model of the wireframe
+ * @extends mxGraph
+ */
+function Wireframe(container, model) {
+    var that &#x3D; this;
+    mxGraph.call(this, container, model);
+
+    that.defaultOverlap &#x3D; 0;
+    that.foldingEnabled &#x3D; false;
+    that.autoExtend &#x3D; false;
+    that.allowAutoPanning &#x3D; false;
+    that.collapseToPreferredSize &#x3D; false;
+    that.extendParentsOnAdd &#x3D; false;
+    that.extendParents &#x3D; false;
+    that.setHtmlLabels(true);
+    that.setTooltips(true); //enable tooltips for overlays
+    this.dropEnabled &#x3D; true;
+
+    that.maximumGraphBounds &#x3D; new mxRectangle(0, 0, 500, 500);
+    //enable guiding lines
+    mxGraphHandler.prototype.guidesEnabled &#x3D; true;
+    mxGraphHandler.prototype.highlightEnabled &#x3D; true;
+
+    //enables user highlighting and overlay for cells of the wireframe
+    EnableAwareness(this);
+
+    new mxKeyHandler(this);
+    new mxRubberband(this);
+
+    var sharedAction &#x3D; null;
+    var SharedCellsMovedEvent &#x3D; function (wf, event) {
+        var properties &#x3D; event.getProperties();
+        var cells &#x3D; properties.cells;
+        var ids &#x3D; [];
+        for (var i &#x3D; 0; i &amp;lt; cells.length; i++) {
+            ids.push(cells[i].id);
+        }
+        sharedAction &#x3D; {
+            userId: y.db.userId,
+            dx: properties.dx,
+            dy: properties.dy,
+            ids: ids
+        };
+    };
+    var SharedCellResizedEvent &#x3D; function (graph, event) {
+        //Proudly stolen from the docs
+        var cells &#x3D; event.getProperty(&#x27;cells&#x27;);
+        var bounds &#x3D; event.getProperty(&#x27;bounds&#x27;);
+        if (cells !&#x3D; null) {
+            for (var i &#x3D; 0; i &amp;lt; cells.length; i++) {
+                if (graph.getModel().getChildCount(cells[i]) &gt; 0) {
+                    var geo &#x3D; graph.getCellGeometry(cells[i]);
+
+                    if (geo !&#x3D; null) {
+                        var children &#x3D; graph.getChildCells(cells[i], true, true);
+                        var bb &#x3D; graph.getBoundingBoxFromGeometry(children, true);
+
+                        geo &#x3D; geo.clone();
+                        geo.width &#x3D; Math.max(geo.width, bb.width);
+                        geo.height &#x3D; Math.max(geo.height, bb.height);
+
+                        graph.getModel().setGeometry(cells[i], geo);
+                    }
+                }
+            }
+            sharedAction &#x3D; {
+                userId: y.db.userId,
+                ids: [],
+                bounds: []
+            };
+            for (var i &#x3D; 0; i &amp;lt; cells.length; i++) {
+                sharedAction.ids.push(cells[i].id);
+                sharedAction.bounds.push({
+                    x: bounds[i].x,
+                    y: bounds[i].y,
+                    width: bounds[i].width,
+                    height: bounds[i].height
+                });
+            }
+        }
+
+    };
+    that.addListener(mxEvent.CELLS_MOVED, SharedCellsMovedEvent);
+    that.addListener(mxEvent.CELLS_RESIZED, SharedCellResizedEvent);
+    that.addListener(mxEvent.DOUBLE_CLICK, function (sender, evt) {
+        var cell &#x3D; evt.getProperty(&#x27;cell&#x27;);
+        if (cell) {
+            if (cell.hasOwnProperty(&#x27;get$node&#x27;)) {
+                cell.get$node().css(&#x27;pointer-events&#x27;, &#x27;auto&#x27;);
+                cell.get$node().focus();
+            }
+            //var e &#x3D; evt.getProperty(&#x27;event&#x27;);
+            //new PropertyEditor(cell, that, e.x, e.y);
+        }
+    });
+    that.getSelectionModel().addListener(mxEvent.CHANGE, function (sender, event) {
+        var deselected &#x3D; event.getProperty(&#x27;added&#x27;);
+        for (var i &#x3D; 0; i &amp;lt; deselected.length; i++) {
+            if (deselected[i].hasOwnProperty(&#x27;get$node&#x27;))
+                deselected[i].get$node().css(&#x27;pointer-events&#x27;, &#x27;none&#x27;);
+                mxGraph.prototype.removeCellOverlay.call(that, deselected[i], deselected[i].getEditOverlay());
+        }
+        var selected &#x3D; event.getProperty(&#x27;removed&#x27;);
+        if (selected) {
+            for (var i &#x3D; 0; i &amp;lt; selected.length &amp;amp;&amp;amp; selected[i]; i++) {
+                var editOverlay &#x3D; new EditOverlay();
+                mxGraph.prototype.addCellOverlay.call(that, selected[i], editOverlay);
+                editOverlay.bindClickEvent(that);
+            }
+        }
+    });
+    that.moveCells &#x3D; function (cells, dx, dy, clone, target, evt, mapping, shared) {
+        var cells &#x3D; mxGraph.prototype.moveCells.apply(this, arguments);
+        if (cells.length &gt; 0 &amp;amp;&amp;amp; sharedAction &amp;amp;&amp;amp; !shared) {
+            sharedAction.parentId &#x3D; cells[0].parent.id;
+            y.share.action.set(mxEvent.MOVE, sharedAction);
+            sharedAction &#x3D; null;
+        }
+        return cells;
+    };
+
+    that.resizeCells &#x3D; function (cells, bounds, recurse, shared) {
+        var cells;
+        that.getModel().beginUpdate();
+        try {
+            cells &#x3D; mxGraph.prototype.resizeCells.apply(this, arguments);
+        } finally {
+            that.getModel().endUpdate();
+            that.updateBounds();
+        }
+        if (cells &amp;amp;&amp;amp; cells.length &gt; 0 &amp;amp;&amp;amp; sharedAction &amp;amp;&amp;amp; !shared) {
+            y.share.action.set(mxEvent.RESIZE, sharedAction);
+            sharedAction &#x3D; null;
+
+        }
+        return cells;
+    };
+
+    that.addCellOverlay &#x3D; function (cell, overlay, fromSyncMeta) {
+        if (overlay instanceof UserOverlay || overlay instanceof EditOverlay) {
+            mxGraph.prototype.addCellOverlay.apply(this, arguments);
+        } else {
+            y.share.action.set(mxEvent.ADD_OVERLAY, {
+                userId: y.db.userId,
+                id: cell.getId(),
+                xml: overlay.toXML(),
+                fromSyncMeta : !fromSyncMeta ? false : true
+            });
+        }
+    };
+
+    that.updateBounds &#x3D; function () {
+        var bounds &#x3D; that.getBoundingBox(that.getDefaultParent().children);
+        if(bounds){
+            $(&#x27;#wireframeWrap&#x27;).resizable(&#x27;option&#x27;, &#x27;minWidth&#x27;, bounds.x + bounds.width);
+            $(&#x27;#wireframeWrap&#x27;).resizable(&#x27;option&#x27;, &#x27;minHeight&#x27;, bounds.y + bounds.height);
+        }
+    };
+
+    //------------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------Begin Yjs Observer for actions----------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------------
+    y.share.action.observe(function (event) {
+        switch (event.name) {
+            case mxEvent.ADD_VERTEX:
+                {
+                    var doc &#x3D; mxUtils.parseXml(event.value.data);
+                    var codec &#x3D; new mxCodec(doc);
+                    var type &#x3D; doc.documentElement.getAttribute(&#x27;uiType&#x27;);
+                    var elt &#x3D; doc.documentElement.childNodes[1];
+                    var cells &#x3D; [];
+                    while (elt !&#x3D; null) {
+                        var cell &#x3D; codec.decode(elt);
+                        cell.setId(event.value.id);
+                        if (cell.hasOwnProperty(&#x27;initDOM&#x27;)) cell.initDOM();
+                        cell.setType(type);
+                        cells.push(cell);
+                        elt &#x3D; elt.nextSibling;
+                    }
+                    that.getModel().beginUpdate();
+                    try {
+                        if (event.value.parent)
+                            that.addCells(cells, that.getModel().getCell(event.value.parent));
+                        else
+                            that.addCells(cells);
+
+                    }
+                    finally {
+                        that.getModel().endUpdate();
+                        if (!event.value.parent)
+                            that.updateBounds();
+                    }
+                    HierachyTree.add(cell);
+                    for (var i &#x3D; 0; i &amp;lt; cells.length; i++) {
+                        cells[i].createShared(event.value.userId &#x3D;&#x3D;&#x3D; y.db.userId);
+                    }
+                    if (event.value.userId &#x3D;&#x3D;&#x3D; y.db.userId) {
+                        that.setSelectionCells(cells);
+                        $(&#x27;#wireframe&#x27;).focus();
+                    }
+
+                    break;
+                }
+            case mxEvent.MOVE:
+                {
+                    var parent &#x3D; that.getModel().getCell(event.value.parentId);
+                    if (event.value.userId !&#x3D;&#x3D; y.db.userId) {
+                        that.removeListener(SharedCellsMovedEvent);
+                        var cells &#x3D; Util.getCellsFromIdList(that, event.value.ids);
+                        if (cells.length &gt; 0) {
+                            if (event.value.dx !&#x3D; 0 || event.value.dy !&#x3D; 0)
+                                that.moveCells(cells, event.value.dx, event.value.dy, false, parent, null, null, true);
+                        }
+                        that.addListener(mxEvent.CELLS_MOVED, SharedCellsMovedEvent);
+                    }
+                    HierachyTree.move(event.value.ids, event.value.parentId, parent.children.length);
+                    that.updateBounds();
+                    break;
+                }
+            case mxEvent.RESIZE:
+                {
+                    if (event.value.userId !&#x3D;&#x3D; y.db.userId) {
+                        that.removeListener(SharedCellResizedEvent);
+                        var cells &#x3D; Util.getCellsFromIdList(that, event.value.ids);
+                        var bounds &#x3D; [];
+                        for (var i &#x3D; 0; i &amp;lt; event.value.bounds.length; i++) {
+                            var bound &#x3D; event.value.bounds[i];
+                            bounds.push(new mxRectangle(bound.x, bound.y, bound.width, bound.height));
+                        }
+                        if (cells.length &gt; 0) {
+                            that.getModel().beginUpdate();
+                            try {
+                                that.resizeCells(cells, bounds, false, true);
+                            } finally {
+                                that.getModel().endUpdate();
+                                that.updateBounds();
+                                that.addListener(mxEvent.CELLS_RESIZED, SharedCellResizedEvent);
+                            }
+                        }
+                    }
+                    break;
+                }
+            case mxEvent.ADD_OVERLAY:
+                {
+                    var doc &#x3D; mxUtils.parseXml(event.value.xml);
+                    var codec &#x3D; new mxCodec(doc);
+                    codec.decode &#x3D; function (node, into) {
+                        var obj &#x3D; null;
+                        if (node !&#x3D; null &amp;amp;&amp;amp; node.nodeType &#x3D;&#x3D; mxConstants.NODETYPE_ELEMENT) {
+                            var dec &#x3D; mxCodecRegistry.getCodec(node.nodeName);
+                            if (dec !&#x3D; null) {
+                                obj &#x3D; dec.decode(this, node, into);
+                            } else {
+                                obj &#x3D; node.cloneNode(true);
+                                obj.removeAttribute(&#x27;as&#x27;);
+                            }
+                        }
+                        return obj;
+                    };
+                    var tag &#x3D; codec.decode(doc.documentElement);
+
+                    var cell &#x3D; that.getModel().getCell(event.value.id);
+                    if (cell &amp;amp;&amp;amp; tag) {
+                        mxGraph.prototype.addCellOverlay.apply(that, [cell, tag]);
+                        cell.addTag(tag);
+                        tag.setCell(cell);
+                        if(tag.hasOwnProperty(&#x27;initAttributes&#x27;)) tag.initAttributes();
+                        tag.createShared(   );
+                        tag.bindClickEvent(that);
+                        var ref &#x3D; $(&#x27;#&#x27; + cell.getId() + &#x27;_tagTree&#x27;).jstree(true);
+                        if (ref) {
+                            ref.create_node(null, {
+                                id: tag.tagObj.getAttribute(&#x27;id&#x27;),
+                                type:  tag.tagObj.getAttribute(&#x27;tagType&#x27;),
+                                text: tag.constructor.Alias || tag.tagObj.getAttribute(&#x27;tagType&#x27;),
+                                state: {
+                                    selected: false,
+                                    opened: true
+                                }
+                            });
+                            //if (sel) ref.edit(sel);
+                        }
+                    }
+                    break;
+                }
+            case CONST.ACTIONS.MOVE_TAG:
+                {
+                    if (event.value.userId !&#x3D;&#x3D; y.db.userId) {
+                        $(&#x27;#&#x27; + event.value.cellId + &#x27;_tagTree&#x27;).jstree(true).move_node(event.value.node, event.value.parent, event.value.position);
+                    }
+                    var cell &#x3D; that.getModel().getCell(event.value.cellId);
+                    var tag &#x3D; cell.getTagById(event.value.node);
+                    cell.removeTagById(tag.getId());
+                    tag.tagObj.setAttribute(&#x27;parent&#x27;, event.value.parent);
+                    if (event.value.parent !&#x3D;&#x3D; &#x27;#&#x27;) {
+                        var parentTag &#x3D; cell.getTagById(event.value.parent);
+                        parentTag.addChildTag(tag);
+                    }
+                    cell.addTag(tag);
+                    break;
+                }
+            case CONST.ACTIONS.DELETE_TAG:
+                {
+                    var $tree &#x3D; $(&#x27;#&#x27; + event.value.cellId + &#x27;_tagTree&#x27;);
+                    if ($tree.length &gt; 0)
+                        $tree.jstree(true).delete_node(event.value.selected);
+                    //delete attribute form of the tag
+                    $(&#x27;#propertyEditor_&#x27; + event.value.cellId).find(&#x27;.tagAttribute&#x27;).parent().remove();
+                    var cell &#x3D; that.getModel().getCell(event.value.cellId);
+                    if (cell) {
+                        for (var i &#x3D; 0; i &amp;lt; event.value.selected.length; i++) {
+                            var id &#x3D; event.value.selected[i];
+                            for (var j &#x3D; 0; cell.overlays &amp;amp;&amp;amp; j &amp;lt; cell.overlays.length; j++) {
+                                var tag &#x3D; cell.overlays[j];
+                                if (tag.hasOwnProperty(&#x27;tagObj&#x27;) &amp;amp;&amp;amp; tag.tagObj.getAttribute(&#x27;id&#x27;) &#x3D;&#x3D;&#x3D; id) {
+                                    that.removeCellOverlay(cell, tag);
+                                    cell.removeTagById(id);
+                                    var removeAllChilds &#x3D; function (cell, tag) {
+                                        //remove childs
+                                        var childs &#x3D; tag.getChildTags();
+                                        for (var key in childs) {
+                                            if (childs.hasOwnProperty(key)) {
+                                                cell.removeTagById(key);
+                                                that.removeCellOverlay(cell, childs[key]);
+                                                removeAllChilds(cell, childs[key]);
+                                            }
+                                        }
+                                    }
+                                    removeAllChilds(cell, tag);
+                                }
+                            }
+                        }
+                        var k &#x3D; 0;
+                        var state &#x3D; that.view.getState(cell);
+                        if (state.overlays) {
+                            for (var o in state.overlays.map) {
+                                var tag &#x3D; state.overlays.map[o].overlay;
+                                if (tag.constructor.name !&#x3D;&#x3D; &#x27;UserOverlay&#x27; || tag.constructor.name !&#x3D;&#x3D; &#x27;EditOverlay&#x27;) {
+                                    tag.offset.x &#x3D; -k * CONST.TAG.SIZE;
+                                    k++;
+                                }
+                            }
+                            that.cellRenderer.redraw(state);
+                        }
+
+                    }
+                    break;
+                }
+            case CONST.ACTIONS.RENAME_TAG:
+                {
+                    //TODO
+                    break;
+                }
+            case CONST.ACTIONS.SHARED.APPLY_LAYOUT: {
+                var layout &#x3D; new WireframeLayout(that, false);
+                layout.resizeVertices &#x3D; false;
+                if (event.value.cellId)
+                    layout.execute(that.getModel().getCell(event.value.cellId));
+                else
+                    layout.execute(that.getDefaultParent());
+                break;
+            }
+        }
+        if (event.value.userId &#x3D;&#x3D;&#x3D; y.db.userId)
+            Util.Save(that);
+    });
+    //------------------------------------------------------------------------------------------------------------------------
+    //--------------------------------------End Yjs Observer for actions------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------------
+
+    that.convertValueToString &#x3D; function (cell) {
+        if (mxUtils.isNode(cell.value)) {
+            if (cell.hasOwnProperty(&#x27;get$node&#x27;)) {
+                if (!cell.get$node()) cell.initDOM();
+                mxEvent.addListener(cell.get$node()[0], &#x27;change&#x27;, function () {
+                    var elt &#x3D; cell.value.cloneNode(true);
+                    elt.setAttribute(&#x27;label&#x27;, cell.get$node().val());
+                    that.model.setValue(cell, elt);
+                    Util.Save(that);
+                });
+                cell.get$node().css(&#x27;width&#x27;, cell.geometry.width - 15).css(&#x27;height&#x27;, cell.geometry.height - 15);
+
+                switch (cell.value.getAttribute(&#x27;uiType&#x27;).toLowerCase()) {
+                    case &#x27;link&#x27;:
+                    case &#x27;textbox&#x27;:
+                    case &#x27;button&#x27;:
+                    case &#x27;textnode&#x27;:
+                        {
+                            cell.get$node().click(function () {
+                                that.getSelectionModel().setCell(cell);
+                            });
+                            break;
+                        }
+                    case &#x27;paragraph&#x27;:
+                    case &#x27;textarea&#x27;:
+                        {
+                            cell.get$node().click(function () {
+                                this.focus();
+                                this.setSelectionRange(this.value.length, this.value.length);
+                            });
+
+                            cell.get$node().dblclick(function () {
+                                this.focus();
+                                this.setSelectionRange(0, this.value.length);
+                            })
+                            break;
+                        }
+                    case &#x27;radiobutton&#x27;:
+                    case &#x27;checkbox&#x27;:
+                        {
+                            cell.get$node().find(&#x27;input[type&#x3D;&quot;input&quot;]&#x27;).click(function () {
+                                that.getSelectionModel().setCell(cell);
+                            });
+                            break;
+                        }
+                }
+                return cell.get$node()[0];
+            }
+        }
+    }
+}
+export default Wireframe;</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on August 16, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

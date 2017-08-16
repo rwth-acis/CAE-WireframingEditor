@@ -1,0 +1,249 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Class: Util</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <div class="symbol-detail-labels"><span class="label label-kind">class</span>&nbsp;<span class="label label-inner">inner</span></div>
+            <h1><small><a href="module-Misc.html">Misc</a>~<wbr></small><span class="symbol-name">Util</span></h1>
+            <p class="source-link">Source: <a href="misc_Util.js.html#source-line-14">misc/<wbr>Util.<wbr>js:14</a></p>
+            <div class="symbol-classdesc">
+              <p>A set of helper functions used by various modules and classes</p>
+            </div>
+            <dl class="dl-compact">
+            </dl>
+          </header>
+          <section id="summary">
+            <div class="summary-callout">
+              <h2 class="summary-callout-heading">Methods</h2>
+              <div class="summary-content">
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="module-Misc-Util.html#.getCellsFromIdList">getCellsFromIdList(graph, ids)</a></dt>
+                    <dd>
+                      <p>Returns the cells for the given ids.</p>
+                    </dd>
+                    <dt><a href="module-Misc-Util.html#.getIdsOfSelectedCells">getIdsOfSelectedCells(graph)</a></dt>
+                    <dd>
+                      <p>Returns the Ids for cells currently selected in the graph.</p>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="module-Misc-Util.html#.GUID">GUID()</a></dt>
+                    <dd>
+                      <p>Generates a GUID string.</p>
+                    </dd>
+                    <dt><a href="module-Misc-Util.html#.Save">Save(graph)</a></dt>
+                    <dd>
+                      <p>Serializes the current wireframe to XML and stores it in y.share.data.wireframe.</p>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="summary-column">
+                </div>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h2 id="Util">new&nbsp;<span class="symbol-name">Util</span><span class="signature"><span class="signature-params">()</span></span>
+            </h2>
+            <p>Some utilty functions to initilaize the wireframe from XML or save the wireframe to XML</p>
+            <dl class="dl-compact">
+            </dl>
+          </section>
+          <section>
+            <h2>Methods</h2>
+            <section>
+              <div class="symbol-detail-labels"><span class="label label-static">static</span></div>
+              <h3 id=".getCellsFromIdList"><span class="symbol-name">getCellsFromIdList</span><span class="signature"><span class="signature-params">(graph, ids)</span>&nbsp;&rarr; <span class="signature-returns"> Array of UIControl</span></span>
+              </h3>
+              <p>Returns the cells for the given ids</p>
+              <section>
+                <h4>Parameters</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>graph</p>
+                      </td>
+                      <td>
+                        <p><a href="Wireframe.html">Wireframe</a></p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the wireframe</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>ids</p>
+                      </td>
+                      <td>
+                        <p>array</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the ids as string to look for</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>Array of UIControl</code>&nbsp;an array of ui elements</p>
+                </dd>
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-static">static</span></div>
+              <h3 id=".getIdsOfSelectedCells"><span class="symbol-name">getIdsOfSelectedCells</span><span class="signature"><span class="signature-params">(graph)</span></span>
+              </h3>
+              <p>Returns the Ids for cells currently selected in the graph</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>graph</p>
+                      </td>
+                      <td>
+                        <p><a href="Wireframe.html">Wireframe</a></p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the wireframe</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-static">static</span></div>
+              <h3 id=".GUID"><span class="symbol-name">GUID</span><span class="signature"><span class="signature-params">()</span>&nbsp;&rarr; <span class="signature-returns"> String</span></span>
+              </h3>
+              <p>Generates a GUID string.</p>
+              <section>
+                <h4>
+                  Example
+                </h4>
+                <div>
+                  <pre class="prettyprint"><code>af8a84166e18a307bd9cf2c947bbb3aa</code></pre>
+                </div>
+              </section>
+              <dl class="dl-compact">
+                <dt>Author</dt>
+                <dd>Slavik Meltser (slavik@meltser.info).</dd>
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>String</code>&nbsp;The generated GUID.</p>
+                </dd>
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-static">static</span></div>
+              <h3 id=".Save"><span class="symbol-name">Save</span><span class="signature"><span class="signature-params">(graph)</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Serializes the current wireframe to XML and stores it in y.share.data.wireframe</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>graph</p>
+                      </td>
+                      <td>
+                        <p><a href="Wireframe.html">Wireframe</a></p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the wireframe</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+            </section>
+          </section>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on August 16, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

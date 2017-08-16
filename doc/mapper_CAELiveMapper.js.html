@@ -1,0 +1,416 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Source: mapper/CAELiveMapper.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: mapper/CAELiveMapper.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*global y, mxLog*/
+import { mxEvent, mxCodec, mxUtils, mxPoint, mxGraph } from &#x27;../misc/mxExport.js&#x27;;
+import CONST from &#x27;../misc/Constants.js&#x27;;
+import SyncMeta from &#x27;syncmeta-plugin&#x27;;
+import TagRegistry from &#x27;../tags/TagRegistry.js&#x27;;
+import $ from &#x27;jquery&#x27;;
+import SyncMetaSelectOverlay from &#x27;../overlays/SyncMetaSelectOverlay.js&#x27;;
+
+/**
+ * @classdesc Live mapper for the CAE. Its a Singleton class.
+ * @constructor
+ * @requires syncmeta-plugin
+ */
+function CAELiveMapper() {
+
+    var widgetAttr &#x3D; {};
+
+    return {
+        /**
+         * Initialize the live mapping the the CAE frontend component model
+         * @param {mxEditor} editor the editor
+         * @param {String} userId the id of the user which is just passed to the syncmeta-plugin module
+         * @return {undefined}
+         * @memberof CAELiveMapper
+         */
+        init: function (editor, userId) {
+            //The live mapper starts here
+            SyncMeta.init(y, userId);
+            var model &#x3D; y.share.data.get(&#x27;model&#x27;);
+            var widgetNodeId &#x3D; null;
+            var hasChildMap &#x3D; {};
+            var nodeCreateMap &#x3D; {};
+            var mxCellsAddedFlag &#x3D; true, mxCellsRemoveFlag &#x3D; true, mxCellOverlayAddFlag &#x3D; true;
+            if (model) {
+                for (var key in model.nodes) {
+                    if (model.nodes.hasOwnProperty(key)) {
+                        var node &#x3D; model.nodes[key];
+                        if (node.type &#x3D;&#x3D;&#x3D; &#x27;Widget&#x27;) {
+                            widgetNodeId &#x3D; key;
+                            break;
+                        }
+                    }
+                }
+                for (var key in model.edges) {
+                    if (model.edges.hasOwnProperty(key)) {
+                        var edge &#x3D; model.edges[key];
+                        if (edge.type &#x3D;&#x3D;&#x3D; &#x27;hasChild&#x27;) {
+                            hasChildMap[edge.target] &#x3D; key;
+                        }
+                    }
+                }
+            }
+            if (!widgetNodeId) {
+                setTimeout(function () {
+                    var id &#x3D; SyncMeta.createNode(&#x27;Widget&#x27;, 4500, 4500, 100, 100, 1);
+                    widgetNodeId &#x3D; id;
+                    setTimeout(function () {
+                        var meta &#x3D; editor.graph.model.getMeta();
+                        SyncMeta.setAttributeValue(widgetNodeId, &#x27;width&#x27;, meta.getAttribute(&#x27;width&#x27;));
+                        SyncMeta.setAttributeValue(widgetNodeId, &#x27;height&#x27;, meta.getAttribute(&#x27;height&#x27;));
+                    }, 750);
+                }, 500);
+            } else {
+                var meta &#x3D; editor.graph.model.getMeta();
+                /*for (var i &#x3D; 0; i &amp;lt; meta.attributes.length; i++) {
+                    var attrib &#x3D; meta.attributes[i];
+                    var ytext &#x3D; widgetYMap.get(widgetNodeId + &#x27;[&#x27; + attrib.name.slice(1) + &#x27;]&#x27;);
+                    if(ytext)
+                        widgetAttr[attrib.name] &#x3D; ytext;
+                    else mxLog.writeln(&#x27;Widget node attribute &#x27; + attrib.name + &#x27; is not ytext????&#x27;);
+                }*/
+                SyncMeta.setAttributeValue(widgetNodeId, &#x27;width&#x27;, meta.getAttribute(&#x27;width&#x27;));
+                SyncMeta.setAttributeValue(widgetNodeId, &#x27;height&#x27;, meta.getAttribute(&#x27;height&#x27;));
+
+            }
+
+            SyncMeta.onNodeAdd(function (event) {
+                mxLog.writeln(&#x27;Node was created in SyncMeta: &#x27; + JSON.stringify(event));
+                nodeCreateMap[event.id] &#x3D; event;
+            });
+            SyncMeta.onEdgeAdd(function (event) {
+                mxLog.writeln(&#x27;Edge was created in SyncMeta: &#x27; + JSON.stringify(event));
+                var cell &#x3D; editor.graph.model.getCell(event.target);
+                if (cell) return;
+                if (event.source &#x3D;&#x3D;&#x3D; widgetNodeId &amp;amp;&amp;amp; event.type &#x3D;&#x3D;&#x3D; &#x27;Widget to HTML Element&#x27;) {
+                    var ymap &#x3D; y.share.nodes.get(event.target);
+                    if (ymap) {
+                        var attr &#x3D; ymap.get(event.target + &#x27;[type]&#x27;);
+                        var type;
+                        if (attr)
+                            type &#x3D; attr.value;
+                        else
+                            type &#x3D; &#x27;input&#x27;;
+
+                        var UIControl &#x3D; editor.getUIComponentFromHTMLName(type);
+                        if (UIControl) {
+                            var encoder &#x3D; new mxCodec();
+                            var uiControl &#x3D; new UIControl();
+                            var result &#x3D; encoder.encode(uiControl);
+
+                            var xml &#x3D; mxUtils.getXml(result);
+                            mxCellsAddedFlag &#x3D; false;
+                            //Create Node
+                            y.share.action.set(mxEvent.ADD_VERTEX, {
+                                userId: y.db.userId,
+                                id: event.target,
+                                data: xml,
+                                parent: null
+                            });
+                            if (editor.graph.getDefaultParent().children.length &gt; 1) {
+                                y.share.action.set(CONST.ACTIONS.SHARED.APPLY_LAYOUT, { userId: y.db.userId, cellId: null });
+                            }
+                        }
+
+                    }
+                }
+            });
+            SyncMeta.onNodeDelete(function (event) {
+                mxLog.writeln(&#x27;Node deleted from Widget: &#x27; + JSON.stringify(event));
+                y.share.action.set(mxEvent.REMOVE, {
+                    userId: y.db.userId,
+                    cells: [event]
+                });
+
+            });
+            SyncMeta.onEdgeDelete(function (event) {
+                mxLog.writeln(&#x27;Edge deleted from the Widget: &#x27; + JSON.stringify(event));
+                var cell &#x3D; editor.graph.model.getCell(event.target);
+                if (cell &amp;amp;&amp;amp; event.type &#x3D;&#x3D;&#x3D; &#x27;Widget to HTML Element&#x27;) {
+                    y.share.action.set(mxEvent.REMOVE, {
+                        userId: y.db.userId,
+                        cells: [cell.id]
+                    });
+                }
+            });
+            SyncMeta.onNodeAttributeChange(function (value, entity, entityValueId, userId) {
+                var cell &#x3D; editor.graph.model.getCell(entity);
+                if(!entityValueId) return;
+                var attr &#x3D; entityValueId.substring(entityValueId.indexOf(&#x27;[&#x27;) + 1, entityValueId.length - 1);
+                switch (attr) {
+                    case &#x27;type&#x27;: {
+                        if (!value || !cell || cell.constructor.HTML_NODE_NAME &#x3D;&#x3D;&#x3D; value || cell.value.getAttribute(&#x27;uiType&#x27;) &#x3D;&#x3D;&#x3D; value) return;
+                        var UIControl &#x3D; editor.getUIComponentFromHTMLName(value);
+                        if (UIControl) {
+                            mxCellsRemoveFlag &#x3D; false;
+                            y.share.action.set(mxEvent.REMOVE, {
+                                userId: y.db.userId,
+                                cells: [entity]
+                            });
+
+                            var uiControl &#x3D; new UIControl();
+                            uiControl.geometry.x &#x3D; cell.geometry.x;
+                            uiControl.geometry.y &#x3D; cell.geometry.y;
+                            var encoder &#x3D; new mxCodec();
+                            var result &#x3D; encoder.encode(uiControl);
+
+                            var xml &#x3D; mxUtils.getXml(result);
+                            mxCellsAddedFlag &#x3D; false;
+                            y.share.action.set(mxEvent.ADD_VERTEX, {
+                                userId: y.db.userId,
+                                id: entity,
+                                data: xml,
+                                parent: cell.parent
+                            });
+                        } else {
+                            y.share.action.set(mxEvent.REMOVE, {
+                                userId: y.db.userId,
+                                cells: [entity]
+                            });
+                        }
+                        break;
+                    }
+                    case &#x27;collaborative&#x27;: {
+                        if (value) {
+                            var Tag &#x3D; TagRegistry.getClass(&#x27;Shared&#x27;);
+                            var tag &#x3D; new Tag(cell, new mxPoint(-CONST.TAG.SIZE * cell.getTagCounter(), 0));
+                            if (cell &amp;amp;&amp;amp; tag &amp;amp;&amp;amp; userId) {
+                                mxCellOverlayAddFlag &#x3D; false;
+                                mxGraph.prototype.addCellOverlay.apply(editor.graph, [cell, tag]);
+                                cell.addTag(tag);   
+                                tag.setCell(cell);
+                                if (tag.hasOwnProperty(&#x27;initAttributes&#x27;)) tag.initAttributes();
+                                tag.createShared(y.share.yfUsers.get(y.db.userId).id &#x3D;&#x3D;&#x3D; userId);
+                                tag.bindClickEvent(editor.graph);
+                                var ref &#x3D; $(&#x27;#&#x27; + cell.getId() + &#x27;_tagTree&#x27;).jstree(true);
+                                if (ref) {
+                                    ref.create_node(null, {
+                                        id: tag.tagObj.getAttribute(&#x27;id&#x27;),
+                                        type: tag.tagObj.getAttribute(&#x27;tagType&#x27;),
+                                        text: tag.constructor.Alias || tag.tagObj.getAttribute(&#x27;tagType&#x27;),
+                                        state: {
+                                            selected: false,
+                                            opened: true
+                                        }
+                                    });
+                                    //if (sel) ref.edit(sel);
+                                }
+                            }
+                        }
+                        else {
+                            var tagId;
+                            for (var i &#x3D; 0; cell.overlays &amp;amp;&amp;amp; i &amp;lt; cell.overlays.length; i++) {
+                                var overlay &#x3D; cell.overlays[i];
+                                if (overlay.constructor.name &#x3D;&#x3D;&#x3D; &#x27;SharedTag&#x27;)
+                                    tagId &#x3D; overlay.getId();
+                            }
+                            y.share.action.set(CONST.ACTIONS.DELETE_TAG, { userId: y.db.userId, cellId: cell.getId(), selected: [tagId], types: [&#x27;SharedTag&#x27;], fromSyncMeta: true });
+                        }
+                        break;
+                    }
+                }
+
+            });
+
+            editor.graph.addListener(mxEvent.CELLS_ADDED, function (graph, event) {
+                if (!mxCellsAddedFlag) {
+                    mxCellsAddedFlag &#x3D; true;
+                    return;
+                }
+                var cells &#x3D; event.getProperty(&#x27;cells&#x27;);
+                var absolute &#x3D; event.getProperty(&#x27;absolute&#x27;);
+                var parent &#x3D; event.getProperty(&#x27;parent&#x27;);
+
+                if (!absolute) {
+                    for (var i &#x3D; 0; i &amp;lt; cells.length; i++) {
+                        var cell &#x3D; cells[i];
+                        if (y.share.nodes.get(cell.id) !&#x3D; null) return;
+                        SyncMeta.createNode(&#x27;HTML Element&#x27;, 4500, 4500, 100, 100, 1, null, cell.id);
+                        setTimeout(function () {
+                            SyncMeta.setAttributeValue(cell.id, &#x27;type&#x27;, cell.constructor.HTML_NODE_NAME || cell.value.getAttribute(&#x27;uiType&#x27;));
+                            SyncMeta.createEdge(&#x27;Widget to HTML Element&#x27;, widgetNodeId, cell.id);
+                            if (parent.id !&#x3D; &#x27;1&#x27;) {
+                                var edgeId &#x3D; SyncMeta.createEdge(&#x27;hasChild&#x27;, parent.id, cell.id);
+                                hasChildMap[cell.id] &#x3D; edgeId;
+                            }
+
+                        }, 500);
+                    }
+                } else {
+                    if (parent.id !&#x3D; &#x27;1&#x27;) {
+                        for (var i &#x3D; 0; i &amp;lt; cells.length; i++) {
+                            if(hasChildMap.hasOwnProperty(cells[i].id)){
+                                SyncMeta.deleteEdge(hasChildMap[cells[i].id]);
+                                delete hasChildMap[cells[i].id];                                
+                            }
+                            var edgeId &#x3D; SyncMeta.createEdge(&#x27;hasChild&#x27;, parent.id, cells[i].id);
+                            hasChildMap[cells[i].id] &#x3D; edgeId;
+                        }
+                    } else {
+                        for (var i &#x3D; 0; i &amp;lt; cells.length; i++) {
+                            if (hasChildMap.hasOwnProperty(cells[i].id)) {
+                                SyncMeta.deleteEdge(hasChildMap[cells[i].id]);
+                                delete hasChildMap[cells[i].id];
+                            }
+                        }
+                    }
+                }
+                setTimeout(function () {
+                    SyncMeta.applyLayout();
+                }, 1000);
+            });
+            editor.graph.addListener(mxEvent.REMOVE_CELLS, function (graph, event) {
+                if (!mxCellsRemoveFlag) {
+                    mxCellsRemoveFlag &#x3D; true;
+                    return;
+                }
+                var recursiveDelete &#x3D; function(parent){
+                    if(!parent.children) return;
+                    for(var i&#x3D;0; i&amp;lt;parent.children.length; i++){
+                        var cell &#x3D; parent.children[i];
+                        SyncMeta.deleteNode(cell.id);
+                        delete hasChildMap[cell.id];
+                    }
+                    recursiveDelete(cell);
+                }
+                var cells &#x3D; event.getProperty(&#x27;cells&#x27;);
+                for (var i &#x3D; 0; i &amp;lt; cells.length; i++) {
+                    SyncMeta.deleteNode(cells[i].id);
+                    recursiveDelete(cells[i]);
+                    setTimeout(function () {
+                        SyncMeta.applyLayout();
+                    }, 500);
+                }
+            });
+            editor.graph.addListener(mxEvent.GROUP_CELLS, function (graph, event) {
+                var group &#x3D; event.getProperty(&#x27;group&#x27;);
+                var cells &#x3D; event.getProperty(&#x27;cells&#x27;);
+                setTimeout(function () {
+                    for (var i &#x3D; 0; i &amp;lt; cells.length; i++) {
+                        var edgeId &#x3D; SyncMeta.createEdge(&#x27;hasChild&#x27;, group.id, cells[i].id);
+                        hasChildMap[cells[i].id] &#x3D; edgeId;
+                    }
+                }, 800);
+            });
+            editor.graph.addListener(mxEvent.UNGROUP_CELLS, function (graph, event) {
+                var cells &#x3D; event.getProperty(&#x27;cells&#x27;);
+                for (var i &#x3D; 0; i &amp;lt; cells.length; i++) {
+                    var cell &#x3D; cells[i];
+                    SyncMeta.deleteNode(cell.id);
+                }
+
+            });
+
+            y.share.action.observe(function (event) {
+                switch (event.name) {
+                    case mxEvent.ADD_OVERLAY: {
+                        if (!mxCellOverlayAddFlag) {
+                            mxCellOverlayAddFlag &#x3D; true;
+                            return;
+                        }
+                        if (event.value.fromSyncMeta) return;
+                        if (event.value.xml.indexOf(&#x27;SharedTag&#x27;) !&#x3D; -1)
+                            SyncMeta.setAttributeValue(event.value.id, &#x27;collaborative&#x27;, true);
+                        break;
+                    }
+                    case CONST.ACTIONS.SHARED.GRAPH_RESIZE: {
+                        SyncMeta.setAttributeValue(widgetNodeId, &#x27;width&#x27;, event.value.width.toString());
+                        SyncMeta.setAttributeValue(widgetNodeId, &#x27;height&#x27;, event.value.height.toString());
+                        break;
+                    }
+                    case CONST.ACTIONS.DELETE_TAG: {
+                        if (event.value.fromSyncMeta) return;
+                        for (var i &#x3D; 0; i &amp;lt; event.value.types.length; i++) {
+                            var type &#x3D; event.value.types[i];
+                            if (type &#x3D;&#x3D;&#x3D; &#x27;SharedTag&#x27;)
+                                SyncMeta.setAttributeValue(event.value.cellId, &#x27;collaborative&#x27;, false);
+                        }
+                        break;
+                    }
+                }
+            });
+
+            y.share.select.observe(function(event){
+                var cell &#x3D; editor.graph.model.getCell(event.value);
+                if(cell){
+                    var overlay &#x3D; new SyncMetaSelectOverlay(null, new mxPoint(0, -cell.geometry.height));
+                    mxGraph.prototype.addCellOverlay.apply(editor.graph, [cell, overlay]);
+                }
+                var oldCell &#x3D; editor.graph.model.getCell(event.oldValue);
+                if(oldCell){
+                    for(var i&#x3D;0; oldCell.overlays &amp;amp;&amp;amp; i &amp;lt; oldCell.overlays.length; i++){
+                        var overlay &#x3D; oldCell.overlays[i];
+                        if(overlay instanceof SyncMetaSelectOverlay){
+                            mxGraph.prototype.removeCellOverlay.apply(editor.graph, [oldCell, overlay]);
+                        }
+                    }
+                }
+
+            });
+        },
+        /**
+         * Get a shared widget attribute with the given name
+         * @param {String} name the name of the attribute
+         * @return {YText} the shared y-text object
+         * @memberof CAELiveMapper
+         */
+        getSharedWidgetAttr: function (name) {
+            return widgetAttr.hasOwnProperty(name) ? widgetAttr[name] : undefined;
+        }
+    }
+}
+export default new CAELiveMapper();</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on August 16, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

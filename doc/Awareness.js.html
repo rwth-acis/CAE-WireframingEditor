@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Source: Awareness.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: Awareness.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*global y*/
+/**
+ * @module
+ */
+import { mxEvent, mxCellHighlight, mxPoint } from &#x27;./misc/mxExport.js&#x27;;
+import UserOverlay from &#x27;./overlays/UserOverlay&#x27;;
+import CONST from &#x27;./misc/Constants.js&#x27;;
+/** 
+ * The function realizes the awareness features for the Wireframe editor.
+ * Enables cell hightlighting and overlays for user informations
+ * @param {Wireframe} wireframe the wireframe
+ * @return {undefined}
+ * @requires UserOverlay
+ * @method
+ */
+function Awareness(wireframe) {
+    var highlightMap &#x3D; {};
+
+    wireframe.getSelectionModel().addListener(mxEvent.CHANGE, function (sender, evt) {
+        var unselectedCells &#x3D; evt.getProperty(&#x27;added&#x27;);
+        var unhighlight &#x3D; [];
+        for (var i &#x3D; 0; i &amp;lt; unselectedCells.length; i++) {
+            unhighlight.push(unselectedCells[i].getId());
+        }
+        var highlight &#x3D; [];
+        for (var i &#x3D; 0; i &amp;lt; sender.cells.length; i++) {
+            highlight.push(sender.cells[i].getId());
+        }
+        y.share.awareness.set(y.db.userId, {
+            highlight: highlight,
+            unhighlight: unhighlight
+        });
+
+    });
+
+    y.share.awareness.observe(function (event) {
+        if (event.name !&#x3D; y.db.userId) {
+            var userInfo &#x3D; y.share.yfUsers.get(event.name);
+
+            //unhighlight cells
+            var unhighlightCells &#x3D; event.value.unhighlight;
+            for (var i &#x3D; 0; i &amp;lt; unhighlightCells.length; i++) {
+                var highlightId &#x3D; unhighlightCells[i] + &#x27;_&#x27; + event.name;
+                var highlight &#x3D; highlightMap[highlightId];
+                if (highlight) {
+                    highlight.hide();
+                    delete highlightMap[highlightId];
+                    var cell &#x3D; wireframe.getModel().getCell(unhighlightCells[i]);
+                    if (cell) {
+                        for (var j &#x3D; 0; cell.overlays &amp;amp;&amp;amp; j &amp;lt; cell.overlays.length; j++) {
+                            if (cell.overlays[j] instanceof UserOverlay &amp;amp;&amp;amp; cell.overlays[j].getUserId() &#x3D;&#x3D;&#x3D; event.name) {
+                                wireframe.removeCellOverlay(cell, cell.overlays[j]);
+                                j--;
+                            }
+                        }
+                        var k &#x3D; 0;
+                        var state &#x3D; wireframe.view.getState(cell);
+                        if (state.overlays) {
+                            for (var o in state.overlays.map) {
+                                var tag &#x3D; state.overlays.map[o].overlay;
+                                if (tag instanceof UserOverlay) {
+                                    tag.offset.x &#x3D; -k * CONST.TAG.SIZE;
+                                    k++;
+                                }
+                            }
+                            wireframe.cellRenderer.redraw(state);
+                        }
+                    }
+                }
+            }
+
+
+                //highlight cells
+                var highlightCells &#x3D; event.value.highlight;
+                for (var i &#x3D; 0; i &amp;lt; highlightCells.length; i++) {
+                    var highlight &#x3D; new mxCellHighlight(wireframe, userInfo ? userInfo.color : &#x27;#672d2d&#x27;, 2);
+                    highlightMap[highlightCells[i] + &#x27;_&#x27; + event.name] &#x3D; highlight;
+                    var cell &#x3D; wireframe.getModel().getCell(highlightCells[i]);
+                    if (cell) {
+                        highlight.highlight(wireframe.view.getState(cell));
+                        var overlay;
+                        var offset &#x3D; null;
+                        var userOverlayCount &#x3D; 0;
+                        if (cell.overlays &amp;amp;&amp;amp; cell.overlays.length &gt; 0) {
+                            for (var j &#x3D; 0; j &amp;lt; cell.overlays.length; j++) {
+                                if (cell.overlays[i] instanceof UserOverlay)
+                                    userOverlayCount++;
+                            }
+                            offset &#x3D; new mxPoint(-CONST.TAG.SIZE * userOverlayCount, 0)
+                        }
+                        if (userInfo)
+                            overlay &#x3D; new UserOverlay(event.name, userInfo.name, userInfo.image, offset);
+                        else
+                            overlay &#x3D; new UserOverlay(event.name, &#x27;Unknown User&#x27;, null, offset);
+                        wireframe.addCellOverlay(cell, overlay);
+                    }
+                }
+            }
+        });
+}
+export default Awareness;</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on August 16, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

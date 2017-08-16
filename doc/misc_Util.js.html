@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Source: misc/Util.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: misc/Util.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*global y*/
+import { mxCodec, mxUtils, mxForm, mxGraph } from &#x27;./mxExport.js&#x27;;
+import $ from &#x27;jquery&#x27;;
+
+/**
+ * @module Misc
+ */
+
+/**
+ * Some utilty functions to initilaize the wireframe from XML or save the wireframe to XML
+ * @classdesc A set of helper functions used by various modules and classes
+ * @constructor
+ */
+function Util() { }
+
+/**
+ * Returns the Ids for cells currently selected in the graph
+ * @param {Wireframe} graph the wireframe
+ * @return{array} array of ids
+ */
+Util.getIdsOfSelectedCells &#x3D; function (graph) {
+    var cells &#x3D; graph.getSelectionCells();
+    var ids &#x3D; [];
+    for (var i &#x3D; 0; i &amp;lt; cells.length; i++) {
+        ids.push(cells[i].id);
+    }
+    return ids;
+}
+
+/**
+ * Returns the cells for the given ids
+ * @param {Wireframe} graph the wireframe
+ * @param {array} ids the ids as string to look for 
+ * @return {UIControl[]} an array of ui elements
+ */
+Util.getCellsFromIdList &#x3D; function (graph, ids) {
+    var cells &#x3D; [];
+    for (var i &#x3D; 0; i &amp;lt; ids.length; i++) {
+        cells.push(graph.getModel().getCell(ids[i]));
+    }
+    return cells;
+}
+
+/**
+ * Generates a GUID string.
+ * @returns {String} The generated GUID.
+ * @example af8a84166e18a307bd9cf2c947bbb3aa
+ * @author Slavik Meltser (slavik@meltser.info).
+ * @link http://slavik.meltser.info/?p&#x3D;142
+ */
+Util.GUID &#x3D; function () {
+    function _p8(s) {
+        var p &#x3D; (Math.random().toString(16) + &quot;000000000&quot;).substr(2, 8);
+        return s ? p.substr(0, 4) + p.substr(4, 4) : p;
+    }
+    return _p8() + _p8(true) + _p8(true) + _p8();
+}
+
+/**
+ * Serializes the current wireframe to XML and stores it in y.share.data.wireframe
+ * @param {Wireframe} graph the wireframe
+ * @return  {undefined}
+ */
+Util.Save &#x3D; function (graph) {
+    var encoder &#x3D; new mxCodec();
+    //encoder.encodeDefaults &#x3D; true;
+    var result &#x3D; encoder.encode(graph.getModel());
+    var meta &#x3D; graph.getModel().getMeta();
+    if(meta.hasChildNodes())
+        meta.replaceChild(result, meta.getElementsByTagName(&#x27;WireframeModel&#x27;)[0]);
+    else 
+        meta.appendChild(result);
+    var xml &#x3D; mxUtils.getXml(meta);
+    y.share.data.set(&#x27;wireframe&#x27;, xml);
+    var $save &#x3D; $(&#x27;.wfSave&#x27;);
+    $save.css(&#x27;opacity&#x27;, 1.0);
+
+    setTimeout(function () {
+        $save.css(&#x27;opacity&#x27;, 0.5);
+    }, 750);
+}
+
+Util.initSharedData &#x3D; function (parent, graph) {
+    var uiControl;
+    if (!parent.children) return;
+    for (var i &#x3D; 0; i &amp;lt; parent.children.length; i++) {
+        uiControl &#x3D; parent.children[i];
+        uiControl.initShared();
+        var tags &#x3D; uiControl.createTags();
+        for (var key in tags) {
+            if (tags.hasOwnProperty(key)) {
+                var tag &#x3D; tags[key];
+                mxGraph.prototype.addCellOverlay.apply(graph, [uiControl, tag]);
+                tag.initShared();
+                tag.bindClickEvent(graph);
+            }
+        }
+        if (uiControl.constructor.name &#x3D;&#x3D;&#x3D; &#x27;DivContainer&#x27;) {
+            this.initSharedData(uiControl, graph);
+        }
+    }
+}
+
+Util.createFormFromCellAttributes &#x3D; function (className, obj, entity) {
+    var form &#x3D; new mxForm(className);
+    var attrs &#x3D; obj.attributes;
+    var attr;
+    for (var i &#x3D; 0; i &amp;lt; attrs.length; i++) {
+        attr &#x3D; attrs[i];
+        if (attr.name[0] !&#x3D;&#x3D; &#x27;_&#x27;) continue; //skip non-html-element attributes
+        if (attr.value.indexOf(&#x27;true&#x27;) !&#x3D; -1 || attr.value.indexOf(&#x27;false&#x27;) !&#x3D; -1) //a boolean value
+            form.addCheckbox(attr.name.substr(1), attr.value.indexOf(&#x27;true&#x27;) !&#x3D; -1 ? true : false);
+        else {
+            var values &#x3D; entity.getComboAttrMap().getComboAttr(attr.name);
+            if (values) {
+                var combo &#x3D; form.addCombo(attr.name.substr(1));
+                for (var j &#x3D; 0; j &amp;lt; values.length; j++) {
+                    form.addOption(combo, values[j], values[j], attr.value &#x3D;&#x3D;&#x3D; values[j]);
+                }
+            } else
+                form.addText(attr.name.substr(1), attr.value);
+        }
+    }
+    return form;
+}
+
+Util.bindSharedAttributes &#x3D; function (entity, form) {
+    var id &#x3D; entity ? entity.getId() : &#x27;meta&#x27;;
+    $(form.body).find(&#x27;tr&#x27;).map(function (i, elem) {
+        var name &#x3D; $(elem).find(&#x27;td:first&#x27;).text();
+        var $input &#x3D; $(elem).find(&#x27;input&#x27;);
+        if ($input.length &gt; 0) {
+            if ($input.attr(&#x27;type&#x27;) &#x3D;&#x3D;&#x3D; &#x27;text&#x27;) {
+                var ytext &#x3D; y.share.attrs.get(id + &#x27;_&#x27; + name);
+                if (ytext) {
+                    ytext.bind($input[0]);
+                    //var caeYText &#x3D; CAELiveMapper.getSharedWidgetAttr(&#x27;_&#x27;+name);
+                    //if(caeYText !&#x3D; undefined)
+                    //    caeYText.bind($input[0]);
+                    if(!entity &amp;amp;&amp;amp; name &#x3D;&#x3D;&#x3D; &#x27;name&#x27;)
+                        ytext.bind($(&#x27;#draggingBar&#x27;)[0]);
+                }
+                //else //should actually not happen but add something to mxLog if ytext does not exists for whatever reason
+            } else if ($input.attr(&#x27;type&#x27;) &#x3D;&#x3D;&#x3D; &#x27;checkbox&#x27;) {
+                $input.change(function () {
+                    y.share.attrs.set(id + &#x27;_&#x27; + name, this.checked);
+                });
+            }
+        } else {
+            $(elem).find(&#x27;select&#x27;).change(function () {
+                //var optionSelected &#x3D; $(&quot;option:selected&quot;, this);
+                y.share.attrs.set(id + &#x27;_&#x27; + name, this.value);
+            });
+        }
+    });
+}
+export default Util;</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on August 16, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

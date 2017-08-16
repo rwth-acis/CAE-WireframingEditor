@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Source: Main.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: Main.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*global y*/
+require([&#x27;./../css/style.css&#x27;, &#x27;./../../node_modules/jquery-ui/themes/base/theme.css&#x27;, &#x27;./../../node_modules/jquery-ui/themes/base/tabs.css&#x27;, &#x27;../../node_modules/mxgraph/javascript/src/css/common.css&#x27;, &#x27;../../node_modules/jstree/dist/themes/default/style.min.css&#x27;]);
+import $ from &#x27;jquery&#x27;;
+import &#x27;jquery-ui/ui/widgets/resizable&#x27;;
+import &#x27;jquery-ui/ui/widgets/draggable&#x27;;
+import {
+  mxClient,
+  mxUtils,
+  mxCodec,
+  mxEvent,
+  mxRectangle
+} from &#x27;./misc/mxExport.js&#x27;;
+import CONST from &#x27;./misc/Constants.js&#x27;;
+import Util from &#x27;./misc/Util.js&#x27;;
+
+import WireframeModel from &#x27;./WireframeModel.js&#x27;;
+import Wireframe from &#x27;./Wireframe.js&#x27;;
+import Palette from &#x27;./Palette.js&#x27;;
+import Editor from &#x27;./Editor.js&#x27;;
+import Toolbox from &#x27;./Toolbox.js&#x27;;
+import HierachyTree from &#x27;./HierachyTree.js&#x27;;
+/**
+ * The Main function of the Wireframing editor
+ * @param {boolean} disableDragging 
+ */
+export default function (disableDragging) {
+  if (!mxClient.isBrowserSupported()) {
+    // Displays an error message if the browser is not supported.
+    mxUtils.error(&#x27;Browser is not supported!&#x27;, 200, false);
+  } else {
+    var model &#x3D; new WireframeModel();
+    var container &#x3D; document.getElementById(&#x27;wireframe&#x27;);
+    //disable default context menu
+    mxEvent.disableContextMenu(container);
+    var wireframe &#x3D; new Wireframe(container, model);
+
+    var htmlPalette &#x3D; document.getElementById(&#x27;palette&#x27;);
+    var palette &#x3D; new Palette(htmlPalette);
+
+    var editor &#x3D; new Editor(wireframe, palette);
+
+    //After the editor the add elements to window
+    var xml &#x3D; y.share.data.get(&#x27;wireframe&#x27;);
+    if (xml) {
+      var doc &#x3D; mxUtils.parseXml(xml);
+      var codec &#x3D; new mxCodec(doc);
+      codec.decode(doc.documentElement.firstChild, model);
+      Util.initSharedData(wireframe.getDefaultParent(), wireframe);
+      model.initMetaFromXml(doc.documentElement);
+      $(&#x27;#wireframeWrap&#x27;).css(&#x27;width&#x27;, model.getAttribute(&#x27;width&#x27;)).css(&#x27;height&#x27;, model.getAttribute(&#x27;height&#x27;));
+      wireframe.maximumGraphBounds &#x3D; new mxRectangle(0, 0, parseInt(model.getAttribute(&#x27;width&#x27;)), parseInt(model.getAttribute(&#x27;height&#x27;)));
+      var bounds &#x3D; wireframe.getBoundingBox(wireframe.getDefaultParent().children);
+      var name &#x3D; model.getMeta().getAttribute(&#x27;_name&#x27;);
+      if (name.length &gt; 0) {
+        $(&#x27;#draggingBar&#x27;).append(name);
+      }
+      model.initSharedData();
+    }
+
+    var htmlToolbox &#x3D; document.getElementById(&#x27;toolbox&#x27;);
+    new Toolbox(htmlToolbox, editor);
+    HierachyTree.init(editor);
+    $(&#x27;#wireframeWrap&#x27;).resizable({
+      //handles: &quot;n, e, s, w, se, sw, nw, ne&quot;,
+      handles: &quot;se&quot;,
+      containment: &#x27;#wireframeContainer&#x27;,
+      //aspectRatio: 4/3,
+      minWidth: bounds ? bounds.x + bounds.width : 320,
+      minHeight: bounds ? bounds.y + bounds.height : 200,
+      alsoResize: &quot;#wireframe, #draggingBar&quot;,
+      classes: {
+        &quot;ui-resizable-se&quot;: &quot;ui-icon ui-icon-grip-diagonal-se&quot;
+      },
+      stop: function (event, ui) {
+        //propagate graph resize to other users; handled in Toolbox.js
+        y.share.action.set(CONST.ACTIONS.SHARED.GRAPH_RESIZE, {
+          userId: y.db.userId,
+          height: ui.size.height,
+          width: ui.size.width
+        });
+        model.setAttribute(&#x27;height&#x27;, ui.size.height);
+        model.setAttribute(&#x27;width&#x27;, ui.size.width);
+        Util.Save(wireframe);
+      }
+    });
+    if (!disableDragging) {
+      $(&quot;#wireframeWrap&quot;).draggable({
+        handle: &quot;#draggingBar&quot;,
+        containment: &#x27;#wireframeContainer&#x27;
+      });
+    }
+
+    $(&#x27;.hsplit&#x27;).click(function () {
+      var $palette &#x3D; $(&#x27;#palette&#x27;);
+      var paletteWidth &#x3D; $palette.css(&#x27;width&#x27;);
+      if ($palette.is(&#x27;:visible&#x27;)) {
+        $palette.hide();
+        $(&#x27;#wireframeContainer&#x27;).css(&#x27;left&#x27;, &#x27;-&#x3D;&#x27; + paletteWidth);
+        $(&#x27;#toolbox&#x27;).css(&#x27;left&#x27;, &#x27;-&#x3D;&#x27; + paletteWidth);
+        $(this).css(&#x27;left&#x27;, &#x27;-&#x3D;&#x27; + paletteWidth);
+      } else {
+        $palette.show();
+        $(this).css(&#x27;left&#x27;, &#x27;+&#x3D;&#x27; + paletteWidth);
+        $(&#x27;#wireframeContainer&#x27;).css(&#x27;left&#x27;, &#x27;+&#x3D;&#x27; + paletteWidth);
+        $(&#x27;#toolbox&#x27;).css(&#x27;left&#x27;, &#x27;+&#x3D;&#x27; + paletteWidth);
+      }
+    });
+  }
+  return editor;
+}</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on August 16, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

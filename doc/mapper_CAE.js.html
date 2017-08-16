@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Source: mapper/CAE.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: mapper/CAE.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/**
+ * @module FrontendComponentMapper
+ */
+import _ from &#x27;lodash&#x27;;
+import Util from &#x27;../misc/Util.js&#x27;;
+
+/**
+ * Map a wireframe model to a CAE frontend component model
+ * @param {Wireframe} graph the wireframe to transform to a SyncMeta model 
+ * @return {Object} the CAE frontend component model
+ */
+function FrontendComponentMapper(graph) {
+    var frontendModel &#x3D; {
+        attributes: {},
+        nodes: {},
+        edges: {}
+    };
+    var model &#x3D; graph.model;
+    var nodeTpl &#x3D; &#x27;{&quot;label&quot;:&amp;lt;%&#x3D;labelAttr%&gt;, &quot;left&quot;: 4500, &quot;top&quot;:4500, &quot;width&quot;:100, &quot;height&quot;:100, &quot;zIndex&quot;: 1, &quot;type&quot;:&quot;&amp;lt;%&#x3D;type%&gt;&quot;, &quot;attributes&quot;:&amp;lt;%&#x3D;attributes%&gt;}&#x27;;
+    var attrTpl &#x3D; &#x27;{&quot;id&quot;:&quot;&amp;lt;%&#x3D;id%&gt;[&amp;lt;%&#x3D;attrName%&gt;]&quot;, &quot;name&quot;:&quot;&amp;lt;%&#x3D;attrName%&gt;&quot;, &quot;value&quot;:{&quot;id&quot;:&quot;&amp;lt;%&#x3D;id%&gt;[&amp;lt;%&#x3D;attrName%&gt;]&quot;, &quot;name&quot;:&quot;&amp;lt;%&#x3D;attrName%&gt;&quot;, &quot;value&quot;:&amp;lt;%&#x3D;value%&gt;}&amp;lt;% if(option) {%&gt; ,&quot;option&quot;:&amp;lt;%&#x3D;value%&gt;&amp;lt;%}%&gt; }&#x27;;
+    var edgeTpl &#x3D; &#x27;{&quot;label&quot;:&amp;lt;%&#x3D;labelAttr%&gt;, &quot;source&quot;:&quot;&amp;lt;%&#x3D;srcId%&gt;&quot;, &quot;target&quot;:&quot;&amp;lt;%&#x3D;targetId%&gt;&quot;, &quot;attributes&quot;:{}, &quot;type&quot;:&quot;&amp;lt;%&#x3D;type%&gt;&quot;}&#x27;;
+    var attrCompiled &#x3D; _.template(attrTpl);
+    var nodeCompiled &#x3D; _.template(nodeTpl);
+    var edgeCompiled &#x3D; _.template(edgeTpl);
+
+    //Initialize the root Widget node
+    var widgetNodeId &#x3D; Util.GUID();
+
+    var label;
+    var attributes &#x3D; {};
+    for (var i &#x3D; 0; i &amp;lt; model.getMeta().attributes.length; i++) {
+        var attr &#x3D; model.getMeta().attributes[i];
+        var attrName &#x3D; attr.name[0] &#x3D;&#x3D;&#x3D; &#x27;_&#x27; ? attr.name.slice(1) : attr.name;
+        var json &#x3D; attrCompiled({ id: widgetNodeId, attrName: attrName, value: &#x27;&quot;&#x27; + attr.value + &#x27;&quot;&#x27;, option: false });
+        if (attrName &#x3D;&#x3D;&#x3D; &#x27;name&#x27;)
+            label &#x3D; json;
+        var id &#x3D; Util.GUID();
+        attributes[id] &#x3D; JSON.parse(json);
+
+    }
+    var node &#x3D; JSON.parse(nodeCompiled({ type: &#x27;Widget&#x27;, labelAttr: label, attributes: JSON.stringify(attributes) }));
+    frontendModel.nodes[widgetNodeId] &#x3D; node;
+
+    function mapHTMLElement(cell) {
+        //Create the HTML Elements node     
+        var label &#x3D; attrCompiled({ id: cell.id, attrName: &#x27;label&#x27;, value: &#x27;&quot;&#x27; + cell.value.getAttribute(&#x27;label&#x27;) + &#x27;&quot;&#x27;, option: false });
+        var attributes &#x3D; {};
+        var id &#x3D; Util.GUID();
+        attributes[id] &#x3D; JSON.parse(attrCompiled({ id: cell.id, attrName: &#x27;type&#x27;, value: &#x27;&quot;&#x27; + cell.constructor.HTML_NODE_NAME + &#x27;&quot;&#x27;, option: true }));
+        id &#x3D; Util.GUID();
+        attributes[id] &#x3D; JSON.parse(attrCompiled({ id: cell.id, attrName: &#x27;id&#x27;, value: &#x27;&quot;&quot;&#x27;, option: false }));
+        id &#x3D; Util.GUID();
+        attributes[id] &#x3D; JSON.parse(attrCompiled({ id: cell.id, attrName: &#x27;static&#x27;, value: false, option: false }));
+        id &#x3D; Util.GUID();
+        var shared &#x3D; false;
+        if (cell.overlays) {
+            for (var i &#x3D; 0; i &amp;lt; cell.overlays.length; i++) {
+                var overlay &#x3D; cell.overlays[i];
+                if(overlay.constructor.name &#x3D;&#x3D;&#x3D; &#x27;SharedTag&#x27;){
+                    shared &#x3D; true;
+                    break;
+                }
+            }
+        }
+        attributes[id] &#x3D; JSON.parse(attrCompiled({ id: cell.id, attrName: &#x27;collaborative&#x27;, value: shared, option: false }));
+        var node &#x3D; JSON.parse(nodeCompiled({ type: &#x27;HTML Element&#x27;, labelAttr: label, attributes: JSON.stringify(attributes) }));
+        frontendModel.nodes[cell.id] &#x3D; node;
+
+        var edgeId &#x3D; Util.GUID();
+        var edgeLabel &#x3D; attrCompiled({ id: edgeId, attrName: &#x27;label&#x27;, value: &#x27;&quot;&quot;&#x27;, option: false });
+        var edge &#x3D; JSON.parse(edgeCompiled({ type: &#x27;Widget to HTML Element&#x27;, labelAttr: edgeLabel, srcId: widgetNodeId, targetId: cell.id }));
+
+        if (cell.parent.id !&#x3D; &#x27;1&#x27;) {
+            var childEdgeId &#x3D; Util.GUID();
+            var childEdgeLabel &#x3D; attrCompiled({ id: childEdgeId, attrName: &#x27;label&#x27;, value: &#x27;&quot;&quot;&#x27;, option: false });
+            var childEdge &#x3D; JSON.parse(edgeCompiled({ type: &#x27;hasChild&#x27;, labelAttr: childEdgeLabel, srcId: cell.parent.id, targetId: cell.id }));
+            frontendModel.edges[childEdgeId] &#x3D; childEdge;
+        }
+        frontendModel.edges[edgeId] &#x3D; edge;
+    }
+    function recursion(parent) {
+        for (var i &#x3D; 0; i &amp;lt; parent.children.length; i++) {
+            var cell &#x3D; parent.children[i];
+            mapHTMLElement(cell);
+            if (cell.children)
+                recursion(cell);
+        }
+
+    }
+    recursion(graph.getDefaultParent());
+
+    return frontendModel;
+}
+export default FrontendComponentMapper;</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on August 16, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

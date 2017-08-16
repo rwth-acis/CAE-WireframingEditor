@@ -1,0 +1,259 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Class: UIText</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <div class="symbol-detail-labels"><span class="label label-kind">class</span>&nbsp;<span class="label label-virtual">abstract</span>&nbsp;<span class="label label-inner">inner</span></div>
+            <h1><small><a href="module-UIElements.html">UIElements</a>~<wbr></small><span class="symbol-name">UIText</span></h1>
+            <p class="source-link">Source: <a href="elements_UIText.js.html#source-line-27">elements/<wbr>UIText.<wbr>js:27</a></p>
+            <div class="symbol-classdesc">
+              <p>Class for all UI components of the editor that consists of a text input</p>
+            </div>
+            <dl class="dl-compact">
+            </dl>
+          </header>
+          <section id="summary">
+            <div class="summary-callout">
+              <h2 class="summary-callout-heading">Property</h2>
+              <div class="summary-content">
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="module-UIElements-UIText.html#~_$node">_$node</a></dt>
+                    <dd>
+                      <p>The jquery-object represent the html input node.</p>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="summary-column">
+                </div>
+                <div class="summary-column">
+                </div>
+              </div>
+            </div>
+            <div class="summary-callout">
+              <h2 class="summary-callout-heading">Methods</h2>
+              <div class="summary-content">
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="module-UIElements-UIText.html#get$node">get$node()</a></dt>
+                    <dd>
+                      <p>Return the html input node.</p>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="module-UIElements-UIText.html#initDOM">initDOM(element)</a></dt>
+                    <dd>
+                      <p>Create the inner html input element for the ui element.</p>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="module-UIElements-UIText.html#set$node">set$node($node)</a></dt>
+                    <dd>
+                      <p>Set the html input node.</p>
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h2 id="UIText">new&nbsp;<span class="symbol-name">UIText</span><span class="signature"><span class="signature-params">(text, geometry)</span></span>
+            </h2>
+            <p>Abstract class for all UI components of the editor that consists of a text input</p>
+            <section>
+              <h3>Parameters</h3>
+              <table class="jsdoc-details-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Optional</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <p>text</p>
+                    </td>
+                    <td>
+                      <p>String</p>
+                    </td>
+                    <td>
+                      <p>&nbsp;</p>
+                    </td>
+                    <td>
+                      <p>the text of the Label</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>geometry</p>
+                    </td>
+                    <td>
+                      <p>mxGeometry</p>
+                    </td>
+                    <td>
+                      <p>&nbsp;</p>
+                    </td>
+                    <td>
+                      <p>the width, height, x and y of the ui element</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <dl class="dl-compact">
+              <dt>Extends</dt>
+              <dd>UIControl</dd>
+              <dt>Requires</dt>
+              <dd>module:jQuery</dd>
+              <dd>module:Yjs</dd>
+            </dl>
+          </section>
+          <section>
+            <h2>Property</h2>
+            <section>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~_$node"><span class="symbol-name">_$node</span><small class="property-type">
+            &nbsp;jQuery</small></h3>
+              <p>The jquery-object represent the html input node</p>
+              <dl class="dl-compact">
+              </dl>
+            </section>
+            <h2>Methods</h2>
+            <section>
+              <h3 id="get$node"><span class="symbol-name">get$node</span><span class="signature"><span class="signature-params">()</span>&nbsp;&rarr; <span class="signature-returns"> jQuery</span></span>
+              </h3>
+              <p>Return the html input node</p>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>jQuery</code>&nbsp;the html input node</p>
+                </dd>
+              </dl>
+              <h3 id="initDOM"><span class="symbol-name">initDOM</span><span class="signature"><span class="signature-params">(element)</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Create the inner html input element for the ui element</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>element</p>
+                      </td>
+                      <td>
+                        <p>String</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the name of the html input element to create</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <h3 id="set$node"><span class="symbol-name">set$node</span><span class="signature"><span class="signature-params">($node)</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Set the html input node</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>$node</p>
+                      </td>
+                      <td>
+                        <p>jQuery</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the html input node</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+            </section>
+          </section>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on August 16, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

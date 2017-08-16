@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Source: Palette.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: Palette.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>import {
+    mxToolbar,
+    mxGraph,
+    mxConstants,
+    mxEvent
+} from &#x27;./misc/mxExport.js&#x27;;
+Palette.prototype &#x3D; new mxToolbar();
+Palette.prototype.constructor &#x3D; Palette;
+
+/**
+ * The palette consists of all ui elments supported by the editor
+ * @classdesc The palette of the wireframing editor
+ * @constructor
+ * @param {DOM} container the container
+ * @extends mxToolbar
+ */
+function Palette(container) {
+    mxToolbar.call(this, container);
+
+    this.enabled &#x3D; false;
+
+    var createTemporaryGraph &#x3D; function (stylesheet) {
+        var graph &#x3D; new mxGraph(document.createElement(&#x27;div&#x27;), null, null, stylesheet);
+        graph.resetViewOnRootChange &#x3D; false;
+        graph.setConnectable(false);
+        graph.gridEnabled &#x3D; false;
+        graph.autoScroll &#x3D; false;
+        graph.setTooltips(false);
+        graph.setEnabled(false);
+
+        // Container must be in the DOM for correct HTML rendering
+        graph.container.style.visibility &#x3D; &#x27;hidden&#x27;;
+        graph.container.style.position &#x3D; &#x27;absolute&#x27;;
+        graph.container.style.overflow &#x3D; &#x27;hidden&#x27;;
+        graph.container.style.height &#x3D; &#x27;1px&#x27;;
+        graph.container.style.width &#x3D; &#x27;1px&#x27;;
+
+        return graph;
+    };
+
+    //TODO
+    var graph &#x3D; new createTemporaryGraph();
+    var thumbBorder &#x3D; 1;
+    var thumbWidth &#x3D; 50;
+    var thumbHeight &#x3D; 50;
+    var thumbPadding &#x3D; 1;
+
+    /**
+     * Get a node entry to the given parent
+     * @param {DOM} parent 
+     */
+    var getNodeEntry &#x3D; function (cell, showLabel) {
+        graph.labelsVisible &#x3D; showLabel || false;
+        graph.view.scaleAndTranslate(1, 0, 0);
+
+        graph.addCell(cell);
+        var bounds &#x3D; graph.getGraphBounds();
+        var s &#x3D; Math.floor(Math.min((thumbWidth - 2 * thumbBorder) / bounds.width, (thumbHeight - 2 * thumbBorder) / bounds.height) * 100) / 100;
+        graph.view.scaleAndTranslate(s, Math.floor((thumbWidth - bounds.width * s) / 2 / s - bounds.x), Math.floor((thumbHeight - bounds.height * s) / 2 / s - bounds.y));
+        var node &#x3D; null;
+
+        // For supporting HTML labels in IE9 standards mode the container is cloned instead
+        if (graph.dialect &#x3D;&#x3D; mxConstants.DIALECT_SVG) {
+            node &#x3D; graph.view.getCanvas().ownerSVGElement.cloneNode(true);
+        }
+        // LATER: Check if deep clone can be used for quirks if container in DOM
+        else {
+            node &#x3D; graph.container.cloneNode(false);
+            node.innerHTML &#x3D; graph.container.innerHTML;
+        }
+
+        graph.getModel().clear();
+
+        node.style.position &#x3D; &#x27;relative&#x27;;
+        node.style.overflow &#x3D; &#x27;hidden&#x27;;
+        node.style.cursor &#x3D; &#x27;move&#x27;;
+        node.style.left &#x3D; thumbBorder + &#x27;px&#x27;;
+        node.style.top &#x3D; thumbBorder + &#x27;px&#x27;;
+        node.style.width &#x3D; thumbWidth + &#x27;px&#x27;;
+        node.style.height &#x3D; thumbHeight + &#x27;px&#x27;;
+        node.style.visibility &#x3D; &#x27;&#x27;;
+        node.style.minWidth &#x3D; &#x27;&#x27;;
+        node.style.minHeight &#x3D; &#x27;&#x27;;
+        return node;
+    }
+
+    /**
+     * @param{mxCell} cell
+     */
+    this.createItem &#x3D; function (cell, name, showLabel) {
+        var elt &#x3D; document.createElement(&#x27;a&#x27;);
+        elt.setAttribute(&#x27;href&#x27;, &#x27;javascript:void(0);&#x27;);
+        elt.className &#x3D; &#x27;item tooltip&#x27;;
+        elt.style.overflow &#x3D; &#x27;hidden&#x27;;
+        var border &#x3D; 2 * thumbBorder;
+        elt.style.width &#x3D; (thumbWidth + border) + &#x27;px&#x27;;
+        elt.style.height &#x3D; (thumbHeight + border) + &#x27;px&#x27;;
+        elt.style.padding &#x3D; thumbPadding + &#x27;px&#x27;;
+
+        // Blocks default click action
+        mxEvent.addListener(elt, &#x27;click&#x27;, function (evt) {
+            mxEvent.consume(evt);
+        });
+        elt.appendChild(getNodeEntry(cell, showLabel));
+        var tooltip &#x3D; createTooltip(name);
+
+        //var bounds &#x3D; new mxRectangle(0, 0, width, height);
+        elt.appendChild(tooltip);
+        container.appendChild(elt);
+        return elt;
+    }
+
+    var createTooltip &#x3D; function (text) {
+        var tooltip &#x3D; document.createElement(&#x27;span&#x27;);
+        tooltip.className &#x3D; &#x27;tooltiptext&#x27;;
+        tooltip.innerHTML &#x3D; text;
+        return tooltip;
+    }
+    return this;
+}
+export default Palette;</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on August 16, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

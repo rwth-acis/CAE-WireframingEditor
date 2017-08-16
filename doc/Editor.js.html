@@ -1,0 +1,319 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Source: Editor.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: Editor.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*global y, vls*/
+import {
+    mxEditor,
+    mxConstants,
+    mxCellRenderer,
+    mxGraph
+} from &#x27;./misc/mxExport.js&#x27;;
+import KeyHandler from &#x27;./KeyHandler.js&#x27;;
+import ContextMenu from &#x27;./ContextMenu.js&#x27;;
+
+import DefaultShape from &#x27;./shapes/DefaultShape.js&#x27;;
+import VideoPlayerShape from &#x27;./shapes/VideoShape.js&#x27;;
+import AudioPlayerShape from &#x27;./shapes/AudioShape.js&#x27;;
+import ButtonShape from &#x27;./shapes/ButtonShape.js&#x27;;
+import TextNodeShape from &#x27;./shapes/TextNodeShape.js&#x27;;
+import LinkShape from &#x27;./shapes/LinkShape.js&#x27;;
+import ParagraphShape from &#x27;./shapes/ParagraphShape.js&#x27;;
+import TextAreaShape from &#x27;./shapes/TextAreaShape.js&#x27;;
+import TextBoxShape from &#x27;./shapes/TextBoxShape.js&#x27;;
+import CheckboxShape from &#x27;./shapes/CheckboxShape.js&#x27;;
+import RadioButtonShape from &#x27;./shapes/RadioButtonShape.js&#x27;;
+import ImageShape from &#x27;./shapes/ImageShape.js&#x27;;
+
+import UIControl from &#x27;./elements/UIControl.js&#x27;;
+import Link from &#x27;./elements/Link.js&#x27;;
+import TextBox from &#x27;./elements/TextBox.js&#x27;;
+import Paragraph from &#x27;./elements/Paragraph.js&#x27;;
+import TextArea from &#x27;./elements/TextArea.js&#x27;;
+import Button from &#x27;./elements/Button.js&#x27;;
+import TextNode from &#x27;./elements/TextNode.js&#x27;;
+import CheckBox from &#x27;./elements/CheckBox.js&#x27;;
+import RadioBtn from &#x27;./elements/RadioButton.js&#x27;;
+import Image from &#x27;./elements/Image.js&#x27;;
+import VideoPlayer from &#x27;./elements/VideoPlayer.js&#x27;;
+import AudioPlayer from &#x27;./elements/AudioPlayer.js&#x27;;
+import DivContainer from &#x27;./elements/DivContainer.js&#x27;;
+
+import config from &#x27;../data/config.json&#x27;;
+
+Editor.prototype &#x3D; new mxEditor();
+Editor.prototype.constructor &#x3D; Editor;
+
+/**
+ * @classdesc The main editor class of the wireframing editor 
+ * @constructor
+ * @param {Wireframe} wireframe the wireframe of the editor 
+ * @param {Palette} palette the palette
+ * @extends mxEditor 
+ */
+function Editor(wireframe, palette) {
+    var that &#x3D; this;
+    mxEditor.call(this);
+    this.graph &#x3D; wireframe;
+    this.installUndoHandler(wireframe);
+    this.setGraphContainer(wireframe.container);
+    this.setToolbarContainer(palette.container);
+    this.keyHandler &#x3D; new KeyHandler(this);
+    //Editor.prototype.disableContextMenu &#x3D; false;
+    new ContextMenu(this);
+
+    mxCellRenderer.prototype.defaultShapes[VideoPlayerShape.prototype.cst.SHAPE] &#x3D; VideoPlayerShape;
+    mxCellRenderer.prototype.defaultShapes[AudioPlayerShape.prototype.cst.SHAPE] &#x3D; AudioPlayerShape;
+    mxCellRenderer.prototype.defaultShapes[&quot;button&quot;] &#x3D; ButtonShape;
+    mxCellRenderer.prototype.defaultShapes[&quot;link&quot;] &#x3D; LinkShape;
+    mxCellRenderer.prototype.defaultShapes[&quot;textbox&quot;] &#x3D; TextBoxShape;
+    mxCellRenderer.prototype.defaultShapes[&quot;paragraph&quot;] &#x3D; ParagraphShape;
+    mxCellRenderer.prototype.defaultShapes[&quot;textarea&quot;] &#x3D; TextAreaShape;
+    mxCellRenderer.prototype.defaultShapes[&quot;checkbox&quot;] &#x3D; CheckboxShape;
+    mxCellRenderer.prototype.defaultShapes[&quot;radio&quot;] &#x3D; RadioButtonShape;
+    mxCellRenderer.prototype.defaultShapes[&quot;image&quot;] &#x3D; ImageShape;
+    mxCellRenderer.prototype.defaultShapes[&quot;textnode&quot;] &#x3D; TextNodeShape;
+    mxCellRenderer.prototype.defaultShapes[&quot;default&quot;] &#x3D; DefaultShape;
+
+    //TODO rework the callback for Wireframe model attributes
+    y.share.attrs.observe(function (event) {
+        var name;
+        var arr &#x3D; event.name.split(&#x27;_&#x27;);
+        var id &#x3D; arr[0];
+        var cell &#x3D; that.graph.getModel().getCell(id);
+        if (arr.length &#x3D;&#x3D; 2) {
+            if (event.name.indexOf(&#x27;_label&#x27;) !&#x3D; -1) {
+                cell.bindLabel(event.value);
+            } else if (typeof event.value &#x3D;&#x3D;&#x3D; &#x27;boolean&#x27;) {
+                name &#x3D; event.name.substring(event.name.indexOf(&#x27;_&#x27;));
+                cell.setBooleanAttributeValue(name, event.value);
+            }
+            else if (typeof event.value &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
+                name &#x3D; event.name.substring(event.name.indexOf(&#x27;_&#x27;));
+                cell.setComboAttributeValue(name, event.value);
+            }
+            else if (event.value.constructor.name &#x3D;&#x3D;&#x3D; &#x27;YText&#x27;) {
+                event.value.observe(cell.getYTextObserver());
+            }
+        } else {
+            var tag &#x3D; cell.getTagById(arr[0] + &#x27;_&#x27; + arr[1]);
+            if (tag) {
+                if (typeof event.value &#x3D;&#x3D;&#x3D; &#x27;boolean&#x27;) {
+                    name &#x3D; event.name.substring(event.name.lastIndexOf(&#x27;_&#x27;));
+                    tag.setBooleanAttributeValue(name, event.value);
+                }
+                else if (typeof event.value &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
+                    name &#x3D; event.name.substring(event.name.lastIndexOf(&#x27;_&#x27;));
+                    tag.setComboAttributeValue(name, event.value);
+                }
+                else if (event.value.constructor.name &#x3D;&#x3D;&#x3D; &#x27;YText&#x27;) {
+                    event.value.observe(tag.getYTextObserver());
+                }
+            }
+        }
+    });
+
+    //-------------------------------------------------------------------
+    // Overrides functions from Wireframe which is derived from mxGraph 
+    //-------------------------------------------------------------------
+    /**
+     * Overrides getLabel from mxGraph for the Wireframe-class
+     * @param {*} state the state
+     * @return {String} the label
+     */
+    that.graph.getLabel &#x3D; function (state) {
+        var label &#x3D; mxGraph.prototype.getLabel.apply(this, arguments);
+        if (state instanceof DivContainer)
+            return state.value.getAttribute(&#x27;label&#x27;);
+        else return label;
+    }
+    /**
+     * Overrides createGroupCell from the superclass mxGraph for the Wireframe-class
+     */
+    /*eslint-disable no-unused-vars*/
+    that.graph.createGroupCell &#x3D; function (cells) {
+        var group &#x3D; new DivContainer();
+        return group;
+    };
+    //-------------------------------------------------------------------
+
+     /**
+     * A map that maps the HTML tag name to the name of the of the class 
+     * representing the html element in the wireframing editor.
+     * @member {Object}
+     */
+    var htmlNodeMap &#x3D; {};
+    htmlNodeMap[DivContainer.HTML_NODE_NAME] &#x3D; DivContainer.NAME;
+    htmlNodeMap[Paragraph.HTML_NODE_NAME] &#x3D; Paragraph.NAME;
+    htmlNodeMap[Button.HTML_NODE_NAME] &#x3D; Button.NAME;
+    htmlNodeMap[TextArea.HTML_NODE_NAME] &#x3D; TextArea.NAME;
+    htmlNodeMap[Link.HTML_NODE_NAME] &#x3D; Link.NAME;
+    htmlNodeMap[TextBox.HTML_NODE_NAME] &#x3D; TextBox.NAME;
+    htmlNodeMap[Image.HTML_NODE_NAME] &#x3D; Image.NAME;
+    htmlNodeMap[AudioPlayer.HTML_NODE_NAME] &#x3D; AudioPlayer.NAME;
+    htmlNodeMap[VideoPlayer.HTML_NODE_NAME] &#x3D; VideoPlayer.NAME;
+    htmlNodeMap[TextNode.HTML_NODE_NAME] &#x3D; TextNode.NAME;
+
+     /**
+     * Maps the HTML elements types defined in the VLS to their corresponding ui control element in the wireframing editor.
+     * First tries to look up the element in the htmlNodeMap and in the map-object of the config.json.
+     * If no match is found, use the default UIControl implementation.
+     * @member {Object}
+     */
+    var vlsComponents &#x3D; {};
+    for (var key in vls.nodes) {
+        var node &#x3D; vls.nodes[key];
+        if (node.label &#x3D;&#x3D;&#x3D; &#x27;HTML Element&#x27;) {
+            for (var attrKey in node.attributes) {
+                var attr &#x3D; node.attributes[attrKey];
+                if (attr.value &#x3D;&#x3D;&#x3D; &#x27;HTML Type&#x27;) {
+                    var elements &#x3D; attr.options;
+                    for (var e in elements) {
+                        if (config.html.exclude.indexOf(e) &#x3D;&#x3D;&#x3D; -1) {
+                            if (config.html.map.hasOwnProperty(e))
+                                vlsComponents[e] &#x3D; config.html.map[e];
+                            else if (htmlNodeMap.hasOwnProperty(e))
+                                vlsComponents[e] &#x3D; htmlNodeMap[e];
+                            else
+                                vlsComponents[e] &#x3D; &#x27;Default&#x27;;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * A simple map the get the constructor function for the NAME of a ui element class.
+     * @member {Object}
+     */
+    var yfUIComponents &#x3D; {};
+    yfUIComponents[UIControl.NAME] &#x3D; UIControl;
+    yfUIComponents[DivContainer.NAME] &#x3D; DivContainer;
+    yfUIComponents[Button.NAME] &#x3D; Button;
+    yfUIComponents[TextArea.NAME] &#x3D; TextArea;
+    yfUIComponents[Paragraph.NAME] &#x3D; Paragraph;
+    yfUIComponents[TextBox.NAME] &#x3D; TextBox;
+    yfUIComponents[Link.NAME] &#x3D; Link;
+    yfUIComponents[TextNode.NAME] &#x3D; TextNode;
+    yfUIComponents[Image.NAME] &#x3D; Image;
+    yfUIComponents[AudioPlayer.NAME] &#x3D; AudioPlayer;
+    yfUIComponents[VideoPlayer.NAME] &#x3D; VideoPlayer;
+    yfUIComponents[CheckBox.NAME] &#x3D; CheckBox;
+    yfUIComponents[RadioBtn.NAME] &#x3D; RadioBtn;
+
+    /**
+     * The map contains as key as the name of the UIObjects and as value the style as String
+     * The shape has to be registered before to the mxCellRenderer-object of this class
+     * @member {Object}
+     */
+    var yfShapeMapping &#x3D; {};
+    yfShapeMapping[Paragraph.NAME] &#x3D; mxConstants.STYLE_SHAPE + &#x27;&#x3D;paragraph;&#x27; + mxConstants.STYLE_FILLCOLOR + &quot;&#x3D;white;&quot; + +mxConstants.STYLE_STROKECOLOR + &#x27;&#x3D;black;&#x27;;
+    yfShapeMapping[TextArea.NAME] &#x3D; mxConstants.STYLE_SHAPE + &#x27;&#x3D;textarea;&#x27; + mxConstants.STYLE_FILLCOLOR + &quot;&#x3D;white;&quot; + +mxConstants.STYLE_STROKECOLOR + &#x27;&#x3D;black;&#x27;;
+    yfShapeMapping[TextNode.NAME] &#x3D; mxConstants.STYLE_SHAPE + &#x27;&#x3D;textnode;&#x27;;
+    yfShapeMapping[Button.NAME] &#x3D; mxConstants.STYLE_SHAPE + &#x27;&#x3D;button;&#x27;;
+    yfShapeMapping[Link.NAME] &#x3D; mxConstants.STYLE_SHAPE + &#x27;&#x3D;link;&#x27; + mxConstants.STYLE_FILLCOLOR + &quot;&#x3D;none;&quot;;
+    yfShapeMapping[TextBox.NAME] &#x3D; mxConstants.STYLE_SHAPE + &#x27;&#x3D;textbox;&#x27; + mxConstants.STYLE_FILLCOLOR + &quot;&#x3D;white;&quot; + +mxConstants.STYLE_STROKECOLOR + &#x27;&#x3D;black;&#x27;;
+    yfShapeMapping[CheckBox.NAME] &#x3D; mxConstants.STYLE_SHAPE + &#x27;&#x3D;checkbox;&#x27; + mxConstants.STYLE_FILLCOLOR + &quot;&#x3D;white;&quot; + +mxConstants.STYLE_STROKECOLOR + &#x27;&#x3D;black;&#x27;;
+    yfShapeMapping[RadioBtn.NAME] &#x3D; mxConstants.STYLE_SHAPE + &#x27;&#x3D;radio;&#x27; + mxConstants.STYLE_FILLCOLOR + &quot;&#x3D;white;&quot; + +mxConstants.STYLE_STROKECOLOR + &#x27;&#x3D;black;&#x27;;
+
+    /**
+     * Adds a UI component to the palette and makes it drag&amp;amp;drop-able to the wireframe canvas
+     * @param {String} componentName the NAME of the UIControl-class
+     * @return {undefined}
+     */
+    var addUIComponent &#x3D; function (componentName) {
+        var cell, type, shapeCell;
+        var tmp &#x3D; componentName;
+        componentName &#x3D; vlsComponents[componentName];
+        if(componentName &#x3D;&#x3D;&#x3D; UIControl.NAME)
+            cell &#x3D; new yfUIComponents[componentName](null, null, tmp);
+        else
+            cell &#x3D; new yfUIComponents[componentName]();
+        if (yfShapeMapping.hasOwnProperty(componentName))
+            shapeCell &#x3D; new UIControl(cell.geometry, yfShapeMapping[componentName]);
+        else
+            shapeCell &#x3D; cell;
+        type &#x3D; palette.createItem(shapeCell, componentName &#x3D;&#x3D;&#x3D; UIControl.NAME ? tmp : componentName, false);
+        cell.makeTypeDraggable(type, wireframe);
+    }
+    /**
+     * Get the name of the UI object class associated with the provided tag name
+     * @param {String} name the name of the html tag
+     * @return {String|undefined} the name for the html tag name in the yfUIComponents-map
+     * @see yfUIComponents
+     */
+    this.getUIComponentFromHTMLName &#x3D; function (name) {
+        if (htmlNodeMap.hasOwnProperty(name)) {
+            if (yfUIComponents.hasOwnProperty(htmlNodeMap[name])) {
+                return yfUIComponents[htmlNodeMap[name]];
+            }
+        }
+    }
+    /**
+     * Get the yfUIComponents-map
+     * Used by the ContextMenu-module to realize creation of ui elements via context menu
+     * @return {Object}  return the yfUIComponents-map
+     * @see ContextMenu
+     */
+    this.getUIComponents &#x3D; function () {
+        return yfUIComponents;
+    }
+
+    for (var componentName in vlsComponents) {
+        addUIComponent(componentName);
+    }
+    palette.addLine(); //conclude with a horizontal line at the end
+    return this;
+}
+export default Editor;</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on August 16, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

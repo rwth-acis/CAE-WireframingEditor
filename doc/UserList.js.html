@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Source: UserList.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: UserList.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*global  y*/
+/**
+ * @module
+ */
+import {
+    mxWindow
+} from &#x27;./misc/mxExport.js&#x27;;
+import $ from &#x27;jquery&#x27;;
+import randomColor from &#x27;randomcolor&#x27;;
+
+/**
+ * Generate a user list wrapped in a mxWindow
+ * Retrieve all necessary infromation with y.share.yfUsers.get(y.db.userId) 
+ * @example y.share.yfUsers.get(y.db.userId) &#x3D; 
+        {
+            id: &quot;some id&quot;,
+            name: &quot;Name Surname&quot;,
+            image: &quot;A url&quot;,
+            color: &quot;a color&quot;
+        }
+ * @param {Object} user the object consists of the data about the user
+ * @param {Boolean} visible true if the mxWindow is visible or false if not 
+ * @return {undefined}
+ */
+function UserList(user, visible) {
+    /**
+     * the div html elements that contains the user list
+     * @member {jQuery}
+     */
+    var $userList &#x3D; $(&#x27;#userList&#x27;);
+
+    /**
+     * The user list table
+     * @member {jQuery}
+     */
+    var $userTable &#x3D; $userList.find(&#x27;table&#x27;);
+
+    /**
+     * The ids of all remote users
+     * @member {String[]}
+     */
+    var remoteUsers &#x3D; [];
+
+    /**
+     * The default height of the mxWindow 
+     * @default 50
+     * @member {Integer}
+     */
+    var height &#x3D; 50;
+    
+    /**
+     * The default width of the mxWindow
+     * @member {Integer}
+     * @default 210
+     */
+    var width &#x3D; 210;
+    
+    /**
+     * The mxWindow-instance of the user list
+     * @member {mxWindow}
+     */
+    var wnd &#x3D; new mxWindow(&quot;User List&quot;, $userList[0], 600, 100, width, height, false, true);
+    wnd.setVisible(visible !&#x3D;&#x3D; undefined ? visible : true);
+    wnd.setMaximizable(false);
+    wnd.setResizable(true);
+    wnd.setClosable(true);
+    wnd.destroyOnClose &#x3D; false;
+
+    /**
+     * @event
+     * @return {undefined}
+     * @memberof {UserList}
+     */
+    window.onbeforeunload &#x3D; function () {
+        y.share.yfJoin.set(&#x27;leave&#x27;, y.db.userId);
+    };
+    window.onunload &#x3D; function () {
+        y.share.yfJoin.set(&#x27;leave&#x27;, y.db.userId);
+    }
+    /**
+     * Generate a row entry for user list table
+     * @param {String} userId the user id
+     * @param {String} userName the name of the user
+     * @param {String} imageUrl the url to the avatar of the user
+     * @param {String} color the randomed color for the user
+     * @return {JQuery} the tr-element as a jquery object
+     */
+    var getUserEntry &#x3D; function (userId, userName, imageUrl, color) {
+        var entry &#x3D; &#x27;&amp;lt;tr id&#x3D;&quot;&#x27; + userId + &#x27;&quot; style&#x3D;&quot;display: flex; background : &#x27; + color + &#x27;&quot;&gt;&amp;lt;td&gt;&amp;lt;img src&#x3D;&quot;&#x27; + imageUrl + &#x27;&quot; height&#x3D;&quot;42&quot; width&#x3D;&quot;42&quot;&gt;&amp;lt;/td&gt;&amp;lt;td style&#x3D;&quot;font-size: 15;color: white;padding : 12;&quot;&gt;&#x27; + userName + &#x27;&amp;lt;/td&gt;&amp;lt;/tr&gt;&#x27;;
+        return $(entry);
+    }
+    if (user) {
+        y.share.yfUsers.observe(function (event) {
+            if (event.name !&#x3D;&#x3D; y.db.userId &amp;amp;&amp;amp; remoteUsers.indexOf(event.name) &#x3D;&#x3D; -1) {
+                var $entry &#x3D; getUserEntry(event.name, event.value.name, event.value.image, event.value.color);
+                $userTable.append($entry);
+                remoteUsers.push(event.name);
+                height +&#x3D; 45;
+                wnd.setSize(width, height);
+            }
+        });
+        y.share.yfJoin.observe(function (event) {
+            if (event.name &#x3D;&#x3D;&#x3D; &#x27;leave&#x27; &amp;amp;&amp;amp; y.db.userId !&#x3D;&#x3D; event.value) {
+                $(&#x27;#&#x27; + event.value).remove();
+                if (remoteUsers.indexOf(event.value) !&#x3D;&#x3D; -1)
+                    remoteUsers.splice(remoteUsers.indexOf(event.value), 1);
+                return;
+            }
+            if (event.name !&#x3D;&#x3D; y.db.userId &amp;amp;&amp;amp; !event.value) {
+                y.share.yfJoin.set(y.db.userId, {
+                    receiver: event.name,
+                    userInfo: y.share.yfUsers.get(y.db.userId)
+                });
+            } else if (event.value &amp;amp;&amp;amp; event.value.receiver &#x3D;&#x3D;&#x3D; y.db.userId &amp;amp;&amp;amp; remoteUsers.indexOf(event.name) &#x3D;&#x3D; -1) {
+                $userTable.append(getUserEntry(event.value.name, event.value.userInfo.name, event.value.userInfo.image, event.value.userInfo.color));
+                remoteUsers.push(event.value.userId);
+                height +&#x3D; 45;
+                wnd.setSize(width, height);
+            }
+        });
+
+        $(&#x27;.g-signin2&#x27;).hide();
+        var color &#x3D; randomColor();
+        var $userEntry &#x3D; getUserEntry(y.db.userId, user.name, user.imageUrl, color);
+        $userTable.append($userEntry);
+        $userTable.append($(&#x27;&amp;lt;tr&gt;&amp;lt;th&gt;Collaborators&amp;lt;/th&gt;&amp;lt;/tr&gt;&#x27;));
+        height +&#x3D; 50;
+        wnd.setSize(width, height);
+        y.share.yfUsers.set(y.db.userId, {
+            id: user.id,
+            name: user.name,
+            image: user.imageUrl,
+            color: color
+        });
+        y.share.yfJoin.set(y.db.userId, false);
+    }
+}
+
+export default UserList;</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on August 16, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

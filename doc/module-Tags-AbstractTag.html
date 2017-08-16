@@ -1,0 +1,657 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Class: AbstractTag</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <div class="symbol-detail-labels"><span class="label label-kind">class</span>&nbsp;<span class="label label-virtual">abstract</span>&nbsp;<span class="label label-inner">inner</span></div>
+            <h1><small><a href="module-Tags.html">Tags</a>~<wbr></small><span class="symbol-name">AbstractTag</span></h1>
+            <p class="source-link">Source: <a href="tags_AbstractTag.js.html#source-line-40">tags/<wbr>AbstractTag.<wbr>js:40</a></p>
+            <div class="symbol-classdesc">
+              <p>Abstract tag class for interacitivty tags.</p>
+              <p>Subclass of <a href="https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxCellOverlay-js.html#mxCellOverlay">mxCellOverlay</a></p>
+            </div>
+            <dl class="dl-compact">
+            </dl>
+          </header>
+          <section id="summary">
+            <div class="summary-callout">
+              <h2 class="summary-callout-heading">Properties</h2>
+              <div class="summary-content">
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="module-Tags-AbstractTag.html#tagObj">tagObj</a></dt>
+                    <dd>
+                      <p>Contains the data of the attributes for the tag.</p>
+                    </dd>
+                    <dt><a href="module-Tags-AbstractTag.html#~_cell">_cell</a></dt>
+                    <dd>
+                      <p>The parent cell or tag.</p>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="module-Tags-AbstractTag.html#~childTags">childTags</a></dt>
+                    <dd>
+                      <p>the child tags for the tag.</p>
+                    </dd>
+                    <dt><a href="module-Tags-AbstractTag.html#~comboAttrMap">comboAttrMap</a></dt>
+                    <dd>
+                      <p>The map contains the key and the possible values as array for all combo attributes for the tag.</p>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="summary-column">
+                </div>
+              </div>
+            </div>
+            <div class="summary-callout">
+              <h2 class="summary-callout-heading">Methods</h2>
+              <div class="summary-content">
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="module-Tags-AbstractTag.html#.registerCodec">registerCodec(ctor)</a></dt>
+                    <dd>
+                      <p>Register a constructor to the mxCodecRegistry.</p>
+                    </dd>
+                    <dt><a href="module-Tags-AbstractTag.html#addChildTag">addChildTag(tag)</a></dt>
+                    <dd>
+                    </dd>
+                    <dt><a href="module-Tags-AbstractTag.html#bindClickEvent">bindClickEvent(graph)</a></dt>
+                    <dd>
+                      <p>Click event for the property editor.</p>
+                    </dd>
+                    <dt><a href="module-Tags-AbstractTag.html#createShared">createShared()</a></dt>
+                    <dd>
+                      <p>Create the shared data for the attribute Empty function.</p>
+                    </dd>
+                    <dt><a href="module-Tags-AbstractTag.html#getCell">getCell()</a></dt>
+                    <dd>
+                      <p>Get the cell of the tag.</p>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="module-Tags-AbstractTag.html#getChildTags">getChildTags()</a></dt>
+                    <dd>
+                      <p>Get all child tags.</p>
+                    </dd>
+                    <dt><a href="module-Tags-AbstractTag.html#getComboAttrMap">getComboAttrMap()</a></dt>
+                    <dd>
+                      <p>Get the map of the combo attributes.</p>
+                    </dd>
+                    <dt><a href="module-Tags-AbstractTag.html#getId">getId()</a></dt>
+                    <dd>
+                      <p>Get the identifier as String.</p>
+                    </dd>
+                    <dt><a href="module-Tags-AbstractTag.html#getYTextObserver">getYTextObserver()</a></dt>
+                    <dd>
+                      <p>Get the observer function for a string attribute.</p>
+                    </dd>
+                    <dt><a href="module-Tags-AbstractTag.html#initShared">initShared()</a></dt>
+                    <dd>
+                      <p>Initialize the shared data Empty function.</p>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="module-Tags-AbstractTag.html#initYText">initYText(attrName)</a></dt>
+                    <dd>
+                    </dd>
+                    <dt><a href="module-Tags-AbstractTag.html#setBooleanAttributeValue">setBooleanAttributeValue(name, value)</a></dt>
+                    <dd>
+                      <p>Set the value for a boolean attribute in tagObj and the property editor.</p>
+                    </dd>
+                    <dt><a href="module-Tags-AbstractTag.html#setCell">setCell(cell)</a></dt>
+                    <dd>
+                    </dd>
+                    <dt><a href="module-Tags-AbstractTag.html#setComboAttributeValue">setComboAttributeValue(name, value)</a></dt>
+                    <dd>
+                      <p>Set the value for the combo attribute in tabObj and the property editor.</p>
+                    </dd>
+                    <dt><a href="module-Tags-AbstractTag.html#toXML">toXML()</a></dt>
+                    <dd>
+                      <p>Serializes the Tag to XML.</p>
+                    </dd>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h2 id="AbstractTag">new&nbsp;<span class="symbol-name">AbstractTag</span><span class="signature"><span class="signature-params">(entity, image, tooltip, offset, cursor)</span></span>
+            </h2>
+            <section>
+              <h3>Parameters</h3>
+              <table class="jsdoc-details-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Optional</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <p>entity</p>
+                    </td>
+                    <td>
+                      <p>(UIControl or AbstractTag)</p>
+                    </td>
+                    <td>
+                      <p>&nbsp;</p>
+                    </td>
+                    <td>
+                      <p>a tag or a ui element</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>image</p>
+                    </td>
+                    <td>
+                      <p>mxImage</p>
+                    </td>
+                    <td>
+                      <p>&nbsp;</p>
+                    </td>
+                    <td>
+                      <p>the image for the tag</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>tooltip</p>
+                    </td>
+                    <td>
+                      <p>String</p>
+                    </td>
+                    <td>
+                      <p>&nbsp;</p>
+                    </td>
+                    <td>
+                      <p>a description for the image</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>offset</p>
+                    </td>
+                    <td>
+                      <p>mxPoint</p>
+                    </td>
+                    <td>
+                      <p>&nbsp;</p>
+                    </td>
+                    <td>
+                      <p>mxCellOverlay documentation</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>cursor</p>
+                    </td>
+                    <td>
+                      <p>any type</p>
+                    </td>
+                    <td>
+                      <p>&nbsp;</p>
+                    </td>
+                    <td>
+                      <p>see mxCellOverlay documentation</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <dl class="dl-compact">
+              <dt>Extends</dt>
+              <dd>mxCellOverlay</dd>
+              <dt>Requires</dt>
+              <dd>module:ComboAttributeMap</dd>
+              <dd>module:Util</dd>
+              <dd><a href="module-PropertyEditor.html">module:PropertyEditor</a></dd>
+            </dl>
+          </section>
+          <section>
+            <h2>Properties</h2>
+            <section>
+              <h3 id="tagObj"><span class="symbol-name">tagObj</span><small class="property-type">
+            &nbsp;XMLDocument</small></h3>
+              <p>Contains the data of the attributes for the tag</p>
+              <dl class="dl-compact">
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~_cell"><span class="symbol-name">_cell</span><small class="property-type">
+            &nbsp;(AbstractTag or UIControl)</small></h3>
+              <p>The parent cell or tag</p>
+              <dl class="dl-compact">
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~childTags"><span class="symbol-name">childTags</span><small class="property-type">
+            &nbsp;Object</small></h3>
+              <p>the child tags for the tag</p>
+              <dl class="dl-compact">
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-inner">inner</span></div>
+              <h3 id="~comboAttrMap"><span class="symbol-name">comboAttrMap</span><small class="property-type">
+            &nbsp;ComboAttributeMap</small></h3>
+              <p>The map contains the key and the possible values as array for all combo attributes for the tag</p>
+              <dl class="dl-compact">
+              </dl>
+            </section>
+            <h2>Methods</h2>
+            <section>
+              <div class="symbol-detail-labels"><span class="label label-static">static</span></div>
+              <h3 id=".registerCodec"><span class="symbol-name">registerCodec</span><span class="signature"><span class="signature-params">(ctor)</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Register a constructor to the mxCodecRegistry</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>ctor</p>
+                      </td>
+                      <td>
+                        <p>function()</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the constructor to register</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <h3 id="addChildTag"><span class="symbol-name">addChildTag</span><span class="signature"><span class="signature-params">(tag)</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>tag</p>
+                      </td>
+                      <td>
+                        <p>AbstractTag</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the tag to add as child</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <h3 id="bindClickEvent"><span class="symbol-name">bindClickEvent</span><span class="signature"><span class="signature-params">(graph)</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Click event for the property editor</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>graph</p>
+                      </td>
+                      <td>
+                        <p><a href="Wireframe.html">Wireframe</a></p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the wireframe or graph</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <h3 id="createShared"><span class="symbol-name">createShared</span><span class="signature"><span class="signature-params">()</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Create the shared data for the attribute Empty function</p>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <h3 id="getCell"><span class="symbol-name">getCell</span><span class="signature"><span class="signature-params">()</span>&nbsp;&rarr; <span class="signature-returns"> UIControl</span></span>
+              </h3>
+              <p>Get the cell of the tag</p>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>UIControl</code>&nbsp;the ui element of the tag</p>
+                </dd>
+              </dl>
+              <h3 id="getChildTags"><span class="symbol-name">getChildTags</span><span class="signature"><span class="signature-params">()</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Get all child tags</p>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <h3 id="getComboAttrMap"><span class="symbol-name">getComboAttrMap</span><span class="signature"><span class="signature-params">()</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Get the map of the combo attributes</p>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <h3 id="getId"><span class="symbol-name">getId</span><span class="signature"><span class="signature-params">()</span>&nbsp;&rarr; <span class="signature-returns"> String</span></span>
+              </h3>
+              <p>Get the identifier as String</p>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>String</code>&nbsp;the id of the tag as String</p>
+                </dd>
+              </dl>
+              <h3 id="getYTextObserver"><span class="symbol-name">getYTextObserver</span><span class="signature"><span class="signature-params">()</span>&nbsp;&rarr; <span class="signature-returns"> function()</span></span>
+              </h3>
+              <p>Get the observer function for a string attribute</p>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>function()</code>&nbsp;the observer function for the ytext object</p>
+                </dd>
+              </dl>
+              <h3 id="initShared"><span class="symbol-name">initShared</span><span class="signature"><span class="signature-params">()</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Initialize the shared data Empty function</p>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <h3 id="initYText"><span class="symbol-name">initYText</span><span class="signature"><span class="signature-params">(attrName)</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>attrName</p>
+                      </td>
+                      <td>
+                        <p>String</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the name of the attribute</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <h3 id="setBooleanAttributeValue"><span class="symbol-name">setBooleanAttributeValue</span><span class="signature"><span class="signature-params">(name, value)</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Set the value for a boolean attribute in tagObj and the property editor</p>
+              <section>
+                <h4>Parameters</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>name</p>
+                      </td>
+                      <td>
+                        <p>String</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the name of the attribute</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>value</p>
+                      </td>
+                      <td>
+                        <p>Boolean</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>true or false</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <h3 id="setCell"><span class="symbol-name">setCell</span><span class="signature"><span class="signature-params">(cell)</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>cell</p>
+                      </td>
+                      <td>
+                        <p>UIControl</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>a reference to the cell that contains the tag</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <h3 id="setComboAttributeValue"><span class="symbol-name">setComboAttributeValue</span><span class="signature"><span class="signature-params">(name, value)</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Set the value for the combo attribute in tabObj and the property editor</p>
+              <section>
+                <h4>Parameters</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>name</p>
+                      </td>
+                      <td>
+                        <p>String</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the name of the attribute</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>value</p>
+                      </td>
+                      <td>
+                        <p>String</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the value for combo attribute</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <h3 id="toXML"><span class="symbol-name">toXML</span><span class="signature"><span class="signature-params">()</span>&nbsp;&rarr; <span class="signature-returns"> XMLDocument</span></span>
+              </h3>
+              <p>Serializes the Tag to XML</p>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>XMLDocument</code>&nbsp;the XML representation of the Tag</p>
+                </dd>
+              </dl>
+            </section>
+          </section>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on August 16, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>
