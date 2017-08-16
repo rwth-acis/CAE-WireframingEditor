@@ -7,7 +7,7 @@ import $ from 'jquery';
 import SyncMetaSelectOverlay from '../overlays/SyncMetaSelectOverlay.js';
 
 /**
- * @classdesc Live mapper for the CAE
+ * @classdesc Live mapper for the CAE. Its a Singleton class.
  * @constructor
  * @requires syncmeta-plugin
  */
@@ -19,12 +19,13 @@ function CAELiveMapper() {
         /**
          * Initialize the live mapping the the CAE frontend component model
          * @param {mxEditor} editor the editor
+         * @param {String} userId the id of the user which is just passed to the syncmeta-plugin module
          * @return {undefined}
          * @memberof CAELiveMapper
          */
-        init: function (editor) {
+        init: function (editor, userId) {
             //The live mapper starts here
-            SyncMeta.init(y);
+            SyncMeta.init(y, userId);
             var model = y.share.data.get('model');
             var widgetNodeId = null;
             var hasChildMap = {};
@@ -125,7 +126,7 @@ function CAELiveMapper() {
             SyncMeta.onEdgeDelete(function (event) {
                 mxLog.writeln('Edge deleted from the Widget: ' + JSON.stringify(event));
                 var cell = editor.graph.model.getCell(event.target);
-                if (event.type === 'Widget to HTML Element') {
+                if (cell && event.type === 'Widget to HTML Element') {
                     y.share.action.set(mxEvent.REMOVE, {
                         userId: y.db.userId,
                         cells: [cell.id]
@@ -134,10 +135,11 @@ function CAELiveMapper() {
             });
             SyncMeta.onNodeAttributeChange(function (value, entity, entityValueId, userId) {
                 var cell = editor.graph.model.getCell(entity);
+                if(!entityValueId) return;
                 var attr = entityValueId.substring(entityValueId.indexOf('[') + 1, entityValueId.length - 1);
                 switch (attr) {
                     case 'type': {
-                        if (!value || !cell || cell.constructor.HTML_NODE_NAME === value) return;
+                        if (!value || !cell || cell.constructor.HTML_NODE_NAME === value || cell.value.getAttribute('uiType') === value) return;
                         var UIControl = editor.getUIComponentFromHTMLName(value);
                         if (UIControl) {
                             mxCellsRemoveFlag = false;
@@ -225,7 +227,7 @@ function CAELiveMapper() {
                         if (y.share.nodes.get(cell.id) != null) return;
                         SyncMeta.createNode('HTML Element', 4500, 4500, 100, 100, 1, null, cell.id);
                         setTimeout(function () {
-                            SyncMeta.setAttributeValue(cell.id, 'type', cell.constructor.HTML_NODE_NAME);
+                            SyncMeta.setAttributeValue(cell.id, 'type', cell.constructor.HTML_NODE_NAME || cell.value.getAttribute('uiType'));
                             SyncMeta.createEdge('Widget to HTML Element', widgetNodeId, cell.id);
                             if (parent.id != '1') {
                                 var edgeId = SyncMeta.createEdge('hasChild', parent.id, cell.id);

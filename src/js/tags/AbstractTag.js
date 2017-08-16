@@ -1,4 +1,7 @@
 /*global y*/
+/**
+ * @module Tags
+ */
 import {
     mxCellOverlay,
     mxUtils,

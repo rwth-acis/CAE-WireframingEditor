@@ -1,4 +1,7 @@
 /*global y*/
+/**
+ * @module UIElements
+ */
 import Y from 'yjs';
 import UIText from './UIText.js';
 import {

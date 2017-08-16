@@ -1,4 +1,7 @@
 /*global y*/
+/**
+ * @module UIElements
+ */
 import {
     mxCell,
     mxCodec,
@@ -21,20 +24,28 @@ import TagRegistry from '../tags/TagRegistry.js';
 UIControl.prototype = new mxCell();
 UIControl.prototype.constructor = UIControl;
 window.UIControl = UIControl;
+
+/**
+ * The Name of element in the Wireframing editor
+ * @static 
+ * @default Default
+ * @readonly
+ */
+UIControl.NAME = "Default";
+
 /**
  * Base class for all UI components of the editor
  * @classdesc Base abstract class for all UI components of the editor. 
- * This class is never instantiated.
- * @abstract
  * @constructor 
  * @param {mxGeometry} geometry the width, height, x and y of the ui element
- * @param {string} style the style of the ui element
+ * @param {String} style the style of the ui element
+ * @param {String} type the type of the ui element
  * @extends mxCells
  * @requires TagRegistry
  * @requires CONST
  * @requires ComboAttributeMap
  */
-function UIControl(geometry, style) {
+function UIControl(geometry, style, type) {
     var that = this;
 
     /**
@@ -55,7 +66,7 @@ function UIControl(geometry, style) {
 
     uiObj.setAttribute('_id', '');
     uiObj.setAttribute('_class', '');
-    uiObj.setAttribute('uiType', this.constructor.name.toLowerCase());
+    uiObj.setAttribute('uiType', type || this.constructor.name.toLowerCase());
     
     /**
      * Contains the data of the tags assigned to the ui element.
@@ -71,7 +82,7 @@ function UIControl(geometry, style) {
      */
     var tagCounter = 0;
     if (!geometry)
-        geometry = new mxGeometry(0, 0, 128, 128);
+        geometry = new mxGeometry(0, 0, 78, 78 );
     if(!style)
         style =style = mxConstants.STYLE_SHAPE + "=default;" +
         mxConstants.STYLE_FILLCOLOR + "=white;" +
@@ -217,6 +228,15 @@ function UIControl(geometry, style) {
      */
     this.getComboAttrMap = function(){
         return comboAttrMap;
+    }
+
+    /**
+     * Set the uiType attribute
+     * @param {String} type the type of the ui control
+     * @return {undefined}
+     */
+    this.setType = function(type){
+        that.value.setAttribute('uiType', type);
     }
 }
 

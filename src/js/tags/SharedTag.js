@@ -1,3 +1,6 @@
+/**
+ * @module Tags
+ */
 import {mxUtils, mxImage} from '../misc/mxExport.js';
 import AbstractTag from './AbstractTag.js';
 import CONST from '../misc/Constants.js';

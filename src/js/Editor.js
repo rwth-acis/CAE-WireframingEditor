@@ -132,6 +132,12 @@ function Editor(wireframe, palette) {
         return group;
     };
     //-------------------------------------------------------------------
+
+     /**
+     * A map that maps the HTML tag name to the name of the of the class 
+     * representing the html element in the wireframing editor.
+     * @member {Object}
+     */
     var htmlNodeMap = {};
     htmlNodeMap[DivContainer.HTML_NODE_NAME] = DivContainer.NAME;
     htmlNodeMap[Paragraph.HTML_NODE_NAME] = Paragraph.NAME;
@@ -139,7 +145,17 @@ function Editor(wireframe, palette) {
     htmlNodeMap[TextArea.HTML_NODE_NAME] = TextArea.NAME;
     htmlNodeMap[Link.HTML_NODE_NAME] = Link.NAME;
     htmlNodeMap[TextBox.HTML_NODE_NAME] = TextBox.NAME;
+    htmlNodeMap[Image.HTML_NODE_NAME] = Image.NAME;
+    htmlNodeMap[AudioPlayer.HTML_NODE_NAME] = AudioPlayer.NAME;
+    htmlNodeMap[VideoPlayer.HTML_NODE_NAME] = VideoPlayer.NAME;
+    htmlNodeMap[TextNode.HTML_NODE_NAME] = TextNode.NAME;
 
+     /**
+     * Maps the HTML elements types defined in the VLS to their corresponding ui control element in the wireframing editor.
+     * First tries to look up the element in the htmlNodeMap and in the map-object of the config.json.
+     * If no match is found, use the default UIControl implementation.
+     * @member {Object}
+     */
     var vlsComponents = {};
     for (var key in vls.nodes) {
         var node = vls.nodes[key];
@@ -163,45 +179,66 @@ function Editor(wireframe, palette) {
         }
     }
 
-    var yfUIComponents = {
-        "TextNode": TextNode,
-        "Checkbox": CheckBox,
-        "Radio Button": RadioBtn,
-        "Image": Image,
-        "Audio Player": AudioPlayer,
-        "Video Player": VideoPlayer,
-        "Default": UIControl
-    };
+    /**
+     * A simple map the get the constructor function for the NAME of a ui element class.
+     * @member {Object}
+     */
+    var yfUIComponents = {};
+    yfUIComponents[UIControl.NAME] = UIControl;
     yfUIComponents[DivContainer.NAME] = DivContainer;
     yfUIComponents[Button.NAME] = Button;
     yfUIComponents[TextArea.NAME] = TextArea;
     yfUIComponents[Paragraph.NAME] = Paragraph;
     yfUIComponents[TextBox.NAME] = TextBox;
     yfUIComponents[Link.NAME] = Link;
+    yfUIComponents[TextNode.NAME] = TextNode;
+    yfUIComponents[Image.NAME] = Image;
+    yfUIComponents[AudioPlayer.NAME] = AudioPlayer;
+    yfUIComponents[VideoPlayer.NAME] = VideoPlayer;
+    yfUIComponents[CheckBox.NAME] = CheckBox;
+    yfUIComponents[RadioBtn.NAME] = RadioBtn;
 
-    var yfShapeMapping = {
-        "TextNode": mxConstants.STYLE_SHAPE + '=textnode;',
-        "Button": mxConstants.STYLE_SHAPE + '=button;',
-        "Link": mxConstants.STYLE_SHAPE + '=link;' + mxConstants.STYLE_FILLCOLOR + "=none;",
-        "TextBox": mxConstants.STYLE_SHAPE + '=textbox;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;',
-        "Checkbox": mxConstants.STYLE_SHAPE + '=checkbox;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;',
-        "Radio Button": mxConstants.STYLE_SHAPE + '=radio;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;',
-    };
+    /**
+     * The map contains as key as the name of the UIObjects and as value the style as String
+     * The shape has to be registered before to the mxCellRenderer-object of this class
+     * @member {Object}
+     */
+    var yfShapeMapping = {};
     yfShapeMapping[Paragraph.NAME] = mxConstants.STYLE_SHAPE + '=paragraph;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;';
     yfShapeMapping[TextArea.NAME] = mxConstants.STYLE_SHAPE + '=textarea;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;';
+    yfShapeMapping[TextNode.NAME] = mxConstants.STYLE_SHAPE + '=textnode;';
+    yfShapeMapping[Button.NAME] = mxConstants.STYLE_SHAPE + '=button;';
+    yfShapeMapping[Link.NAME] = mxConstants.STYLE_SHAPE + '=link;' + mxConstants.STYLE_FILLCOLOR + "=none;";
+    yfShapeMapping[TextBox.NAME] = mxConstants.STYLE_SHAPE + '=textbox;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;';
+    yfShapeMapping[CheckBox.NAME] = mxConstants.STYLE_SHAPE + '=checkbox;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;';
+    yfShapeMapping[RadioBtn.NAME] = mxConstants.STYLE_SHAPE + '=radio;' + mxConstants.STYLE_FILLCOLOR + "=white;" + +mxConstants.STYLE_STROKECOLOR + '=black;';
 
+    /**
+     * Adds a UI component to the palette and makes it drag&drop-able to the wireframe canvas
+     * @param {String} componentName the NAME of the UIControl-class
+     * @return {undefined}
+     */
     var addUIComponent = function (componentName) {
         var cell, type, shapeCell;
         var tmp = componentName;
         componentName = vlsComponents[componentName];
-        cell = new yfUIComponents[componentName]();
+        if(componentName === UIControl.NAME)
+            cell = new yfUIComponents[componentName](null, null, tmp);
+        else
+            cell = new yfUIComponents[componentName]();
         if (yfShapeMapping.hasOwnProperty(componentName))
             shapeCell = new UIControl(cell.geometry, yfShapeMapping[componentName]);
         else
             shapeCell = cell;
-        type = palette.createItem(shapeCell, componentName === 'Default' ? tmp : componentName, false);
+        type = palette.createItem(shapeCell, componentName === UIControl.NAME ? tmp : componentName, false);
         cell.makeTypeDraggable(type, wireframe);
     }
+    /**
+     * Get the name of the UI object class associated with the provided tag name
+     * @param {String} name the name of the html tag
+     * @return {String|undefined} the name for the html tag name in the yfUIComponents-map
+     * @see yfUIComponents
+     */
     this.getUIComponentFromHTMLName = function (name) {
         if (htmlNodeMap.hasOwnProperty(name)) {
             if (yfUIComponents.hasOwnProperty(htmlNodeMap[name])) {
@@ -209,9 +246,16 @@ function Editor(wireframe, palette) {
             }
         }
     }
+    /**
+     * Get the yfUIComponents-map
+     * Used by the ContextMenu-module to realize creation of ui elements via context menu
+     * @return {Object}  return the yfUIComponents-map
+     * @see ContextMenu
+     */
     this.getUIComponents = function () {
         return yfUIComponents;
     }
+
     for (var componentName in vlsComponents) {
         addUIComponent(componentName);
     }

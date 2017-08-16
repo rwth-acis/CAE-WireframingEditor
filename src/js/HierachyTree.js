@@ -68,7 +68,7 @@ function HierachyTree() {
             var cell = parent.children[i];
             $tree.jstree(true).create_node(cell.parent.id === '1' ? '#' : cell.parent.id, {
                 id: cell.id,
-                text: cell.constructor.NAME,
+                text: cell.constructor.NAME || cell.value.getAttribute('uiType'),
                 state: {
                     selected: false
                 },
@@ -91,7 +91,7 @@ function HierachyTree() {
                     var cell = parent.children[i];
                     $tree.jstree(true).create_node(cell.parent.id === '1' ? null : cell.parent.id, {
                         id: cell.id,
-                        text: cell.constructor.NAME,
+                        text: cell.constructor.NAME || cell.value.getAttribute('uiType'),
                         state: {
                             selected: false,
                             opened: true
@@ -140,7 +140,7 @@ function HierachyTree() {
                         if (!change.previous) {
                             $tree.jstree(true).create_node(change.child.parent.id === '1' ? '#' : change.child.parent.id, {
                                 id: change.child.id,
-                                text: change.child.constructor.NAME,
+                                text: change.child.constructor.NAME || change.child.value.getAttribute('uiType'),
                                 state: {
                                     selected: false,
                                     opened: true
@@ -196,7 +196,7 @@ function HierachyTree() {
         add: function (cell) {
             $tree.jstree(true).create_node(cell.parent.id === '1' ? '#' : cell.parent.id, {
                 id: cell.id,
-                text: cell.constructor.NAME,
+                text: cell.constructor.NAME || cell.value.getAttribute('uiType'),
                 state: {
                     selected: false,
                     opened: true
@@ -236,7 +236,7 @@ function HierachyTree() {
         group: function (group, cells) {
             $tree.jstree(true).create_node(group.parent.id === '1' ? '#' : group.parent.id, {
                 id: group.id,
-                text: group.constructor.NAME,
+                text: group.constructor.NAME || group.value.getAttribute('uiType'),
                 state: {
                     selected: false,
                     opened: true
@@ -260,7 +260,7 @@ function HierachyTree() {
             var helperFnc = function(cell){
                 $tree.jstree(true).create_node(cell.parent.id === '1' ? '#' : cell.parent.id, {
                     id: cell.id,
-                    text: cell.constructor.NAME,
+                    text: cell.constructor.NAME || cell.value.getAttribute('uiType'),
                     state: {
                         selected: false,
                         opened: true

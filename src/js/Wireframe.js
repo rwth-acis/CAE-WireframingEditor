@@ -197,12 +197,14 @@ function Wireframe(container, model) {
                 {
                     var doc = mxUtils.parseXml(event.value.data);
                     var codec = new mxCodec(doc);
+                    var type = doc.documentElement.getAttribute('uiType');
                     var elt = doc.documentElement.childNodes[1];
                     var cells = [];
                     while (elt != null) {
                         var cell = codec.decode(elt);
                         cell.setId(event.value.id);
                         if (cell.hasOwnProperty('initDOM')) cell.initDOM();
+                        cell.setType(type);
                         cells.push(cell);
                         elt = elt.nextSibling;
                     }

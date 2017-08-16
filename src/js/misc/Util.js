@@ -3,7 +3,12 @@ import { mxCodec, mxUtils, mxForm, mxGraph } from './mxExport.js';
 import $ from 'jquery';
 
 /**
- * Some helper functions
+ * @module Misc
+ */
+
+/**
+ * Some utilty functions to initilaize the wireframe from XML or save the wireframe to XML
+ * @classdesc A set of helper functions used by various modules and classes
  * @constructor
  */
 function Util() { }

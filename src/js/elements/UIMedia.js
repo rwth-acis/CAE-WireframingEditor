@@ -1,4 +1,7 @@
 /*global y*/
+/**
+ * @module UIElements
+ */
 import Y from 'yjs';
 import UIControl from './UIControl.js';
 

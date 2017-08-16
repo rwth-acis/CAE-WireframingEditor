@@ -31,3 +31,9 @@ The widget build resues the configuration of the production build. Additionally 
 ```sh
 $ npm run build:widget
 ```
+
+### Documentation Build
+The documentation can be found in the doc-folder. Make sure to follow the Installation step to install jsDoc and other modules required.
+```sh
+$ npm run doc
+```

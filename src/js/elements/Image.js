@@ -1,4 +1,7 @@
 /*global y*/
+/**
+ * @module UIElements
+ */
 import Y from 'yjs';
 import {
     mxConstants,
@@ -9,6 +12,23 @@ import UIControl from './UIControl.js';
 
 Image.prototype = new UIControl();
 Image.prototype.constructor = Image;
+
+/**
+ * The HTML node name
+ * @static 
+ * @default img
+ * @readonly
+ */
+Image.HTML_NODE_NAME = 'img';
+
+/**
+ * The Name in the wireframing editor
+ * @static 
+ * @default Image
+ * @readonly
+ */
+Image.NAME = "Image";
+
 window.Image = Image;
 
 var codec = mxUtils.clone(mxCodecRegistry.getCodec(mxCell));

@@ -1,4 +1,7 @@
 /*global y*/
+/**
+ * @module UIElements
+ */
 import Y from 'yjs';
 import UIText from './UIText.js';
 import {
@@ -29,14 +32,14 @@ TextArea.NAME = "Multi-Line Text Area";
 /**
  * @classdesc A HTMl textarea element
  * @constructor
- * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 200, 50)] the width, height, x and y of the ui element
+ * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 200, 55)] the width, height, x and y of the ui element
  * @extends UIText
  */
 function TextArea(geometry) {
     var text = 'Multi-Line text input area';
     // var text = 'hallo';
     if (!geometry)
-        geometry = new mxGeometry(0, 0, 200, 50);
+        geometry = new mxGeometry(0, 0, 200, 55);
 
     UIText.call(this, text, geometry);
     this.value.setAttribute('_placeholder', '');

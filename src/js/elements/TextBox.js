@@ -1,4 +1,6 @@
-/*global y*/
+/**
+ * @module UIElements
+ */
 import UIText from './UIText.js';
 import {
     mxGeometry, mxCodecRegistry, mxCell, mxUtils

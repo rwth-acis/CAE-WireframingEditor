@@ -1,4 +1,7 @@
 /*global y*/
+/**
+ * @module UIElements
+ */
 import Y from 'yjs';
 import {
     mxConstants,
@@ -10,6 +13,23 @@ window.VideoPlayer = VideoPlayer;
 VideoPlayer.prototype = new UIMedia();
 VideoPlayer.prototype.constructor = VideoPlayer;
 UIMedia.registerCodec(VideoPlayer);
+
+/**
+ * The HTML node name
+ * @static 
+ * @default video
+ * @readonly
+ */
+VideoPlayer.HTML_NODE_NAME = 'video';
+
+/**
+ * The Name in the wireframing editor
+ * @static 
+ * @default VideoPlayer
+ * @readonly
+ */
+VideoPlayer.NAME = "Video Player";
+
 /**
  * @classdesc The Video Player HTML 5 element
  * @constructor

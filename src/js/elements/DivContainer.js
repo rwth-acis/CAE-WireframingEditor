@@ -1,3 +1,6 @@
+/**
+ * @module UIElements
+ */
 import {
     mxUtils,
     mxConstants,
@@ -29,12 +32,12 @@ DivContainer.NAME = "UI Component Container";
 /**
  * @classdesc A HTMl div element
  * @constructor
- * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 250, 300)] the width, height, x and y of the ui element
+ * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 180, 150)] the width, height, x and y of the ui element
  * @extends UIControl
  */
 function DivContainer(geometry) {
     if (!geometry)
-        geometry = new mxGeometry(0, 0, 250, 300);
+        geometry = new mxGeometry(0, 0, 180, 150);
     var style = mxConstants.STYLE_SHAPE + "=" + mxConstants.SHAPE_SWIMLANE + ';' +
         mxConstants.STYLE_FILLCOLOR + "=none;" +
         mxConstants.STYLE_POINTER_EVENTS + "=true;" +

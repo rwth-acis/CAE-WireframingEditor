@@ -1,3 +1,6 @@
+/**
+ * @module UIElements
+ */
 import UIText from './UIText.js';
 import {
     mxGeometry

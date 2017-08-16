@@ -17,7 +17,8 @@ $(function () {
         TagRegistry.initFromVLS(vls);
         //Important load a vls before calling Main
         var editor = Main();
-        GoogleLogin();
-        CAELiveMapper.init(editor);
+        GoogleLogin().done(function (userId) {
+            CAELiveMapper.init(editor, userId);
+        });
     });
 });

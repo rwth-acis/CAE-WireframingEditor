@@ -1,4 +1,7 @@
 /*global y*/
+/**
+ * @module Tags
+ */
 import {
     mxUtils,
     mxImage
@@ -7,6 +10,8 @@ import AbstractTag from './AbstractTag.js';
 import CONST from '../misc/Constants.js';
 import Y from 'yjs';
 import TagRegistry from './TagRegistry.js';
+
+
 mxUtils.extend(GenericTag, AbstractTag);
 AbstractTag.registerCodec(GenericTag);
 

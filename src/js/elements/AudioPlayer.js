@@ -1,3 +1,6 @@
+/**
+ * @module UIElements
+ */
 import {
     mxConstants,
     mxGeometry
@@ -8,6 +11,22 @@ AudioPlayer.prototype = new UIMedia();
 AudioPlayer.prototype.constructor = AudioPlayer;
 window.AudioPlayer = AudioPlayer;
 UIMedia.registerCodec(AudioPlayer);
+
+/**
+ * The HTML node name
+ * @static 
+ * @default audio
+ * @readonly
+ */
+AudioPlayer.HTML_NODE_NAME = 'audio';
+
+/**
+ * The Name in the wireframing editor
+ * @static 
+ * @default AudioPlayer
+ * @readonly
+ */
+AudioPlayer.NAME = "Audio Player";
 
 /**
  * @classdesc The Audio Player HTML 5 element

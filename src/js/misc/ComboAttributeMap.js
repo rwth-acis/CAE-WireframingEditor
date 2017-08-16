@@ -1,4 +1,8 @@
 /**
+ * @module Misc
+ */
+
+/**
  * A simple map to handle combo attributes for the Wireframe Model, UI Controls and Tags
  * @constructor 
  */

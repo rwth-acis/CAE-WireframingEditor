@@ -1,4 +1,7 @@
 /*global y*/
+/**
+ * @module UIElements
+ */
 import {
     mxConstants
 } from '../misc/mxExport.js';
