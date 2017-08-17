@@ -51,7 +51,7 @@ export default function (disableDragging) {
       wireframe.maximumGraphBounds = new mxRectangle(0, 0, parseInt(model.getAttribute('width')), parseInt(model.getAttribute('height')));
       var bounds = wireframe.getBoundingBox(wireframe.getDefaultParent().children);
       var name = model.getMeta().getAttribute('_name');
-      if (name.length > 0) {
+      if (name && name.length > 0) {
         $('#draggingBar').append(name);
       }
       model.initSharedData();

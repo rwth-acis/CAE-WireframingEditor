@@ -256,6 +256,14 @@ function Editor(wireframe, palette) {
         return yfUIComponents;
     }
 
+    /**
+     * Currently this function is never used. REMOVE IT
+     * @param {String} name the html tag name
+     * @return {undefined|String} the name of the corresponding ui element
+     */
+    this.getUIComponentNameForTagName = function(name){
+        return htmlNodeMap.hasOwnProperty(name) ? htmlNodeMap[name] : undefined;
+    }
     for (var componentName in vlsComponents) {
         addUIComponent(componentName);
     }

@@ -26,8 +26,9 @@ function WireframeModel() {
     var xmlDoc = mxUtils.createXmlDocument();
     var meta = xmlDoc.createElement('WireframeMeta');
     var comboAttrMap = new ComboAttributeMap();
-    var exclude = ['width', 'height'];
     var strAttrs = [];
+    /*
+    var exclude = ['width', 'height'];
     if (window.hasOwnProperty('vls')) {
         for (var key in vls.nodes) {
             var node = vls.nodes[key];
@@ -50,7 +51,7 @@ function WireframeModel() {
             }
 
         }
-    }
+    }*/
 
     meta.setAttribute('width', '500');
     meta.setAttribute('height', '500');

@@ -11,8 +11,12 @@ import {
 import $ from 'jquery';
 import Util from './misc/Util.js';
 import CONST from './misc/Constants.js';
-import FrontendComponentMapper from './mapper/CAE.js';
+import {
+    WirefarmeToModel,
+    ModelToWireframe
+} from './mapper/CAE.js';
 import HierachyTree from './HierachyTree.js';
+
 
 Toolbox.prototype = new mxDefaultToolbar();
 Toolbox.prototype.constructor = Toolbox;
@@ -98,7 +102,7 @@ function Toolbox(container, editor) {
             mxLog.show();
     });
 
-    editor.addAction(CONST.ACTIONS.IMPORT, function () {
+    editor.addAction(CONST.ACTIONS.IMPORT, function (editor) {
         var input = document.createElement('input');
         input.type = 'file';
 
@@ -109,9 +113,25 @@ function Toolbox(container, editor) {
             fileReader = new FileReader();
             fileReader.onload = function (e) {
                 var data = e.target.result;
-                y.share.data.set('wireframe', data);
-                y.share.action.set('reload', true);
+                try {
+                    var json = JSON.parse(data);
+                    //transform model to wireframe
+                    var wirefarme = ModelToWireframe(json, editor);
+                    //apply layout
+                    y.share.data.set('wireframe', wirefarme);
+                    y.share.action.set('reload', true);
+                } catch (e) {
+                    console.error(e);
+                    try {
+                        $.parseXML(data);
+                        y.share.data.set('wireframe', data);
+                        y.share.action.set('reload', true);
+                    } catch (e) {
+                        console.error('no valid wireframe model or front end component model');
+                    }
+                }
                 //TODO improve import
+
             };
             files = this.files;
             if (!files || files.length === 0) return;
@@ -125,16 +145,16 @@ function Toolbox(container, editor) {
         Util.Save(editor.graph);
     })
 
-    editor.addAction(CONST.ACTIONS.SYNC, function(editor){
-        var frontendModel = new FrontendComponentMapper(editor.graph);
+    editor.addAction(CONST.ACTIONS.SYNC, function (editor) {
+        var frontendModel = WirefarmeToModel(editor.graph);
         y.share.data.set('model', frontendModel);
         y.share.canvas.set('ReloadWidgetOperation', 'import');
     });
 
-    editor.addAction(CONST.ACTIONS.HIERACHY_TREE, function(editor){
-        if(HierachyTree.isVisible())
+    editor.addAction(CONST.ACTIONS.HIERACHY_TREE, function (editor) {
+        if (HierachyTree.isVisible())
             HierachyTree.hide();
-        else 
+        else
             HierachyTree.show();
     })
 
