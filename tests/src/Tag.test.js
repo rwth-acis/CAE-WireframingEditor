@@ -2,11 +2,11 @@
 import {expect} from 'chai';
 
 /**
- * @param {XMlDocument} tagObj the tag object from xml
- * @param {UIControl} cell 
- * @param {Wireframe} wireframe
+ * @param {XMlDocument} x_tagObj the tag object from xml
+ * @param {UIControl} cell the cell 
+ * @return {undefined}
  */
-export default function(x_tagObj, cell, wireframe){
+export default function(x_tagObj, cell){
     var t = cell.getTagById(x_tagObj.id);
 
     describe('Tag element check for ' + x_tagObj.getAttribute('tagType') + ': ' + x_tagObj.id.replace(cell.getId()+'_',''), function(){

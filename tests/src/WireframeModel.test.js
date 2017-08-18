@@ -37,9 +37,9 @@ export default function(xmlDoc, wireframe){
             }
         });
 
-        it('Check the Name in the Wireframe bar', function(){
+        /*it('Check the Name in the Wireframe bar', function(){
             expect(model.getMeta().getAttribute('_name')).to.be.equal(wireframe.container.previousElementSibling.innerText);
             expect(xmlDoc.getAttribute('_name')).to.be.equal(wireframe.container.previousElementSibling.innerText);
-        });
+        });*/
     });
 };

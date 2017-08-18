@@ -10,7 +10,7 @@
     "build:dev": "webpack --env=dev --progress --profile --colors",
     "build:dist": "webpack --env=prod --progress --profile --colors",
     "build:widget": "node task/pre.js && webpack --env=widget --progress --profile --colors && node task/post.js",
-    "devtest": "webpack-dev-server --config webpack.test.js",
+    "devtest": "webpack-dashboard -- webpack-dev-server --config webpack.test.js",
     "doc": "./node_modules/.bin/jsdoc -r --debug -t ./node_modules/jsdoc-baseline --verbose --readme README.md -c jsdoc.conf.json -d doc"
   },
   "author": "Mario Rosenstengel",
@@ -27,6 +27,7 @@
     "jsdoc-baseline": "https://github.com/hegemonic/baseline/tarball/master",
     "json-loader": "^0.5.4",
     "mocha": "^3.4.2",
+    "raw-loader": "^0.5.1",
     "style-loader": "^0.18.1",
     "webpack": "^2.7.0",
     "webpack-dashboard": "^0.4.0",

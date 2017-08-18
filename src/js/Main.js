@@ -19,9 +19,11 @@ import Palette from './Palette.js';
 import Editor from './Editor.js';
 import Toolbox from './Toolbox.js';
 import HierachyTree from './HierachyTree.js';
+
 /**
  * The Main function of the Wireframing editor
- * @param {boolean} disableDragging 
+ * @param {boolean} disableDragging true if drag&drop of the wireframe canvas should be disabled else false
+ * @return {Editor} the editor
  */
 export default function (disableDragging) {
   if (!mxClient.isBrowserSupported()) {
@@ -55,6 +57,7 @@ export default function (disableDragging) {
         $('#draggingBar').append(name);
       }
       model.initSharedData();
+      Util.Save(wireframe);
     }
 
     var htmlToolbox = document.getElementById('toolbox');

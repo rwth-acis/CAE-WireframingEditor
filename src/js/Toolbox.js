@@ -12,7 +12,7 @@ import $ from 'jquery';
 import Util from './misc/Util.js';
 import CONST from './misc/Constants.js';
 import {
-    WirefarmeToModel,
+    WireframeToModel,
     ModelToWireframe
 } from './mapper/CAE.js';
 import HierachyTree from './HierachyTree.js';
@@ -146,7 +146,7 @@ function Toolbox(container, editor) {
     })
 
     editor.addAction(CONST.ACTIONS.SYNC, function (editor) {
-        var frontendModel = WirefarmeToModel(editor.graph);
+        var frontendModel = WireframeToModel(editor.graph.model);
         y.share.data.set('model', frontendModel);
         y.share.canvas.set('ReloadWidgetOperation', 'import');
     });

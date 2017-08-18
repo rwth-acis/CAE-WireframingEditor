@@ -47,7 +47,9 @@ function Palette(container) {
 
     /**
      * Get a node entry to the given parent
-     * @param {DOM} parent 
+     * @param {mxCell} cell the cell
+     * @param {Boolean} showLabel  label visibility of the graph. default is false
+     * @return {mxCell} the new cell 
      */
     var getNodeEntry = function (cell, showLabel) {
         graph.labelsVisible = showLabel || false;
@@ -85,7 +87,10 @@ function Palette(container) {
     }
 
     /**
-     * @param{mxCell} cell
+     * @param {mxCell} cell the cell
+     * @param {String} name the name of the item in the palette
+     * @param {Boolean} showLabel true if the label should be shown else false. Default is false
+     * @return {DOM} the item
      */
     this.createItem = function (cell, name, showLabel) {
         var elt = document.createElement('a');

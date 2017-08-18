@@ -154,4 +154,13 @@ Util.bindSharedAttributes = function (entity, form) {
         }
     });
 }
+
+Util.GetValueFormAttributes = function(node, name){
+    for(var key in node.attributes){
+        if(node.attributes.hasOwnProperty(key) && node.attributes[key].name  === name){
+            return node.attributes[key].value.value;
+        }
+    }
+    return undefined;
+}
 export default Util;

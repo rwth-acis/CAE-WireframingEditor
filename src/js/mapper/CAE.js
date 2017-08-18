@@ -7,16 +7,15 @@ import {mxUtils} from '../misc/mxExport.js';
 
 /**
  * Map a wireframe model to a CAE frontend component model
- * @param {Wireframe} graph the wireframe to transform to a SyncMeta model 
+ * @param {WireframeModel} wireframeModel the wireframe model to transform to a SyncMeta model 
  * @return {Object} the CAE frontend component model
  */
-function WirefarmeToModel(graph) {
+function WireframeToModel(wireframeModel) {
     var model = {
         attributes: {},
         nodes: {},
         edges: {}
     };
-    var model = graph.model;
     var nodeTpl = '{"label":<%=labelAttr%>, "left": 4500, "top":4500, "width":100, "height":100, "zIndex": 1, "type":"<%=type%>", "attributes":<%=attributes%>}';
     var attrTpl = '{"id":"<%=id%>[<%=attrName%>]", "name":"<%=attrName%>", "value":{"id":"<%=id%>[<%=attrName%>]", "name":"<%=attrName%>", "value":<%=value%>}<% if(option) {%> ,"option":<%=value%><%}%> }';
     var edgeTpl = '{"label":<%=labelAttr%>, "source":"<%=srcId%>", "target":"<%=targetId%>", "attributes":{}, "type":"<%=type%>"}';
@@ -29,8 +28,8 @@ function WirefarmeToModel(graph) {
 
     var label;
     var attributes = {};
-    for (var i = 0; i < model.getMeta().attributes.length; i++) {
-        var attr = model.getMeta().attributes[i];
+    for (var i = 0; i < wireframeModel.getMeta().attributes.length; i++) {
+        var attr = wireframeModel.getMeta().attributes[i];
         var attrName = attr.name[0] === '_' ? attr.name.slice(1) : attr.name;
         var json = attrCompiled({
             id: widgetNodeId,
@@ -44,6 +43,13 @@ function WirefarmeToModel(graph) {
         attributes[id] = JSON.parse(json);
 
     }
+    if(!label)
+        label = attrCompiled({
+            id: widgetNodeId,
+            attrName: 'label',
+            value: '""',
+            option: false
+        });
     var node = JSON.parse(nodeCompiled({
         type: 'Widget',
         labelAttr: label,
@@ -147,7 +153,7 @@ function WirefarmeToModel(graph) {
         }
 
     }
-    recursion(graph.getDefaultParent());
+    recursion(wireframeModel.root.children[0]);
 
     return model;
 }
@@ -164,15 +170,7 @@ function ModelToWireframe(model, editor) {
     var doc = mxUtils.parseXml(xml);
     var wireframe = doc.documentElement;
     var root = wireframe.getElementsByTagName('root')[0];
-     function GetValueFormAttributes(node, name){
-        for(var key in node.attributes){
-            if(node.attributes.hasOwnProperty(key) && node.attributes[key].name  === name){
-                return node.attributes[key].value.value;
-            }
-        }
-        return undefined;
-    }
-
+    
     var childMap = {};
     for (var key in model.edges) {
         if (model.edges.hasOwnProperty(key)) {
@@ -188,12 +186,12 @@ function ModelToWireframe(model, editor) {
             var node = model.nodes[key];
             switch(node.type){
                 case 'Widget':{
-                    wireframe.setAttribute('height', GetValueFormAttributes(node, 'height'));
-                    wireframe.setAttribute('width', GetValueFormAttributes(node, 'height'));
+                    wireframe.setAttribute('height', Util.GetValueFormAttributes(node, 'height'));
+                    wireframe.setAttribute('width', Util.GetValueFormAttributes(node, 'width'));
                     break;
                 }
                 case 'HTML Element':{
-                    var type = GetValueFormAttributes(node, 'type');
+                    var type = Util.GetValueFormAttributes(node, 'type');
                     var Ctor = editor.getUIComponentFromHTMLName(type);
                     if(Ctor){
                         var ui = new Ctor();
@@ -206,7 +204,7 @@ function ModelToWireframe(model, editor) {
                         uiObj.lastElementChild.firstChild.setAttribute('y', 0);
 
                         //tagRoot
-                        var collaborative = GetValueFormAttributes(node, 'collaborative');
+                        var collaborative = Util.GetValueFormAttributes(node, 'collaborative');
                         if(collaborative){
                             var sharedTagXml = '<tagObj id="'+ key + '_'+ Util.GUID() +'" parent="#" tagType="Shared" isUnique="true"/>';
                             var tagObj = mxUtils.parseXml(sharedTagXml).documentElement;
@@ -229,6 +227,6 @@ function ModelToWireframe(model, editor) {
 }
 
 export {
-    WirefarmeToModel,
+    WireframeToModel,
     ModelToWireframe
 };

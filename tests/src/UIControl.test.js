@@ -4,7 +4,8 @@ import TagTest from './Tag.test.js';
 
 /**
  * @param {XmlDocument} uiObj the uiObj from XML
- * @param {Wireframe} wireframe 
+ * @param {Wireframe} wireframe the wireframe graph
+ * @return {undefined}
  */
 export default function(uiObj, wireframe){
     var cell = wireframe.getModel().getCell(uiObj.id);
