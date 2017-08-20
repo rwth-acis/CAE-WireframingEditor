@@ -1,4 +1,3 @@
-/*global y*/
 require(['../node_modules/mocha/mocha.css']);
 import {
     mxWindow,
@@ -6,13 +5,18 @@ import {
 } from '../src/js/misc/mxExport.js';
 require('../node_modules/mocha/mocha.js');
 import $ from 'jquery';
-import WireframeTest from './src/Wireframe.test.js';
-import WireframeToModelTest from './src/WireframeToModel.test.js';
-import ModelToWireframeTest from './src/ModelToWireframe.test.js';
 import GoogleLogin from '../src/js/GoogleLogin.js';
 import YjsSync from '../src/js/misc/YjsSync.js';
 import Main from '../src/js/Main.js';
 import TagRegistry from '../src/js/tags/TagRegistry.js';
+
+
+import WireframeTest from './src/Wireframe.test.js';
+import WireframeToModelTest from './src/WireframeToModel.test.js';
+import ModelToWireframeTest from './src/ModelToWireframe.test.js';
+import OperationsTest from './src/Operations.test.js';
+
+
 
 $(function () {
     YjsSync('yireframetesting').done(function (y) {
@@ -29,7 +33,7 @@ $(function () {
             GoogleLogin();
 
             mocha.setup('bdd');
-            mocha.checkLeaks();
+            //mocha.checkLeaks();
             //mocha.timeout(1000);
 
             var tb = document.getElementById('mocha');
@@ -42,6 +46,7 @@ $(function () {
             WireframeTest(doc.documentElement, editor.graph);
             WireframeToModelTest();
             ModelToWireframeTest(editor);
+            OperationsTest(editor);                        
             mocha.run();
 
     });

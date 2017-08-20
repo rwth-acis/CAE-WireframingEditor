@@ -22,12 +22,4 @@ export default function (xmlDoc, wireframe) {
             }
         });
     });
-
-    describe('Test Operations on the wireframe', function(){
-        it('Test copy & paste');
-        it('Test delete');
-        it('Test undo & redo');
-        it('Test grouping');
-        it('Test export');
-    });
 }

@@ -94,12 +94,14 @@ function UIControl(geometry, style, type) {
     this.setVertex(true);
 
     /**
+     * The callback method for the makeTypeDraggable-function
+     * TODO: Find a proper name for the function
      * @param  {Wireframe} wf The wireframe
      * @param  {object} evt a event which is not used
      * @param  {mxCell} dropTarget the target to add the new cell
      * @param  {Integer} x0 x-coordinate
      * @param  {Integer} y0 y-corrdinate
-     * @return {undefined}
+     * @return {String} the id of the created ui component
      */
     this.funct = function (wf, evt, dropTarget, x0, y0) {
         wf.stopEditing(false);
@@ -115,13 +117,14 @@ function UIControl(geometry, style, type) {
         var result = encoder.encode(v);
 
         var xml = mxUtils.getXml(result);
-
+        var id = Util.GUID();
         y.share.action.set(mxEvent.ADD_VERTEX, {
             userId: y.db.userId,
-            id: Util.GUID(),
+            id: id,
             data: xml,
             parent: dropTarget ? dropTarget.getId() : null
         });
+        return id;
     }
     
     /**
@@ -277,6 +280,7 @@ UIControl.prototype.setBooleanAttributeValue = function (name, value) {
         $input[0].checked = value;
     $('.wfSave').click();
 }
+
 /**
  * Set the value of a combo attribute in the property editor and the ui element
  * @param  {String} name the name of the attribute
@@ -334,6 +338,7 @@ UIControl.prototype.containsTagType = function (tag) {
     }
     return false;
 }
+
 /**
  * Returns the observer function for a string attribute of a ui element
  * @return {Function} the observer for a ytext 

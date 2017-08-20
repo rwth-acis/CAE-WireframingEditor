@@ -140,6 +140,20 @@ function Wireframe(container, model) {
             }
         }
     });
+    
+    /**
+     * Overrides the moveCells-method from the parent class to make the move NRTC 
+     * @param {UIObject[]} cells the cells to move
+     * @param {Integer} dx the direction of the x-axis
+     * @param {Integer} dy the direction of the y-axis
+     * @param {Boolean} clone should the cell be cloned. default = false
+     * @param {UIObject} target the parent
+     * @param {*} evt never used
+     * @param {*} mapping never used
+     * @param {Boolean} shared indicates if its from the shared callback or not. TODO check this could be done better
+     * @return {UIObject[]} the cells which were moved as an array
+     * @see {@link https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph.moveCells | moveCells}
+     */
     that.moveCells = function (cells, dx, dy, clone, target, evt, mapping, shared) {
         var cells = mxGraph.prototype.moveCells.apply(this, arguments);
         if (cells.length > 0 && sharedAction && !shared) {
@@ -150,6 +164,15 @@ function Wireframe(container, model) {
         return cells;
     };
 
+    /**
+     * Overrides the resizeCells-method from the parent calls mxCell to make it NRTC
+     * @param {UIObjec[]} cells the cells to be resized 
+     * @param {mxRectangle[]} bounds the new bounds for each cell.
+     * @param {Boolean} recurse recurseveily resize the childs as well
+     * @param {Boolean} shared shared indicates if its from the shared callback or not. TODO check this could be done better
+     * @return {UIObject[]} the cells which were resized
+     * @see {@link https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph.resizeCells | resizeCells}
+     */
     that.resizeCells = function (cells, bounds, recurse, shared) {
         var cells;
         that.getModel().beginUpdate();
