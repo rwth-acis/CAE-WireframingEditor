@@ -148,8 +148,23 @@ function HierachyTree() {
                                 pos: change.child.parent.getIndex(change.child)
                             });
                             addRecursive(change.child);
-                        } else
-                            $tree.jstree(true).delete_node(change.child.id);
+                        } else{
+                            if((change.previous.constructor.name === 'DivContainer' || change.previous.id === '1') && change.parent){
+                                $tree.jstree(true).delete_node(change.child.id);
+                                $tree.jstree(true).create_node(change.parent.id === '1' ? '#' : change.parent.id, {
+                                    id: change.child.id,
+                                    text: change.child.constructor.NAME || change.child.value.getAttribute('uiType'),
+                                    state: {
+                                        selected: false,
+                                        opened: true
+                                    },
+                                    pos: change.child.parent.getIndex(change.child)
+                                });                            
+                                addRecursive(change.child);
+                            }else
+                                $tree.jstree(true).delete_node(change.child.id);
+                        }
+                            
                     }
                 }
             };
@@ -222,7 +237,10 @@ function HierachyTree() {
          * @memberof HierachyTree
          */
         move: function (cell, parent, position) {
-            $tree.jstree(true).move_node(cell, parent === '1' ? '#' : parent, position);
+            var oldParent = $tree.jstree(true).get_parent(cell);
+            oldParent = oldParent === '#' ? '1' : oldParent; //if root in mxGraph is '1' in jsTree '#' map them to compare
+            if(oldParent !== parent)
+                $tree.jstree(true).move_node(cell, parent === '1' ? '#' : parent, position);
         },
         /**
          * Group a set of cells
