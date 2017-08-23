@@ -108,7 +108,7 @@ var mxGraphLayout = mxLib.mxGraphLayout;
 
 "use strict";
 var widgetMode = true;
-var basePath = 'http://localhost:8080/';
+var basePath = 'https://rwth-acis.github.io/CAE-WireframingEditor/role/';
 var constants = {
     MXGRAPH: {
         IMAGE_BASE_PATH: "images"
