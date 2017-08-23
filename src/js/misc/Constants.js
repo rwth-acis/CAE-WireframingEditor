@@ -1,5 +1,5 @@
-var widgetMode = true;
-var basePath = 'http://localhost:8080/';
+var widgetMode = false;
+var basePath = '<%=basePath%>';
 var constants = {
     MXGRAPH: {
         IMAGE_BASE_PATH: "images"
