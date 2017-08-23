@@ -21,9 +21,10 @@ export default function(uiObj, wireframe){
     
         it('Check geometry of the element', function(){
             var x_geometry = type.firstElementChild;
-
-            expect(cell.geometry.x).to.be.equal(parseInt(x_geometry.getAttribute('x')));
-            expect(cell.geometry.y).to.be.equal(parseInt(x_geometry.getAttribute('y')));
+            if(x_geometry.hasAttribute('x'))
+                expect(cell.geometry.x).to.be.equal(parseInt(x_geometry.getAttribute('x')));
+            if(x_geometry.hasAttribute('y'))
+                expect(cell.geometry.y).to.be.equal(parseInt(x_geometry.getAttribute('y')));
             expect(cell.geometry.width).to.be.equal(parseInt(x_geometry.getAttribute('width')));
             expect(cell.geometry.height).to.be.equal(parseInt(x_geometry.getAttribute('height')));
         });

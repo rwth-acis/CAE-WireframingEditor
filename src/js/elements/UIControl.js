@@ -313,7 +313,7 @@ UIControl.prototype.getTagById = function (id) {
     if (this.hasOwnProperty('overlays') && this.overlays) {
         for (var i = 0; i < this.overlays.length; i++) {
             var tag = this.overlays[i];
-            if (tag.constructor.name !== 'UserOverlay' && tag.constructor.name !== 'EditOverlay') {
+            if (tag.constructor.name !== 'UserOverlay' && tag.constructor.name !== 'EditOverlay' && tag.constructor.name !== 'SyncMetaSelectOverlay') {
                 if (tag.tagObj.getAttribute('id') === id) {
                     return tag;
                 }

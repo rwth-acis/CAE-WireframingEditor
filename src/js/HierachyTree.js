@@ -173,7 +173,7 @@ function HierachyTree() {
 
             wnd = new mxWindow('Hierachy', $tree[0], 300, 200, '100%', '40%', true, true);
             wnd.destroyOnClose = false;
-            wnd.setVisible(true);
+            wnd.setVisible(false);
             wnd.setMaximizable(false);
             wnd.setResizable(false);
             wnd.setClosable(true);
