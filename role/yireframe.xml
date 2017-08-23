@@ -13,7 +13,7 @@
   <Content type="html">
     <![CDATA[
          
-  <link href="http://localhost:8080/css/bundle.css" rel="stylesheet">
+  <link href="https://rwth-acis.github.io/CAE-WireframingEditor/role/css/bundle.css" rel="stylesheet">
 
 
 <script src="manifest.js"></script>
