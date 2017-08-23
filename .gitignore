@@ -4,3 +4,4 @@ dist
 widget
 npm-debug.log
 doc
+task/config.json
