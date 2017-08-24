@@ -1,4 +1,4 @@
-/*global y, vls*/
+/*global y*/
 import {
     mxGraphModel,
     mxUtils,
@@ -8,6 +8,7 @@ import $ from 'jquery';
 import Y from 'yjs';
 import _ from 'lodash';
 import ComboAttributeMap from './misc/ComboAttributeMap.js';
+import Util from './misc/Util.js';
 
 mxUtils.extend(WireframeModel, mxGraphModel);
 
@@ -53,28 +54,63 @@ function WireframeModel() {
         }
     }*/
 
+    meta.setAttribute('id', Util.GUID());
     meta.setAttribute('width', '500');
     meta.setAttribute('height', '500');
     mxGraphModel.call(this);
 
+    /**
+     * Get the meta data object of the wireframe model
+     * It consists of information for the widget canvas
+     * @return {XMLDocument} the meta as a XMLDocument
+     */
     this.getMeta = function () {
         return meta;
     }
+
+    /**
+     * Set a value for attribute with the given name
+     * @param {String} name the name of the attribute 
+     * @param {string|Integer|Boolean} value the value of the attribute
+     * @return {Boolean} true if the meta data object has the attribute, false if the attribute does not exists
+     */
     this.setAttribute = function (name, value) {
         if (!meta.hasAttribute(name)) return false;
         meta.setAttribute(name, value);
         return true;
     }
+
+    /**
+     * Get the attribute value for a give attribute name
+     * @param {String} name the name of the attribute
+     * @return {String} the value of the attribute
+     */
     this.getAttribute = function (name) {
         return meta.getAttribute(name);
     }
+
+    /**
+     * initialize the meta data object with a give XMLDocument
+     * @param {XMLDocument} m the meta data object
+     * @return {undefined}
+     */
     this.initMetaFromXml = function (m) {
         meta = m;
     }
+
+    /**
+     * Get the map for the combo attribtues
+     * @return {ComboAttributeMap} the ComboAttributeMap-instance
+     */
     this.getComboAttrMap = function () {
         return comboAttrMap;
     }
 
+    /**
+     * initialize a shared y-text  type for the give attribute name
+     * @param {String} attrName the attribute name
+     * @return {undefined}
+     */
     var initYText = function (attrName) {
         var ytext = y.share.attrs.get('meta' + attrName, Y.Text);
         if (!ytext)
@@ -84,6 +120,11 @@ function WireframeModel() {
             meta.setAttribute(attrName, ytext.toString());
         }
     }
+
+    /**
+     * Get the observer function for the y-text types
+     * @return {Function} the observer function
+     */
     this.getYTextObserver = function () {
         var observer = _.debounce(function (evt) {
             var value = evt.object.toString();
@@ -94,6 +135,11 @@ function WireframeModel() {
         }, 500);
         return observer;
     }
+
+    /**
+     * Initilaize the shared y-text data types for the wireframe model
+     * @return {undefined}
+     */
     this.initSharedData = function () {
         for (var i = 0; i < strAttrs.length; i++) {
             initYText(strAttrs[i]);

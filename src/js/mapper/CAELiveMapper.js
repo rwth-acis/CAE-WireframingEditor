@@ -74,6 +74,9 @@ function CAELiveMapper() {
 
             }
 
+            //if no widget node is found dont initialize the events
+            if(!widgetNodeId) return;
+
             SyncMeta.onNodeAdd(function (event) {
                 mxLog.writeln('Node was created in SyncMeta: ' + JSON.stringify(event));
                 nodeCreateMap[event.id] = event;
@@ -174,7 +177,7 @@ function CAELiveMapper() {
                         if (value) {
                             var Tag = TagRegistry.getClass('Shared');
                             var tag = new Tag(cell, new mxPoint(-CONST.TAG.SIZE * cell.getTagCounter(), 0));
-                            if (cell && tag && userId) {
+                            if (cell && tag && userId && !cell.containsTagType(tag)) {
                                 mxCellOverlayAddFlag = false;
                                 mxGraph.prototype.addCellOverlay.apply(editor.graph, [cell, tag]);
                                 cell.addTag(tag);   
@@ -347,6 +350,7 @@ function CAELiveMapper() {
                 }
 
             });
+        
         },
         /**
          * Get a shared widget attribute with the given name

@@ -1,4 +1,3 @@
-/*global mxLog*/
 import $ from 'jquery';
 import RoleLogin from './js/ROLELogin.js';
 import YjsSync from './js/misc/YjsSync.js';

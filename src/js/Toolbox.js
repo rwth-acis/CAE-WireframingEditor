@@ -146,7 +146,7 @@ function Toolbox(container, editor) {
     })
 
     editor.addAction(CONST.ACTIONS.SYNC, function (editor) {
-        var frontendModel = WireframeToModel(editor.graph.model);
+        var frontendModel = WireframeToModel(editor.graph.model, y.share.data.get('metamodel'));
         y.share.data.set('model', frontendModel);
         y.share.canvas.set('ReloadWidgetOperation', 'import');
     });

@@ -8,9 +8,34 @@ import {mxUtils} from '../misc/mxExport.js';
 /**
  * Map a wireframe model to a CAE frontend component model
  * @param {WireframeModel} wireframeModel the wireframe model to transform to a SyncMeta model 
+ * @param {Object} vls the vls of the metamodel
  * @return {Object} the CAE frontend component model
  */
-function WireframeToModel(wireframeModel) {
+function WireframeToModel(wireframeModel, vls) {
+    var htmlAttributesMap = {}, widgetAttributesMap = {};
+    function getAttributeMap(attributes){
+        var map = {};
+        for(var attrId in attributes){
+            if(attributes.hasOwnProperty(attrId)){
+                var attr = attributes[attrId];
+                map[attr.key] = attrId;
+            }
+        }
+        return map;
+    }
+    for(var nodeId in vls.nodes){
+        if(vls.nodes.hasOwnProperty(nodeId)){
+            var nodeType = vls.nodes[nodeId];
+            switch(nodeType.label){
+                case 'HTML Element':
+                    htmlAttributesMap = getAttributeMap(nodeType.attributes);
+                break;
+                case 'Widget':
+                    widgetAttributesMap = getAttributeMap(nodeType.attributes);
+                break;
+            }
+        }
+    }
     var model = {
         attributes: {},
         nodes: {},
@@ -24,7 +49,11 @@ function WireframeToModel(wireframeModel) {
     var edgeCompiled = _.template(edgeTpl);
 
     //Initialize the root Widget node
-    var widgetNodeId = Util.GUID();
+    var widgetNodeId;
+    if(wireframeModel.getMeta().hasAttribute('id'))
+        widgetNodeId = wireframeModel.getMeta.getAttribute('id');
+    else
+        widgetNodeId = Util.GUID();
 
     var label;
     var attributes = {};
@@ -39,8 +68,9 @@ function WireframeToModel(wireframeModel) {
         });
         if (attrName === 'name')
             label = json;
-        var id = Util.GUID();
-        attributes[id] = JSON.parse(json);
+        var id = widgetAttributesMap[attrName];
+        if(id)
+            attributes[id] = JSON.parse(json);
 
     }
     if(!label)
@@ -66,28 +96,24 @@ function WireframeToModel(wireframeModel) {
             option: false
         });
         var attributes = {};
-        var id = Util.GUID();
-        attributes[id] = JSON.parse(attrCompiled({
+        attributes[htmlAttributesMap['type']] = JSON.parse(attrCompiled({
             id: cell.id,
             attrName: 'type',
             value: '"' + cell.constructor.HTML_NODE_NAME + '"',
             option: true
         }));
-        id = Util.GUID();
-        attributes[id] = JSON.parse(attrCompiled({
+        attributes[htmlAttributesMap['id']] = JSON.parse(attrCompiled({
             id: cell.id,
             attrName: 'id',
             value: '""',
             option: false
         }));
-        id = Util.GUID();
-        attributes[id] = JSON.parse(attrCompiled({
+        attributes[htmlAttributesMap['static']] = JSON.parse(attrCompiled({
             id: cell.id,
             attrName: 'static',
             value: false,
             option: false
         }));
-        id = Util.GUID();
         var shared = false;
         if (cell.overlays) {
             for (var i = 0; i < cell.overlays.length; i++) {
@@ -98,7 +124,7 @@ function WireframeToModel(wireframeModel) {
                 }
             }
         }
-        attributes[id] = JSON.parse(attrCompiled({
+        attributes[htmlAttributesMap['collaborative']] = JSON.parse(attrCompiled({
             id: cell.id,
             attrName: 'collaborative',
             value: shared,
