@@ -51,15 +51,12 @@ function CAELiveMapper() {
                 }
             }
             if (!widgetNodeId) {
+                widgetNodeId = SyncMeta.createNode('Widget', 4500, 4500, 100, 100, 1);
                 setTimeout(function () {
-                    var id = SyncMeta.createNode('Widget', 4500, 4500, 100, 100, 1);
-                    widgetNodeId = id;
-                    setTimeout(function () {
-                        var meta = editor.graph.model.getMeta();
-                        SyncMeta.setAttributeValue(widgetNodeId, 'width', meta.getAttribute('width'));
-                        SyncMeta.setAttributeValue(widgetNodeId, 'height', meta.getAttribute('height'));
-                    }, 750);
-                }, 500);
+                    var meta = editor.graph.model.getMeta();
+                    SyncMeta.setAttributeValue(widgetNodeId, 'width', meta.getAttribute('width'));
+                    SyncMeta.setAttributeValue(widgetNodeId, 'height', meta.getAttribute('height'));
+                }, 750);
             } else {
                 var meta = editor.graph.model.getMeta();
                 /*for (var i = 0; i < meta.attributes.length; i++) {
@@ -71,11 +68,12 @@ function CAELiveMapper() {
                 }*/
                 SyncMeta.setAttributeValue(widgetNodeId, 'width', meta.getAttribute('width'));
                 SyncMeta.setAttributeValue(widgetNodeId, 'height', meta.getAttribute('height'));
-
             }
 
             //if no widget node is found dont initialize the events
-            if(!widgetNodeId) return;
+            if (!widgetNodeId) return;
+
+            editor.graph.model.setAttribute('id', widgetNodeId);
 
             SyncMeta.onNodeAdd(function (event) {
                 mxLog.writeln('Node was created in SyncMeta: ' + JSON.stringify(event));
@@ -138,7 +136,7 @@ function CAELiveMapper() {
             });
             SyncMeta.onNodeAttributeChange(function (value, entity, entityValueId, userId) {
                 var cell = editor.graph.model.getCell(entity);
-                if(!entityValueId) return;
+                if (!entityValueId) return;
                 var attr = entityValueId.substring(entityValueId.indexOf('[') + 1, entityValueId.length - 1);
                 switch (attr) {
                     case 'type': {
@@ -180,7 +178,7 @@ function CAELiveMapper() {
                             if (cell && tag && userId && !cell.containsTagType(tag)) {
                                 mxCellOverlayAddFlag = false;
                                 mxGraph.prototype.addCellOverlay.apply(editor.graph, [cell, tag]);
-                                cell.addTag(tag);   
+                                cell.addTag(tag);
                                 tag.setCell(cell);
                                 if (tag.hasOwnProperty('initAttributes')) tag.initAttributes();
                                 tag.createShared(y.share.yfUsers.get(y.db.userId).id === userId);
@@ -242,9 +240,9 @@ function CAELiveMapper() {
                 } else {
                     if (parent.id != '1') {
                         for (var i = 0; i < cells.length; i++) {
-                            if(hasChildMap.hasOwnProperty(cells[i].id)){
+                            if (hasChildMap.hasOwnProperty(cells[i].id)) {
                                 SyncMeta.deleteEdge(hasChildMap[cells[i].id]);
-                                delete hasChildMap[cells[i].id];                                
+                                delete hasChildMap[cells[i].id];
                             }
                             var edgeId = SyncMeta.createEdge('hasChild', parent.id, cells[i].id);
                             hasChildMap[cells[i].id] = edgeId;
@@ -267,9 +265,9 @@ function CAELiveMapper() {
                     mxCellsRemoveFlag = true;
                     return;
                 }
-                var recursiveDelete = function(parent){
-                    if(!parent.children) return;
-                    for(var i=0; i<parent.children.length; i++){
+                var recursiveDelete = function (parent) {
+                    if (!parent.children) return;
+                    for (var i = 0; i < parent.children.length; i++) {
                         var cell = parent.children[i];
                         SyncMeta.deleteNode(cell.id);
                         delete hasChildMap[cell.id];
@@ -333,24 +331,24 @@ function CAELiveMapper() {
                 }
             });
 
-            y.share.select.observe(function(event){
+            y.share.select.observe(function (event) {
                 var cell = editor.graph.model.getCell(event.value);
-                if(cell){
+                if (cell) {
                     var overlay = new SyncMetaSelectOverlay(null, new mxPoint(0, -cell.geometry.height));
                     mxGraph.prototype.addCellOverlay.apply(editor.graph, [cell, overlay]);
                 }
                 var oldCell = editor.graph.model.getCell(event.oldValue);
-                if(oldCell){
-                    for(var i=0; oldCell.overlays && i < oldCell.overlays.length; i++){
+                if (oldCell) {
+                    for (var i = 0; oldCell.overlays && i < oldCell.overlays.length; i++) {
                         var overlay = oldCell.overlays[i];
-                        if(overlay instanceof SyncMetaSelectOverlay){
+                        if (overlay instanceof SyncMetaSelectOverlay) {
                             mxGraph.prototype.removeCellOverlay.apply(editor.graph, [oldCell, overlay]);
                         }
                     }
                 }
 
             });
-        
+
         },
         /**
          * Get a shared widget attribute with the given name

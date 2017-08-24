@@ -51,7 +51,7 @@ function WireframeToModel(wireframeModel, vls) {
     //Initialize the root Widget node
     var widgetNodeId;
     if(wireframeModel.getMeta().hasAttribute('id'))
-        widgetNodeId = wireframeModel.getMeta.getAttribute('id');
+        widgetNodeId = wireframeModel.getMeta().getAttribute('id');
     else
         widgetNodeId = Util.GUID();
 
@@ -171,7 +171,7 @@ function WireframeToModel(wireframeModel, vls) {
     }
 
     function recursion(parent) {
-        for (var i = 0; i < parent.children.length; i++) {
+        for (var i = 0; parent.children && i < parent.children.length; i++) {
             var cell = parent.children[i];
             mapHTMLElement(cell);
             if (cell.children)
@@ -214,6 +214,7 @@ function ModelToWireframe(model, editor) {
                 case 'Widget':{
                     wireframe.setAttribute('height', Util.GetValueFormAttributes(node, 'height'));
                     wireframe.setAttribute('width', Util.GetValueFormAttributes(node, 'width'));
+                    wireframe.setAttribute('id', key);
                     break;
                 }
                 case 'HTML Element':{
@@ -240,6 +241,10 @@ function ModelToWireframe(model, editor) {
                         if(childMap.hasOwnProperty(key))
                             uiObj.lastElementChild.setAttribute('parent', childMap[key]);
                         else uiObj.lastElementChild.setAttribute('parent', '1');
+                        
+                        if(ui.constructor.name === 'DivContainer')
+                            root.prepend(uiObj);
+                        else
                             root.appendChild(uiObj);
                     }
                     break;

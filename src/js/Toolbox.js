@@ -236,7 +236,7 @@ function Toolbox(container, editor) {
                     $('#draggingBar').css("width", event.value.width);
                 }
                 var prevBounds = that._editor.graph.maximumGraphBounds;
-                that._editor.graph.maximumGraphBounds = new mxRectangle(0, 0, prevBounds.width + event.value.width, prevBounds.height + event.value.height);
+                that._editor.graph.maximumGraphBounds = new mxRectangle(0, 0, event.value.width, event.value.height);
                 break;
             case 'reload':
                 window.location.reload();

@@ -6,7 +6,7 @@ import TagRegistry from './js/tags/TagRegistry.js';
 import CAELiveMapper from './js/mapper/CAELiveMapper.js';
 
 $(function () {
-    YjsSync('yireframetesting').done(function (y) {
+    YjsSync('yireframetesting5').done(function (y) {
         var vls = y.share.data.get('metamodel');
         if (vls)
             window.vls = vls;
