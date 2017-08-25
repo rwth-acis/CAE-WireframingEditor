@@ -406,12 +406,33 @@ function Wireframe(container, model) {
                     break;
                 }
             case CONST.ACTIONS.SHARED.APPLY_LAYOUT: {
-                var layout = new WireframeLayout(that, false);
+                var layout = new WireframeLayout(that);
                 layout.resizeVertices = false;
+
+                var cell;
                 if (event.value.cellId)
-                    layout.execute(that.getModel().getCell(event.value.cellId));
-                else
-                    layout.execute(that.getDefaultParent());
+                    cell = that.getModel().getCell(event.value.cellId);
+                else 
+                    cell = that.getDefaultParent();
+
+                if(!event.value.recursive)
+                    layout.execute(cell);
+                else {
+                    var applyLayoutRecusively = function(parent){
+                        if(parent.children && parent.children.length < 1 ) return;
+                        for(var i=0;i<parent.children.length;i++){
+                            var child = parent.children[i];
+                            if(child.constructor.name === 'DivContainer'){
+                                layout.execute(child);
+                                applyLayoutRecusively(child);   
+                            }
+                        }
+                    }
+                    applyLayoutRecusively(cell);
+                    layout.execute(cell);
+                    
+                }
+                //that.cellRenderer.redraw(that.view.getState(cell, true), true, true);
                 break;
             }
         }

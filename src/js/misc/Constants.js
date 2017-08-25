@@ -40,6 +40,7 @@ var constants = {
         FLASH: 'images/toolbox/flash.png',
         IMPORT: 'images/toolbox/import.png',
         EXPORT: 'images/toolbox/export.png',
+        LAYOUT : 'images/toolbox/layout.png',
         YJS: 'images/tags/yjs.png',
         MICROSERVICECALL: 'images/tags/las2peer-logo-circle.png',
         EVENT_TAG: 'images/tags/event.png',
