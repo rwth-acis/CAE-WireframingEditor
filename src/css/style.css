@@ -31,7 +31,7 @@
 #draggingBar {
     position: relative;
     text-align: center;
-    color:  white;
+    color: white;
     left: 0px;
     width: inherit;
     height: 16px;
@@ -39,7 +39,7 @@
     min-height: 15px;
     border: grey 0.5px solid;
     border-top-right-radius: 10px;
-    border-top-left-radius : 10px;
+    border-top-left-radius: 10px;
     background-color: grey;
 }
 
@@ -63,7 +63,6 @@
     left: 0px;
     width: 70px;
     height: 100%;
-   
 }
 
 #palette {
@@ -80,11 +79,12 @@
 .item {
     display: inline-block;
 }
+
 .item:hover {
     border: 1px outset grey;
     border-radius: 5px;
-
 }
+
 .hsplit {
     position: absolute;
     overflow: hidden;
@@ -107,23 +107,30 @@
 .mxToolbarMode {
     background-color: white;
 }
-.mxToolbarItem{
-    border : 1px solid transparent;
+
+.mxToolbarItem {
+    border: 1px solid transparent;
     padding: 3px;
     margin-top: -6px;
 }
-.mxToolbarMode:hover, .mxToolbarItem:hover:not(.mxSeparator):hover {
+
+.mxToolbarMode:hover,
+.mxToolbarItem:hover:not(.mxSeparator):hover {
     border: 1px outset grey;
     border-radius: 5px;
 }
+
 .mxSeparator {
     height: 32px;
 }
+
 .ui-resizable-handle {
     position: absolute;
     font-size: 0.1px;
     display: block;
 }
+
+
 /*
 .ui-resizable-n {
     cursor: n-resize;
@@ -173,6 +180,7 @@
     border-left: 3px solid #7cc3ff;
 }
 */
+
 .ui-resizable-se {
     cursor: se-resize;
     width: 7px;
@@ -181,6 +189,8 @@
     bottom: -18px;
     z-index: 1!important;
 }
+
+
 /*
 .ui-resizable-sw {
     cursor: sw-resize;
@@ -218,12 +228,15 @@
     border: 3px solid #7cc3ff;
 }
 */
+
 .ui-icon {
     margin-top: .0em!important;
     float: right;
 }
 
+
 /**Tooltip */
+
 .tooltip {
     position: relative;
     display: inline-block;
@@ -242,7 +255,7 @@
     top: inherit;
     left: inherit;
     margin-left: 56px;
-    margin-top : -40px;
+    margin-top: -40px;
     opacity: 0;
     transition: opacity 1s;
 }
@@ -262,12 +275,15 @@
     visibility: visible;
     opacity: 1;
 }
+
 .jstree-themeicon-custom {
     background-size: contain!important;
 }
+
 .jstree {
     display: inline-block;
 }
+
 .tagAttribute {
     display: inline-block;
 }
@@ -275,10 +291,39 @@
 .jstree-contextmenu {
     z-index: 1000;
 }
-#hierachyTree{
+
+#hierachyTree {
     background-color: white;
 }
 
 .wfSave {
     opacity: 0.5;
+}
+
+.no-close .ui-dialog-titlebar-close {
+    display: none;
+}
+
+.ui-dialog .ui-dialog-title {
+    float: inherit!important;
+}
+
+#loading {
+    width: inherit!important;
+}
+
+#loading p {
+    opacity: 0.5;
+}
+
+.ui-progressbar {
+    position: relative;
+}
+
+.progress-label {
+    position: absolute;
+    left: 50%;
+    top: 4px;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 #fff;
 }
