@@ -3,8 +3,10 @@ import PropertyEditor from './PropertyEditor.js';
 import CONST from './misc/Constants.js';
 
 /**
- * The class builds the context menu for the wireframing editor
- * @param {mxEditor} editor
+ * @classdesc The class builds the context menu for the wireframing editor
+ * @constructor
+ * @param {mxEditor} editor the editor
+ * @requires PropertyEditor
  */
 function ContextMenu(editor) {
     editor.graph.popupMenuHandler.factoryMethod = function (menu, cell, evt) {
@@ -63,10 +65,15 @@ function ContextMenu(editor) {
             });
 
         }
-        menu.addItem('Apply Layout', null, function(){
-            y.share.action.set(CONST.ACTIONS.SHARED.APPLY_LAYOUT, {userId: y.db.userId, cellId : cell ? cell.getId(): null});
-        });
+        menu.addSeparator();
+        var sub = menu.addItem('Apply Layout...', CONST.IMAGES.LAYOUT);
+        menu.createSubmenu(sub);
+        menu.addItem('to parent only', null, function(){
+            y.share.action.set(CONST.ACTIONS.SHARED.APPLY_LAYOUT, {userId: y.db.userId, cellId : cell ? cell.getId(): null, recursive: false});
+        }, sub);
+        menu.addItem('recursively to all', null, function(){
+            y.share.action.set(CONST.ACTIONS.SHARED.APPLY_LAYOUT, {userId: y.db.userId, cellId : cell ? cell.getId(): null, recursive : true});            
+        }, sub)        
     };
-    return this;
 };
 export default ContextMenu;

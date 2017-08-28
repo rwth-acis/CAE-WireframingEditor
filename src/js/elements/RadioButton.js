@@ -1,4 +1,6 @@
-/*global y*/
+/**
+ * @module UIElements
+ */
 import UIText from './UIText.js';
 import $ from 'jquery';
 import {
@@ -10,6 +12,14 @@ RadioButton.prototype.constructor = RadioButton;
 UIText.registerCodec(RadioButton);
 //Global for the codec converter
 window.RadioButton = RadioButton;
+
+/**
+ * The Name in the wireframing editor
+ * @static 
+ * @default RadioButton
+ * @readonly
+ */
+RadioButton.NAME = "Radio Button";
 
 function RadioButton(geometry) {
     var text = 'Option';

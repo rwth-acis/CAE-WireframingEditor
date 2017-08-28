@@ -1,8 +1,11 @@
 {   
-    "html_elements": {
-        "exclude" : ["br", "CUSTOM"]
+    "html": {
+        "exclude" : ["br", "CUSTOM"],
+        "map":{
+            "input" :"TextBox"
+        }
     },
-    "tags": [
+    "___tags": [
         {
             "node_class": "IWC Response",
             "options": {

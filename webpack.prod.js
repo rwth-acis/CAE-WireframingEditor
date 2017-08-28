@@ -10,10 +10,10 @@ module.exports = {
     entry: {
         app: './src/index.js',
         //"bundle.css" : ['./src/css/style.css',  './node_modules/jquery-ui/themes/base/theme.css', './node_modules/jquery-ui/themes/base/tabs.css']
-        'yVendor' :  ['yjs', 'y-websockets-client', 'y-map', 'y-array', 'y-text', 'y-memory'],
-        'jVendor' : ['jquery', 'jquery-ui', 'jstree'],
-        'mxVendor' : ['mxgraph'],
-        'vendor' : ['lodash', 'randomcolor']
+        'yVendor': ['yjs', 'y-websockets-client', 'y-map', 'y-array', 'y-text', 'y-memory'],
+        'jVendor': ['jquery', 'jquery-ui', 'jstree'],
+        'mxVendor': ['mxgraph'],
+        'vendor': ['lodash', 'randomcolor']
     },
     output: {
         filename: '[name].js',
@@ -28,7 +28,8 @@ module.exports = {
                 use: {
                     loader: "css-loader",
                     options: {
-                        url: true
+                        url: true,
+                        minimize: true
                     }
                 }
             })
@@ -36,32 +37,26 @@ module.exports = {
         {
             test: /\.(jpeg|png|gif|svg)$/i,
             loader: "file-loader?name=../images/[name].[ext]&emitFile=false"
+        },
+        {
+            test: /\.json$/,
+            use: 'json-loader'
         }
         ]
     },
     plugins: [
+        new ExtractTextPlugin({
+            filename: "css/bundle.css",
+            allChunks: true
+        }),
         new webpack.optimize.CommonsChunkPlugin({
             name: ['yVendor', 'jVendor', 'mxVendor', 'vendor', 'manifest']
         }),
-        /*new webpack.optimize.CommonsChunkPlugin({
-            name: 'jVendor'
-        }),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'mxVendor'
-        }),*/
-        /*//CommonChunksPlugin will now extract all the common modules from vendor and main bundles
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'manifest' //But since there are no more common modules between them we end up with just the runtime code included in the manifest file
-        }),*/
         new HtmlWebpackPlugin({
             title: 'CAE Wireframing Editor',
             template: './src/index.ejs',
             inject: 'head'
 
-        }),
-        new ExtractTextPlugin({
-            filename: "css/bundle.css",
-            allChunks: true
         }),
         new CopyWebpackPlugin([{
             from: 'src/images',
@@ -85,8 +80,8 @@ module.exports = {
         }
         ]),
         new webpack.optimize.UglifyJsPlugin({
-            exclude : ['yVendor.js'],
-            mangle : false
+            exclude: ['yVendor.js'],
+            mangle: false
         })
     ]
 };

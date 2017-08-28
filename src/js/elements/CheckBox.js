@@ -1,4 +1,6 @@
-/*global y*/
+/**
+ * @module UIElements
+ */
 import UIText from './UIText.js';
 import $ from 'jquery';
 import {
@@ -10,6 +12,20 @@ UIText.registerCodec(CheckBox);
 //Global for the codec converter
 window.CheckBox = CheckBox;
 
+/**
+ * The Name in the wireframing editor
+ * @static 
+ * @default CheckBox
+ * @readonly
+ */
+CheckBox.NAME = "Checkbox";
+
+/**
+ * @classdesc A HTMl checkbox element
+ * @constructor
+ * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 150, 30)] the width, height, x and y of the ui element
+ * @extends UIText
+ */
 function CheckBox(geometry) {
     var text = 'Option';
     if (!geometry)
@@ -33,7 +49,6 @@ function CheckBox(geometry) {
                 .css('border-style', 'initial')
                 .val(text)));
     }
-    return this;
 }
 CheckBox.prototype.bindLabel = function(ytext){
     ytext.bind(this.get$node().find('input[type="input"]')[0]);

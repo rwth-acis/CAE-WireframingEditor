@@ -1,4 +1,7 @@
 /*global y*/
+/**
+ * @module UIElements
+ */
 import Y from 'yjs';
 import {
     mxConstants,
@@ -10,6 +13,29 @@ window.VideoPlayer = VideoPlayer;
 VideoPlayer.prototype = new UIMedia();
 VideoPlayer.prototype.constructor = VideoPlayer;
 UIMedia.registerCodec(VideoPlayer);
+
+/**
+ * The HTML node name
+ * @static 
+ * @default video
+ * @readonly
+ */
+VideoPlayer.HTML_NODE_NAME = 'video';
+
+/**
+ * The Name in the wireframing editor
+ * @static 
+ * @default VideoPlayer
+ * @readonly
+ */
+VideoPlayer.NAME = "Video Player";
+
+/**
+ * @classdesc The Video Player HTML 5 element
+ * @constructor
+ * @param {mxGeometry} [geometry=new mxGeometry(0, 0, 200, 100)] the width, height, x and y of the ui element
+ * @extends UIMedia
+ */
 function VideoPlayer(geometry) {
     if(!geometry)
         geometry = new mxGeometry(0, 0, 200, 100);
@@ -22,8 +48,6 @@ function VideoPlayer(geometry) {
 
     UIMedia.call(this, geometry, style);
     this.value.setAttribute('_poster', '');
-
-    return this;
 }
 
 VideoPlayer.prototype.createShared = function(createdByLocalUser){

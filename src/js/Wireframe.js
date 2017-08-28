@@ -19,12 +19,19 @@ import EnableAwareness from './Awareness.js';
 import WireframeLayout from './WireframeLayout.js';
 import $ from 'jquery';
 import CONST from './misc/Constants.js';
-//import PropertyEditor from './PropertyEditor.js';
+import HierachyTree from './HierachyTree.js';
 
 window.mxGeometry = mxGeometry;
 Wireframe.prototype = new mxGraph();
 Wireframe.prototype.constructor = Wireframe;
 
+/**
+ * @classdesc The class represents the visuale representation of the wireframe
+ * @constructor
+ * @param {DOM} container the div container containning the canvas
+ * @param {WireframeModel} model represents the model of the wireframe
+ * @extends mxGraph
+ */
 function Wireframe(container, model) {
     var that = this;
     mxGraph.call(this, container, model);
@@ -122,18 +129,31 @@ function Wireframe(container, model) {
         for (var i = 0; i < deselected.length; i++) {
             if (deselected[i].hasOwnProperty('get$node'))
                 deselected[i].get$node().css('pointer-events', 'none');
-            mxGraph.prototype.removeCellOverlay.call(that, deselected[i], deselected[i].getEditOverlay());
-
+                mxGraph.prototype.removeCellOverlay.call(that, deselected[i], deselected[i].getEditOverlay());
         }
         var selected = event.getProperty('removed');
         if (selected) {
-            for (var i = 0; i < selected.length; i++) {
+            for (var i = 0; i < selected.length && selected[i]; i++) {
                 var editOverlay = new EditOverlay();
                 mxGraph.prototype.addCellOverlay.call(that, selected[i], editOverlay);
                 editOverlay.bindClickEvent(that);
             }
         }
     });
+    
+    /**
+     * Overrides the moveCells-method from the parent class to make the move NRTC 
+     * @param {UIObject[]} cells the cells to move
+     * @param {Integer} dx the direction of the x-axis
+     * @param {Integer} dy the direction of the y-axis
+     * @param {Boolean} clone should the cell be cloned. default = false
+     * @param {UIObject} target the parent
+     * @param {*} evt never used
+     * @param {*} mapping never used
+     * @param {Boolean} shared indicates if its from the shared callback or not. TODO check this could be done better
+     * @return {UIObject[]} the cells which were moved as an array
+     * @see {@link https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph.moveCells | moveCells}
+     */
     that.moveCells = function (cells, dx, dy, clone, target, evt, mapping, shared) {
         var cells = mxGraph.prototype.moveCells.apply(this, arguments);
         if (cells.length > 0 && sharedAction && !shared) {
@@ -142,8 +162,17 @@ function Wireframe(container, model) {
             sharedAction = null;
         }
         return cells;
-    }
+    };
 
+    /**
+     * Overrides the resizeCells-method from the parent calls mxCell to make it NRTC
+     * @param {UIObjec[]} cells the cells to be resized 
+     * @param {mxRectangle[]} bounds the new bounds for each cell.
+     * @param {Boolean} recurse recurseveily resize the childs as well
+     * @param {Boolean} shared shared indicates if its from the shared callback or not. TODO check this could be done better
+     * @return {UIObject[]} the cells which were resized
+     * @see {@link https://jgraph.github.io/mxgraph/docs/js-api/files/view/mxGraph-js.html#mxGraph.resizeCells | resizeCells}
+     */
     that.resizeCells = function (cells, bounds, recurse, shared) {
         var cells;
         that.getModel().beginUpdate();
@@ -161,23 +190,26 @@ function Wireframe(container, model) {
         return cells;
     };
 
-    that.addCellOverlay = function (cell, overlay) {
+    that.addCellOverlay = function (cell, overlay, fromSyncMeta) {
         if (overlay instanceof UserOverlay || overlay instanceof EditOverlay) {
             mxGraph.prototype.addCellOverlay.apply(this, arguments);
         } else {
             y.share.action.set(mxEvent.ADD_OVERLAY, {
                 userId: y.db.userId,
                 id: cell.getId(),
-                xml: overlay.toXML()
+                xml: overlay.toXML(),
+                fromSyncMeta : !fromSyncMeta ? false : true
             });
         }
-    }
+    };
 
     that.updateBounds = function () {
         var bounds = that.getBoundingBox(that.getDefaultParent().children);
-        $('#wireframeWrap').resizable('option', 'minWidth', bounds.x + bounds.width);
-        $('#wireframeWrap').resizable('option', 'minHeight', bounds.y + bounds.height);
-    }
+        if(bounds){
+            $('#wireframeWrap').resizable('option', 'minWidth', bounds.x + bounds.width);
+            $('#wireframeWrap').resizable('option', 'minHeight', bounds.y + bounds.height);
+        }
+    };
 
     //------------------------------------------------------------------------------------------------------------------------
     //--------------------------------------Begin Yjs Observer for actions----------------------------------------------------
@@ -188,12 +220,14 @@ function Wireframe(container, model) {
                 {
                     var doc = mxUtils.parseXml(event.value.data);
                     var codec = new mxCodec(doc);
+                    var type = doc.documentElement.getAttribute('uiType');
                     var elt = doc.documentElement.childNodes[1];
                     var cells = [];
                     while (elt != null) {
                         var cell = codec.decode(elt);
                         cell.setId(event.value.id);
                         if (cell.hasOwnProperty('initDOM')) cell.initDOM();
+                        cell.setType(type);
                         cells.push(cell);
                         elt = elt.nextSibling;
                     }
@@ -210,7 +244,7 @@ function Wireframe(container, model) {
                         if (!event.value.parent)
                             that.updateBounds();
                     }
-
+                    HierachyTree.add(cell);
                     for (var i = 0; i < cells.length; i++) {
                         cells[i].createShared(event.value.userId === y.db.userId);
                     }
@@ -223,15 +257,17 @@ function Wireframe(container, model) {
                 }
             case mxEvent.MOVE:
                 {
+                    var parent = that.getModel().getCell(event.value.parentId);
                     if (event.value.userId !== y.db.userId) {
                         that.removeListener(SharedCellsMovedEvent);
                         var cells = Util.getCellsFromIdList(that, event.value.ids);
                         if (cells.length > 0) {
                             if (event.value.dx != 0 || event.value.dy != 0)
-                                that.moveCells(cells, event.value.dx, event.value.dy, false, that.getModel().getCell(event.value.parentId), null, null, true);
+                                that.moveCells(cells, event.value.dx, event.value.dy, false, parent, null, null, true);
                         }
                         that.addListener(mxEvent.CELLS_MOVED, SharedCellsMovedEvent);
                     }
+                    HierachyTree.move(event.value.ids, event.value.parentId, parent.children.length);
                     that.updateBounds();
                     break;
                 }
@@ -256,7 +292,6 @@ function Wireframe(container, model) {
                             }
                         }
                     }
-
                     break;
                 }
             case mxEvent.ADD_OVERLAY:
@@ -284,7 +319,7 @@ function Wireframe(container, model) {
                         cell.addTag(tag);
                         tag.setCell(cell);
                         if(tag.hasOwnProperty('initAttributes')) tag.initAttributes();
-                        tag.createShared(y.db.userId === event.value.userId);
+                        tag.createShared(   );
                         tag.bindClickEvent(that);
                         var ref = $('#' + cell.getId() + '_tagTree').jstree(true);
                         if (ref) {
@@ -363,7 +398,6 @@ function Wireframe(container, model) {
                         }
 
                     }
-
                     break;
                 }
             case CONST.ACTIONS.RENAME_TAG:
@@ -372,12 +406,32 @@ function Wireframe(container, model) {
                     break;
                 }
             case CONST.ACTIONS.SHARED.APPLY_LAYOUT: {
-                var layout = new WireframeLayout(that, false);
+                var layout = new WireframeLayout(that);
                 layout.resizeVertices = false;
+
+                var cell;
                 if (event.value.cellId)
-                    layout.execute(that.getModel().getCell(event.value.cellId));
-                else
-                    layout.execute(that.getDefaultParent());
+                    cell = that.getModel().getCell(event.value.cellId);
+                else 
+                    cell = that.getDefaultParent();
+
+                if(!event.value.recursive)
+                    layout.execute(cell);
+                else {
+                    var applyLayoutRecusively = function(parent){
+                        if(parent.children && parent.children.length < 1 ) return;
+                        for(var i=0;i<parent.children.length;i++){
+                            var child = parent.children[i];
+                            if(child.constructor.name === 'DivContainer'){
+                                layout.execute(child);
+                                applyLayoutRecusively(child);   
+                            }
+                        }
+                    }
+                    applyLayoutRecusively(cell);
+                    layout.execute(cell);
+                    
+                }
                 break;
             }
         }

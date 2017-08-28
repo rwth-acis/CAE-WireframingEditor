@@ -14,7 +14,7 @@ import TagRegistry from './tags/TagRegistry.js';
 function TagEditor(cell, $editor, graph) {   
     //jstree types
     var types = {};
-    var registry = TagRegistry.get();
+    var registry = TagRegistry.getDescription();
     for(var key in registry)
         types[key] = { icon : registry[key].image };
     
@@ -37,6 +37,7 @@ function TagEditor(cell, $editor, graph) {
         for (var i = 0; i < supportedTags.length; i++) {
             tagForm.addOption(combo, supportedTags[i], supportedTags[i]);
         }
+        //Create Tag Button
         var $createBtn = $('<button>').text('Create');
         $createBtn.click(function () {
             var val = $tagEditor.find('td:contains("Tag") + td select option:selected').text();
@@ -50,13 +51,18 @@ function TagEditor(cell, $editor, graph) {
             graph.addCellOverlay(cell, tag);
 
         });
-
+        //Delete Tag Button
         var $deleteBtn = $('<button>').addClass('tagDel').css('display', 'none').text('Delete');
         $deleteBtn.click(function () {
             var ref = $('#' + cell.getId() + '_tagTree').jstree(true);
             var sel = ref.get_selected();
+            var selTagTypes = [];
+            for(var i=0;i<sel.length;i++){
+                var tag = cell.getTagById(sel[i]);
+                selTagTypes.push(tag.constructor.name);
+            }
             if (sel.length > 0) {
-                y.share.action.set(CONST.ACTIONS.DELETE_TAG, {userId: y.db.userId,  cellId: cell.getId(), selected: sel });
+                y.share.action.set(CONST.ACTIONS.DELETE_TAG, {userId: y.db.userId,  cellId: cell.getId(), selected: sel, types : selTagTypes });
             }
         });
 

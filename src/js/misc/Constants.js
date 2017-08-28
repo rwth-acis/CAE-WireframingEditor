@@ -1,10 +1,6 @@
 var widgetMode = false;
 var basePath = '<%=basePath%>';
 var constants = {
-    DATA: {
-        CONFIG: 'data/config.json',
-        VLS: 'data/config.json'
-    },
     MXGRAPH: {
         IMAGE_BASE_PATH: "images"
     },
@@ -22,12 +18,15 @@ var constants = {
         COPY: 'copy',
         PASTE: 'paste',
         SHOW_USER_LIST: 'showUserList',
+        SHOW_CONSOLE: 'showConsole',
         EXPORT: 'export',
         IMPORT: 'import',
         MOVE_TAG: 'moveTag',
         DELETE_TAG: 'deleteTag',
         RENAME_TAG: 'renameTag',
-        SAVE: 'save'
+        SAVE: 'save',
+        SYNC: 'sync',
+        HIERACHY_TREE: 'hierachy'
     },
     IMAGES: {
         COPY: 'images/toolbox/copy.png',
@@ -41,6 +40,7 @@ var constants = {
         FLASH: 'images/toolbox/flash.png',
         IMPORT: 'images/toolbox/import.png',
         EXPORT: 'images/toolbox/export.png',
+        LAYOUT : 'images/toolbox/layout.png',
         YJS: 'images/tags/yjs.png',
         MICROSERVICECALL: 'images/tags/las2peer-logo-circle.png',
         EVENT_TAG: 'images/tags/event.png',
@@ -52,7 +52,9 @@ var constants = {
         SAVE: 'images/toolbox/save.png',
         USER_LIST: 'images/toolbox/list.png',
         SEPERATOR: 'images/toolbox/separator.gif',
-        IMAGE_SHAPE: 'images/image.png'
+        IMAGE_SHAPE: 'images/image.png',
+        SYNC: 'images/toolbox/sync.png',
+        SYNCMETA: 'images/syncmeta.png'
     },
     TAG: {
         SIZE: 20/*,
@@ -84,9 +86,7 @@ constants.TAG.MAPPING = {
 //add base path to urls if not null
 if (widgetMode) {
     constants.MXGRAPH.IMAGE_BASE_PATH = basePath + constants.MXGRAPH.IMAGE_BASE_PATH;
-    for (var key in constants.DATA) 
-        constants.DATA[key] = basePath + constants.DATA[key];
-
+    
     for (var key in constants.IMAGES) 
         constants.IMAGES[key] = basePath + constants.IMAGES[key];
 }

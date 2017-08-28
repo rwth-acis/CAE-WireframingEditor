@@ -3,12 +3,19 @@ import { mxCodec, mxUtils, mxForm, mxGraph } from './mxExport.js';
 import $ from 'jquery';
 
 /**
- * Some helper functions
+ * @module Misc
+ */
+
+/**
+ * Some utilty functions to initilaize the wireframe from XML or save the wireframe to XML
+ * @classdesc A set of helper functions used by various modules and classes
+ * @constructor
  */
 function Util() { }
 
 /**
  * Returns the Ids for cells currently selected in the graph
+ * @param {Wireframe} graph the wireframe
  * @return{array} array of ids
  */
 Util.getIdsOfSelectedCells = function (graph) {
@@ -22,7 +29,9 @@ Util.getIdsOfSelectedCells = function (graph) {
 
 /**
  * Returns the cells for the given ids
+ * @param {Wireframe} graph the wireframe
  * @param {array} ids the ids as string to look for 
+ * @return {UIControl[]} an array of ui elements
  */
 Util.getCellsFromIdList = function (graph, ids) {
     var cells = [];
@@ -47,6 +56,11 @@ Util.GUID = function () {
     return _p8() + _p8(true) + _p8(true) + _p8();
 }
 
+/**
+ * Serializes the current wireframe to XML and stores it in y.share.data.wireframe
+ * @param {Wireframe} graph the wireframe
+ * @return  {undefined}
+ */
 Util.Save = function (graph) {
     var encoder = new mxCodec();
     //encoder.encodeDefaults = true;
@@ -57,7 +71,7 @@ Util.Save = function (graph) {
     else 
         meta.appendChild(result);
     var xml = mxUtils.getXml(meta);
-    y.share.data.set('model', xml);
+    y.share.data.set('wireframe', xml);
     var $save = $('.wfSave');
     $save.css('opacity', 1.0);
 
@@ -97,7 +111,7 @@ Util.createFormFromCellAttributes = function (className, obj, entity) {
         if (attr.value.indexOf('true') != -1 || attr.value.indexOf('false') != -1) //a boolean value
             form.addCheckbox(attr.name.substr(1), attr.value.indexOf('true') != -1 ? true : false);
         else {
-            var values = entity.getComboAttr(attr.name);
+            var values = entity.getComboAttrMap().getComboAttr(attr.name);
             if (values) {
                 var combo = form.addCombo(attr.name.substr(1));
                 for (var j = 0; j < values.length; j++) {
@@ -120,6 +134,9 @@ Util.bindSharedAttributes = function (entity, form) {
                 var ytext = y.share.attrs.get(id + '_' + name);
                 if (ytext) {
                     ytext.bind($input[0]);
+                    //var caeYText = CAELiveMapper.getSharedWidgetAttr('_'+name);
+                    //if(caeYText != undefined)
+                    //    caeYText.bind($input[0]);
                     if(!entity && name === 'name')
                         ytext.bind($('#draggingBar')[0]);
                 }
@@ -136,5 +153,14 @@ Util.bindSharedAttributes = function (entity, form) {
             });
         }
     });
+}
+
+Util.GetValueFormAttributes = function(node, name){
+    for(var key in node.attributes){
+        if(node.attributes.hasOwnProperty(key) && node.attributes[key].name  === name){
+            return node.attributes[key].value.value;
+        }
+    }
+    return undefined;
 }
 export default Util;

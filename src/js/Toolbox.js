@@ -5,19 +5,30 @@ import {
     mxCodec,
     mxClipboard,
     mxUtils,
-    mxRectangle
+    mxRectangle,
+    mxLog
 } from './misc/mxExport.js';
 import $ from 'jquery';
 import Util from './misc/Util.js';
 import CONST from './misc/Constants.js';
+import {
+    WireframeToModel,
+    ModelToWireframe
+} from './mapper/CAE.js';
+import HierachyTree from './HierachyTree.js';
+
 
 Toolbox.prototype = new mxDefaultToolbar();
 Toolbox.prototype.constructor = Toolbox;
 
 /**
- * The toolbox of the editor
- * @param {DOM} container 
- * @param {mxEditor} editor 
+ * Defines the (shared) actions for copy & paste, undo & redo and grouping & ungrouping 
+ * @classdesc The toolbar of the editor
+ * @constructor
+ * @param {DOM} container the div container in the DOM 
+ * @param {mxEditor} editor the editor instance of the wireframing application
+ * @extends mxDefaultToolbar
+ * @requires HierachyTree
  */
 function Toolbox(container, editor) {
     mxDefaultToolbar.call(this, container, editor);
@@ -80,11 +91,18 @@ function Toolbox(container, editor) {
     editor.addAction(CONST.ACTIONS.EXPORT, function () {
         var link = document.createElement('a');
         link.download = "wireframe.xml";
-        link.href = 'data:,' + encodeURI(y.share.data.get('model'));
+        link.href = 'data:,' + encodeURI(y.share.data.get('wireframe'));
         link.click();
     });
 
-    editor.addAction(CONST.ACTIONS.IMPORT, function () {
+    editor.addAction(CONST.ACTIONS.SHOW_CONSOLE, function () {
+        if (mxLog.isVisible())
+            mxLog.hide();
+        else
+            mxLog.show();
+    });
+
+    editor.addAction(CONST.ACTIONS.IMPORT, function (editor) {
         var input = document.createElement('input');
         input.type = 'file';
 
@@ -95,9 +113,25 @@ function Toolbox(container, editor) {
             fileReader = new FileReader();
             fileReader.onload = function (e) {
                 var data = e.target.result;
-                y.share.data.set('model', data);
-                y.share.action.set('reload', true);
+                try {
+                    var json = JSON.parse(data);
+                    //transform model to wireframe
+                    var wirefarme = ModelToWireframe(json, editor);
+                    //apply layout
+                    y.share.data.set('wireframe', wirefarme);
+                    y.share.action.set('reload', true);
+                } catch (e) {
+                    console.error(e);
+                    try {
+                        $.parseXML(data);
+                        y.share.data.set('wireframe', data);
+                        y.share.action.set('reload', true);
+                    } catch (e) {
+                        console.error('no valid wireframe model or front end component model');
+                    }
+                }
                 //TODO improve import
+
             };
             files = this.files;
             if (!files || files.length === 0) return;
@@ -109,6 +143,19 @@ function Toolbox(container, editor) {
 
     editor.addAction(CONST.ACTIONS.SAVE, function () {
         Util.Save(editor.graph);
+    })
+
+    editor.addAction(CONST.ACTIONS.SYNC, function (editor) {
+        var frontendModel = WireframeToModel(editor.graph.model, y.share.data.get('metamodel'));
+        y.share.data.set('model', frontendModel);
+        y.share.canvas.set('ReloadWidgetOperation', 'import');
+    });
+
+    editor.addAction(CONST.ACTIONS.HIERACHY_TREE, function (editor) {
+        if (HierachyTree.isVisible())
+            HierachyTree.hide();
+        else
+            HierachyTree.show();
     })
 
     y.share.action.observe(function (event) {
@@ -136,24 +183,27 @@ function Toolbox(container, editor) {
                 that._editor.graph.setSelectionCells(Util.getCellsFromIdList(that._editor.graph, event.value.cells));
                 that._editor.execute("delete");
                 that._editor.graph.updateBounds();
+                HierachyTree.remove(event.value.cells);
                 if (y.db.userId === event.value.userId)
                     Util.Save(that._editor.graph);
                 break;
             case mxEvent.GROUP_CELLS:
-                var group = that._editor.graph.groupCells(null, 20, Util.getCellsFromIdList(that._editor.graph, event.value.ids));
+                var cells = Util.getCellsFromIdList(that._editor.graph, event.value.ids);
+                var group = that._editor.graph.groupCells(null, 20, cells);
                 if (y.db.userId === event.value.userId) {
                     //that._editor.graph.setSelectionCells(group);
                     that._editor.graph.getSelectionModel().setCell(group);
                     group.createShared(true);
-
                 }
                 that._editor.graph.updateBounds();
+                HierachyTree.group(group, cells);
                 break;
             case mxEvent.UNGROUP_CELLS:
                 var cells = that._editor.graph.ungroupCells(Util.getCellsFromIdList(that._editor.graph, event.value.ids));
                 if (y.db.userId === event.value.userId)
                     that._editor.graph.setSelectionCells(cells);
                 that._editor.graph.updateBounds();
+                HierachyTree.ungroup(cells);
                 break;
             case CONST.ACTIONS.SHARED.PASTE:
                 var selectedCells = that._editor.graph.getSelectionCells();
@@ -181,12 +231,12 @@ function Toolbox(container, editor) {
             case CONST.ACTIONS.SHARED.GRAPH_RESIZE: //event triggerd in index.html
                 if (y.db.userId !== event.value.userId) {
                     //var size = $('#wireframeWrap').css(["width", "height"]);
-                    $('#wireframeWrap').css("width",  event.value.width).css("height",  event.value.height);
-                    $('#wireframe').css("width",  event.value.width).css("height",  event.value.height);
-                    $('#draggingBar').css("width",  event.value.width);
+                    $('#wireframeWrap').css("width", event.value.width).css("height", event.value.height);
+                    $('#wireframe').css("width", event.value.width).css("height", event.value.height);
+                    $('#draggingBar').css("width", event.value.width);
                 }
                 var prevBounds = that._editor.graph.maximumGraphBounds;
-                that._editor.graph.maximumGraphBounds = new mxRectangle(0, 0, prevBounds.width + event.value.width, prevBounds.height + event.value.height);
+                that._editor.graph.maximumGraphBounds = new mxRectangle(0, 0, event.value.width, event.value.height);
                 break;
             case 'reload':
                 window.location.reload();
@@ -221,7 +271,8 @@ function Toolbox(container, editor) {
     this.addItem("Import", CONST.IMAGES.IMPORT, CONST.ACTIONS.IMPORT);
     this.addItem("Export", CONST.IMAGES.EXPORT, CONST.ACTIONS.EXPORT);
     //this.addSeparator();
-    this.addItem("User List", CONST.IMAGES.USER_LIST, CONST.ACTIONS.SHOW_USER_LIST);
+    //this.addItem("User List", CONST.IMAGES.USER_LIST, CONST.ACTIONS.SHOW_USER_LIST);
+    this.addItem('Synchronize with Syncmeta', CONST.IMAGES.SYNC, CONST.ACTIONS.SYNC);
     //this.addSeparator();
 
     return this;

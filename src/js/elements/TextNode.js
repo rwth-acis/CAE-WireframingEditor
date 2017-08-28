@@ -1,3 +1,6 @@
+/**
+ * @module UIElements
+ */
 import UIText from './UIText.js';
 import {
     mxGeometry
@@ -9,10 +12,32 @@ UIText.registerCodec(TextNode);
 //Global for the codec converter
 window.TextNode = TextNode;
 
+/**
+ * The HTML node name
+ * @static 
+ * @default text
+ * @readonly
+ */
+TextNode.HTML_NODE_NAME = 'text';
+
+/**
+ * The Name in the wireframing editor
+ * @static 
+ * @default TextNode
+ * @readonly
+ */
+TextNode.NAME = "Text Node";
+
+/**
+ * @classdesc A HTMl textnode element
+ * @constructor
+ * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 75, 30)] the width, height, x and y of the ui element
+ * @extends UIText
+ */
 function TextNode(geometry) {
-    var text = 'A simple TextNode...';
+    var text = 'text';
     if(!geometry)
-        geometry = new mxGeometry(0, 0, 150, 50);
+        geometry = new mxGeometry(0, 0, 75, 30);
     UIText.call(this, text, geometry);
 
     this.initDOM = function(element){

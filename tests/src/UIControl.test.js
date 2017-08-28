@@ -4,7 +4,8 @@ import TagTest from './Tag.test.js';
 
 /**
  * @param {XmlDocument} uiObj the uiObj from XML
- * @param {Wireframe} wireframe 
+ * @param {Wireframe} wireframe the wireframe graph
+ * @return {undefined}
  */
 export default function(uiObj, wireframe){
     var cell = wireframe.getModel().getCell(uiObj.id);
@@ -20,9 +21,10 @@ export default function(uiObj, wireframe){
     
         it('Check geometry of the element', function(){
             var x_geometry = type.firstElementChild;
-
-            expect(cell.geometry.x).to.be.equal(parseInt(x_geometry.getAttribute('x')));
-            expect(cell.geometry.y).to.be.equal(parseInt(x_geometry.getAttribute('y')));
+            if(x_geometry.hasAttribute('x'))
+                expect(cell.geometry.x).to.be.equal(parseInt(x_geometry.getAttribute('x')));
+            if(x_geometry.hasAttribute('y'))
+                expect(cell.geometry.y).to.be.equal(parseInt(x_geometry.getAttribute('y')));
             expect(cell.geometry.width).to.be.equal(parseInt(x_geometry.getAttribute('width')));
             expect(cell.geometry.height).to.be.equal(parseInt(x_geometry.getAttribute('height')));
         });
@@ -46,7 +48,7 @@ export default function(uiObj, wireframe){
             var m_obj = cell.value;
             for(var i=0;i<m_obj.attributes.length;i++){
                 var m_attr = m_obj.attributes[i];
-                if(m_attr.name[0] == '_' && !cell.getComboAttr(m_attr.name) && m_attr.value !== 'true' && m_attr.value !== 'false'){
+                if(m_attr.name[0] == '_' && !cell.getComboAttrMap().getComboAttr(m_attr.name) && m_attr.value !== 'true' && m_attr.value !== 'false'){
                     var ytext = y.share.attrs.get(cell.getId() + m_attr.name);
                     expect(ytext).to.be.not.null;
                 }

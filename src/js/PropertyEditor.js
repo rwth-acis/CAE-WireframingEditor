@@ -1,3 +1,6 @@
+/**
+ * @module
+ */
 import {
     mxWindow
 } from './misc/mxExport.js';
@@ -7,11 +10,12 @@ import TagEditor from './TagEditor.js';
 import Util from './misc/Util.js';
 
 /**
- * Generates the property editor for the given cell
- * @param {mxCell} cell 
- * @param {Wireframe} wireframe
- * @param {Integer} x
- * @param {Integer} y
+ * Generates the property editor for the given cell at position (x,y)
+ * @param {mxCell} cell the cell 
+ * @param {Wireframe} graph the wireframe containing the cell
+ * @param {Integer} x the x-coordinate 
+ * @param {Integer} y the y-coordinate
+ * @return {jQuery} the jquery object of the html editor in the DOM
  */
 function PropertyEditor(cell, graph, x, y) {
     var id;

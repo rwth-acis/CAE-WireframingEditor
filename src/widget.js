@@ -1,6 +1,42 @@
+require(['./css/style.css',
+'./../node_modules/jquery-ui/themes/base/theme.css', 
+'./../node_modules/jquery-ui/themes/base/core.css',
+'./../node_modules/jquery-ui/themes/base/tabs.css',
+'./../node_modules/jquery-ui/themes/base/dialog.css',
+'./../node_modules/jquery-ui/themes/base/progressbar.css',
+'../node_modules/mxgraph/javascript/src/css/common.css',
+'../node_modules/jstree/dist/themes/default/style.min.css']);
+
 import $ from 'jquery';
-import Main from './js/Main.js';
 import RoleLogin from './js/ROLELogin.js';
+import YjsSync from './js/misc/YjsSync.js';
+import Main from './js/Main.js';
+import TagRegistry from './js/tags/TagRegistry.js';
+import CAELiveMapper from './js/mapper/CAELiveMapper.js';
+import Loader from './js/Loader.js';
 $(function(){
-    Main(RoleLogin, true);
+    Loader.init();
+    var roleSpaceTitle = frameElement.baseURI.substring(frameElement.baseURI.lastIndexOf('spaces/')).replace(/spaces|#\S*|\?\S*|\//g, '');
+     YjsSync(roleSpaceTitle).done(function (y) {
+        Loader.check(0, 33);        
+        var vls = y.share.data.get('metamodel');
+        if(vls){
+          window.vls = vls;
+        }
+        else{
+            var vls = require('./data/vls.json');
+            window.vls = vls;
+        }
+        TagRegistry.initFromVLS(vls);
+        //Important load a vls before calling Main
+        var editor = Main(true);
+        Loader.check(1, 66);
+        
+        RoleLogin().done(function(){
+            CAELiveMapper.init(editor);
+            Loader.check(2, 100);
+            Loader.destroy(500);
+        });
+        
+     });
 });

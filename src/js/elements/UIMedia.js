@@ -1,10 +1,24 @@
 /*global y*/
+/**
+ * @module UIElements
+ */
 import Y from 'yjs';
 import UIControl from './UIControl.js';
+
+
 
 UIMedia.prototype = new UIControl();
 UIMedia.prototype.constructor = UIMedia;
 
+/**
+ * An abstract class representing HTML 5 media elements
+ * @classdesc Base class for all UI media componets of the editor
+ * @constructor
+ * @abstract
+ * @param {mxGeometry} geometry the width, height, x and y of the ui element
+ * @param {String} style the style as a string
+ * @extends UIControl
+ */
 function UIMedia(geometry, style) {
     UIControl.call(this, geometry, style);
     this.value.setAttribute('_src', '');
@@ -13,9 +27,7 @@ function UIMedia(geometry, style) {
     this.value.setAttribute('_muted', false);
     this.value.setAttribute('_loop', false);
     this.value.setAttribute('_preload', 'auto');
-    this.addComboAttr('_preload',  ['auto', 'metadata', 'none']);
-
-    return this;
+    this.getComboAttrMap().addComboAttr('_preload',  ['auto', 'metadata', 'none']);
 }
 UIMedia.prototype.createShared = function(createdByLocalUser){
     UIControl.prototype.createShared.call(this, createdByLocalUser);

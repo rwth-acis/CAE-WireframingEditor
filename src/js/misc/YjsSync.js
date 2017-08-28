@@ -7,6 +7,7 @@ import yText from 'y-text';
 import yArray from 'y-array';
 Y.extend(yArray, yWebsocketsClient, yMemory, yMap, yText);
 
+window.Y = Y;
 export default function (space) {
     var deferred = $.Deferred();
     Y({
@@ -22,8 +23,13 @@ export default function (space) {
             attrs: 'Map',
             data : 'Map',
             awareness : 'Map', 
-            users : 'Map',
-            join : 'Map'
+            yfUsers : 'Map',
+            yfJoin : 'Map',
+            //Syncmeta stuff not used by the Wireframe
+            nodes: 'Map',
+            edges : 'Map', 
+            select: 'Map', 
+            canvas: 'Map'
         }
     }).then(function (y) {
         window.y = y;

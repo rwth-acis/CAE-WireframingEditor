@@ -4,6 +4,20 @@ import {
     mxConstants
 } from '../misc/mxExport.js';
 
+/**
+ * @module Shapes
+ */
+
+/**
+ * @classdesc The shape for the VideoPlayer element
+ * @constructor
+ * @param {mxRectangle} bounds the bounds of the shape
+ * @param {String} fill the fill color
+ * @param {String} stroke the stroke type for the shape
+ * @param {Integer} strokewidth the width of the stroke
+ * @extends mxShape
+ * @see VideoPlayer
+ */
 function VideoShape(bounds, fill, stroke, strokewidth) {
     mxShape.call(this);
     this.bounds = bounds;

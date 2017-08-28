@@ -1,4 +1,7 @@
 /*global y*/
+/**
+ * @module UIElements
+ */
 import Y from 'yjs';
 import UIText from './UIText.js';
 import {
@@ -8,9 +11,31 @@ Link.prototype = new UIText();
 Link.prototype.constructor = Link;
 UIText.registerCodec(Link);
 
+/**
+ * The HTML node name
+ * @static 
+ * @default a
+ * @readonly
+ */
+Link.HTML_NODE_NAME = 'a';
+
+/**
+ * The Name of element in the Wireframing editor
+ * @static 
+ * @default Link
+ * @readonly
+ */
+Link.NAME = "Link";
+
 //Global for the codec converter
 window.Link = Link;
 
+/**
+ * @classdesc A HTMl link element
+ * @constructor
+ * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 50, 30)] the width, height, x and y of the ui element
+ * @extends UIMedia
+ */
 function Link(geometry) {
     var text = 'Link';
     if(!geometry)
