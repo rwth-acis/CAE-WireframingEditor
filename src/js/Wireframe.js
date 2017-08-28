@@ -432,7 +432,6 @@ function Wireframe(container, model) {
                     layout.execute(cell);
                     
                 }
-                //that.cellRenderer.redraw(that.view.getState(cell, true), true, true);
                 break;
             }
         }

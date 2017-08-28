@@ -1,4 +1,4 @@
-import { mxUtils, mxPartitionLayout, mxRectangle, mxGraph } from './misc/mxExport.js';
+import { mxUtils, mxPartitionLayout, mxRectangle } from './misc/mxExport.js';
 mxUtils.extend(WireframeLayout, mxPartitionLayout);
 
 /**
@@ -91,10 +91,8 @@ WireframeLayout.prototype.execute = function (parent) {
                     var parentGeo = model.getGeometry(parent).clone();
                     parentGeo.height = min_parent_height;
                     parentGeo.width = min_parent_width;
-                    //parent.setGeometry(parentGeo);
 
                     model.setGeometry(parent, parentGeo);
-                    //mxGraph.prototype.resizeCell.call(this.graph, parent, new mxRectangle(parentGeo.x, parentGeo.y, min_parent_width, min_parent_height));
                 }
             }
             finally {

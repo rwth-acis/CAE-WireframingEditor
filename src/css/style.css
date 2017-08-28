@@ -188,6 +188,7 @@
     right: 0px;
     bottom: -18px;
     z-index: 1!important;
+    position: absolute!important;
 }
 
 

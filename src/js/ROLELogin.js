@@ -12,10 +12,13 @@ import $ from 'jquery';
  * @return {undefined}
  */
 function RoleLogin(){
+    var deferred = $.Deferred();
     var url = localStorage.userinfo_endpoint + '?access_token=' + localStorage.access_token;
     $.get(url, function(data){
         UserList({name : data.name, imageUrl : data.picture}, false);
+        deferred.resolve();
     });
+    return deferred.promise();
 }
 
 export default RoleLogin;

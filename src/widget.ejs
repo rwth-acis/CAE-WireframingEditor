@@ -11,7 +11,8 @@
   <div id="mainContainer">
     <div id='toolbox'>
   </div>
-    <div id="wireframeContainer">
+  <!--recalculate max-height and width-heigth if the widget size in widget.xml is changes-->
+    <div id="wireframeContainer" style="max-height: 615px; max-width: 555px; overflow:auto" >
       <div id="wireframeWrap">
         <div id="draggingBar">
           <span class="ui-icon ui-icon-closethick"></span>
@@ -26,4 +27,12 @@
   <div id="userList">
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
     <table style="background-color: white"></table>
+  </div>
+  <div id="init" title="Initialization">
+    <div id="loading">
+      <div id="progressbar"><div class="progress-label">0%</div></div>
+      <p> Synchronization with Yjs </p>
+      <p> Initilialze Wireframe model </p>
+      <p> Login in to Google </p>
+    </div>
   </div>
