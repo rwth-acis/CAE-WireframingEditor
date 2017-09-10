@@ -319,7 +319,7 @@ function Wireframe(container, model) {
                         cell.addTag(tag);
                         tag.setCell(cell);
                         if(tag.hasOwnProperty('initAttributes')) tag.initAttributes();
-                        tag.createShared(   );
+                        tag.createShared(y.db.userId === event.value.userId);
                         tag.bindClickEvent(that);
                         var ref = $('#' + cell.getId() + '_tagTree').jstree(true);
                         if (ref) {
@@ -446,12 +446,12 @@ function Wireframe(container, model) {
         if (mxUtils.isNode(cell.value)) {
             if (cell.hasOwnProperty('get$node')) {
                 if (!cell.get$node()) cell.initDOM();
-                mxEvent.addListener(cell.get$node()[0], 'change', function () {
+                /*mxEvent.addListener(cell.get$node()[0], 'change', function () {
                     var elt = cell.value.cloneNode(true);
                     elt.setAttribute('label', cell.get$node().val());
                     that.model.setValue(cell, elt);
                     Util.Save(that);
-                });
+                });*/
                 cell.get$node().css('width', cell.geometry.width - 15).css('height', cell.geometry.height - 15);
 
                 switch (cell.value.getAttribute('uiType').toLowerCase()) {

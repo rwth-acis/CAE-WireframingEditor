@@ -103,7 +103,7 @@ function UIControl(geometry, style, type) {
      * @param  {Integer} y0 y-corrdinate
      * @return {String} the id of the created ui component
      */
-    this.funct = function (wf, evt, dropTarget, x0, y0) {
+    this.dropElementCallback = function (wf, evt, dropTarget, x0, y0) {
         wf.stopEditing(false);
 
         //encode UIControl
@@ -139,7 +139,7 @@ function UIControl(geometry, style, type) {
         preview.style.height = that.geometry.height + 'px';
         preview.style.border = 'black 0.5px dashed';
 
-        mxUtils.makeDraggable(type, wireframe, that.funct, preview, 0, 0);
+        mxUtils.makeDraggable(type, wireframe, that.dropElementCallback, preview, 0, 0);
     }
 
     /**

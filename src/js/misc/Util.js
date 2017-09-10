@@ -1,6 +1,7 @@
 /*global y*/
 import { mxCodec, mxUtils, mxForm, mxGraph } from './mxExport.js';
 import $ from 'jquery';
+import Noty from 'noty';
 
 /**
  * @module Misc
@@ -75,9 +76,16 @@ Util.Save = function (graph) {
     var $save = $('.wfSave');
     $save.css('opacity', 1.0);
 
+    new Noty({
+        type: 'success',
+        layout : 'topRight',
+        text: 'Saved Wireframe Model',
+        timeout: 750
+    }).show();
     setTimeout(function () {
         $save.css('opacity', 0.5);
     }, 750);
+    
 }
 
 Util.initSharedData = function (parent, graph) {

@@ -5,15 +5,18 @@ require(['./css/style.css',
 './../node_modules/jquery-ui/themes/base/dialog.css',
 './../node_modules/jquery-ui/themes/base/progressbar.css',
 '../node_modules/mxgraph/javascript/src/css/common.css',
-'../node_modules/jstree/dist/themes/default/style.min.css']);
+'../node_modules/jstree/dist/themes/default/style.min.css',
+'../node_modules/noty/lib/noty.css']);
 
 import $ from 'jquery';
 import RoleLogin from './js/ROLELogin.js';
 import YjsSync from './js/misc/YjsSync.js';
 import Main from './js/Main.js';
-import TagRegistry from './js/tags/TagRegistry.js';
 import CAELiveMapper from './js/mapper/CAELiveMapper.js';
 import Loader from './js/Loader.js';
+
+import config from './data/config_widget.json';
+
 $(function(){
     Loader.init();
     var roleSpaceTitle = frameElement.baseURI.substring(frameElement.baseURI.lastIndexOf('spaces/')).replace(/spaces|#\S*|\?\S*|\//g, '');
@@ -27,9 +30,8 @@ $(function(){
             var vls = require('./data/vls.json');
             window.vls = vls;
         }
-        TagRegistry.initFromVLS(vls);
         //Important load a vls before calling Main
-        var editor = Main(true);
+        var editor = Main(config, true);
         Loader.check(1, 66);
         
         RoleLogin().done(function(){

@@ -1,5 +1,4 @@
 import CONST from '../misc/Constants.js';
-import config from '../../data/config.json';
 import SharedTag from './SharedTag.js';
 import GenericTag from './GenericTag.js';
 
@@ -36,10 +35,11 @@ function TagRegistry() {
          * Initialize the TagRegistry with the given VLS
          * @static
          * @param {Object} vls the VLS
+         * @param {Object} config the configuration file
          * @return {undefined}
          * @memberof TagRegistry
          */
-        initFromVLS: function (vls) {
+        initFromVLS: function (vls, config) {
             var findNodeClassInVLS = function (nodeClassName, vls) {
                 var nodes = vls.nodes;
                 for (var key in nodes) {

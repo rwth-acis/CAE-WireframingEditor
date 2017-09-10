@@ -1,4 +1,14 @@
-require(['../node_modules/mocha/mocha.css']);
+require(['../src/css/style.css',
+'./../node_modules/jquery-ui/themes/base/theme.css', 
+'./../node_modules/jquery-ui/themes/base/core.css',
+'./../node_modules/jquery-ui/themes/base/tabs.css',
+'./../node_modules/jquery-ui/themes/base/dialog.css',
+'./../node_modules/jquery-ui/themes/base/progressbar.css',
+'../node_modules/mxgraph/javascript/src/css/common.css',
+'../node_modules/jstree/dist/themes/default/style.min.css',
+'../node_modules/noty/lib/noty.css',
+'../node_modules/mocha/mocha.css']);
+
 import {
     mxWindow,
     mxUtils
@@ -8,15 +18,13 @@ import $ from 'jquery';
 import GoogleLogin from '../src/js/GoogleLogin.js';
 import YjsSync from '../src/js/misc/YjsSync.js';
 import Main from '../src/js/Main.js';
-import TagRegistry from '../src/js/tags/TagRegistry.js';
-
 
 import WireframeTest from './src/Wireframe.test.js';
 import WireframeToModelTest from './src/WireframeToModel.test.js';
 import ModelToWireframeTest from './src/ModelToWireframe.test.js';
 import OperationsTest from './src/Operations.test.js';
 
-
+import config from '../src/data/config.json';
 
 $(function () {
     YjsSync('yireframetesting').done(function (y) {
@@ -28,8 +36,7 @@ $(function () {
             window.vls = vls;
         }
         //Important load a vls before calling Main
-            TagRegistry.initFromVLS(vls);
-            var editor = Main();
+            var editor = Main(config);
             GoogleLogin();
 
             mocha.setup('bdd');

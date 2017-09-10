@@ -5,7 +5,7 @@
             "input" :"TextBox"
         }
     },
-    "tags": [
+    "___tags": [
         {
             "node_class": "IWC Response",
             "options": {

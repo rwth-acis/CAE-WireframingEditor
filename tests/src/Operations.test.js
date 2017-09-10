@@ -12,7 +12,7 @@ export default function (editor) {
             before(function () {
                 var Button = editor.getUIComponentFromHTMLName('button');
                 var btn = new Button();
-                uiId = btn.funct(editor.graph, null, null, 250, 250);
+                uiId = btn.dropElementCallback(editor.graph, null, null, 250, 250);
             });
 
             it('Check the id and the constructor', function () {

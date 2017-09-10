@@ -15,9 +15,9 @@ module.exports = {
   entry: {
     app: './src/index.js',
     'yVendor': ['yjs', 'y-websockets-client', 'y-map', 'y-array', 'y-text', 'y-memory'],
-    'jVendor': ['jquery', 'jquery-ui', 'jstree', 'lodash'],
+    'jVendor': ['jquery', 'jquery-ui', 'jstree'],
     'mxVendor': ['mxgraph'],
-    'vendor': ['lodash', 'randomcolor']
+    'vendor': ['lodash', 'randomcolor', 'noty']
   },
   output: {
     filename: '[name].js',
