@@ -14,7 +14,12 @@ module.exports = {
   devtool: 'inline-source-map',
   entry: {
     app: './src/index.js',
-    'yVendor': ['yjs', 'y-websockets-client', 'y-map', 'y-array', 'y-text', 'y-memory'],
+    'yVendor': ['./node_modules/yjs/dist/y.js',
+    './node_modules/y-websockets-client/dist/y-websockets-client.js',
+    './node_modules/y-map/dist/y-map.js',
+    './node_modules/y-array/dist/y-array.js',
+    './node_modules/y-text/dist/y-text.js',
+    './node_modules/y-memory/dist/y-memory.js'],
     'jVendor': ['jquery', 'jquery-ui', 'jstree'],
     'mxVendor': ['mxgraph'],
     'vendor': ['lodash', 'randomcolor', 'noty']
