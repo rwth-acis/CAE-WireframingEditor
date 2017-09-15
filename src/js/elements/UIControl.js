@@ -14,7 +14,7 @@ import {
 } from './../misc/mxExport.js';
 import Util from '../misc/Util';
 import ComboAttributeMap from '../misc/ComboAttributeMap.js';
-import Y from 'yjs';
+import Y from './../../../node_modules/yjs/dist/y.js';
 import $ from 'jquery';
 import _ from 'lodash';
 import CONST from '../misc/Constants.js';

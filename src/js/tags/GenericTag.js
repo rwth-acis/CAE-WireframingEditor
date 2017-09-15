@@ -8,7 +8,7 @@ import {
 } from '../misc/mxExport.js';
 import AbstractTag from './AbstractTag.js';
 import CONST from '../misc/Constants.js';
-import Y from 'yjs';
+import Y from './../../../node_modules/yjs/dist/y.js';
 import TagRegistry from './TagRegistry.js';
 
 

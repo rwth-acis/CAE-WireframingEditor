@@ -7,7 +7,7 @@ import {
 } from '../misc/mxExport.js';
 import UIControl from './UIControl.js';
 import $ from 'jquery';
-import Y from 'yjs';
+import Y from './../../../node_modules/yjs/dist/y.js';
 import _ from 'lodash';
 import Util from '../misc/Util.js';
 

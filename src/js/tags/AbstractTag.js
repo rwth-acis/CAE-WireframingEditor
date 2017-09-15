@@ -13,7 +13,7 @@ import {
 } from '../misc/mxExport.js';
 import $ from 'jquery';
 import Util from '../misc/Util.js';
-import Y from 'yjs';
+import Y from './../../../node_modules/yjs/dist/y.js';
 import _ from 'lodash';
 import PropertyEditor from '../PropertyEditor.js';
 import ComboAttributeMap from '../misc/ComboAttributeMap.js';

@@ -5,7 +5,7 @@ import {
     mxCodecRegistry
 } from './misc/mxExport.js';
 import $ from 'jquery';
-import Y from 'yjs';
+import Y from './../../node_modules/yjs/dist/y.js';
 import _ from 'lodash';
 import ComboAttributeMap from './misc/ComboAttributeMap.js';
 import Util from './misc/Util.js';

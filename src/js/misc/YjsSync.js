@@ -1,10 +1,10 @@
 import $ from 'jquery';
-import Y from 'yjs';
-import yWebsocketsClient from 'y-websockets-client';
-import yMemory from 'y-memory';
-import yMap from 'y-map';
-import yText from 'y-text';
-import yArray from 'y-array';
+import Y from './../../../node_modules/yjs/dist/y.js';
+import yWebsocketsClient from './../../../node_modules/y-websockets-client/dist/y-websockets-client.js';
+import yMemory from './../../../node_modules/y-memory/dist/y-memory.js';
+import yMap from './../../../node_modules/y-map/dist/y-map.js';
+import yText from './../../../node_modules/y-text/dist/y-text.js';
+import yArray from './../../../node_modules/y-array/dist/y-array.js';
 Y.extend(yArray, yWebsocketsClient, yMemory, yMap, yText);
 
 window.Y = Y;
