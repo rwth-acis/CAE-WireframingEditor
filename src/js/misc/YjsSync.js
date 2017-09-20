@@ -16,7 +16,8 @@ export default function (space) {
         },
         connector: {
             name: "websockets-client",
-            room: space || 'yireframe'
+            room: space || 'yireframe',
+            url: 'http://127.0.0.1:1234'
         },
         share: {
             action: 'Map',

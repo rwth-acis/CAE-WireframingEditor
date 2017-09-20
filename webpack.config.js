@@ -9,18 +9,17 @@ module.exports = function(env) {
   }
 
   if(env === 'dev' || env === 'prod' || env == undefined){
-    var htmlTpl = require('./webpack/htmlTpl.js')('src/index.ejs');
+    var htmlTpl = require('./webpack/htmlTpl.js')('src/index.ejs', 'head');
     conf.plugins.push(htmlTpl);
   }
   else if(env === 'test'){
     conf.entry.app = './tests/index.js';
-    var htmlTpl = require('./webpack/htmlTpl.js')('tests/index.ejs');
-    conf.plugins.push(htmlTpl);
+    var htmlTpl = require('./webpack/htmlTpl.js')('tests/index.ejs', 'head');
   }
   else if(env === 'widget'){
     conf.entry.app = './src/widget.js';    
     conf.output.path = path.resolve(__dirname, 'widget');
-    var htmlTpl = require('./webpack/htmlTpl.js')('src/widget.ejs');
+    var htmlTpl = require('./webpack/htmlTpl.js')('src/widget.ejs', false);
     conf.plugins.push(htmlTpl);
   }
 
