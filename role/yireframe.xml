@@ -7,16 +7,19 @@
     author_email="rosenst@dbis.rwth-aachen.de"
     width="650"
     height="650">
+  <!--recalculate max-height and width-heigth if the widget size in widget.xml is changes-->
 
 	
   </ModulePrefs>
   <Content type="html">
     <![CDATA[
          
-  <link href="https://rwth-acis.github.io/CAE-WireframingEditor/role/css/bundle.css" rel="stylesheet">
+  <link href="https://rwth-acis.github.io/CAE-WireframingEditor/role/css/style.css" rel="stylesheet">
 
 
 <script src="manifest.js"></script>
+
+<script src="style.js"></script>
 
 <script src="vendor.js"></script>
 
@@ -28,6 +31,7 @@
 
 <script src="app.js"></script>
 
+
   <div id="paletteContainer">
     <div id="palette"></div>
     <div class="hsplit"></div>
@@ -35,7 +39,8 @@
   <div id="mainContainer">
     <div id='toolbox'>
   </div>
-    <div id="wireframeContainer">
+  <!--recalculate max-height and width-heigth if the widget size in widget.xml is changes-->
+    <div id="wireframeContainer" style="max-height: 615px; max-width: 555px; overflow:auto" >
       <div id="wireframeWrap">
         <div id="draggingBar">
           <span class="ui-icon ui-icon-closethick"></span>
@@ -50,6 +55,15 @@
   <div id="userList">
     <div class="g-signin2" data-onsuccess="onSignIn"></div>
     <table style="background-color: white"></table>
+  </div>
+  <div id="init" title="Initialization">
+    <div id="loading">
+      <div id="progressbar"><div class="progress-label">0%</div></div>
+      <p> Synchronization with Yjs </p>
+      <p> Initiliaze Wireframe model </p>
+      <p> Initiliaze Live Mapper </p>
+      <p> Login to ROLE space </p>
+    </div>
   </div>
     ]]>
   </Content>
