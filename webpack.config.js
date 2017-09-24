@@ -10,6 +10,9 @@ module.exports = function(env) {
 
   if(env === 'dev' || env === 'dist' || env == undefined){
     var htmlTpl = require('./webpack/htmlTpl.js')('src/index.ejs', 'head');
+    //add source maps if we dont want to build the production build
+    if(env !== 'dist')
+      conf.devtool = 'inline-source-map';
     conf.plugins.push(htmlTpl);
   }
   else if(env === 'test'){

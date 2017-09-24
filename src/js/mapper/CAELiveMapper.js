@@ -266,7 +266,7 @@ function CAELiveMapper() {
                     return;
                 }
                 var recursiveDelete = function (parent) {
-                    if (!parent.children) return;
+                    if (!parent || !parent.children) return;
                     for (var i = 0; i < parent.children.length; i++) {
                         var cell = parent.children[i];
                         SyncMeta.deleteNode(cell.id);
