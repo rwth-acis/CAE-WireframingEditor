@@ -41,6 +41,9 @@ function WireframeToModel(wireframeModel, vls) {
         nodes: {},
         edges: {}
     };
+    var attributesTpl = '{"label":{"id":"modelAttributes[label]","name":"Label","value":{"id":"modelAttributes[label]","name":"Label","value":"Model Attributes"}},"left":0,"top":0,"width":0,"height":0,"zIndex":0,"type":"ModelAttributesNode","attributes":{"modelAttributes[type]":{"id":"modelAttributes[type]","name":"type","value":{"id":"modelAttributes[type]","name":"type","value":"frontend-component"},"option":"frontend-component"},"modelAttributes[name]":{"id":"modelAttributes[name]","name":"name","value":{"id":"modelAttributes[name]","name":"name","value":""}},"modelAttributes[version]":{"id":"modelAttributes[version]","name":"version","value":{"id":"modelAttributes[version]","name":"version","value":0}}}}';
+    model.attributes = JSON.parse(attributesTpl);
+
     var nodeTpl = '{"label":<%=labelAttr%>, "left": 4500, "top":4500, "width":100, "height":100, "zIndex": 1, "type":"<%=type%>", "attributes":<%=attributes%>}';
     var attrTpl = '{"id":"<%=id%>[<%=attrName%>]", "name":"<%=attrName%>", "value":{"id":"<%=id%>[<%=attrName%>]", "name":"<%=attrName%>", "value":<%=value%>}<% if(option) {%> ,"option":<%=value%><%}%> }';
     var edgeTpl = '{"label":<%=labelAttr%>, "source":"<%=srcId%>", "target":"<%=targetId%>", "attributes":{}, "type":"<%=type%>"}';
