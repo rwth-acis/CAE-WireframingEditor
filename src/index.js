@@ -20,7 +20,7 @@ import config from './data/config.json';
 $(function () {
     Loader.init();
     YjsSync('yireframetesting5').done(function (y) {
-        Loader.check(0, 50);
+        Loader.checkSuccessful(0, 50);
         var vls = y.share.data.get('metamodel');
         if (vls)
             window.vls = vls;
@@ -30,7 +30,7 @@ $(function () {
         }
         //Important load a vls before calling Main
         var editor = Main(config);
-        Loader.check(1, 100);
+        Loader.checkSuccessful(1, 100);
         Loader.destroy(500);
         
         GoogleLogin().done(function (userId) {

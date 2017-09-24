@@ -4,6 +4,8 @@
 <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
 <script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
 <% } %>
+<script src="0.js"></script>
+
   <div id="paletteContainer">
     <div id="palette"></div>
     <div class="hsplit"></div>
@@ -32,7 +34,8 @@
     <div id="loading">
       <div id="progressbar"><div class="progress-label">0%</div></div>
       <p> Synchronization with Yjs </p>
-      <p> Initilialze Wireframe model </p>
-      <p> Login in to ROLE </p>
+      <p> Initiliaze Wireframe model </p>
+      <p> Initiliaze Live Mapper </p>
+      <p> Login to ROLE space </p>
     </div>
   </div>

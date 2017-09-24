@@ -28,9 +28,15 @@ function Loader() {
                 }
             });
         },
-        check: function (index, progress) {
+        checkSuccessful: function (index, progress) {
             var $node = $("#loading").find('p:eq(' + index + ')');
             $node.append('<span class="ui-icon ui-icon-circle-check" style="float:left;"></span>');
+            $node.css('opacity', 1);
+            $progressbar.progressbar("value", progress);
+        },
+        checkFail : function(index, progress){
+            var $node = $("#loading").find('p:eq(' + index + ')');
+            $node.append('<span class="ui-icon ui-icon-alert" style="float:left;"></span>');
             $node.css('opacity', 1);
             $progressbar.progressbar("value", progress);
         },

@@ -21,7 +21,7 @@ $(function(){
     Loader.init();
     var roleSpaceTitle = frameElement.baseURI.substring(frameElement.baseURI.lastIndexOf('spaces/')).replace(/spaces|#\S*|\?\S*|\//g, '');
      YjsSync(roleSpaceTitle).done(function (y) {
-        Loader.check(0, 33);        
+        Loader.checkSuccessful(0, 25);        
         var vls = y.share.data.get('metamodel');
         if(vls){
           window.vls = vls;
@@ -32,13 +32,21 @@ $(function(){
         }
         //Important load a vls before calling Main
         var editor = Main(config, true);
-        Loader.check(1, 66);
+        Loader.checkSuccessful(1, 25);
         
+        CAELiveMapper.init(editor);
+        Loader.checkSuccessful(2, 75);
+
         RoleLogin().done(function(){
-            CAELiveMapper.init(editor);
-            Loader.check(2, 100);
-            Loader.destroy(500);
+            Loader.checkSuccessful(3, 100);
+            Loader.destroy(500);    
+        }).fail(function(){
+            $('.widget-title-bar', frameElement.offsetParent).find('span').text('CAE-WireframingEditor[NOT LOGGED IN]');
+            Loader.destroy(500);       
+            Loader.checkFail(3, 100);     
         });
+        
+        
         
      });
 });
