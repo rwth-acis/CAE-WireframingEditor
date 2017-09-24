@@ -8,7 +8,7 @@ module.exports = function(env) {
     Object.assign(conf, devServer);
   }
 
-  if(env === 'dev' || env === 'prod' || env == undefined){
+  if(env === 'dev' || env === 'dist' || env == undefined){
     var htmlTpl = require('./webpack/htmlTpl.js')('src/index.ejs', 'head');
     conf.plugins.push(htmlTpl);
   }
@@ -25,6 +25,10 @@ module.exports = function(env) {
 
   if(env == undefined || env === 'test'){
     conf.plugins.push(require('./webpack/dashboard.js'));
+  }
+
+  if(env === 'dist'){
+    conf.plugins.push(require('./webpack/uglify.js'));
   }
   console.log(conf);
   return conf;

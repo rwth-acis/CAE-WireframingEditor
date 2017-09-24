@@ -14,7 +14,16 @@ module.exports = {
         './node_modules/y-memory/dist/y-memory.js'],
         'jVendor': ['jquery', 'jquery-ui', 'jstree'],
         'mxVendor': ['mxgraph'],
-        'vendor': ['lodash', 'randomcolor', 'noty']
+        'vendor': ['lodash', 'randomcolor', 'noty'],
+        "style":['./src/css/style.css',
+        './node_modules/jquery-ui/themes/base/theme.css', 
+        './node_modules/jquery-ui/themes/base/core.css',
+        './node_modules/jquery-ui/themes/base/tabs.css',
+        './node_modules/jquery-ui/themes/base/dialog.css',
+        './node_modules/jquery-ui/themes/base/progressbar.css',
+        './node_modules/mxgraph/javascript/src/css/common.css',
+        './node_modules/jstree/dist/themes/default/style.min.css',
+        './node_modules/noty/lib/noty.css']
       },
       output: {
         filename: '[name].js',
@@ -50,10 +59,10 @@ module.exports = {
       },
       plugins: [
         new webpack.optimize.CommonsChunkPlugin({
-          name: ['yVendor', 'jVendor', 'mxVendor', 'vendor', 'manifest']
+          name: ['app', 'yVendor', 'jVendor', 'mxVendor', 'vendor', 'style', 'manifest']
         }),
         new ExtractTextPlugin({
-          filename: "css/bundle.css",
+          filename: "css/style.css",
           allChunks: true
         }),
         new CopyWebpackPlugin([{
