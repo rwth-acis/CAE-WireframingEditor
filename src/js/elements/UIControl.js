@@ -64,7 +64,7 @@ function UIControl(geometry, style, type) {
      */
     var uiObj = xmlDoc.createElement('uiObj');
 
-    uiObj.setAttribute('_id', '');
+    //uiObj.setAttribute('_id', '');
     uiObj.setAttribute('_class', '');
     uiObj.setAttribute('uiType', type || this.constructor.name.toLowerCase());
     
@@ -262,7 +262,7 @@ UIControl.registerCodec(UIControl);
  */
 UIControl.prototype.createShared = function (createdByLocalUser) {
     if (createdByLocalUser) {
-        y.share.attrs.set(this.getId() + '_id', Y.Text);
+        //y.share.attrs.set(this.getId() + '_id', Y.Text);
         y.share.attrs.set(this.getId() + '_class', Y.Text);
     }
 }
@@ -300,7 +300,7 @@ UIControl.prototype.setComboAttributeValue = function (name, value) {
  * @return {undefined}
  */
 UIControl.prototype.initShared = function () {
-    this.initYText('_id');
+    //this.initYText('_id');
     this.initYText('_class');
 }
 
