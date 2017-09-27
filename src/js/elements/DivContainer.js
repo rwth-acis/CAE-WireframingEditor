@@ -45,13 +45,13 @@ function DivContainer(geometry) {
         mxConstants.STYLE_VERTICAL_ALIGN + '=middle;' +
         mxConstants.STYLE_LABEL_BACKGROUNDCOLOR + '=none;' +
         mxConstants.STYLE_FONTSIZE + '=11;' +
-        mxConstants.STYLE_STARTSIZE + '=13;' +
+        mxConstants.STYLE_STARTSIZE + '=0;' +
         //mxConstants.STYLE_HORIZONTAL + '=false;' +
         mxConstants.STYLE_FONTCOLOR + '=rgba(91, 93, 90, 0.25);' +
         mxConstants.STYLE_EDITABLE + "=0;"; 
 
     UIControl.call(this, geometry, style);
-    this.setAttribute('label', 'Container');
+    //this.setAttribute('label', 'Container');
     this.setConnectable(false);
 }
 export default DivContainer;
