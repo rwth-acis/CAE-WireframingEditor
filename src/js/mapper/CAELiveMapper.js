@@ -29,23 +29,36 @@ function CAELiveMapper() {
             var model = y.share.data.get('model');
             var widgetNodeId = null;
             var hasChildMap = {};
-            var nodeCreateMap = {};
+            var isStaticMap = {}; //is the html element static
+            var isConnected = {}; //is the html element connected to the widget
             var mxCellsAddedFlag = true, mxCellsRemoveFlag = true, mxCellOverlayAddFlag = true;
             if (model) {
-                for (var key in model.nodes) {
-                    if (model.nodes.hasOwnProperty(key)) {
-                        var node = model.nodes[key];
-                        if (node.type === 'Widget') {
-                            widgetNodeId = key;
-                            break;
+                nodeLoop:
+                    for (var key in model.nodes) {
+                        if (model.nodes.hasOwnProperty(key)) {
+                            var node = model.nodes[key];
+                            if (node.type === 'Widget') {
+                                widgetNodeId = key;
+                            }else if(node.type === 'HTML Element'){
+                                attrLoop:
+                                    for(var attrKey in node.attributes){
+                                        var attr = node.attributes[attrKey];
+                                        if(attr.name === 'static'){
+                                            isStaticMap[key] = attr.value.value;
+                                            break attrLoop;
+                                        }
+                                    }
+                            }
                         }
                     }
-                }
                 for (var key in model.edges) {
                     if (model.edges.hasOwnProperty(key)) {
                         var edge = model.edges[key];
                         if (edge.type === 'hasChild') {
                             hasChildMap[edge.target] = key;
+                        }
+                        else if(edge.type === 'Widget to HTML Element'){
+                            isConnected[edge.target] = true;
                         }
                     }
                 }
@@ -77,43 +90,49 @@ function CAELiveMapper() {
 
             SyncMeta.onNodeAdd(function (event) {
                 mxLog.writeln('Node was created in SyncMeta: ' + JSON.stringify(event));
-                nodeCreateMap[event.id] = event;
             });
+
+            function createUIControlElementFromNode(nodeId){
+                var ymap = y.share.nodes.get(nodeId);
+                if (ymap) {
+                    var attr = ymap.get(nodeId + '[type]');
+                    var type;
+                    if (attr)
+                        type = attr.value;
+                    else
+                        type = 'input';
+                                           
+                    var UIControl = editor.getUIComponentFromHTMLName(type);
+                    if (UIControl) {
+                        var encoder = new mxCodec();
+                        var uiControl = new UIControl();
+                        var result = encoder.encode(uiControl);
+
+                        var xml = mxUtils.getXml(result);
+                        mxCellsAddedFlag = false;
+                        //Create Node
+                        y.share.action.set(mxEvent.ADD_VERTEX, {
+                            userId: y.db.userId,
+                            id: nodeId,
+                            data: xml,
+                            parent: null
+                        });
+                        if (editor.graph.getDefaultParent().children.length > 1) {
+                            y.share.action.set(CONST.ACTIONS.SHARED.APPLY_LAYOUT, { userId: y.db.userId, cellId: null });
+                        }
+                    }
+
+                }
+            }
             SyncMeta.onEdgeAdd(function (event) {
                 mxLog.writeln('Edge was created in SyncMeta: ' + JSON.stringify(event));
                 var cell = editor.graph.model.getCell(event.target);
                 if (cell) return;
                 if (event.source === widgetNodeId && event.type === 'Widget to HTML Element') {
-                    var ymap = y.share.nodes.get(event.target);
-                    if (ymap) {
-                        var attr = ymap.get(event.target + '[type]');
-                        var type;
-                        if (attr)
-                            type = attr.value;
-                        else
-                            type = 'input';
-
-                        var UIControl = editor.getUIComponentFromHTMLName(type);
-                        if (UIControl) {
-                            var encoder = new mxCodec();
-                            var uiControl = new UIControl();
-                            var result = encoder.encode(uiControl);
-
-                            var xml = mxUtils.getXml(result);
-                            mxCellsAddedFlag = false;
-                            //Create Node
-                            y.share.action.set(mxEvent.ADD_VERTEX, {
-                                userId: y.db.userId,
-                                id: event.target,
-                                data: xml,
-                                parent: null
-                            });
-                            if (editor.graph.getDefaultParent().children.length > 1) {
-                                y.share.action.set(CONST.ACTIONS.SHARED.APPLY_LAYOUT, { userId: y.db.userId, cellId: null });
-                            }
-                        }
-
+                    if(isStaticMap.hasOwnProperty(event.target) && isStaticMap[event.target]){
+                        createUIControlElementFromNode(event.target);
                     }
+                    else isConnected[event.target] = true;
                 }
             });
             SyncMeta.onNodeDelete(function (event) {
@@ -128,6 +147,7 @@ function CAELiveMapper() {
                 mxLog.writeln('Edge deleted from the Widget: ' + JSON.stringify(event));
                 var cell = editor.graph.model.getCell(event.target);
                 if (cell && event.type === 'Widget to HTML Element') {
+                    delete isConnected[cell.id];
                     y.share.action.set(mxEvent.REMOVE, {
                         userId: y.db.userId,
                         cells: [cell.id]
@@ -209,6 +229,25 @@ function CAELiveMapper() {
                         }
                         break;
                     }
+                    case 'static':{
+                        isStaticMap[entity] = value;
+                        if(value){
+                            if(isConnected.hasOwnProperty(entity) && isConnected[entity]){
+                                var uiControl =  editor.graph.model.getCell(entity);
+                                if(!uiControl)                                
+                                    createUIControlElementFromNode(entity);
+                            }
+                        }
+                        else{
+                            //check if ui control element exists and delete it from wireframe only
+                            var uiControl =  editor.graph.model.getCell(entity);
+                            if(uiControl){
+                                mxCellsRemoveFlag = false;
+                                editor.graph.removeCells([uiControl]);
+                            }
+                        }
+                        break;
+                    }
                 }
 
             });
@@ -229,12 +268,12 @@ function CAELiveMapper() {
                         SyncMeta.createNode('HTML Element', 4500, 4500, 100, 100, 1, null, cell.id);
                         setTimeout(function () {
                             SyncMeta.setAttributeValue(cell.id, 'type', cell.constructor.HTML_NODE_NAME || cell.value.getAttribute('uiType'));
+                            SyncMeta.setAttributeValue(cell.id, 'static', true);
                             SyncMeta.createEdge('Widget to HTML Element', widgetNodeId, cell.id);
                             if (parent.id != '1') {
                                 var edgeId = SyncMeta.createEdge('hasChild', parent.id, cell.id);
                                 hasChildMap[cell.id] = edgeId;
                             }
-
                         }, 500);
                     }
                 } else {
@@ -330,7 +369,6 @@ function CAELiveMapper() {
                     }
                 }
             });
-
             y.share.select.observe(function (event) {
                 var cell = editor.graph.model.getCell(event.value);
                 if (cell) {
@@ -348,7 +386,6 @@ function CAELiveMapper() {
                 }
 
             });
-
         },
         /**
          * Get a shared widget attribute with the given name

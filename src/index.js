@@ -9,7 +9,7 @@ import config from './data/config.json';
 
 $(function () {
     Loader.init();
-    YjsSync('yireframetesting5').done(function (y) {
+    YjsSync().done(function (y) {
         Loader.checkSuccessful(0, 50);
         var vls = y.share.data.get('metamodel');
         if (vls)
