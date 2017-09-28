@@ -189,7 +189,11 @@ function Toolbox(container, editor) {
                 break;
             case mxEvent.GROUP_CELLS:
                 var cells = Util.getCellsFromIdList(that._editor.graph, event.value.ids);
+
+                if(event.value.userId !== y.db.userId) that._editor.graph.setEventsEnabled(false);
                 var group = that._editor.graph.groupCells(null, 20, cells);
+                if(event.value.userId !== y.db.userId) that._editor.graph.setEventsEnabled(true);
+
                 if (y.db.userId === event.value.userId) {
                     //that._editor.graph.setSelectionCells(group);
                     that._editor.graph.getSelectionModel().setCell(group);

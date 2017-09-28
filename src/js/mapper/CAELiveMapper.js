@@ -126,11 +126,15 @@ function CAELiveMapper() {
             }
             SyncMeta.onEdgeAdd(function (event) {
                 mxLog.writeln('Edge was created in SyncMeta: ' + JSON.stringify(event));
+                
                 var cell = editor.graph.model.getCell(event.target);
                 if (cell) return;
                 if (event.source === widgetNodeId && event.type === 'Widget to HTML Element') {
                     if(isStaticMap.hasOwnProperty(event.target) && isStaticMap[event.target]){
-                        createUIControlElementFromNode(event.target);
+                        //only the user who triggered the event in syncmeta create the UI control and progapates it to the others
+                        var userInfo = y.share.yfUsers.get(y.db.userId);
+                        if(userInfo && userInfo.id ===  event.jabberId)
+                            createUIControlElementFromNode(event.target);
                     }
                     else isConnected[event.target] = true;
                 }
@@ -234,7 +238,8 @@ function CAELiveMapper() {
                         if(value){
                             if(isConnected.hasOwnProperty(entity) && isConnected[entity]){
                                 var uiControl =  editor.graph.model.getCell(entity);
-                                if(!uiControl)                                
+                                var userInfo = y.share.yfUsers.get(y.db.userId);
+                                if(!uiControl && userInfo && userInfo.id === userId) 
                                     createUIControlElementFromNode(entity);
                             }
                         }
@@ -274,7 +279,7 @@ function CAELiveMapper() {
                                 var edgeId = SyncMeta.createEdge('hasChild', parent.id, cell.id);
                                 hasChildMap[cell.id] = edgeId;
                             }
-                        }, 500);
+                        }, 1000);
                     }
                 } else {
                     if (parent.id != '1') {

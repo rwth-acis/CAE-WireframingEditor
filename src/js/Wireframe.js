@@ -218,6 +218,8 @@ function Wireframe(container, model) {
         switch (event.name) {
             case mxEvent.ADD_VERTEX:
                 {
+                    //disable events for the remote user 
+                    
                     var doc = mxUtils.parseXml(event.value.data);
                     var codec = new mxCodec(doc);
                     var type = doc.documentElement.getAttribute('uiType');
@@ -231,6 +233,9 @@ function Wireframe(container, model) {
                         cells.push(cell);
                         elt = elt.nextSibling;
                     }
+                    //deactivate ADD_CELLS event for the remote user during transaction
+                    if(event.value.userId !== y.db.userId)
+                        that.setEventsEnabled(false);
                     that.getModel().beginUpdate();
                     try {
                         if (event.value.parent)
@@ -243,6 +248,10 @@ function Wireframe(container, model) {
                         that.getModel().endUpdate();
                         if (!event.value.parent)
                             that.updateBounds();
+                        //activate events after transaction
+                        if(event.value.userId !== y.db.userId)
+                            that.setEventsEnabled(true);
+                        
                     }
                     HierachyTree.add(cell);
                     for (var i = 0; i < cells.length; i++) {
@@ -252,20 +261,19 @@ function Wireframe(container, model) {
                         that.setSelectionCells(cells);
                         $('#wireframe').focus();
                     }
-
                     break;
                 }
             case mxEvent.MOVE:
                 {
                     var parent = that.getModel().getCell(event.value.parentId);
                     if (event.value.userId !== y.db.userId) {
-                        that.removeListener(SharedCellsMovedEvent);
+                        that.setEventsEnabled(false);
                         var cells = Util.getCellsFromIdList(that, event.value.ids);
                         if (cells.length > 0) {
                             if (event.value.dx != 0 || event.value.dy != 0)
                                 that.moveCells(cells, event.value.dx, event.value.dy, false, parent, null, null, true);
                         }
-                        that.addListener(mxEvent.CELLS_MOVED, SharedCellsMovedEvent);
+                        that.setEventsEnabled(true);
                     }
                     HierachyTree.move(event.value.ids, event.value.parentId, parent.children.length);
                     that.updateBounds();
@@ -274,7 +282,7 @@ function Wireframe(container, model) {
             case mxEvent.RESIZE:
                 {
                     if (event.value.userId !== y.db.userId) {
-                        that.removeListener(SharedCellResizedEvent);
+                        that.setEventsEnabled(false);
                         var cells = Util.getCellsFromIdList(that, event.value.ids);
                         var bounds = [];
                         for (var i = 0; i < event.value.bounds.length; i++) {
@@ -288,7 +296,7 @@ function Wireframe(container, model) {
                             } finally {
                                 that.getModel().endUpdate();
                                 that.updateBounds();
-                                that.addListener(mxEvent.CELLS_RESIZED, SharedCellResizedEvent);
+                                that.setEventsEnabled(true);
                             }
                         }
                     }
