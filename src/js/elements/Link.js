@@ -2,7 +2,7 @@
 /**
  * @module UIElements
  */
-import Y from 'yjs';
+import Y from './../../../node_modules/yjs/dist/y.js';
 import UIText from './UIText.js';
 import {
     mxGeometry
@@ -43,6 +43,10 @@ function Link(geometry) {
     UIText.call(this, text, geometry);
     this.value.setAttribute('_href', '');
 
+    /**
+     * Initialize the DOM element of the shape
+     * @return {undefined}
+     */
     this.initDOM = function () {
         UIText.prototype.initDOM.call(this);
         var $input = this.get$node();
@@ -56,6 +60,11 @@ function Link(geometry) {
     return this;
 }
 
+/**
+ * Create the ytext-types for the attributes of the Link
+ * @param {boolean} createdByLocalUser only the local user is allowed to create the y-text object
+ * @return {undefined} 
+ */
 Link.prototype.createShared = function(createdByLocalUser){
     UIText.prototype.createShared.call(this, createdByLocalUser);
     if(createdByLocalUser){
@@ -63,6 +72,10 @@ Link.prototype.createShared = function(createdByLocalUser){
     }
 }
 
+/**
+ * Intialize the y-text elements for the attributes
+ * @return {undefined}
+ */
 Link.prototype.initShared = function(){
     UIText.prototype.initShared.call(this);
     this.initYText('_href');

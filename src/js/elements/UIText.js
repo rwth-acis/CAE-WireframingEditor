@@ -7,8 +7,9 @@ import {
 } from '../misc/mxExport.js';
 import UIControl from './UIControl.js';
 import $ from 'jquery';
-import Y from 'yjs';
-
+import Y from './../../../node_modules/yjs/dist/y.js';
+import _ from 'lodash';
+import Util from '../misc/Util.js';
 
 UIText.prototype = new UIControl();
 UIText.prototype.constructor = UIText;
@@ -80,23 +81,32 @@ UIText.prototype.createShared = function (createdByLocalUser) {
     if (createdByLocalUser) {
         var ytext = y.share.attrs.set(this.getId() + '_label', Y.Text);
         ytext.insert(0, this.value.getAttribute('label'));
-        var that = this;
-        ytext.observe(function(event){
-            that.value.setAttribute('label', event.object.toString());
-        });
+        
     }
 };
  UIText.prototype.initShared = function(){
     UIControl.prototype.initShared.call(this);
     var ytext = y.share.attrs.get(this.getId()+ '_label');
-    if(ytext)
+    if(ytext){
+        if(ytext.toString() != this.getAttribute('label')){
+            ytext.delete(0, ytext.toString().length);
+            ytext.insert(0, this.getAttribute('label'));
+        }
         this.bindLabel(ytext);
-    else
-        y.share.attrs.set(this.getId() + '_label', Y.Text);
+    }
+    else{
+        var ytext = y.share.attrs.set(this.getId() + '_label', Y.Text);
+        ytext.insert(0, this.value.getAttribute('label'));        
+    }
  };
 
 UIText.prototype.bindLabel = function(ytext){
     ytext.bind(this.get$node()[0]);
+    var that = this;    
+    ytext.observe(_.debounce(function(event){
+        that.value.setAttribute('label', event.object.toString());
+        $('.wfSave').click();
+    }, 300));
 }
 
 UIText.registerCodec = function(ctor){

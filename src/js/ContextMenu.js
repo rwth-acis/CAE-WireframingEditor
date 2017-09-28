@@ -26,7 +26,7 @@ function ContextMenu(editor) {
             for (var name in UIComponents) {
                 menu.addItem(name, null, function (event) {
                     var cell = new UIComponents[event.target.innerHTML]();
-                    cell.funct(editor.graph, event);
+                    cell.dropElementCallback(editor.graph, event);
                 }, sub);
             }
             menu.addSeparator();

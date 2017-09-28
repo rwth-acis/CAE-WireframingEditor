@@ -1,3 +1,4 @@
+/*global vls*/
 import { WireframeToModel } from '../../src/js/mapper/CAE.js';
 import Xml1 from '../data/wireframe_1.xml';
 import Xml2 from '../data/wireframe_2.xml';
@@ -68,7 +69,7 @@ export default function () {
             var codec = new mxCodec(doc);
             codec.decode(doc.documentElement.firstChild, model);
             model.initMetaFromXml(doc.documentElement);
-            ModelTester(WireframeToModel(model), model);
+            ModelTester(WireframeToModel(model, vls), model);
         });
         it('Test wireframe_2', function () {
             var doc = mxUtils.parseXml(Xml2);
@@ -76,7 +77,7 @@ export default function () {
             var codec = new mxCodec(doc);
             codec.decode(doc.documentElement.firstChild, model);
             model.initMetaFromXml(doc.documentElement);
-            ModelTester(WireframeToModel(model), model);
+            ModelTester(WireframeToModel(model, vls), model);
         });
     });
 }

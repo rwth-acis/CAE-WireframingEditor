@@ -14,7 +14,7 @@ import {
 } from './../misc/mxExport.js';
 import Util from '../misc/Util';
 import ComboAttributeMap from '../misc/ComboAttributeMap.js';
-import Y from 'yjs';
+import Y from './../../../node_modules/yjs/dist/y.js';
 import $ from 'jquery';
 import _ from 'lodash';
 import CONST from '../misc/Constants.js';
@@ -64,7 +64,7 @@ function UIControl(geometry, style, type) {
      */
     var uiObj = xmlDoc.createElement('uiObj');
 
-    uiObj.setAttribute('_id', '');
+    //uiObj.setAttribute('_id', '');
     uiObj.setAttribute('_class', '');
     uiObj.setAttribute('uiType', type || this.constructor.name.toLowerCase());
     
@@ -103,7 +103,7 @@ function UIControl(geometry, style, type) {
      * @param  {Integer} y0 y-corrdinate
      * @return {String} the id of the created ui component
      */
-    this.funct = function (wf, evt, dropTarget, x0, y0) {
+    this.dropElementCallback = function (wf, evt, dropTarget, x0, y0) {
         wf.stopEditing(false);
 
         //encode UIControl
@@ -139,7 +139,7 @@ function UIControl(geometry, style, type) {
         preview.style.height = that.geometry.height + 'px';
         preview.style.border = 'black 0.5px dashed';
 
-        mxUtils.makeDraggable(type, wireframe, that.funct, preview, 0, 0);
+        mxUtils.makeDraggable(type, wireframe, that.dropElementCallback, preview, 0, 0);
     }
 
     /**
@@ -262,7 +262,7 @@ UIControl.registerCodec(UIControl);
  */
 UIControl.prototype.createShared = function (createdByLocalUser) {
     if (createdByLocalUser) {
-        y.share.attrs.set(this.getId() + '_id', Y.Text);
+        //y.share.attrs.set(this.getId() + '_id', Y.Text);
         y.share.attrs.set(this.getId() + '_class', Y.Text);
     }
 }
@@ -300,7 +300,7 @@ UIControl.prototype.setComboAttributeValue = function (name, value) {
  * @return {undefined}
  */
 UIControl.prototype.initShared = function () {
-    this.initYText('_id');
+    //this.initYText('_id');
     this.initYText('_class');
 }
 

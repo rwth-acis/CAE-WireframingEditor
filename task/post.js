@@ -16,5 +16,6 @@ fs.readFile('src/widget.xml', 'utf8', function(err, data){
             console.log('Widget successfully created!');
         });
         fs.rename('Constants.js', 'src/js/misc/Constants.js');//copy original version back
+        fs.unlinkSync('widget/index.html');
     })
 });

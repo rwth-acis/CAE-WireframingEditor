@@ -1,4 +1,4 @@
-/*global y*/
+/*global y, vls*/
 import $ from 'jquery';
 import 'jquery-ui/ui/widgets/resizable';
 import 'jquery-ui/ui/widgets/draggable';
@@ -18,13 +18,15 @@ import Palette from './Palette.js';
 import Editor from './Editor.js';
 import Toolbox from './Toolbox.js';
 import HierachyTree from './HierachyTree.js';
+import TagRegistry from './tags/TagRegistry.js';
 
 /**
  * The Main function of the Wireframing editor
+ * @param {Object} config the configuration file
  * @param {boolean} disableDragging true if drag&drop of the wireframe canvas should be disabled else false
  * @return {Editor} the editor
  */
-export default function (disableDragging) {
+export default function (config, disableDragging) {
   if (!mxClient.isBrowserSupported()) {
     // Displays an error message if the browser is not supported.
     mxUtils.error('Browser is not supported!', 200, false);
@@ -38,8 +40,9 @@ export default function (disableDragging) {
     var htmlPalette = document.getElementById('palette');
     var palette = new Palette(htmlPalette);
 
-    var editor = new Editor(wireframe, palette);
-
+    var editor = new Editor(wireframe, palette, config);
+    TagRegistry.initFromVLS(vls, config);
+    
     //After the editor the add elements to window
     var xml = y.share.data.get('wireframe');
     if (xml) {

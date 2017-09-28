@@ -35,8 +35,6 @@ import VideoPlayer from './elements/VideoPlayer.js';
 import AudioPlayer from './elements/AudioPlayer.js';
 import DivContainer from './elements/DivContainer.js';
 
-import config from '../data/config.json';
-
 Editor.prototype = new mxEditor();
 Editor.prototype.constructor = Editor;
 
@@ -45,9 +43,10 @@ Editor.prototype.constructor = Editor;
  * @constructor
  * @param {Wireframe} wireframe the wireframe of the editor 
  * @param {Palette} palette the palette
+ * @param {Object} config the configuration file
  * @extends mxEditor 
  */
-function Editor(wireframe, palette) {
+function Editor(wireframe, palette, config) {
     var that = this;
     mxEditor.call(this);
     this.graph = wireframe;

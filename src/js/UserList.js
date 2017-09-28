@@ -7,7 +7,7 @@ import {
 } from './misc/mxExport.js';
 import $ from 'jquery';
 import randomColor from 'randomcolor';
-
+import Noty from 'noty';
 /**
  * Generate a user list wrapped in a mxWindow
  * Retrieve all necessary infromation with y.share.yfUsers.get(y.db.userId) 
@@ -97,6 +97,12 @@ function UserList(user, visible) {
                 remoteUsers.push(event.name);
                 height += 45;
                 wnd.setSize(width, height);
+                new Noty({
+                    type: 'success',
+                    layout : 'topRight',
+                    text: 'User ' + event.value.name + ' joined the space',
+                    timeout: 750
+                }).show();
             }
         });
         y.share.yfJoin.observe(function (event) {
@@ -104,6 +110,12 @@ function UserList(user, visible) {
                 $('#' + event.value).remove();
                 if (remoteUsers.indexOf(event.value) !== -1)
                     remoteUsers.splice(remoteUsers.indexOf(event.value), 1);
+                new Noty({
+                    type: 'error',
+                    layout : 'topRight',
+                    text: 'User ' + y.share.yfUsers.get(event.value).name + ' left the space',
+                    timeout: 750
+                }).show();
                 return;
             }
             if (event.name !== y.db.userId && !event.value) {

@@ -2,7 +2,7 @@
 /**
  * @module UIElements
  */
-import Y from 'yjs';
+import Y from './../../../node_modules/yjs/dist/y.js';
 import UIControl from './UIControl.js';
 
 

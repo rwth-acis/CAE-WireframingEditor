@@ -17,7 +17,10 @@ function RoleLogin(){
     $.get(url, function(data){
         UserList({name : data.name, imageUrl : data.picture}, false);
         deferred.resolve();
+    }).fail(function(error){
+        deferred.reject(error);
     });
+    
     return deferred.promise();
 }
 
