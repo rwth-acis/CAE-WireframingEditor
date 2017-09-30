@@ -1,7 +1,6 @@
 /*global y*/
 import { mxCodec, mxUtils, mxForm, mxGraph } from './mxExport.js';
 import $ from 'jquery';
-import Noty from 'noty';
 
 /**
  * @module Misc

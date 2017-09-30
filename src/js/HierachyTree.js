@@ -275,25 +275,24 @@ function HierachyTree() {
          * @memberof HierachyTree
          */
         ungroup: function (cells) {
-            var helperFnc = function(cell){
-                $tree.jstree(true).create_node(cell.parent.id === '1' ? '#' : cell.parent.id, {
-                    id: cell.id,
-                    text: cell.constructor.NAME || cell.value.getAttribute('uiType'),
-                    state: {
-                        selected: false,
-                        opened: true
-                    },
-                    pos: cell.parent.getIndex(cell)
-                });
-                if(cell.children){
-                    for(var i=0;i<cell.children.length;i++){
-                        helperFnc(cell.children[i]);
-                    }
+            var helperFnc = function(cell, newParent){
+                for(var i=0; cell.children && i < cell.children.length; i++){
+                    var child = cell.children[i];
+                    $tree.jstree(true).create_node(newParent.id === '1' ? '#' : newParent.id, {
+                        id: child.id,
+                        text: child.constructor.NAME || child.value.getAttribute('uiType'),
+                        state: {
+                            selected: false,
+                            opened: true
+                        },
+                        pos: cell.getIndex(child)
+                    });
+                    helperFnc(child, child);
                 }
-            
             }
+            $tree.jstree(true).delete_node(cells);      
             for (var i = 0; i < cells.length; i++) {
-                helperFnc(cells[i]);
+                helperFnc(cells[i], cells[i].parent);
             }
         }
     }
