@@ -48,9 +48,25 @@ function Toolbox(container, editor) {
     });
 
     editor.addAction(CONST.ACTIONS.SHARED.DELETE, function (editor, cell) {
+        var children = {};
+        var cells = that._editor.graph.getSelectionCells();
+        function helper(cell){
+            var childrenArr = [];
+            for(var i=0; cell.children && i < cell.children.length; i++){
+                var child = cell.children[i];
+                childrenArr.push(child.getId());
+                helper(child);
+            }
+            children[cell.getId()] = childrenArr;
+        }
+        for(var i=0;i <cells.length;i++){
+            helper(cells[i]);
+        }
+
         y.share.action.set(mxEvent.REMOVE, {
             userId: y.db.userId,
-            cells: Util.getIdsOfSelectedCells(that._editor.graph)
+            cells: Util.getIdsOfSelectedCells(that._editor.graph),
+            children : children 
         });
     });
 
