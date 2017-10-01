@@ -381,7 +381,24 @@ function CAELiveMapper() {
                 }
             });
 
-            //select-map from SyncMeta
+
+            /**
+             * hihglight the selected ui control element in SyncMeta
+             */
+            y.share.awareness.observe(function(event){
+                if(event.name === y.db.userId){
+                    var userInfo = y.share.yfUsers.get(y.db.userId);
+                    if(userInfo){
+                        SyncMeta.highlight(event.value.highlight, 'yellow', 'Selected in CAE-Wireframe', userInfo.id);                   
+                        SyncMeta.unhighlight(event.value.unhighlight, userInfo.id);
+                    }
+                }
+            });
+
+            /**
+             * y.share.select-map from SyncMeta
+
+             */
             y.share.select.observe(function (event) {
                 var cell = editor.graph.model.getCell(event.value);
                 if (cell) {
