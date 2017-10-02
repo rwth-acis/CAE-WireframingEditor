@@ -5,6 +5,7 @@ import SyncMeta from 'syncmeta-plugin';
 import TagRegistry from '../tags/TagRegistry.js';
 import $ from 'jquery';
 import SyncMetaSelectOverlay from '../overlays/SyncMetaSelectOverlay.js';
+import Noty from 'noty';
 
 /**
  * @classdesc Live mapper for the CAE. Its a Singleton class.
@@ -63,6 +64,36 @@ function CAELiveMapper() {
                     }
                 }
             }
+            //check if the frontend component metamodel is loaded
+            var metamodelCheck = false;
+            var metamodel = y.share.data.get('metamodel');
+            if(metamodel && metamodel.hasOwnProperty("nodes") && metamodel.hasOwnProperty("edges") && metamodel.hasOwnProperty("attributes")){
+                //check if a 'Widget'-node type is a part of the metamodel 
+                for(var nodeKey in metamodel.nodes){
+                    var node = metamodel.nodes[nodeKey];
+                    if(node.label === 'Widget'){
+                        metamodelCheck = true;
+                        break;
+                    }
+                }
+            }
+            if(!metamodelCheck){
+                new Noty({
+                    type: 'error',
+                    layout : 'topRight',
+                    text: 'No CAE-Frontend-Component metamodel found! Please load it and refresh.',
+                    timeout: 2000
+                }).show();
+                return;
+            }else{
+                new Noty({
+                    type: 'success',
+                    layout : 'topRight',
+                    text: 'Found a CAE-Frontend-Component metamodel.',
+                    timeout: 2000
+                }).show();
+            }
+
             if (!widgetNodeId) {
                 widgetNodeId = SyncMeta.createNode('Widget', 4500, 4500, 100, 100, 1);
                 setTimeout(function () {
