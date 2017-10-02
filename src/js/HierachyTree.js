@@ -81,10 +81,11 @@ function HierachyTree() {
         /**
          * Initialize the hierachy tree in a seperate mxWindow-instance
          * @param {mxEditor} editor the wireframing editor instance
+         * @param {boolean} visibility true and the hierachy is visible at startup 
          * @return {undefined}
          * @memberof HierachyTree
          */
-        init: function (editor) {
+        init: function (editor, visibility) {
             function buildTree(parent) {
                 if (!parent.children) return;
                 for (var i = 0; i < parent.children.length; i++) {
@@ -171,9 +172,9 @@ function HierachyTree() {
             editor.undoManager.addListener(mxEvent.UNDO, undoCallback);
             editor.undoManager.addListener(mxEvent.REDO, undoCallback);
 
-            wnd = new mxWindow('Hierachy', $tree[0], 300, 200, '100%', '40%', true, true);
+            wnd = new mxWindow('Hierachy', $tree[0], 600, 300, '100%', '40%', true, true);
             wnd.destroyOnClose = false;
-            wnd.setVisible(false);
+            wnd.setVisible(false || visibility);
             wnd.setMaximizable(false);
             wnd.setResizable(false);
             wnd.setClosable(true);

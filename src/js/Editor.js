@@ -147,7 +147,8 @@ function Editor(wireframe, palette, config) {
     htmlNodeMap[AudioPlayer.HTML_NODE_NAME] = AudioPlayer.NAME;
     htmlNodeMap[VideoPlayer.HTML_NODE_NAME] = VideoPlayer.NAME;
     htmlNodeMap[TextNode.HTML_NODE_NAME] = TextNode.NAME;
-
+    htmlNodeMap[RadioBtn.HTML_NODE_NAME] = RadioBtn.NAME;
+    htmlNodeMap[CheckBox.HTML_NODE_NAME] = CheckBox.NAME;
      /**
      * Maps the HTML elements types defined in the VLS to their corresponding ui control element in the wireframing editor.
      * First tries to look up the element in the htmlNodeMap and in the map-object of the config.json.

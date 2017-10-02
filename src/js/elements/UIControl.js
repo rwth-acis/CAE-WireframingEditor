@@ -67,7 +67,8 @@ function UIControl(geometry, style, type) {
     //uiObj.setAttribute('_id', '');
     uiObj.setAttribute('_class', '');
     uiObj.setAttribute('uiType', type || this.constructor.name.toLowerCase());
-    
+
+
     /**
      * Contains the data of the tags assigned to the ui element.
      * The xml document is appended to the uiObj

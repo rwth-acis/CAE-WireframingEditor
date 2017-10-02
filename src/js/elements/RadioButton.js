@@ -21,6 +21,14 @@ window.RadioButton = RadioButton;
  */
 RadioButton.NAME = "Radio Button";
 
+/**
+ * The HTML node name
+ * @static 
+ * @default radio
+ * @readonly
+ */
+RadioButton.HTML_NODE_NAME = 'radio';
+
 function RadioButton(geometry) {
     var text = 'Option';
     if (!geometry)
@@ -31,8 +39,7 @@ function RadioButton(geometry) {
     this.value.setAttribute('_disabled', false);
 
     this.initDOM = function () {
-        this.set$node
-            ($('<div>')
+        this.set$node($('<div>')
                 .css('pointer-events', 'none')
                 .append($('<input>').attr('type', 'radio').attr('checked', true))
                 .append($('<input>').attr('type', 'input')
