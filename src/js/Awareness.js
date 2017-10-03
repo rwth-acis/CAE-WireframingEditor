@@ -19,7 +19,7 @@ function Awareness(wireframe) {
     wireframe.getSelectionModel().addListener(mxEvent.CHANGE, function (sender, evt) {
         var unselectedCells = evt.getProperty('added');
         var unhighlight = [];
-        for (var i = 0; i < unselectedCells.length; i++) {
+        for (var i = 0; unselectedCells && i < unselectedCells.length; i++) {
             unhighlight.push(unselectedCells[i].getId());
         }
         var highlight = [];
