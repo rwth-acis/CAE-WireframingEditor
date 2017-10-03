@@ -372,7 +372,8 @@ function CAELiveMapper() {
                                 SyncMeta.setAttributeValue(cell.id, 'type', cell.constructor.HTML_NODE_NAME || cell.value.getAttribute('uiType'));
                                 SyncMeta.setAttributeValue(cell.id, 'static', true);
                                 SyncMeta.createEdge('Widget to HTML Element', widgetNodeId, cell.id);
-                                if (parent.id != '1') {
+                                var parent = editor.graph.model.getCell(event.value.parent);
+                                if (parent && parent.id != '1') {
                                     var edgeId = SyncMeta.createEdge('hasChild', parent.id, cell.id);
                                     hasChildMap[cell.id] = edgeId;
                                 }
@@ -382,6 +383,24 @@ function CAELiveMapper() {
                             }, 1000);
                         }
 
+                        break;
+                    }
+                    case mxEvent.MOVE:{
+                        if (event.value.userId !== y.db.userId) return;
+                        for(var i=0;i<event.value.ids.length;i++){
+                            var id = event.value.ids[i];
+                            if(hasChildMap.hasOwnProperty(id)){
+                                SyncMeta.deleteEdge(hasChildMap[id]);
+                                delete hasChildMap[id];
+                            }
+                            if(event.value.parentId != '1'){
+                                var edgeId = SyncMeta.createEdge('hasChild', event.value.parentId, id);
+                                hasChildMap[id] = edgeId;       
+                            }                       
+                        }
+                        setTimeout(function () {
+                            SyncMeta.applyLayout();
+                        }, 1000);                    
                         break;
                     }
                     case mxEvent.REMOVE: {
