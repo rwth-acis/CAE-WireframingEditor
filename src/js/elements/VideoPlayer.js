@@ -48,6 +48,9 @@ function VideoPlayer(geometry) {
 
     UIMedia.call(this, geometry, style);
     this.value.setAttribute('_poster', '');
+    //https://static.videezy.com/system/resources/previews/000/005/341/original/Earth_Spin_Medium.mp4
+    //https://www.w3schools.com/html/mov_bbb.mp4
+    this.value.setAttribute('_src', 'https://www.w3schools.com/html/mov_bbb.mp4');
 }
 
 VideoPlayer.prototype.createShared = function(createdByLocalUser){

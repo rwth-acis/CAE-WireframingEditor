@@ -59,7 +59,9 @@
                         "CUSTOM": "CUSTOM",
                         "a" :"a",
                         "radio": "radio",
-                        "checkbox": "checkbox"
+                        "checkbox": "checkbox",
+                        "video": "video",
+                        "audio": "audio"
                     }
                 },
                 "d326bc315a5c9e11522b58e5": {

@@ -49,7 +49,7 @@ function Image(geometry) {
         mxConstants.STYLE_EDITABLE + "=0;";
 
     UIControl.call(this, geometry, style);
-    this.setAttribute('_src','');
+    this.setAttribute('_src','http://greentreesarborcareinc.com/wp-content/uploads/2014/01/image-placeholder.jpg');
 }
 Image.prototype.createShared = function(createdByLocalUser){
     UIControl.prototype.createShared.call(this, createdByLocalUser);

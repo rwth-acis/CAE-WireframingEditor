@@ -45,5 +45,6 @@ function AudioPlayer(geometry) {
         mxConstants.STYLE_EDITABLE + "=0;";
 
     UIMedia.call(this, geometry, style);
+    this.value.setAttribute('_src', 'https://www.w3schools.com/html/horse.mp3');
 }
 export default AudioPlayer;

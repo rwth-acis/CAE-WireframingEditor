@@ -7,6 +7,7 @@ import {
 } from './misc/mxExport.js';
 import KeyHandler from './KeyHandler.js';
 import ContextMenu from './ContextMenu.js';
+import Y from './../../node_modules/yjs/dist/y.js';
 
 import DefaultShape from './shapes/DefaultShape.js';
 import VideoPlayerShape from './shapes/VideoShape.js';
@@ -86,7 +87,7 @@ function Editor(wireframe, palette, config) {
                 name = event.name.substring(event.name.indexOf('_'));
                 cell.setComboAttributeValue(name, event.value);
             }
-            else if (event.value.constructor.name === 'YText') {
+            else if (event.value instanceof Y.Text.typeDefinition.class) {
                 event.value.observe(cell.getYTextObserver());
             }
         } else {
@@ -100,7 +101,7 @@ function Editor(wireframe, palette, config) {
                     name = event.name.substring(event.name.lastIndexOf('_'));
                     tag.setComboAttributeValue(name, event.value);
                 }
-                else if (event.value.constructor.name === 'YText') {
+                else if (event.value instanceof Y.Text.typeDefinition.class) {
                     event.value.observe(tag.getYTextObserver());
                 }
             }

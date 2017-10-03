@@ -140,7 +140,12 @@ Util.bindSharedAttributes = function (entity, form) {
             if ($input.attr('type') === 'text') {
                 var ytext = y.share.attrs.get(id + '_' + name);
                 if (ytext) {
+                    var val = entity.value.getAttribute('_'+name);
                     ytext.bind($input[0]);
+                    if(val.length > 0 && ytext.toString() !== val){
+                        ytext.delete(0, ytext.toString().length);
+                        ytext.insert(0,val);
+                    }
                     //var caeYText = CAELiveMapper.getSharedWidgetAttr('_'+name);
                     //if(caeYText != undefined)
                     //    caeYText.bind($input[0]);
