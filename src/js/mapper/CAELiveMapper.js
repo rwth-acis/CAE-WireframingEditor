@@ -1,6 +1,7 @@
 /*global y, mxLog*/
 import { mxEvent, mxCodec, mxUtils, mxPoint, mxGraph } from '../misc/mxExport.js';
 import CONST from '../misc/Constants.js';
+import Util from '../misc/Util.js';
 import SyncMeta from 'syncmeta-plugin';
 import TagRegistry from '../tags/TagRegistry.js';
 import $ from 'jquery';
@@ -67,28 +68,28 @@ function CAELiveMapper() {
             //check if the frontend component metamodel is loaded
             var metamodelCheck = false;
             var metamodel = y.share.data.get('metamodel');
-            if(metamodel && metamodel.hasOwnProperty("nodes") && metamodel.hasOwnProperty("edges") && metamodel.hasOwnProperty("attributes")){
+            if (metamodel && metamodel.hasOwnProperty("nodes") && metamodel.hasOwnProperty("edges") && metamodel.hasOwnProperty("attributes")) {
                 //check if a 'Widget'-node type is a part of the metamodel 
-                for(var nodeKey in metamodel.nodes){
+                for (var nodeKey in metamodel.nodes) {
                     var node = metamodel.nodes[nodeKey];
-                    if(node.label === 'Widget'){
+                    if (node.label === 'Widget') {
                         metamodelCheck = true;
                         break;
                     }
                 }
             }
-            if(!metamodelCheck){
+            if (!metamodelCheck) {
                 new Noty({
                     type: 'error',
-                    layout : 'topRight',
+                    layout: 'topRight',
                     text: 'No CAE-Frontend-Component metamodel found! Please load it and refresh.',
                     timeout: 2000
                 }).show();
                 return;
-            }else{
+            } else {
                 new Noty({
                     type: 'success',
-                    layout : 'topRight',
+                    layout: 'topRight',
                     text: 'Found a CAE-Frontend-Component metamodel.',
                     timeout: 2000
                 }).show();
@@ -113,9 +114,6 @@ function CAELiveMapper() {
                 SyncMeta.setAttributeValue(widgetNodeId, 'width', meta.getAttribute('width'));
                 SyncMeta.setAttributeValue(widgetNodeId, 'height', meta.getAttribute('height'));
             }
-
-            //if no widget node is found dont initialize the events
-            if (!widgetNodeId) return;
 
             editor.graph.model.setAttribute('id', widgetNodeId);
 
@@ -187,7 +185,7 @@ function CAELiveMapper() {
                     y.share.action.set(mxEvent.REMOVE, {
                         userId: y.db.userId,
                         cells: [cell.id],
-                        fromSyncMeta : true
+                        fromSyncMeta: true
                     });
                 }
             });
@@ -317,13 +315,14 @@ function CAELiveMapper() {
                         break;
                     }
                     case mxEvent.GROUP_CELLS: {
-                        if( event.value.fromSyncMeta) return;
+                        if (event.value.fromSyncMeta) return;
                         if (event.value.userId !== y.db.userId) return;
                         if (y.share.nodes.get(event.value.groupId) != null) return;
                         SyncMeta.createNode('HTML Element', 4500, 4500, 100, 100, 1, null, event.value.groupId);
                         setTimeout(function () {
                             SyncMeta.setAttributeValue(event.value.groupId, 'type', 'div');
                             SyncMeta.setAttributeValue(event.value.groupId, 'static', true);
+                            SyncMeta.setAttributeValue(event.value.groupId, 'id', 'div_' + Util.GUID().substr(0, 5));
                             SyncMeta.createEdge('Widget to HTML Element', widgetNodeId, event.value.groupId);
                             for (var i = 0; i < event.value.ids.length; i++) {
                                 var edgeId = SyncMeta.createEdge('hasChild', event.value.groupId, event.value.ids[i]);
@@ -336,7 +335,7 @@ function CAELiveMapper() {
                         break;
                     }
                     case mxEvent.UNGROUP_CELLS: {
-                        if( event.value.fromSyncMeta) return;                        
+                        if (event.value.fromSyncMeta) return;
                         if (event.value.userId !== y.db.userId) return;
                         for (var i = 0; i < event.value.ids.length; i++) {
                             var cellId = event.value.ids[i];
@@ -348,7 +347,7 @@ function CAELiveMapper() {
                         break;
                     }
                     case mxEvent.ADD_VERTEX: {
-                        if( event.value.fromSyncMeta) return;                        
+                        if (event.value.fromSyncMeta) return;
                         if (event.value.userId !== y.db.userId) return;
 
                         var doc = mxUtils.parseXml(event.value.data);
@@ -369,8 +368,10 @@ function CAELiveMapper() {
                             if (y.share.nodes.get(cell.id) != null) return;
                             SyncMeta.createNode('HTML Element', 4500, 4500, 100, 100, 1, null, cell.id);
                             setTimeout(function () {
-                                SyncMeta.setAttributeValue(cell.id, 'type', cell.constructor.HTML_NODE_NAME || cell.value.getAttribute('uiType'));
+                                var type = cell.constructor.HTML_NODE_NAME || cell.value.getAttribute('uiType');
+                                SyncMeta.setAttributeValue(cell.id, 'type', type);
                                 SyncMeta.setAttributeValue(cell.id, 'static', true);
+                                SyncMeta.setAttributeValue(cell.id, 'id', type + '_' + Util.GUID().substr(0, 5));
                                 SyncMeta.createEdge('Widget to HTML Element', widgetNodeId, cell.id);
                                 var parent = editor.graph.model.getCell(event.value.parent);
                                 if (parent && parent.id != '1') {
@@ -385,26 +386,26 @@ function CAELiveMapper() {
 
                         break;
                     }
-                    case mxEvent.MOVE:{
+                    case mxEvent.MOVE: {
                         if (event.value.userId !== y.db.userId) return;
-                        for(var i=0;i<event.value.ids.length;i++){
+                        for (var i = 0; i < event.value.ids.length; i++) {
                             var id = event.value.ids[i];
-                            if(hasChildMap.hasOwnProperty(id)){
+                            if (hasChildMap.hasOwnProperty(id)) {
                                 SyncMeta.deleteEdge(hasChildMap[id]);
                                 delete hasChildMap[id];
                             }
-                            if(event.value.parentId != '1'){
+                            if (event.value.parentId != '1') {
                                 var edgeId = SyncMeta.createEdge('hasChild', event.value.parentId, id);
-                                hasChildMap[id] = edgeId;       
-                            }                       
+                                hasChildMap[id] = edgeId;
+                            }
                         }
                         setTimeout(function () {
                             SyncMeta.applyLayout();
-                        }, 1000);                    
+                        }, 1000);
                         break;
                     }
                     case mxEvent.REMOVE: {
-                        if( event.value.fromSyncMeta) return;                        
+                        if (event.value.fromSyncMeta) return;
                         if (event.value.userId !== y.db.userId) return;
                         var children = event.value.children;
 
@@ -435,11 +436,11 @@ function CAELiveMapper() {
             /**
              * hihglight the selected ui control element in SyncMeta
              */
-            y.share.awareness.observe(function(event){
-                if(event.name === y.db.userId){
+            y.share.awareness.observe(function (event) {
+                if (event.name === y.db.userId) {
                     var userInfo = y.share.yfUsers.get(y.db.userId);
-                    if(userInfo){
-                        SyncMeta.highlight(event.value.highlight, 'yellow', 'Selected in CAE-Wireframe', userInfo.id);                   
+                    if (userInfo) {
+                        SyncMeta.highlight(event.value.highlight, 'yellow', 'Selected in CAE-Wireframe', userInfo.id);
                         SyncMeta.unhighlight(event.value.unhighlight, userInfo.id);
                     }
                 }
@@ -450,21 +451,23 @@ function CAELiveMapper() {
 
              */
             y.share.select.observe(function (event) {
-                var cell = editor.graph.model.getCell(event.value);
-                if (cell) {
-                    var overlay = new SyncMetaSelectOverlay(null, new mxPoint(0, -cell.geometry.height));
-                    mxGraph.prototype.addCellOverlay.apply(editor.graph, [cell, overlay]);
-                }
-                var oldCell = editor.graph.model.getCell(event.oldValue);
-                if (oldCell) {
-                    for (var i = 0; oldCell.overlays && i < oldCell.overlays.length; i++) {
-                        var overlay = oldCell.overlays[i];
-                        if (overlay instanceof SyncMetaSelectOverlay) {
-                            mxGraph.prototype.removeCellOverlay.apply(editor.graph, [oldCell, overlay]);
+                var userInfo = y.share.yfUsers.get(y.db.userId);
+                if (userInfo && event.name === userInfo.id) {
+                    var cell = editor.graph.model.getCell(event.value);
+                    if (cell) {
+                        var overlay = new SyncMetaSelectOverlay(null, new mxPoint(0, -cell.geometry.height));
+                        mxGraph.prototype.addCellOverlay.apply(editor.graph, [cell, overlay]);
+                    }
+                    var oldCell = editor.graph.model.getCell(event.oldValue);
+                    if (oldCell) {
+                        for (var i = 0; oldCell.overlays && i < oldCell.overlays.length; i++) {
+                            var overlay = oldCell.overlays[i];
+                            if (overlay instanceof SyncMetaSelectOverlay) {
+                                mxGraph.prototype.removeCellOverlay.apply(editor.graph, [oldCell, overlay]);
+                            }
                         }
                     }
                 }
-
             });
         },
         /**
