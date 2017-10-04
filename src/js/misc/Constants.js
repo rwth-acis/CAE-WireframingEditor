@@ -54,7 +54,8 @@ var constants = {
         SEPERATOR: 'images/toolbox/separator.gif',
         IMAGE_SHAPE: 'images/image.png',
         SYNC: 'images/toolbox/sync.png',
-        SYNCMETA: 'images/syncmeta.png'
+        SYNCMETA: 'images/syncmeta.png',
+        YOUTUBE: 'images/youtube.png'
     },
     TAG: {
         SIZE: 20/*,

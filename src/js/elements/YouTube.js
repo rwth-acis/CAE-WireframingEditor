@@ -10,29 +10,29 @@ import {
 } from '../misc/mxExport.js';
 import UIControl from './UIControl.js';
 
-IFrame.prototype = new UIControl();
-IFrame.prototype.constructor = IFrame;
+YouTube.prototype = new UIControl();
+YouTube.prototype.constructor = YouTube;
 
 /**
  * The HTML node name
  * @static 
- * @default img
+ * @default iframe
  * @readonly
  */
-IFrame.HTML_NODE_NAME = 'iframe';
+YouTube.HTML_NODE_NAME = 'iframe';
 
 /**
  * The Name in the wireframing editor
  * @static 
- * @default Image
+ * @default YouTube
  * @readonly
  */
-IFrame.NAME = "iFrame";
+YouTube.NAME = "YouTube";
 
-window.IFrame = IFrame;
+window.YouTube = YouTube;
 
 var codec = mxUtils.clone(mxCodecRegistry.getCodec(mxCell));
-codec.template = new IFrame();
+codec.template = new YouTube();
 mxCodecRegistry.register(codec);
 
 /**
@@ -41,25 +41,25 @@ mxCodecRegistry.register(codec);
  * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 128, 128)] the width, height, x and y of the ui element
  * @extends UIControl
  */
-function IFrame(geometry) {
+function YouTube(geometry) {
     if(!geometry)
         geometry = new mxGeometry(0, 0, 128, 128);
     //style in html5stencils.xml and registered in the editor
-    var style = mxConstants.STYLE_SHAPE + '=default;' +
+    var style = mxConstants.STYLE_SHAPE + '=youtube;' +
         mxConstants.STYLE_EDITABLE + "=0;";
 
     UIControl.call(this, geometry, style);
-    this.setAttribute('_src','https://www.youtube.com/watch?v=rnj6cnlIjM4');
+    this.setAttribute('_src','https://www.youtube.com/embed/rnj6cnlIjM4');
 }
-IFrame.prototype.createShared = function(createdByLocalUser){
+YouTube.prototype.createShared = function(createdByLocalUser){
     UIControl.prototype.createShared.call(this, createdByLocalUser);
     if(createdByLocalUser){
         y.share.attrs.set(this.getId()+'_src', Y.Text);
     }
 }
 
-IFrame.prototype.initShared = function(){
+YouTube.prototype.initShared = function(){
     UIControl.prototype.initShared.call(this);
     this.initYText('_src');
 }
-export default IFrame;
+export default YouTube;

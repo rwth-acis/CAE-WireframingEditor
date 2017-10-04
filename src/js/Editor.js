@@ -21,6 +21,7 @@ import TextBoxShape from './shapes/TextBoxShape.js';
 import CheckboxShape from './shapes/CheckboxShape.js';
 import RadioButtonShape from './shapes/RadioButtonShape.js';
 import ImageShape from './shapes/ImageShape.js';
+import YouTubeShape from './shapes/YouTubeShape.js';
 
 import UIControl from './elements/UIControl.js';
 import Link from './elements/Link.js';
@@ -35,7 +36,7 @@ import Image from './elements/Image.js';
 import VideoPlayer from './elements/VideoPlayer.js';
 import AudioPlayer from './elements/AudioPlayer.js';
 import DivContainer from './elements/DivContainer.js';
-import IFrame from './elements/IFrame.js';
+import YouTube from './elements/YouTube.js';
 
 Editor.prototype = new mxEditor();
 Editor.prototype.constructor = Editor;
@@ -71,6 +72,7 @@ function Editor(wireframe, palette, config) {
     mxCellRenderer.prototype.defaultShapes["image"] = ImageShape;
     mxCellRenderer.prototype.defaultShapes["textnode"] = TextNodeShape;
     mxCellRenderer.prototype.defaultShapes["default"] = DefaultShape;
+    mxCellRenderer.prototype.defaultShapes["youtube"] = YouTubeShape;
 
     y.share.attrs.observe(function (event) {
         var name;
@@ -151,7 +153,7 @@ function Editor(wireframe, palette, config) {
     htmlNodeMap[TextNode.HTML_NODE_NAME] = TextNode.NAME;
     htmlNodeMap[RadioBtn.HTML_NODE_NAME] = RadioBtn.NAME;
     htmlNodeMap[CheckBox.HTML_NODE_NAME] = CheckBox.NAME;
-    htmlNodeMap[IFrame.HTML_NODE_NAME] = IFrame.NAME;
+    htmlNodeMap[YouTube.HTML_NODE_NAME] = YouTube.NAME;
 
      /**
      * Maps the HTML elements types defined in the VLS to their corresponding ui control element in the wireframing editor.
@@ -200,7 +202,7 @@ function Editor(wireframe, palette, config) {
     yfUIComponents[VideoPlayer.NAME] = VideoPlayer;
     yfUIComponents[CheckBox.NAME] = CheckBox;
     yfUIComponents[RadioBtn.NAME] = RadioBtn;
-    yfUIComponents[IFrame.NAME] = IFrame;
+    yfUIComponents[YouTube.NAME] = YouTube;
 
     /**
      * The map contains as key as the name of the UIObjects and as value the style as String
