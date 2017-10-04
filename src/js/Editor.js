@@ -35,6 +35,7 @@ import Image from './elements/Image.js';
 import VideoPlayer from './elements/VideoPlayer.js';
 import AudioPlayer from './elements/AudioPlayer.js';
 import DivContainer from './elements/DivContainer.js';
+import IFrame from './elements/IFrame.js';
 
 Editor.prototype = new mxEditor();
 Editor.prototype.constructor = Editor;
@@ -150,6 +151,8 @@ function Editor(wireframe, palette, config) {
     htmlNodeMap[TextNode.HTML_NODE_NAME] = TextNode.NAME;
     htmlNodeMap[RadioBtn.HTML_NODE_NAME] = RadioBtn.NAME;
     htmlNodeMap[CheckBox.HTML_NODE_NAME] = CheckBox.NAME;
+    htmlNodeMap[IFrame.HTML_NODE_NAME] = IFrame.NAME;
+
      /**
      * Maps the HTML elements types defined in the VLS to their corresponding ui control element in the wireframing editor.
      * First tries to look up the element in the htmlNodeMap and in the map-object of the config.json.
@@ -157,7 +160,7 @@ function Editor(wireframe, palette, config) {
      * @member {Object}
      */
     var vlsComponents = {};
-    for (var key in vls.nodes) {
+    for (var key in vls.nodes) {    
         var node = vls.nodes[key];
         if (node.label === 'HTML Element') {
             for (var attrKey in node.attributes) {
@@ -197,6 +200,7 @@ function Editor(wireframe, palette, config) {
     yfUIComponents[VideoPlayer.NAME] = VideoPlayer;
     yfUIComponents[CheckBox.NAME] = CheckBox;
     yfUIComponents[RadioBtn.NAME] = RadioBtn;
+    yfUIComponents[IFrame.NAME] = IFrame;
 
     /**
      * The map contains as key as the name of the UIObjects and as value the style as String

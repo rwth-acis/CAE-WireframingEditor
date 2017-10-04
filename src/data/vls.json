@@ -61,7 +61,9 @@
                         "radio": "radio",
                         "checkbox": "checkbox",
                         "video": "video",
-                        "audio": "audio"
+                        "audio": "audio",
+                        "iframe": "iframe",
+                        "span":"span"
                     }
                 },
                 "d326bc315a5c9e11522b58e5": {

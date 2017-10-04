@@ -18,7 +18,7 @@ window.TextNode = TextNode;
  * @default text
  * @readonly
  */
-TextNode.HTML_NODE_NAME = 'text';
+TextNode.HTML_NODE_NAME = 'span';
 
 /**
  * The Name in the wireframing editor
