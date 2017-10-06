@@ -296,8 +296,14 @@ function CAELiveMapper() {
                             return;
                         }
                         if (event.value.fromSyncMeta) return;
-                        if (event.value.xml.indexOf('SharedTag') != -1)
+                        if (event.value.xml.indexOf('SharedTag') != -1){
                             SyncMeta.setAttributeValue(event.value.id, 'collaborative', true);
+
+                            var cell = editor.graph.model.getCell(event.value.id);
+                            var msg = cell ? cell.constructor.NAME : 'UI Element';
+                            SyncMeta.createActivity('WireframeCreateTag', event.value.id,
+                            '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Tagged ' + msg + ' as shared', event.value);
+                        }
                         break;
                     }
                     case CONST.ACTIONS.SHARED.GRAPH_RESIZE: {
@@ -309,8 +315,14 @@ function CAELiveMapper() {
                         if (event.value.fromSyncMeta) return;
                         for (var i = 0; i < event.value.types.length; i++) {
                             var type = event.value.types[i];
-                            if (type === 'SharedTag')
+                            if (type === 'SharedTag'){
                                 SyncMeta.setAttributeValue(event.value.cellId, 'collaborative', false);
+                                
+                                var cell = editor.graph.model.getCell(event.value.cellId);
+                                var msg = cell ? cell.constructor.NAME : 'UI Element';
+                                SyncMeta.createActivity('WireframeDeleteTag', event.value.cellId,
+                                '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Removed shared tag from ' + msg, event.value);
+                            }
                         }
                         break;
                     }
@@ -319,6 +331,7 @@ function CAELiveMapper() {
                         if (event.value.userId !== y.db.userId) return;
                         if (y.share.nodes.get(event.value.groupId) != null) return;
                         SyncMeta.createNode('HTML Element', 4500, 4500, 100, 100, 1, null, event.value.groupId);
+                        var msg = '';
                         setTimeout(function () {
                             SyncMeta.setAttributeValue(event.value.groupId, 'type', 'div');
                             SyncMeta.setAttributeValue(event.value.groupId, 'static', true);
@@ -327,7 +340,13 @@ function CAELiveMapper() {
                             for (var i = 0; i < event.value.ids.length; i++) {
                                 var edgeId = SyncMeta.createEdge('hasChild', event.value.groupId, event.value.ids[i]);
                                 hasChildMap[event.value.ids[i]] = edgeId;
+
+                                var cell = editor.graph.model.getCell(event.value.ids[i]);
+                                msg += cell ? cell.constructor.NAME + ', ': 'UI element, ';
                             }
+                            msg = msg.substr(0, msg.lastIndexOf(', '));                             
+                            SyncMeta.createActivity('WireframeGroupEvent', null,
+                            '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Created a group with ' + msg, event.value);
                             setTimeout(function () {
                                 SyncMeta.applyLayout();
                             }, 1000);
@@ -339,8 +358,10 @@ function CAELiveMapper() {
                         if (event.value.userId !== y.db.userId) return;
                         for (var i = 0; i < event.value.ids.length; i++) {
                             var cellId = event.value.ids[i];
-                            SyncMeta.deleteNode(cellId);
+                            SyncMeta.deleteNodeSave(cellId);
                         }
+                        SyncMeta.createActivity('WireframeUngroupEvent', null,
+                        '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Ungrouped UI elements! ', event.value);
                         setTimeout(function () {
                             SyncMeta.applyLayout();
                         }, 1000);
@@ -380,6 +401,7 @@ function CAELiveMapper() {
                                 }
                                 setTimeout(function () {
                                     SyncMeta.applyLayout();
+                                    SyncMeta.createActivity('WireframeCreateEvent', cell.id, '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong>\nCreated a new ' + cell.constructor.NAME, event.value);
                                 }, 1000);
                             }, 1000);
                         }
@@ -388,6 +410,7 @@ function CAELiveMapper() {
                     }
                     case mxEvent.MOVE: {
                         if (event.value.userId !== y.db.userId) return;
+                        var msg = '';
                         for (var i = 0; i < event.value.ids.length; i++) {
                             var id = event.value.ids[i];
                             if (hasChildMap.hasOwnProperty(id)) {
@@ -398,10 +421,28 @@ function CAELiveMapper() {
                                 var edgeId = SyncMeta.createEdge('hasChild', event.value.parentId, id);
                                 hasChildMap[id] = edgeId;
                             }
+                            var cell = editor.graph.model.getCell(id);  
+                            msg += cell ? cell.constructor.NAME + ', ' : 'UI element, ';                          
+                                                        
                         }
+                        msg = msg.substr(0, msg.lastIndexOf(', ')); 
+                        SyncMeta.createActivity('WireframeMoveEvent', null,
+                        '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Moved ' + msg, event.value);
                         setTimeout(function () {
                             SyncMeta.applyLayout();
+                            
                         }, 1000);
+                        break;
+                    }case mxEvent.RESIZE:{
+                        var msg = '';
+                        for (var i = 0; i < event.value.ids.length; i++) {
+                            var id = event.value.ids[i];                            
+                            var cell = editor.graph.model.getCell(id);  
+                            msg += cell ? cell.constructor.NAME + ', ' : 'UI element, ';
+                        }
+                        msg = msg.substr(0, msg.lastIndexOf(', ')); 
+                        SyncMeta.createActivity('WireResizeEvent', null,
+                        '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Resized ' + msg, event.value);      
                         break;
                     }
                     case mxEvent.REMOVE: {
@@ -412,7 +453,7 @@ function CAELiveMapper() {
                         function recursiveDelete(parent) {
                             if (children.hasOwnProperty(parent)) {
                                 for (var i = 0; i < children[parent].length; i++) {
-                                    SyncMeta.deleteNode(children[parent][i]);
+                                    SyncMeta.deleteNodeSave(children[parent][i]);
                                     delete hasChildMap[children[parent][i]];
                                     if (children.hasOwnProperty(children[parent][i]))
                                         recursiveDelete(children[parent][i]);
@@ -421,11 +462,15 @@ function CAELiveMapper() {
                         }
                         var cells = event.value.cells;
                         for (var i = 0; i < cells.length; i++) {
-                            SyncMeta.deleteNode(cells[i]);
-                            recursiveDelete(cells[i]);
+                            SyncMeta.deleteNodeSave(cells[i]);
+                             recursiveDelete(cells[i]);
                         }
                         setTimeout(function () {
                             SyncMeta.applyLayout();
+                            //Create activity for the syncmeta activity widget
+                            var txt = event.value.cells.length > 1 ? " Removed multiple UI elements" : " Removed a UI element";                          
+                            SyncMeta.createActivity('WireframeDeleteEvent', null,
+                             '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong>' + txt, event.value);                            
                         }, 1000);
                         break;
                     }

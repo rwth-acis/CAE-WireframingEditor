@@ -1,5 +1,5 @@
-var widgetMode = false;
-var basePath = '<%=basePath%>';
+var widgetMode = true;
+var basePath = 'http://cloud10.dbis.rwth-aachen.de:8085/cae/wireframing/';
 var constants = {
     MXGRAPH: {
         IMAGE_BASE_PATH: "images"
