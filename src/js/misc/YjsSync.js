@@ -31,7 +31,8 @@ export default function (space) {
             edges : 'Map', 
             select: 'Map', 
             canvas: 'Map',
-            activity: 'Map'
+            activity: 'Map',
+            userList: 'Map'
         }
     }).then(function (y) {
         window.y = y;

@@ -1,5 +1,5 @@
-var widgetMode = true;
-var basePath = 'http://cloud10.dbis.rwth-aachen.de:8085/cae/wireframing/';
+var widgetMode = false;
+var basePath = '<%=basePath%>';
 var constants = {
     MXGRAPH: {
         IMAGE_BASE_PATH: "images"
@@ -55,7 +55,8 @@ var constants = {
         IMAGE_SHAPE: 'images/image.png',
         SYNC: 'images/toolbox/sync.png',
         SYNCMETA: 'images/syncmeta.png',
-        YOUTUBE: 'images/youtube.png'
+        YOUTUBE: 'images/youtube.png',
+        POLYMER: 'images/polymer.png'
     },
     TAG: {
         SIZE: 20/*,

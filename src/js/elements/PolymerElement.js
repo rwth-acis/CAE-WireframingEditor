@@ -10,8 +10,8 @@ import {
 } from '../misc/mxExport.js';
 import UIControl from './UIControl.js';
 
-Image.prototype = new UIControl();
-Image.prototype.constructor = Image;
+PoylmerElement.prototype = new UIControl();
+PoylmerElement.prototype.constructor = PoylmerElement;
 
 /**
  * The HTML node name
@@ -19,7 +19,7 @@ Image.prototype.constructor = Image;
  * @default img
  * @readonly
  */
-Image.HTML_NODE_NAME = 'img';
+PoylmerElement.HTML_NODE_NAME = 'CUSTOM';
 
 /**
  * The Name in the wireframing editor
@@ -27,12 +27,12 @@ Image.HTML_NODE_NAME = 'img';
  * @default Image
  * @readonly
  */
-Image.NAME = "Image";
+PoylmerElement.NAME = "Polymer";
 
-window.Image = Image;
+window.PoylmerElement = PoylmerElement;
 
 var codec = mxUtils.clone(mxCodecRegistry.getCodec(mxCell));
-codec.template = new Image();
+codec.template = new PoylmerElement();
 mxCodecRegistry.register(codec);
 
 /**
@@ -41,25 +41,28 @@ mxCodecRegistry.register(codec);
  * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 128, 128)] the width, height, x and y of the ui element
  * @extends UIControl
  */
-function Image(geometry) {
+function PoylmerElement(geometry) {
     if(!geometry)
         geometry = new mxGeometry(0, 0, 128, 128);
     //style in html5stencils.xml and registered in the editor
-    var style = mxConstants.STYLE_SHAPE + '=image;' +
+    var style = mxConstants.STYLE_SHAPE + '=polymer;' +
         mxConstants.STYLE_EDITABLE + "=0;";
 
     UIControl.call(this, geometry, style);
-    this.setAttribute('_src','https://rwth-acis.github.io/CAE-WireframingEditor/resources/image-placeholder.jpg');
+    this.setAttribute('_link','');
+    this.setAttribute('_name', '');
 }
-Image.prototype.createShared = function(createdByLocalUser){
+PoylmerElement.prototype.createShared = function(createdByLocalUser){
     UIControl.prototype.createShared.call(this, createdByLocalUser);
     if(createdByLocalUser){
-        y.share.attrs.set(this.getId()+'_src', Y.Text);
+        y.share.attrs.set(this.getId()+'_link', Y.Text);
+        y.share.attrs.set(this.getId()+'_name', Y.Text);
     }
 }
 
-Image.prototype.initShared = function(){
+PoylmerElement.prototype.initShared = function(){
     UIControl.prototype.initShared.call(this);
-    this.initYText('_src');
+    this.initYText('_link');
+    this.initYText('_name');
 }
-export default Image;
+export default PoylmerElement;

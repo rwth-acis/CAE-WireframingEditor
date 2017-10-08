@@ -22,6 +22,7 @@ import CheckboxShape from './shapes/CheckboxShape.js';
 import RadioButtonShape from './shapes/RadioButtonShape.js';
 import ImageShape from './shapes/ImageShape.js';
 import YouTubeShape from './shapes/YouTubeShape.js';
+import PolymerShape from './shapes/PolymerShape.js';
 
 import UIControl from './elements/UIControl.js';
 import Link from './elements/Link.js';
@@ -37,6 +38,7 @@ import VideoPlayer from './elements/VideoPlayer.js';
 import AudioPlayer from './elements/AudioPlayer.js';
 import DivContainer from './elements/DivContainer.js';
 import YouTube from './elements/YouTube.js';
+import PolymerElement from './elements/PolymerElement.js';
 
 Editor.prototype = new mxEditor();
 Editor.prototype.constructor = Editor;
@@ -73,7 +75,8 @@ function Editor(wireframe, palette, config) {
     mxCellRenderer.prototype.defaultShapes["textnode"] = TextNodeShape;
     mxCellRenderer.prototype.defaultShapes["default"] = DefaultShape;
     mxCellRenderer.prototype.defaultShapes["youtube"] = YouTubeShape;
-
+    mxCellRenderer.prototype.defaultShapes["polymer"] = PolymerShape;
+    
     y.share.attrs.observe(function (event) {
         var name;
         var arr = event.name.split('_');
@@ -154,6 +157,7 @@ function Editor(wireframe, palette, config) {
     htmlNodeMap[RadioBtn.HTML_NODE_NAME] = RadioBtn.NAME;
     htmlNodeMap[CheckBox.HTML_NODE_NAME] = CheckBox.NAME;
     htmlNodeMap[YouTube.HTML_NODE_NAME] = YouTube.NAME;
+    htmlNodeMap[PolymerElement.HTML_NODE_NAME] = PolymerElement.NAME;
 
      /**
      * Maps the HTML elements types defined in the VLS to their corresponding ui control element in the wireframing editor.
@@ -203,7 +207,8 @@ function Editor(wireframe, palette, config) {
     yfUIComponents[CheckBox.NAME] = CheckBox;
     yfUIComponents[RadioBtn.NAME] = RadioBtn;
     yfUIComponents[YouTube.NAME] = YouTube;
-
+    yfUIComponents[PolymerElement.NAME] = PolymerElement;
+    
     /**
      * The map contains as key as the name of the UIObjects and as value the style as String
      * The shape has to be registered before to the mxCellRenderer-object of this class

@@ -211,8 +211,10 @@ AbstractTag.prototype.getYTextObserver = function(){
         var tagRoot = cell.value.getElementsByTagName('tagRoot')[0];
         var tag = tagRoot.getElementsByTagName('tagObj').namedItem(that.getId());
         tag.setAttribute(attrName, value);
-        $('.wfSave').click();
-    },500);
+        if (evt.type !== 'delete' && y.db.userId === evt.object._content[evt.index].id[0])
+            $('.wfSave').click();
+        else if (evt.type === 'delete')
+            $('.wfSave').click();    },500);
     return observer;
 }
 

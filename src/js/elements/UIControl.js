@@ -83,13 +83,13 @@ function UIControl(geometry, style, type) {
      */
     var tagCounter = 0;
     if (!geometry)
-        geometry = new mxGeometry(0, 0, 78, 78 );
-    if(!style)
-        style =style = mxConstants.STYLE_SHAPE + "=default;" +
-        mxConstants.STYLE_FILLCOLOR + "=white;" +
-        mxConstants.STYLE_STROKECOLOR + '=black;' +
-        mxConstants.STYLE_ASPECT + '=fixed;' +
-        mxConstants.STYLE_EDITABLE + "=0;";
+        geometry = new mxGeometry(0, 0, 78, 78);
+    if (!style)
+        style = style = mxConstants.STYLE_SHAPE + "=default;" +
+            mxConstants.STYLE_FILLCOLOR + "=white;" +
+            mxConstants.STYLE_STROKECOLOR + '=black;' +
+            //mxConstants.STYLE_ASPECT + '=fixed;' +
+            mxConstants.STYLE_EDITABLE + "=0;";
     mxCell.call(this, uiObj, geometry, style);
 
     this.setVertex(true);
@@ -127,7 +127,7 @@ function UIControl(geometry, style, type) {
         });
         return id;
     }
-    
+
     /**
      * Make a type draggable to the canvas
      * @param {object} type the type
@@ -136,7 +136,7 @@ function UIControl(geometry, style, type) {
      */
     this.makeTypeDraggable = function (type, wireframe) {
         var preview = document.createElement('div');
-        preview.style.width = that.geometry.width+'px';
+        preview.style.width = that.geometry.width + 'px';
         preview.style.height = that.geometry.height + 'px';
         preview.style.border = 'black 0.5px dashed';
 
@@ -163,7 +163,7 @@ function UIControl(geometry, style, type) {
     this.getTagCounter = function () {
         return tagCounter;
     }
-    
+
     /**
      * @param  {AbstractTag} tag the tag to add to the ui element
      * @return {undefined}
@@ -172,7 +172,7 @@ function UIControl(geometry, style, type) {
         this.value.getElementsByTagName('tagRoot')[0].appendChild(tag.tagObj);
         tagCounter++;
     }
-    
+
     /**
      * Remove a Tag by the id
      * @param  {String} tagId the id of the tag as string
@@ -191,7 +191,7 @@ function UIControl(geometry, style, type) {
 
         return false;
     }
-   
+
     /**
      * Creates the tags for the ui control
      * @return {undefined}
@@ -201,8 +201,8 @@ function UIControl(geometry, style, type) {
         var tags = {};
         var _createTag = function (node, point) {
             var tag;
-            var C = TagRegistry.getClass(node.getAttribute('tagType'));            
-            if(C)
+            var C = TagRegistry.getClass(node.getAttribute('tagType'));
+            if (C)
                 tag = new C(that, point, node.getAttribute('tagType'));
             return tag;
         }
@@ -230,7 +230,7 @@ function UIControl(geometry, style, type) {
      * Get the combo attribute map for the ui element
      * @return {undefined}
      */
-    this.getComboAttrMap = function(){
+    this.getComboAttrMap = function () {
         return comboAttrMap;
     }
 
@@ -239,7 +239,7 @@ function UIControl(geometry, style, type) {
      * @param {String} type the type of the ui control
      * @return {undefined}
      */
-    this.setType = function(type){
+    this.setType = function (type) {
         that.value.setAttribute('uiType', type);
     }
 }
@@ -351,7 +351,11 @@ UIControl.prototype.getYTextObserver = function () {
         var path = evt.object.getPath()[0];
         var attrName = path.substring(path.indexOf('_'));
         that.value.setAttribute(attrName, value);
-        $('.wfSave').click();
+        if (evt.type !== 'delete' && y.db.userId === evt.object._content[evt.index].id[0])
+            $('.wfSave').click();
+        else if (evt.type === 'delete')
+            $('.wfSave').click();
+
     }, 500);
     return observer;
 }

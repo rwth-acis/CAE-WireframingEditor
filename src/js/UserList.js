@@ -132,7 +132,7 @@ function UserList(user, visible, wnd) {
             }
         });
 
-        var color = randomColor();
+        var color = user.hasOwnProperty('color') ? user.color : randomColor();            
         var $userEntry = getUserEntry(y.db.userId, user.name, user.imageUrl, color);
         $userTable.append($userEntry);
         $userTable.append($('<tr><th>Collaborators</th></tr>'));
