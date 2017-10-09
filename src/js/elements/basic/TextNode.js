@@ -1,10 +1,10 @@
 /**
  * @module UIElements
  */
-import UIText from './UIText.js';
+import UIText from '../UIText.js';
 import {
     mxGeometry
-} from '../misc/mxExport.js';
+} from '../../misc/mxExport.js';
 
 TextNode.prototype = new UIText();
 TextNode.prototype.constructor = TextNode;

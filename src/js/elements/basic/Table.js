@@ -1,3 +1,4 @@
+/*global y*/
 /**
  * @module UIElements
  */
@@ -5,32 +6,32 @@ import {
     mxConstants,
     mxGeometry,
     mxUtils, mxCell, mxCodecRegistry
-} from '../misc/mxExport.js';
-import UIControl from './UIControl.js';
+} from '../../misc/mxExport.js';
+import UIControl from '../UIControl.js';
 
-OrderedList.prototype = new UIControl();
-OrderedList.prototype.constructor = OrderedList;
+Table.prototype = new UIControl();
+Table.prototype.constructor = Table;
 
 /**
  * The HTML node name
  * @static 
- * @default ol
+ * @default table
  * @readonly
  */
-OrderedList.HTML_NODE_NAME = 'ol';
+Table.HTML_NODE_NAME = 'table';
 
 /**
  * The Name in the wireframing editor
  * @static 
- * @default OrderedList
+ * @default Table
  * @readonly
  */
-OrderedList.NAME = "Ordered List";
+Table.NAME = "Table";
 
-window.OrderedList = OrderedList;
+window.Table = Table;
 
 var codec = mxUtils.clone(mxCodecRegistry.getCodec(mxCell));
-codec.template = new OrderedList();
+codec.template = new Table();
 mxCodecRegistry.register(codec);
 
 /**
@@ -39,11 +40,11 @@ mxCodecRegistry.register(codec);
  * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 128, 128)] the width, height, x and y of the ui element
  * @extends UIControl
  */
-function OrderedList(geometry) {
+function Table(geometry) {
     if(!geometry)
         geometry = new mxGeometry(0, 0, 128, 128);
-    var style = mxConstants.STYLE_SHAPE + '=ol;' +
+    var style = mxConstants.STYLE_SHAPE + '=table;' +
         mxConstants.STYLE_EDITABLE + "=0;";
     UIControl.call(this, geometry, style);
 }
-export default OrderedList;
+export default Table;

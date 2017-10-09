@@ -1,10 +1,10 @@
 /**
  * @module UIElements
  */
-import UIText from './UIText.js';
+import UIText from '../UIText.js';
 import {
     mxGeometry, mxCodecRegistry, mxCell, mxUtils
-} from '../misc/mxExport.js';
+} from '../../misc/mxExport.js';
 
 TextBox.prototype = new UIText();
 TextBox.prototype.constructor = TextBox;

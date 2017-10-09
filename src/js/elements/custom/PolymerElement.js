@@ -2,13 +2,13 @@
 /**
  * @module UIElements
  */
-import Y from './../../../node_modules/yjs/dist/y.js';
+import Y from './../../../../node_modules/yjs/dist/y.js';
 import {
     mxConstants,
     mxGeometry,
     mxUtils, mxCell, mxCodecRegistry
-} from '../misc/mxExport.js';
-import UIControl from './UIControl.js';
+} from '../../misc/mxExport.js';
+import UIControl from '../UIControl.js';
 
 PoylmerElement.prototype = new UIControl();
 PoylmerElement.prototype.constructor = PoylmerElement;

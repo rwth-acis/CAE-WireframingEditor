@@ -5,8 +5,8 @@ import {
     mxUtils,
     mxConstants,
     mxGeometry
-} from '../misc/mxExport.js';
-import UIControl from './UIControl.js';
+} from '../../misc/mxExport.js';
+import UIControl from '../UIControl.js';
 
 
 mxUtils.extend(DivContainer, UIControl);

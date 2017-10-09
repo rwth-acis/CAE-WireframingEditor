@@ -6,32 +6,32 @@ import {
     mxConstants,
     mxGeometry,
     mxUtils, mxCell, mxCodecRegistry
-} from '../misc/mxExport.js';
-import UIControl from './UIControl.js';
+} from '../../misc/mxExport.js';
+import UIControl from '../UIControl.js';
 
-Table.prototype = new UIControl();
-Table.prototype.constructor = Table;
+List.prototype = new UIControl();
+List.prototype.constructor = List;
 
 /**
  * The HTML node name
  * @static 
- * @default table
+ * @default ul
  * @readonly
  */
-Table.HTML_NODE_NAME = 'table';
+List.HTML_NODE_NAME = 'ul';
 
 /**
  * The Name in the wireframing editor
  * @static 
- * @default Table
+ * @default List
  * @readonly
  */
-Table.NAME = "Table";
+List.NAME = "List";
 
-window.Table = Table;
+window.List = List;
 
 var codec = mxUtils.clone(mxCodecRegistry.getCodec(mxCell));
-codec.template = new Table();
+codec.template = new List();
 mxCodecRegistry.register(codec);
 
 /**
@@ -40,11 +40,11 @@ mxCodecRegistry.register(codec);
  * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 128, 128)] the width, height, x and y of the ui element
  * @extends UIControl
  */
-function Table(geometry) {
+function List(geometry) {
     if(!geometry)
         geometry = new mxGeometry(0, 0, 128, 128);
-    var style = mxConstants.STYLE_SHAPE + '=table;' +
+    var style = mxConstants.STYLE_SHAPE + '=ul;' +
         mxConstants.STYLE_EDITABLE + "=0;";
     UIControl.call(this, geometry, style);
 }
-export default Table;
+export default List;

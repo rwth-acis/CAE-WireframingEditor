@@ -3,10 +3,10 @@
  */
 import $ from 'jquery';
 import _ from 'lodash';
-import UIText from './UIText.js';
+import UIText from '../UIText.js';
 import {
     mxGeometry
-} from '../misc/mxExport.js';
+} from '../../misc/mxExport.js';
 
 
 Button.prototype = new UIText();

@@ -4,8 +4,8 @@
 import {
     mxConstants,
     mxGeometry
-} from '../misc/mxExport.js';
-import UIMedia from './UIMedia.js';
+} from '../../misc/mxExport.js';
+import UIMedia from '../UIMedia.js';
 
 AudioPlayer.prototype = new UIMedia();
 AudioPlayer.prototype.constructor = AudioPlayer;

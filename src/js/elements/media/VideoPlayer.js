@@ -2,12 +2,12 @@
 /**
  * @module UIElements
  */
-import Y from './../../../node_modules/yjs/dist/y.js';
+import Y from './../../../../node_modules/yjs/dist/y.js';
 import {
     mxConstants,
     mxGeometry
-} from '../misc/mxExport.js';
-import UIMedia from './UIMedia.js';
+} from '../../misc/mxExport.js';
+import UIMedia from '../UIMedia.js';
 
 window.VideoPlayer = VideoPlayer;
 VideoPlayer.prototype = new UIMedia();

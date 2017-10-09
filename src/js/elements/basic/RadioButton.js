@@ -1,11 +1,12 @@
 /**
  * @module UIElements
  */
-import UIText from './UIText.js';
+import UIText from '../UIText.js';
 import $ from 'jquery';
+import _ from 'lodash';
 import {
     mxGeometry
-} from '../misc/mxExport.js';
+} from '../../misc/mxExport.js';
 
 RadioButton.prototype = new UIText();
 RadioButton.prototype.constructor = RadioButton;
@@ -54,6 +55,11 @@ function RadioButton(geometry) {
 }
 RadioButton.prototype.bindLabel = function (ytext) {
     ytext.bind(this.get$node().find('input[type="input"]')[0]);
+    var that = this;    
+    ytext.observe(_.debounce(function(event){
+        that.value.setAttribute('label', event.object.toString());
+        $('.wfSave').click();
+    }, 300));
 }
 
 RadioButton.prototype.initShared = function () {

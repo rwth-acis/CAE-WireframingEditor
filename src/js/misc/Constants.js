@@ -60,7 +60,9 @@ var constants = {
         TABLE_IMG: 'images/table.png',
         UL_IMG : 'images/ul.png',
         OL_IMG : 'images/ol.png',
-        DL_IMG : 'images/dl.png'
+        DL_IMG : 'images/dl.png',
+        HTML5CANVAS: 'images/html5canvas.png',
+        SVG : 'images/svg.png'
     },
     TAG: {
         SIZE: 20/*,

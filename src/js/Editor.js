@@ -21,27 +21,29 @@ import TextAreaShape from './shapes/TextAreaShape.js';
 import TextBoxShape from './shapes/TextBoxShape.js';
 import CheckboxShape from './shapes/CheckboxShape.js';
 import RadioButtonShape from './shapes/RadioButtonShape.js';
-import GenericImageShape from './shapes/ImageShapeFactory.js';
+import ImageShapeFactory from './shapes/ImageShapeFactory.js';
 
 import UIControl from './elements/UIControl.js';
-import Link from './elements/Link.js';
-import TextBox from './elements/TextBox.js';
-import Paragraph from './elements/Paragraph.js';
-import TextArea from './elements/TextArea.js';
-import Button from './elements/Button.js';
-import TextNode from './elements/TextNode.js';
-import CheckBox from './elements/CheckBox.js';
-import RadioBtn from './elements/RadioButton.js';
-import Image from './elements/Image.js';
-import VideoPlayer from './elements/VideoPlayer.js';
-import AudioPlayer from './elements/AudioPlayer.js';
-import DivContainer from './elements/DivContainer.js';
-import YouTube from './elements/YouTube.js';
-import PolymerElement from './elements/PolymerElement.js';
-import Table from './elements/Table.js';
-import List from './elements/List.js';
-import OrderedList from './elements/OrderedList.js';
-import DescriptionList from './elements/DescriptionList.js';
+import Link from './elements/basic/Link.js';
+import TextBox from './elements/basic/TextBox.js';
+import Paragraph from './elements/basic/Paragraph.js';
+import TextArea from './elements/basic/TextArea.js';
+import Button from './elements/basic/Button.js';
+import TextNode from './elements/basic/TextNode.js';
+import CheckBox from './elements/basic/CheckBox.js';
+import RadioBtn from './elements/basic/RadioButton.js';
+import Image from './elements/media/Image.js';
+import VideoPlayer from './elements/media/VideoPlayer.js';
+import AudioPlayer from './elements/media/AudioPlayer.js';
+import DivContainer from './elements/basic/DivContainer.js';
+import YouTube from './elements/media/YouTube.js';
+import PolymerElement from './elements/custom/PolymerElement.js';
+import Table from './elements/basic/Table.js';
+import List from './elements/basic/List.js';
+import OrderedList from './elements/basic/OrderedList.js';
+import DescriptionList from './elements/basic/DescriptionList.js';
+import Canvas  from './elements/graphics/HTML5Canvas.js';
+import SVG from './elements/graphics/SVGElement.js';
 
 Editor.prototype = new mxEditor();
 Editor.prototype.constructor = Editor;
@@ -74,15 +76,17 @@ function Editor(wireframe, palette, config) {
     mxCellRenderer.prototype.defaultShapes["textarea"] = TextAreaShape;
     mxCellRenderer.prototype.defaultShapes["checkbox"] = CheckboxShape;
     mxCellRenderer.prototype.defaultShapes["radio"] = RadioButtonShape;
-    mxCellRenderer.prototype.defaultShapes["image"] = GenericImageShape.createImageShape("image", CONST.IMAGES.IMAGE_SHAPE);
+    mxCellRenderer.prototype.defaultShapes["image"] = ImageShapeFactory.createImageShape("image", CONST.IMAGES.IMAGE_SHAPE);
     mxCellRenderer.prototype.defaultShapes["textnode"] = TextNodeShape;
     mxCellRenderer.prototype.defaultShapes["default"] = DefaultShape;
-    mxCellRenderer.prototype.defaultShapes["youtube"] = GenericImageShape.createImageShape("youtube", CONST.IMAGES.YOUTUBE);
-    mxCellRenderer.prototype.defaultShapes["polymer"] = GenericImageShape.createImageShape("polymer", CONST.IMAGES.POLYMER);
-    mxCellRenderer.prototype.defaultShapes["table"] = GenericImageShape.createImageShape("table", CONST.IMAGES.TABLE_IMG);
-    mxCellRenderer.prototype.defaultShapes["ul"] = GenericImageShape.createImageShape("ul", CONST.IMAGES.UL_IMG);
-    mxCellRenderer.prototype.defaultShapes["ol"] = GenericImageShape.createImageShape("ol", CONST.IMAGES.OL_IMG);
-    mxCellRenderer.prototype.defaultShapes["dl"] = GenericImageShape.createImageShape("dl", CONST.IMAGES.DL_IMG);
+    mxCellRenderer.prototype.defaultShapes["youtube"] = ImageShapeFactory.createImageShape("youtube", CONST.IMAGES.YOUTUBE);
+    mxCellRenderer.prototype.defaultShapes["polymer"] = ImageShapeFactory.createImageShape("polymer", CONST.IMAGES.POLYMER);
+    mxCellRenderer.prototype.defaultShapes["table"] = ImageShapeFactory.createImageShape("table", CONST.IMAGES.TABLE_IMG);
+    mxCellRenderer.prototype.defaultShapes["ul"] = ImageShapeFactory.createImageShape("ul", CONST.IMAGES.UL_IMG);
+    mxCellRenderer.prototype.defaultShapes["ol"] = ImageShapeFactory.createImageShape("ol", CONST.IMAGES.OL_IMG);
+    mxCellRenderer.prototype.defaultShapes["dl"] = ImageShapeFactory.createImageShape("dl", CONST.IMAGES.DL_IMG);
+    mxCellRenderer.prototype.defaultShapes["html5canvas"] = ImageShapeFactory.createImageShape("html5canvas", CONST.IMAGES.HTML5CANVAS);
+    mxCellRenderer.prototype.defaultShapes["svg"] = ImageShapeFactory.createImageShape("svg", CONST.IMAGES.SVG);
     
     y.share.attrs.observe(function (event) {
         var name;
@@ -169,6 +173,8 @@ function Editor(wireframe, palette, config) {
     htmlNodeMap[List.HTML_NODE_NAME] = List.NAME;
     htmlNodeMap[OrderedList.HTML_NODE_NAME] = OrderedList.NAME;    
     htmlNodeMap[DescriptionList.HTML_NODE_NAME] = DescriptionList.NAME;
+    htmlNodeMap[Canvas.HTML_NODE_NAME] = Canvas.NAME;
+    htmlNodeMap[SVG.HTML_NODE_NAME] = SVG.NAME;
     
 
      /**
@@ -224,7 +230,8 @@ function Editor(wireframe, palette, config) {
     yfUIComponents[List.NAME] = List;
     yfUIComponents[OrderedList.NAME] = OrderedList;
     yfUIComponents[DescriptionList.NAME] = DescriptionList;
-    
+    yfUIComponents[Canvas.NAME] = Canvas;
+    yfUIComponents[SVG.NAME] = SVG;
     /**
      * The map contains as key as the name of the UIObjects and as value the style as String
      * The shape has to be registered before to the mxCellRenderer-object of this class
