@@ -1,11 +1,12 @@
 /**
  * @module UIElements
  */
-import UIText from './UIText.js';
+import UIText from '../UIText.js';
 import $ from 'jquery';
+import _ from 'lodash';
 import {
     mxGeometry
-} from '../misc/mxExport.js';
+} from '../../misc/mxExport.js';
 CheckBox.prototype = new UIText();
 CheckBox.prototype.constructor = CheckBox;
 UIText.registerCodec(CheckBox);
@@ -19,6 +20,14 @@ window.CheckBox = CheckBox;
  * @readonly
  */
 CheckBox.NAME = "Checkbox";
+
+/**
+ * The HTML node name
+ * @static 
+ * @default button
+ * @readonly
+ */
+CheckBox.HTML_NODE_NAME = 'checkbox';
 
 /**
  * @classdesc A HTMl checkbox element
@@ -52,6 +61,11 @@ function CheckBox(geometry) {
 }
 CheckBox.prototype.bindLabel = function(ytext){
     ytext.bind(this.get$node().find('input[type="input"]')[0]);
+    var that = this;    
+    ytext.observe(_.debounce(function(event){
+        that.value.setAttribute('label', event.object.toString());
+        $('.wfSave').click();
+    }, 300));
 }
 
 CheckBox.prototype.initShared = function () {

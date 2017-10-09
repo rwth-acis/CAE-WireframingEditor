@@ -1,43 +1,8 @@
 {   
     "html": {
-        "exclude" : ["br", "CUSTOM"],
+        "exclude" : ["br"],
         "map":{
             "input" :"TextBox"
         }
-    },
-    "___tags": [
-        {
-            "node_class": "IWC Response",
-            "options": {
-                "imgConst": "IWC_RESP_TAG"
-            }
-        },
-        {
-            "node_class": "Event",
-            "options": {
-                "imgConst": "EVENT_TAG"
-            }
-        },
-        {
-            "node_class": "Function",
-            "options": {
-                "imgConst": "FUNC_TAG"
-            }
-        },
-        {
-            "node_class": "IWC Call",
-            "options": {
-                "imgConst": "IWC_REQ_TAG"
-            }
-        },
-        {
-            "node_class": "Microservice Call",
-            "options": {
-                "imgConst": "MICROSERVICECALL"
-            }
-        },
-        {
-            "node_class": "Input Parameter"
-        }
-    ]
+    }
 }

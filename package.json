@@ -10,7 +10,8 @@
     "build:dev": "webpack --env=dev --progress --profile --colors",
     "build:dist": "webpack --env=dist --progress --profile --colors",
     "build:widget": "node task/pre.js && webpack --env=widget --progress --profile --colors && node task/post.js",
-    "devtest": "webpack-dashboard -- webpack-dev-server --env=test",
+    "dashTest": "webpack-dashboard -- webpack-dev-server --env=test",
+    "devTest": "webpack-dev-server --env=test",    
     "doc": "./node_modules/.bin/jsdoc -r --debug -t ./node_modules/jsdoc-baseline --verbose --readme README.md -c jsdoc.conf.json -d doc"
   },
   "author": "Mario Rosenstengel",

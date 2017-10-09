@@ -126,21 +126,21 @@ function Wireframe(container, model) {
     });
     that.getSelectionModel().addListener(mxEvent.CHANGE, function (sender, event) {
         var deselected = event.getProperty('added');
-        for (var i = 0; i < deselected.length; i++) {
+        for (var i = 0; deselected && i < deselected.length; i++) {
             if (deselected[i].hasOwnProperty('get$node'))
                 deselected[i].get$node().css('pointer-events', 'none');
-                mxGraph.prototype.removeCellOverlay.call(that, deselected[i], deselected[i].getEditOverlay());
+            mxGraph.prototype.removeCellOverlay.call(that, deselected[i], deselected[i].getEditOverlay());
         }
         var selected = event.getProperty('removed');
         if (selected) {
-            for (var i = 0; i < selected.length && selected[i]; i++) {
+            for (var i = 0; selected && i < selected.length && selected[i]; i++) {
                 var editOverlay = new EditOverlay();
                 mxGraph.prototype.addCellOverlay.call(that, selected[i], editOverlay);
                 editOverlay.bindClickEvent(that);
             }
         }
     });
-    
+
     /**
      * Overrides the moveCells-method from the parent class to make the move NRTC 
      * @param {UIObject[]} cells the cells to move
@@ -198,14 +198,14 @@ function Wireframe(container, model) {
                 userId: y.db.userId,
                 id: cell.getId(),
                 xml: overlay.toXML(),
-                fromSyncMeta : !fromSyncMeta ? false : true
+                fromSyncMeta: !fromSyncMeta ? false : true
             });
         }
     };
 
     that.updateBounds = function () {
         var bounds = that.getBoundingBox(that.getDefaultParent().children);
-        if(bounds){
+        if (bounds) {
             $('#wireframeWrap').resizable('option', 'minWidth', bounds.x + bounds.width);
             $('#wireframeWrap').resizable('option', 'minHeight', bounds.y + bounds.height);
         }
@@ -219,7 +219,7 @@ function Wireframe(container, model) {
             case mxEvent.ADD_VERTEX:
                 {
                     //disable events for the remote user 
-                    
+
                     var doc = mxUtils.parseXml(event.value.data);
                     var codec = new mxCodec(doc);
                     var type = doc.documentElement.getAttribute('uiType');
@@ -234,7 +234,7 @@ function Wireframe(container, model) {
                         elt = elt.nextSibling;
                     }
                     //deactivate ADD_CELLS event for the remote user during transaction
-                    if(event.value.userId !== y.db.userId)
+                    if (event.value.userId !== y.db.userId)
                         that.setEventsEnabled(false);
                     that.getModel().beginUpdate();
                     try {
@@ -249,9 +249,9 @@ function Wireframe(container, model) {
                         if (!event.value.parent)
                             that.updateBounds();
                         //activate events after transaction
-                        if(event.value.userId !== y.db.userId)
+                        if (event.value.userId !== y.db.userId)
                             that.setEventsEnabled(true);
-                        
+
                     }
                     HierachyTree.add(cell);
                     for (var i = 0; i < cells.length; i++) {
@@ -267,31 +267,50 @@ function Wireframe(container, model) {
                 {
                     var parent = that.getModel().getCell(event.value.parentId);
                     if (event.value.userId !== y.db.userId) {
-                        that.setEventsEnabled(false);
-                        var cells = Util.getCellsFromIdList(that, event.value.ids);
-                        if (cells.length > 0) {
-                            if (event.value.dx != 0 || event.value.dy != 0)
-                                that.moveCells(cells, event.value.dx, event.value.dy, false, parent, null, null, true);
+                        that.getModel().beginUpdate();
+                        try {
+                            that.setEventsEnabled(false);
+                            var cells = Util.getCellsFromIdList(that, event.value.ids);
+                            if (cells.length > 0) {
+                                if (event.value.dx != 0 || event.value.dy != 0)
+                                    that.moveCells(cells, event.value.dx, event.value.dy, false, parent, null, null, true);
+                            }
                         }
-                        that.setEventsEnabled(true);
+                        finally {
+                            that.getModel().endUpdate();
+                            that.setEventsEnabled(true);
+                        }
                     }
-                    HierachyTree.move(event.value.ids, event.value.parentId, parent.children.length);
+                    for(var i=0;i<event.value.ids.length; i++){
+                        var cell = that.getModel().getCell(event.value.ids[i]);
+                        var parent = that.getModel().getCell(event.value.parentId);
+                        if(cell && parent){
+                            HierachyTree.move(event.value.ids, event.value.parentId, parent.getIndex(cell));
+                        }
+                    }
                     that.updateBounds();
                     break;
                 }
             case mxEvent.RESIZE:
                 {
-                    if (event.value.userId !== y.db.userId) {
-                        that.setEventsEnabled(false);
-                        var cells = Util.getCellsFromIdList(that, event.value.ids);
-                        var bounds = [];
-                        for (var i = 0; i < event.value.bounds.length; i++) {
-                            var bound = event.value.bounds[i];
-                            bounds.push(new mxRectangle(bound.x, bound.y, bound.width, bound.height));
+                    var bounds = [];
+                    for (var i = 0; i < event.value.bounds.length; i++) {
+                        var bound = event.value.bounds[i];
+                        bounds.push(new mxRectangle(bound.x, bound.y, bound.width, bound.height));
+                        var cell = that.model.getCell(event.value.ids[i]);
+                        if (cell && cell.hasOwnProperty('get$node')) {
+                            var $node = cell.get$node();
+                            $node.css('width', bound.width).css('height', bound.height);
                         }
+                    }
+                    if (event.value.userId !== y.db.userId) {
+                       
+                        var cells = Util.getCellsFromIdList(that, event.value.ids);
+
                         if (cells.length > 0) {
                             that.getModel().beginUpdate();
                             try {
+                                that.setEventsEnabled(false);                                
                                 that.resizeCells(cells, bounds, false, true);
                             } finally {
                                 that.getModel().endUpdate();
@@ -326,14 +345,14 @@ function Wireframe(container, model) {
                         mxGraph.prototype.addCellOverlay.apply(that, [cell, tag]);
                         cell.addTag(tag);
                         tag.setCell(cell);
-                        if(tag.hasOwnProperty('initAttributes')) tag.initAttributes();
+                        if (tag.hasOwnProperty('initAttributes')) tag.initAttributes();
                         tag.createShared(y.db.userId === event.value.userId);
                         tag.bindClickEvent(that);
                         var ref = $('#' + cell.getId() + '_tagTree').jstree(true);
                         if (ref) {
                             ref.create_node(null, {
                                 id: tag.tagObj.getAttribute('id'),
-                                type:  tag.tagObj.getAttribute('tagType'),
+                                type: tag.tagObj.getAttribute('tagType'),
                                 text: tag.constructor.Alias || tag.tagObj.getAttribute('tagType'),
                                 state: {
                                     selected: false,
@@ -361,8 +380,7 @@ function Wireframe(container, model) {
                     cell.addTag(tag);
                     break;
                 }
-            case CONST.ACTIONS.DELETE_TAG:
-                {
+            case CONST.ACTIONS.DELETE_TAG:{
                     var $tree = $('#' + event.value.cellId + '_tagTree');
                     if ($tree.length > 0)
                         $tree.jstree(true).delete_node(event.value.selected);
@@ -408,9 +426,8 @@ function Wireframe(container, model) {
                     }
                     break;
                 }
-            case CONST.ACTIONS.RENAME_TAG:
-                {
-                    //TODO
+            case CONST.ACTIONS.RENAME_TAG:{
+                    //Not implemented, but maybe it might be a necessary feature in the future, but for now not required
                     break;
                 }
             case CONST.ACTIONS.SHARED.APPLY_LAYOUT: {
@@ -420,25 +437,25 @@ function Wireframe(container, model) {
                 var cell;
                 if (event.value.cellId)
                     cell = that.getModel().getCell(event.value.cellId);
-                else 
+                else
                     cell = that.getDefaultParent();
 
-                if(!event.value.recursive)
+                if (!event.value.recursive)
                     layout.execute(cell);
                 else {
-                    var applyLayoutRecusively = function(parent){
-                        if(parent.children && parent.children.length < 1 ) return;
-                        for(var i=0;i<parent.children.length;i++){
+                    var applyLayoutRecusively = function (parent) {
+                        if (parent.children && parent.children.length < 1) return;
+                        for (var i = 0; i < parent.children.length; i++) {
                             var child = parent.children[i];
-                            if(child.constructor.name === 'DivContainer'){
+                            if (child.constructor.name === 'DivContainer') {
                                 layout.execute(child);
-                                applyLayoutRecusively(child);   
+                                applyLayoutRecusively(child);
                             }
                         }
                     }
                     applyLayoutRecusively(cell);
                     layout.execute(cell);
-                    
+
                 }
                 break;
             }
@@ -450,52 +467,12 @@ function Wireframe(container, model) {
     //--------------------------------------End Yjs Observer for actions------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------------
 
+    //*
     that.convertValueToString = function (cell) {
         if (mxUtils.isNode(cell.value)) {
             if (cell.hasOwnProperty('get$node')) {
-                if (!cell.get$node()) cell.initDOM();
-                /*mxEvent.addListener(cell.get$node()[0], 'change', function () {
-                    var elt = cell.value.cloneNode(true);
-                    elt.setAttribute('label', cell.get$node().val());
-                    that.model.setValue(cell, elt);
-                    Util.Save(that);
-                });*/
-                cell.get$node().css('width', cell.geometry.width - 15).css('height', cell.geometry.height - 15);
-
-                switch (cell.value.getAttribute('uiType').toLowerCase()) {
-                    case 'link':
-                    case 'textbox':
-                    case 'button':
-                    case 'textnode':
-                        {
-                            cell.get$node().click(function () {
-                                that.getSelectionModel().setCell(cell);
-                            });
-                            break;
-                        }
-                    case 'paragraph':
-                    case 'textarea':
-                        {
-                            cell.get$node().click(function () {
-                                this.focus();
-                                this.setSelectionRange(this.value.length, this.value.length);
-                            });
-
-                            cell.get$node().dblclick(function () {
-                                this.focus();
-                                this.setSelectionRange(0, this.value.length);
-                            })
-                            break;
-                        }
-                    case 'radiobutton':
-                    case 'checkbox':
-                        {
-                            cell.get$node().find('input[type="input"]').click(function () {
-                                that.getSelectionModel().setCell(cell);
-                            });
-                            break;
-                        }
-                }
+                if (!cell.get$node())
+                    cell.initDOM();
                 return cell.get$node()[0];
             }
         }

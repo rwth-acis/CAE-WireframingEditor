@@ -30,7 +30,9 @@ export default function (space) {
             nodes: 'Map',
             edges : 'Map', 
             select: 'Map', 
-            canvas: 'Map'
+            canvas: 'Map',
+            activity: 'Map',
+            userList: 'Map'
         }
     }).then(function (y) {
         window.y = y;

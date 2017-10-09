@@ -1,6 +1,6 @@
 {   
     "html": {
-        "exclude" : ["br", "CUSTOM"],
+        "exclude" : ["br"],
         "map":{
             "input" :"TextBox"
         }

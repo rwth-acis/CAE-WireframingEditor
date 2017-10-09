@@ -1,10 +1,10 @@
 /**
  * @module UIElements
  */
-import UIText from './UIText.js';
+import UIText from '../UIText.js';
 import {
     mxGeometry
-} from '../misc/mxExport.js';
+} from '../../misc/mxExport.js';
 
 TextNode.prototype = new UIText();
 TextNode.prototype.constructor = TextNode;
@@ -18,7 +18,7 @@ window.TextNode = TextNode;
  * @default text
  * @readonly
  */
-TextNode.HTML_NODE_NAME = 'text';
+TextNode.HTML_NODE_NAME = 'span';
 
 /**
  * The Name in the wireframing editor

@@ -1,10 +1,12 @@
 /**
  * @module UIElements
  */
-import UIText from './UIText.js';
+import $ from 'jquery';
+import _ from 'lodash';
+import UIText from '../UIText.js';
 import {
     mxGeometry
-} from '../misc/mxExport.js';
+} from '../../misc/mxExport.js';
 
 
 Button.prototype = new UIText();
@@ -59,14 +61,18 @@ function Button(geometry) {
      * @override
      */
     this.initDOM = function () {
-        UIText.prototype.initDOM.call(this);
-        var $node = this.get$node();
-        $node.css('text-align', 'center')
-            .css('border-radius', '12px')
-            .css('background-color', 'rgb(227, 227, 228)')
-            .css('border-style', 'ridge')
-            .val(text);
-        this.set$node($node);
+        var $button = $(document.createElement('button'));
+        $button.attr('disabled', true)
+        .css('width', this.geometry.width)
+        .css('height', this.geometry.height)
+        .append(
+            $(document.createElement('input')).css('text-align', 'center')
+            //.css('border-radius', '12px')
+            .css('background-color', 'transparent')
+            .css('border-style', 'unset')
+            .css('width', '100%')
+            .val(text));
+        this.set$node($button);
     }
 
     /**
@@ -79,11 +85,13 @@ function Button(geometry) {
     };
 }
 
-/**
- * Init shared content for the button
- * @override
- */
-Button.prototype.initShared = function(){
-    UIText.prototype.initShared.call(this);
+Button.prototype.bindLabel = function(ytext){
+    var that = this;
+    ytext.bind(this.get$node().find('input')[0]);
+    ytext.observe(_.debounce(function(event){
+        that.value.setAttribute('label', event.object.toString());
+        $('.wfSave').click();
+    }, 300));
+
 }
 export default Button;

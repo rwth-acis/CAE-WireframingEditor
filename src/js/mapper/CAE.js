@@ -99,22 +99,23 @@ function WireframeToModel(wireframeModel, vls) {
             option: false
         });
         var attributes = {};
+        var type = cell.constructor.HTML_NODE_NAME || cell.value.getAttribute('uiType');
         attributes[htmlAttributesMap['type']] = JSON.parse(attrCompiled({
             id: cell.id,
             attrName: 'type',
-            value: '"' + cell.constructor.HTML_NODE_NAME + '"',
+            value: '"' + type + '"',
             option: true
         }));
         attributes[htmlAttributesMap['id']] = JSON.parse(attrCompiled({
             id: cell.id,
             attrName: 'id',
-            value: '""',
+            value: '"' + type + '_' + Util.GUID().substr(0,5) + '"',
             option: false
         }));
         attributes[htmlAttributesMap['static']] = JSON.parse(attrCompiled({
             id: cell.id,
             attrName: 'static',
-            value: false,
+            value: true,
             option: false
         }));
         var shared = false;

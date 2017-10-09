@@ -2,11 +2,11 @@
 /**
  * @module UIElements
  */
-import Y from './../../../node_modules/yjs/dist/y.js';
-import UIText from './UIText.js';
+import Y from './../../../../node_modules/yjs/dist/y.js';
+import UIText from '../UIText.js';
 import {
     mxGeometry
-} from '../misc/mxExport.js';
+} from '../../misc/mxExport.js';
 Link.prototype = new UIText();
 Link.prototype.constructor = Link;
 UIText.registerCodec(Link);

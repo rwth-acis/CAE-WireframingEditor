@@ -48,9 +48,25 @@ function Toolbox(container, editor) {
     });
 
     editor.addAction(CONST.ACTIONS.SHARED.DELETE, function (editor, cell) {
+        var children = {};
+        var cells = that._editor.graph.getSelectionCells();
+        function helper(cell){
+            var childrenArr = [];
+            for(var i=0; cell.children && i < cell.children.length; i++){
+                var child = cell.children[i];
+                childrenArr.push(child.getId());
+                helper(child);
+            }
+            children[cell.getId()] = childrenArr;
+        }
+        for(var i=0;i <cells.length;i++){
+            helper(cells[i]);
+        }
+
         y.share.action.set(mxEvent.REMOVE, {
             userId: y.db.userId,
-            cells: Util.getIdsOfSelectedCells(that._editor.graph)
+            cells: Util.getIdsOfSelectedCells(that._editor.graph),
+            children : children 
         });
     });
 
@@ -76,6 +92,7 @@ function Toolbox(container, editor) {
     editor.addAction(CONST.ACTIONS.SHARED.GROUP, function (editor, cell) {
         y.share.action.set(mxEvent.GROUP_CELLS, {
             userId: y.db.userId,
+            groupId : Util.GUID(),
             ids: Util.getIdsOfSelectedCells(that._editor.graph)
         });
     });
@@ -191,7 +208,9 @@ function Toolbox(container, editor) {
                 var cells = Util.getCellsFromIdList(that._editor.graph, event.value.ids);
 
                 if(event.value.userId !== y.db.userId) that._editor.graph.setEventsEnabled(false);
-                var group = that._editor.graph.groupCells(null, 20, cells);
+                var group = that._editor.graph.createGroupCell();
+                group.setId(event.value.groupId);
+                that._editor.graph.groupCells(group, 30, cells);
                 if(event.value.userId !== y.db.userId) that._editor.graph.setEventsEnabled(true);
 
                 if (y.db.userId === event.value.userId) {
@@ -203,11 +222,18 @@ function Toolbox(container, editor) {
                 HierachyTree.group(group, cells);
                 break;
             case mxEvent.UNGROUP_CELLS:
-                var cells = that._editor.graph.ungroupCells(Util.getCellsFromIdList(that._editor.graph, event.value.ids));
+                var cells = Util.getCellsFromIdList(that._editor.graph, event.value.ids);
+                var ungroupable =[];
+                for(var i=0; i<cells.length;i++){
+                    if(cells[i].constructor.name === 'DivContainer')
+                        ungroupable.push(cells[i]);
+                }
+                //Note: important to call Hierachy.ungroup() before graph.ungroupCells, otherwise parent and child information is lost
+                HierachyTree.ungroup(ungroupable);                
+                that._editor.graph.ungroupCells(ungroupable);
                 if (y.db.userId === event.value.userId)
                     that._editor.graph.setSelectionCells(cells);
                 that._editor.graph.updateBounds();
-                HierachyTree.ungroup(cells);
                 break;
             case CONST.ACTIONS.SHARED.PASTE:
                 var selectedCells = that._editor.graph.getSelectionCells();

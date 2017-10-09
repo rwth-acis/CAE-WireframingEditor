@@ -2,12 +2,12 @@
 /**
  * @module UIElements
  */
-import Y from './../../../node_modules/yjs/dist/y.js';
+import Y from './../../../../node_modules/yjs/dist/y.js';
 import {
     mxConstants,
     mxGeometry
-} from '../misc/mxExport.js';
-import UIMedia from './UIMedia.js';
+} from '../../misc/mxExport.js';
+import UIMedia from '../UIMedia.js';
 
 window.VideoPlayer = VideoPlayer;
 VideoPlayer.prototype = new UIMedia();
@@ -48,6 +48,9 @@ function VideoPlayer(geometry) {
 
     UIMedia.call(this, geometry, style);
     this.value.setAttribute('_poster', '');
+    //https://static.videezy.com/system/resources/previews/000/005/341/original/Earth_Spin_Medium.mp4
+    //https://www.w3schools.com/html/mov_bbb.mp4
+    this.value.setAttribute('_src', 'https://rwth-acis.github.io/CAE-WireframingEditor/resources/mov_bbb.mp4');
 }
 
 VideoPlayer.prototype.createShared = function(createdByLocalUser){

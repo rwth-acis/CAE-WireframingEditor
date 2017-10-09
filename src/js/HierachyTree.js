@@ -81,10 +81,11 @@ function HierachyTree() {
         /**
          * Initialize the hierachy tree in a seperate mxWindow-instance
          * @param {mxEditor} editor the wireframing editor instance
+         * @param {boolean} visibility true and the hierachy is visible at startup 
          * @return {undefined}
          * @memberof HierachyTree
          */
-        init: function (editor) {
+        init: function (editor, visibility) {
             function buildTree(parent) {
                 if (!parent.children) return;
                 for (var i = 0; i < parent.children.length; i++) {
@@ -171,9 +172,9 @@ function HierachyTree() {
             editor.undoManager.addListener(mxEvent.UNDO, undoCallback);
             editor.undoManager.addListener(mxEvent.REDO, undoCallback);
 
-            wnd = new mxWindow('Hierachy', $tree[0], 300, 200, '100%', '40%', true, true);
+            wnd = new mxWindow('Hierachy', $tree[0], 600, 300, '100%', '40%', true, true);
             wnd.destroyOnClose = false;
-            wnd.setVisible(false);
+            wnd.setVisible(false || visibility);
             wnd.setMaximizable(false);
             wnd.setResizable(false);
             wnd.setClosable(true);
@@ -275,25 +276,24 @@ function HierachyTree() {
          * @memberof HierachyTree
          */
         ungroup: function (cells) {
-            var helperFnc = function(cell){
-                $tree.jstree(true).create_node(cell.parent.id === '1' ? '#' : cell.parent.id, {
-                    id: cell.id,
-                    text: cell.constructor.NAME || cell.value.getAttribute('uiType'),
-                    state: {
-                        selected: false,
-                        opened: true
-                    },
-                    pos: cell.parent.getIndex(cell)
-                });
-                if(cell.children){
-                    for(var i=0;i<cell.children.length;i++){
-                        helperFnc(cell.children[i]);
-                    }
+            var helperFnc = function(cell, newParent){
+                for(var i=0; cell.children && i < cell.children.length; i++){
+                    var child = cell.children[i];
+                    $tree.jstree(true).create_node(newParent.id === '1' ? '#' : newParent.id, {
+                        id: child.id,
+                        text: child.constructor.NAME || child.value.getAttribute('uiType'),
+                        state: {
+                            selected: false,
+                            opened: true
+                        },
+                        pos: cell.getIndex(child)
+                    });
+                    helperFnc(child, child);
                 }
-            
             }
+            $tree.jstree(true).delete_node(cells);      
             for (var i = 0; i < cells.length; i++) {
-                helperFnc(cells[i]);
+                helperFnc(cells[i], cells[i].parent);
             }
         }
     }

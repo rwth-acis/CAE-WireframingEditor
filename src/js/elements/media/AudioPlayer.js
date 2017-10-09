@@ -4,8 +4,8 @@
 import {
     mxConstants,
     mxGeometry
-} from '../misc/mxExport.js';
-import UIMedia from './UIMedia.js';
+} from '../../misc/mxExport.js';
+import UIMedia from '../UIMedia.js';
 
 AudioPlayer.prototype = new UIMedia();
 AudioPlayer.prototype.constructor = AudioPlayer;
@@ -45,5 +45,6 @@ function AudioPlayer(geometry) {
         mxConstants.STYLE_EDITABLE + "=0;";
 
     UIMedia.call(this, geometry, style);
+    this.value.setAttribute('_src', 'https://rwth-acis.github.io/CAE-WireframingEditor/resources/horse.mp3');
 }
 export default AudioPlayer;

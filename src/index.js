@@ -19,7 +19,7 @@ $(function () {
             window.vls = vls;
         }
         //Important load a vls before calling Main
-        var editor = Main(config);
+        var editor = Main(config, false, true);
         Loader.checkSuccessful(1, 100);
         Loader.destroy(500);
         

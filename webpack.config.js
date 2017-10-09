@@ -17,7 +17,11 @@ module.exports = function(env) {
   }
   else if(env === 'test'){
     conf.entry.app = './tests/index.js';
+    conf.entry.style.push('./node_modules/mocha/mocha.css');
+    conf.entry.vendor.push('./node_modules/mocha/mocha.js');
+    conf.devtool = 'inline-source-map';
     var htmlTpl = require('./webpack/htmlTpl.js')('tests/index.ejs', 'head');
+    conf.plugins.push(htmlTpl);    
   }
   else if(env === 'widget'){
     conf.entry.app = './src/widget.js';    

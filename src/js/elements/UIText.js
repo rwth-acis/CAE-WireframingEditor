@@ -9,7 +9,6 @@ import UIControl from './UIControl.js';
 import $ from 'jquery';
 import Y from './../../../node_modules/yjs/dist/y.js';
 import _ from 'lodash';
-import Util from '../misc/Util.js';
 
 UIText.prototype = new UIControl();
 UIText.prototype.constructor = UIText;
@@ -68,8 +67,8 @@ UIText.prototype.initDOM = function(element){
     var _$node;
     var dom = element || 'input';
         _$node = $('<' + dom + '>')
-            .css('width', this.geometry.width - 15)
-            .css('height', this.geometry.height - 15)
+            .css('width', this.geometry.width)
+            .css('height', this.geometry.height)
             .css('font-size', 15)
             .css('pointer-events', 'none');
         
@@ -101,6 +100,9 @@ UIText.prototype.createShared = function (createdByLocalUser) {
  };
 
 UIText.prototype.bindLabel = function(ytext){
+    var $node = this.get$node();
+    if(!$node)
+        this.initDOM();
     ytext.bind(this.get$node()[0]);
     var that = this;    
     ytext.observe(_.debounce(function(event){

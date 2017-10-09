@@ -1,7 +1,6 @@
 /*global y*/
 import { mxCodec, mxUtils, mxForm, mxGraph } from './mxExport.js';
 import $ from 'jquery';
-import Noty from 'noty';
 
 /**
  * @module Misc
@@ -141,7 +140,16 @@ Util.bindSharedAttributes = function (entity, form) {
             if ($input.attr('type') === 'text') {
                 var ytext = y.share.attrs.get(id + '_' + name);
                 if (ytext) {
-                    ytext.bind($input[0]);
+                    if(entity.hasOwnProperty('value')){
+                        var val = entity.value.getAttribute('_'+name);
+                        ytext.bind($input[0]);
+                        if(val.length > 0 && ytext.toString() !== val){
+                            ytext.delete(0, ytext.toString().length);
+                            ytext.insert(0,val);
+                        }
+                    }
+                    else 
+                        ytext.bind($input[0]);
                     //var caeYText = CAELiveMapper.getSharedWidgetAttr('_'+name);
                     //if(caeYText != undefined)
                     //    caeYText.bind($input[0]);

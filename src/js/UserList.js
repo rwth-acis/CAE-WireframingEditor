@@ -20,9 +20,10 @@ import Noty from 'noty';
         }
  * @param {Object} user the object consists of the data about the user
  * @param {Boolean} visible true if the mxWindow is visible or false if not 
+ * @param {mxWindow} wnd the mxWindew-object otherwise it will be created
  * @return {undefined}
  */
-function UserList(user, visible) {
+function UserList(user, visible, wnd) {
     /**
      * the div html elements that contains the user list
      * @member {jQuery}
@@ -131,8 +132,7 @@ function UserList(user, visible) {
             }
         });
 
-        $('.g-signin2').hide();
-        var color = randomColor();
+        var color = user.hasOwnProperty('color') ? user.color : randomColor();            
         var $userEntry = getUserEntry(y.db.userId, user.name, user.imageUrl, color);
         $userTable.append($userEntry);
         $userTable.append($('<tr><th>Collaborators</th></tr>'));
@@ -146,6 +146,7 @@ function UserList(user, visible) {
         });
         y.share.yfJoin.set(y.db.userId, false);
     }
+    return wnd;
 }
 
 export default UserList;

@@ -1,11 +1,12 @@
 /**
  * @module UIElements
  */
-import UIText from './UIText.js';
+import UIText from '../UIText.js';
 import $ from 'jquery';
+import _ from 'lodash';
 import {
     mxGeometry
-} from '../misc/mxExport.js';
+} from '../../misc/mxExport.js';
 
 RadioButton.prototype = new UIText();
 RadioButton.prototype.constructor = RadioButton;
@@ -21,6 +22,14 @@ window.RadioButton = RadioButton;
  */
 RadioButton.NAME = "Radio Button";
 
+/**
+ * The HTML node name
+ * @static 
+ * @default radio
+ * @readonly
+ */
+RadioButton.HTML_NODE_NAME = 'radio';
+
 function RadioButton(geometry) {
     var text = 'Option';
     if (!geometry)
@@ -31,8 +40,7 @@ function RadioButton(geometry) {
     this.value.setAttribute('_disabled', false);
 
     this.initDOM = function () {
-        this.set$node
-            ($('<div>')
+        this.set$node($('<div>')
                 .css('pointer-events', 'none')
                 .append($('<input>').attr('type', 'radio').attr('checked', true))
                 .append($('<input>').attr('type', 'input')
@@ -47,6 +55,11 @@ function RadioButton(geometry) {
 }
 RadioButton.prototype.bindLabel = function (ytext) {
     ytext.bind(this.get$node().find('input[type="input"]')[0]);
+    var that = this;    
+    ytext.observe(_.debounce(function(event){
+        that.value.setAttribute('label', event.object.toString());
+        $('.wfSave').click();
+    }, 300));
 }
 
 RadioButton.prototype.initShared = function () {

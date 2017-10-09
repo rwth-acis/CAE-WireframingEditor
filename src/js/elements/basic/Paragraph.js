@@ -1,10 +1,10 @@
 /**
  * @module UIElements
  */
-import UIText from './UIText.js';
+import UIText from '../UIText.js';
 import {
     mxGeometry
-} from '../misc/mxExport.js';
+} from '../../misc/mxExport.js';
 Paragraph.prototype = new UIText();
 Paragraph.prototype.constructor = Paragraph;
 UIText.registerCodec(Paragraph);

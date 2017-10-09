@@ -24,9 +24,10 @@ import TagRegistry from './tags/TagRegistry.js';
  * The Main function of the Wireframing editor
  * @param {Object} config the configuration file
  * @param {boolean} disableDragging true if drag&drop of the wireframe canvas should be disabled else false
+ * @param {boolean} showHierachy show the hierachy editor at startup
  * @return {Editor} the editor
  */
-export default function (config, disableDragging) {
+export default function (config, disableDragging, showHierachy) {
   if (!mxClient.isBrowserSupported()) {
     // Displays an error message if the browser is not supported.
     mxUtils.error('Browser is not supported!', 200, false);
@@ -64,7 +65,7 @@ export default function (config, disableDragging) {
 
     var htmlToolbox = document.getElementById('toolbox');
     new Toolbox(htmlToolbox, editor);
-    HierachyTree.init(editor);
+    HierachyTree.init(editor, showHierachy);
     $('#wireframeWrap').resizable({
       //handles: "n, e, s, w, se, sw, nw, ne",
       handles: "se",
