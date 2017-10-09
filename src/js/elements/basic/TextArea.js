@@ -1,6 +1,6 @@
 /*global y*/
 /**
- * @module UIElements
+ * @module UIElements/Basic
  */
 import Y from './../../../../node_modules/yjs/dist/y.js';
 import UIText from '../UIText.js';
@@ -30,7 +30,8 @@ TextArea.HTML_NODE_NAME = 'textarea';
 TextArea.NAME = "Multi-Line Text Area";
 
 /**
- * @classdesc A HTMl textarea element
+ * A HTML text area
+ * @classdesc A HTMl <textarea>-element
  * @constructor
  * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 200, 55)] the width, height, x and y of the ui element
  * @extends UIText

@@ -1,6 +1,6 @@
 /*global y*/
 /**
- * @module UIElements
+ * @module UIElements/Media
  */
 import Y from './../../../../node_modules/yjs/dist/y.js';
 import {
@@ -31,7 +31,8 @@ VideoPlayer.HTML_NODE_NAME = 'video';
 VideoPlayer.NAME = "Video Player";
 
 /**
- * @classdesc The Video Player HTML 5 element
+ * The Video Player HTML 5 element
+ * @classdesc <video>
  * @constructor
  * @param {mxGeometry} [geometry=new mxGeometry(0, 0, 200, 100)] the width, height, x and y of the ui element
  * @extends UIMedia

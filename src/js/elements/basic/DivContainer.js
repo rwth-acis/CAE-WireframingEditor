@@ -1,5 +1,5 @@
 /**
- * @module UIElements
+ * @module UIElements/Basic
  */
 import {
     mxUtils,
@@ -30,6 +30,7 @@ DivContainer.HTML_NODE_NAME = 'div';
 DivContainer.NAME = "UI Component Container";
 
 /**
+ * A Container for UI control elements. Corresponds to the HTML div-element
  * @classdesc A HTMl div element
  * @constructor
  * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 180, 150)] the width, height, x and y of the ui element

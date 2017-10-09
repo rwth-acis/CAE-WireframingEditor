@@ -1,9 +1,9 @@
 import $ from 'jquery';
-import GoogleLogin from './js/GoogleLogin.js';
+import GoogleLogin from './js/auth/GoogleLogin.js';
 import YjsSync from './js/misc/YjsSync.js';
 import Main from './js/Main.js';
 import CAELiveMapper from './js/mapper/CAELiveMapper.js';
-import Loader from './js/Loader.js';
+import Loader from './js/misc/Loader.js';
 
 import config from './data/config.json';
 

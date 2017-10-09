@@ -1,5 +1,5 @@
 /**
- * @module UIElements
+ * @module UIElements/Graphics
  */
 import {
     mxConstants,
@@ -34,7 +34,8 @@ codec.template = new HTML5Canvas();
 mxCodecRegistry.register(codec);
 
 /**
- * @classdesc A HTMl image element
+ * A HTML5 canvas element
+ * @classdesc A HTMl5 canvas element
  * @constructor
  * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 128, 128)] the width, height, x and y of the ui element
  * @extends UIControl

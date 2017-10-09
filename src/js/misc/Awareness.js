@@ -1,10 +1,10 @@
 /*global y*/
 /**
- * @module
+ * @module Misc
  */
-import { mxEvent, mxCellHighlight, mxPoint } from './misc/mxExport.js';
-import UserOverlay from './overlays/UserOverlay';
-import CONST from './misc/Constants.js';
+import { mxEvent, mxCellHighlight, mxPoint } from './mxExport.js';
+import UserOverlay from '../overlays/UserOverlay';
+import CONST from './Constants.js';
 /** 
  * The function realizes the awareness features for the Wireframe editor.
  * Enables cell hightlighting and overlays for user informations

@@ -1,8 +1,12 @@
+/**
+ * @module WireframeEditor
+ */
 /*global y*/
 import PropertyEditor from './PropertyEditor.js';
 import CONST from './misc/Constants.js';
 
 /**
+ * The context menu of the wireframe canvas
  * @classdesc The class builds the context menu for the wireframing editor
  * @constructor
  * @param {mxEditor} editor the editor

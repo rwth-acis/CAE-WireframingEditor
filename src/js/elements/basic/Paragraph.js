@@ -1,5 +1,5 @@
 /**
- * @module UIElements
+ * @module UIElements/Basic
  */
 import UIText from '../UIText.js';
 import {
@@ -27,6 +27,7 @@ Paragraph.HTML_NODE_NAME = 'p';
 Paragraph.NAME = "Paragraph of Text";
 
 /**
+ * A paragraph of text. <p>
  * @classdesc A HTMl paragraph element
  * @constructor
  * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 150, 35)] the width, height, x and y of the ui element

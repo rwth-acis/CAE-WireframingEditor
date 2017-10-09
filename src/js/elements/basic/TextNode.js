@@ -1,5 +1,5 @@
 /**
- * @module UIElements
+ * @module UIElements/Basic
  */
 import UIText from '../UIText.js';
 import {
@@ -29,7 +29,8 @@ TextNode.HTML_NODE_NAME = 'span';
 TextNode.NAME = "Text Node";
 
 /**
- * @classdesc A HTMl textnode element
+ * A simple element to represent text
+ * @classdesc A HTMl <span>-element
  * @constructor
  * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 75, 30)] the width, height, x and y of the ui element
  * @extends UIText

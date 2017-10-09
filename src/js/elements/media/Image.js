@@ -1,6 +1,6 @@
 /*global y*/
 /**
- * @module UIElements
+ * @module UIElements/Media
  */
 import Y from './../../../../node_modules/yjs/dist/y.js';
 import {
@@ -36,7 +36,8 @@ codec.template = new Image();
 mxCodecRegistry.register(codec);
 
 /**
- * @classdesc A HTMl image element
+ * Represent a image
+ * @classdesc A HTMl <img>-element
  * @constructor
  * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 128, 128)] the width, height, x and y of the ui element
  * @extends UIControl

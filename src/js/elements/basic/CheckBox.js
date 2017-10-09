@@ -1,5 +1,5 @@
 /**
- * @module UIElements
+ * @module UIElements/Basic
  */
 import UIText from '../UIText.js';
 import $ from 'jquery';
@@ -30,6 +30,7 @@ CheckBox.NAME = "Checkbox";
 CheckBox.HTML_NODE_NAME = 'checkbox';
 
 /**
+ * A HTML checkbox with label
  * @classdesc A HTMl checkbox element
  * @constructor
  * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 150, 30)] the width, height, x and y of the ui element

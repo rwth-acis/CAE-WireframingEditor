@@ -1,3 +1,6 @@
+/**
+ * @module WireframeEditor
+ */
 import {mxDefaultKeyHandler} from './misc/mxExport.js';
 import CONST from './misc/Constants.js';
 KeyHandler.prototype = new mxDefaultKeyHandler();

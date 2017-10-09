@@ -1,6 +1,5 @@
-/*global y*/
 /**
- * @module UIElements
+ * @module UIElements/Basic
  */
 import {
     mxConstants,
@@ -35,7 +34,8 @@ codec.template = new List();
 mxCodecRegistry.register(codec);
 
 /**
- * @classdesc A HTMl image element
+ * A HTML List element. <ul>
+ * @classdesc A HTMl list element
  * @constructor
  * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 128, 128)] the width, height, x and y of the ui element
  * @extends UIControl

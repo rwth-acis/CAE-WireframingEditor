@@ -1,17 +1,18 @@
 /*global gapi*/
 /**
- * @module
+ * @module Authentification
  */
 import {
     mxWindow
-} from './misc/mxExport.js';
-import UserList from './UserList.js';
+} from '../misc/mxExport.js';
+import UserList from '../misc/UserList.js';
 import $ from 'jquery';
 
 /**
  * Log in to google and generates the user list
  * @async
  * @return {undefined}
+ * @requires gapi
  */
 function GoogleLogin() {
     var deferred = $.Deferred();

@@ -1,5 +1,5 @@
 /**
- * @module UIElements
+ * @module UIElements/Basic
  */
 import UIText from '../UIText.js';
 import $ from 'jquery';
@@ -30,6 +30,13 @@ RadioButton.NAME = "Radio Button";
  */
 RadioButton.HTML_NODE_NAME = 'radio';
 
+/**
+ * A radio button with label
+ * @classdesc A radio button element
+ * @param {mxGeometry} geometry the geometry object which holds the size and position of the element
+ * @constructor
+ * @extends UIText
+ */
 function RadioButton(geometry) {
     var text = 'Option';
     if (!geometry)
@@ -39,6 +46,10 @@ function RadioButton(geometry) {
     this.value.setAttribute('_autofocus', false);
     this.value.setAttribute('_disabled', false);
 
+    /**
+     * Intialize the DOM elements for the label
+     * @returns {undefined}
+     */
     this.initDOM = function () {
         this.set$node($('<div>')
                 .css('pointer-events', 'none')
@@ -51,8 +62,13 @@ function RadioButton(geometry) {
                     .css('border-style', 'initial')
                     .val(text)));
     }
-    return this;
 }
+
+/**
+ * Bind the text input element for the label
+ * @param {Y.Text} ytext the y-text which is used for binding
+ * @returns {undefined}
+ */
 RadioButton.prototype.bindLabel = function (ytext) {
     ytext.bind(this.get$node().find('input[type="input"]')[0]);
     var that = this;    
@@ -62,6 +78,10 @@ RadioButton.prototype.bindLabel = function (ytext) {
     }, 300));
 }
 
+/**
+ * Initialize the shared data objects
+ * @returns {undefined}
+ */
 RadioButton.prototype.initShared = function () {
     UIText.prototype.initShared.call(this);
 }

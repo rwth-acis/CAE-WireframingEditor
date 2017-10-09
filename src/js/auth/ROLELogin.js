@@ -1,8 +1,8 @@
 /*global localStorage, y*/
 /**
- * @module
+ * @module Authentification
  */
-import UserList from './UserList.js';
+import UserList from '../misc/UserList.js';
 import $ from 'jquery';
 
 /**
@@ -25,7 +25,7 @@ function RoleLogin(){
 
     /**
      * Map an integer to one of ten colors
-     * @param id the global id
+     * @param {string} id the global id
      * @return {string} the color
      */
     var getColor = function(id){

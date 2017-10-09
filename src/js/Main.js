@@ -26,6 +26,7 @@ import TagRegistry from './tags/TagRegistry.js';
  * @param {boolean} disableDragging true if drag&drop of the wireframe canvas should be disabled else false
  * @param {boolean} showHierachy show the hierachy editor at startup
  * @return {Editor} the editor
+ * @memberof module:WireframeEditor
  */
 export default function (config, disableDragging, showHierachy) {
   if (!mxClient.isBrowserSupported()) {

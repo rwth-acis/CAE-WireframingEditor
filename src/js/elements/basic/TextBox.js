@@ -1,5 +1,5 @@
 /**
- * @module UIElements
+ * @module UIElements/Basic
  */
 import UIText from '../UIText.js';
 import {
@@ -31,7 +31,8 @@ mxCodecRegistry.register(codec);
 window.TextBox = TextBox;
 
 /**
- * @classdesc A HTMl textbox element
+ * A text box element
+ * @classdesc A HTMl <span>-element
  * @constructor
  * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 120, 30)] the width, height, x and y of the ui element
  * @extends UIText

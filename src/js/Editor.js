@@ -1,3 +1,6 @@
+/**
+ * @module WireframeEditor
+ */
 /*global y, vls*/
 import {
     mxEditor,
@@ -49,6 +52,8 @@ Editor.prototype = new mxEditor();
 Editor.prototype.constructor = Editor;
 
 /**
+ * The Wireframe Editor instance manages shapes and UI control elements.
+ * Further it provides the context menu and short cuts
  * @classdesc The main editor class of the wireframing editor 
  * @constructor
  * @param {Wireframe} wireframe the wireframe of the editor 

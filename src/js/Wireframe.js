@@ -1,4 +1,7 @@
 /*global y*/
+/**
+ * @module WireframeEditor
+ */
 import {
     mxGraph,
     mxEvent,
@@ -15,7 +18,7 @@ import {
 import Util from './misc/Util.js';
 import UserOverlay from './overlays/UserOverlay.js';
 import EditOverlay from './overlays/EditOverlay.js';
-import EnableAwareness from './Awareness.js';
+import EnableAwareness from './misc/Awareness.js';
 import WireframeLayout from './WireframeLayout.js';
 import $ from 'jquery';
 import CONST from './misc/Constants.js';
@@ -26,6 +29,7 @@ Wireframe.prototype = new mxGraph();
 Wireframe.prototype.constructor = Wireframe;
 
 /**
+ * Main class that visualizes a wireframe
  * @classdesc The class represents the visuale representation of the wireframe
  * @constructor
  * @param {DOM} container the div container containning the canvas
@@ -59,6 +63,14 @@ function Wireframe(container, model) {
     new mxRubberband(this);
 
     var sharedAction = null;
+
+    /**
+     * An event for the move of multiple cells
+     * @param {Wireframe} wf the wireframe object
+     * @param {Object} event the event-object
+     * @private
+     * @returns {undefined}
+     */
     var SharedCellsMovedEvent = function (wf, event) {
         var properties = event.getProperties();
         var cells = properties.cells;
@@ -73,6 +85,14 @@ function Wireframe(container, model) {
             ids: ids
         };
     };
+
+    /**
+     * An event for the resize of multiple cells
+     * @param {Wireframe} graph the wireframe object
+     * @param {Object} event the event-object
+     * @private
+     * @returns {undefined}
+     */
     var SharedCellResizedEvent = function (graph, event) {
         //Proudly stolen from the docs
         var cells = event.getProperty('cells');
@@ -190,6 +210,13 @@ function Wireframe(container, model) {
         return cells;
     };
 
+    /**
+     * Overrides the addCellOverlay of the mxGraph module
+     * @param {mxCell} cell the cell which will hold the overlay
+     * @param {mxCellOverlay} overlay the overlay to add to the cell
+     * @param {boolean} fromSyncMeta indicates if the event comes from a SyncMeta plugin callback
+     * @returns {undefined}
+     */
     that.addCellOverlay = function (cell, overlay, fromSyncMeta) {
         if (overlay instanceof UserOverlay || overlay instanceof EditOverlay) {
             mxGraph.prototype.addCellOverlay.apply(this, arguments);
@@ -203,6 +230,10 @@ function Wireframe(container, model) {
         }
     };
 
+    /**
+     * Update the bounding box of the wireframing editor
+     * @returns {undefined}
+     */
     that.updateBounds = function () {
         var bounds = that.getBoundingBox(that.getDefaultParent().children);
         if (bounds) {
@@ -467,7 +498,11 @@ function Wireframe(container, model) {
     //--------------------------------------End Yjs Observer for actions------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------------
 
-    //*
+    /**
+     * Convert a value of the cell to string which is displayed as a label
+     * @param {mxCell} cell the cell
+     * @returns {DOM} the dom element 
+     */
     that.convertValueToString = function (cell) {
         if (mxUtils.isNode(cell.value)) {
             if (cell.hasOwnProperty('get$node')) {

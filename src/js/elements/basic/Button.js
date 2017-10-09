@@ -1,5 +1,5 @@
 /**
- * @module UIElements
+ * @module UIElements/Basic
  */
 import $ from 'jquery';
 import _ from 'lodash';

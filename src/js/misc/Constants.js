@@ -1,5 +1,13 @@
 var widgetMode = false;
 var basePath = '<%=basePath%>';
+
+/**
+ * @module Misc
+ */
+
+/**
+ * Defines the constants for actions, paths to images and other properties of the wireframing editor
+ */
 var constants = {
     MXGRAPH: {
         IMAGE_BASE_PATH: "images"

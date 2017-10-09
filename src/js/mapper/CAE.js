@@ -1,5 +1,5 @@
 /**
- * @module FrontendComponentMapper
+ * @module CAE-Mapper
  */
 import _ from 'lodash';
 import Util from '../misc/Util.js';

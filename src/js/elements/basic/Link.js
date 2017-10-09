@@ -1,6 +1,6 @@
 /*global y*/
 /**
- * @module UIElements
+ * @module UIElements/Basic
  */
 import Y from './../../../../node_modules/yjs/dist/y.js';
 import UIText from '../UIText.js';
@@ -31,7 +31,8 @@ Link.NAME = "Link";
 window.Link = Link;
 
 /**
- * @classdesc A HTMl link element
+ * A HTML <link>
+ * @classdesc A HTML link element
  * @constructor
  * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 50, 30)] the width, height, x and y of the ui element
  * @extends UIMedia

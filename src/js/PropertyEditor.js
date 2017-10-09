@@ -1,5 +1,5 @@
 /**
- * @module
+ * @module WireframeEditor/AttributeEditor
  */
 import {
     mxWindow

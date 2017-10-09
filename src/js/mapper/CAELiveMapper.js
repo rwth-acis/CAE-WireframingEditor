@@ -1,4 +1,7 @@
 /*global y, mxLog*/
+/**
+ * @module CAE-Mapper
+ */
 import { mxEvent, mxCodec, mxUtils, mxPoint, mxGraph } from '../misc/mxExport.js';
 import CONST from '../misc/Constants.js';
 import Util from '../misc/Util.js';
@@ -12,6 +15,7 @@ import Noty from 'noty';
  * @classdesc Live mapper for the CAE. Its a Singleton class.
  * @constructor
  * @requires syncmeta-plugin
+ * @memberof module:CAE-Mapper
  */
 function CAELiveMapper() {
 
@@ -23,7 +27,7 @@ function CAELiveMapper() {
          * @param {mxEditor} editor the editor
          * @param {String} userId the id of the user which is just passed to the syncmeta-plugin module
          * @return {undefined}
-         * @memberof CAELiveMapper
+         * @memberof module:CAE-Mapper.CAELiveMapper
          */
         init: function (editor, userId) {
             //The live mapper starts here
@@ -519,7 +523,7 @@ function CAELiveMapper() {
          * Get a shared widget attribute with the given name
          * @param {String} name the name of the attribute
          * @return {YText} the shared y-text object
-         * @memberof CAELiveMapper
+         * @memberof module:CAE-Mapper.CAELiveMapper
          */
         getSharedWidgetAttr: function (name) {
             return widgetAttr.hasOwnProperty(name) ? widgetAttr[name] : undefined;

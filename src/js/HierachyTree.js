@@ -1,3 +1,6 @@
+/**
+ * @module WireframeEditor
+ */
 /*global y*/
 import {
     mxWindow,
@@ -7,7 +10,8 @@ import $ from 'jquery';
 import '../../node_modules/jstree/dist/jstree.min.js';
 
 /**
- * @classdesc the hierachy tree visualize the hierachical structure of the ui elements in the wireframing editor and allows to edit the hierachy structure
+ * Visualize the hierachy of a wireframe in a separate window with jsTree
+ * @classdesc The hierachy tree visualize the hierachical structure of the ui elements in the wireframing editor and allows to edit the hierachy structure
  * @constructor
  * @requires jQuery
  * @requires jsTree

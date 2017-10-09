@@ -1,9 +1,9 @@
 import $ from 'jquery';
-import RoleLogin from './js/ROLELogin.js';
+import RoleLogin from './js/auth/ROLELogin.js';
 import YjsSync from './js/misc/YjsSync.js';
 import Main from './js/Main.js';
 import CAELiveMapper from './js/mapper/CAELiveMapper.js';
-import Loader from './js/Loader.js';
+import Loader from './js/misc/Loader.js';
 
 import config from './data/config_widget.json';
 

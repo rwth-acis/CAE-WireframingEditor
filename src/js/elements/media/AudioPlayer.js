@@ -1,5 +1,5 @@
 /**
- * @module UIElements
+ * @module UIElements/Media
  */
 import {
     mxConstants,
@@ -29,7 +29,8 @@ AudioPlayer.HTML_NODE_NAME = 'audio';
 AudioPlayer.NAME = "Audio Player";
 
 /**
- * @classdesc The Audio Player HTML 5 element
+ * The Audio Player HTML 5 element
+ * @classdesc <audio>
  * @constructor
  * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 200, 30)] the width, height, x and y of the ui element
  * @extends UIMedia

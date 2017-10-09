@@ -1,4 +1,7 @@
 /*global y*/
+/**
+ * @module WireframeEditor/AttributeEditor
+ */
 import $ from 'jquery';
 import _ from 'lodash';
 import '../../node_modules/jstree/dist/jstree.min.js';
@@ -11,6 +14,15 @@ import Util from './misc/Util.js';
 
 import TagRegistry from './tags/TagRegistry.js';
 
+/**
+ * Generates the form of the tag editor which is a part of the property editor
+ * This function is called by the property editor function and does not need be called explictly
+ * @method
+ * @param {mxCell} cell the cell to generate the tag editor for
+ * @param {jQuery} $editor the jquery-object representing the editor in the dom
+ * @param {Wireframe} graph the wireframe object 
+ * @returns {undefined}
+ */
 function TagEditor(cell, $editor, graph) {   
     //jstree types
     var types = {};

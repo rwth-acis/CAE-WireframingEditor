@@ -1,7 +1,11 @@
+/**
+ * @module WireframeEditor
+ */
 import { mxUtils, mxPartitionLayout, mxRectangle } from './misc/mxExport.js';
 mxUtils.extend(WireframeLayout, mxPartitionLayout);
 
 /**
+ * A simple layout for wireframes based on the partition layout
  * @classdesc A simple Layout for Wireframes based on the PartitionLayout from mxGraph
  * @constructor
  * @param {Wireframe} graph the wireframe 

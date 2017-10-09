@@ -1,4 +1,7 @@
 /*global y*/
+/**
+ * @module WireframeEditor
+ */
 import {
     mxDefaultToolbar,
     mxEvent,

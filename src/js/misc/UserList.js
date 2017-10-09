@@ -1,10 +1,10 @@
 /*global  y*/
 /**
- * @module
+ * @module Misc
  */
 import {
     mxWindow
-} from './misc/mxExport.js';
+} from './mxExport.js';
 import $ from 'jquery';
 import randomColor from 'randomcolor';
 import Noty from 'noty';
@@ -22,6 +22,7 @@ import Noty from 'noty';
  * @param {Boolean} visible true if the mxWindow is visible or false if not 
  * @param {mxWindow} wnd the mxWindew-object otherwise it will be created
  * @return {undefined}
+ * @memberof module:Misc
  */
 function UserList(user, visible, wnd) {
     /**

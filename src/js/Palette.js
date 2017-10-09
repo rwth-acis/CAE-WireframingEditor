@@ -1,3 +1,6 @@
+/**
+ * @module WireframeEditor
+ */
 import {
     mxToolbar,
     mxGraph,

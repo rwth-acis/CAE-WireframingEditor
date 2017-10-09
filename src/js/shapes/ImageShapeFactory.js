@@ -9,19 +9,21 @@ import {
  */
 
 /**
- * @classdesc A shape that just consists of an image
+ * A singelton factory class to generate image shapes
+ * @classdesc A factory class that generates images shape
  * @constructor
  * @extends mxShape
-
+ * @memberof module:Shapes
  * @see GenericImageShape
  */
 function ImageShapeFactory(){
     return {
         /**
-         * crea
+         * Create a shape class that consists only of an image
          * @param {String} name the name of the shape
          * @param {String} imageUrl the url to the image
-         * @returns {Function} 
+         * @returns {Function} the constructor function of the new shape
+         * @memberof module:Shapes.ImageShapeFactory
          */
         createImageShape: function(name,imageUrl){
             mxUtils.extend(GenericImageShape, mxShape);
@@ -34,7 +36,5 @@ function ImageShapeFactory(){
             return GenericImageShape;
         }
     }
-
-
 }
 export default new ImageShapeFactory();

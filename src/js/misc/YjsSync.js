@@ -1,3 +1,6 @@
+/**
+ * @module Misc
+ */
 import $ from 'jquery';
 import Y from './../../../node_modules/yjs/dist/y.js';
 import yWebsocketsClient from './../../../node_modules/y-websockets-client/dist/y-websockets-client.js';
@@ -8,6 +11,13 @@ import yArray from './../../../node_modules/y-array/dist/y-array.js';
 Y.extend(yArray, yWebsocketsClient, yMemory, yMap, yText);
 
 window.Y = Y;
+/**
+ * Connect to the Yjs room using websockets-client and the memory adapter
+ * @method 
+ * @param {String} space the name of the room to connect to
+ * @return {Promise} the promise
+ * @memberof Misc
+ */
 export default function (space) {
     var deferred = $.Deferred();
     Y({

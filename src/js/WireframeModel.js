@@ -1,4 +1,7 @@
 /*global y*/
+/**
+ * @module WireframeEditor
+ */
 import {
     mxGraphModel,
     mxUtils,
@@ -18,6 +21,7 @@ mxCodecRegistry.addAlias('WireframeModel', 'mxGraphModel');
 window.WireframeModel = WireframeModel;
 
 /**
+ * The data model of the wireframing editor
  * @classdesc The conceptual model behind the wireframe
  * @constructor
  * @extends mxGraphModel
