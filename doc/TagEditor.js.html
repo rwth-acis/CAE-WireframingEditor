@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Source: TagEditor.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: TagEditor.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*global y*/
+/**
+ * @module WireframeEditor/AttributeEditor
+ */
+import $ from &#x27;jquery&#x27;;
+import _ from &#x27;lodash&#x27;;
+import &#x27;../../node_modules/jstree/dist/jstree.min.js&#x27;;
+import CONST from &#x27;./misc/Constants.js&#x27;;
+import {
+    mxPoint,
+    mxForm
+} from &#x27;./misc/mxExport.js&#x27;;
+import Util from &#x27;./misc/Util.js&#x27;;
+
+import TagRegistry from &#x27;./tags/TagRegistry.js&#x27;;
+
+/**
+ * Generates the form of the tag editor which is a part of the property editor
+ * This function is called by the property editor function and does not need be called explictly
+ * @method
+ * @param {mxCell} cell the cell to generate the tag editor for
+ * @param {jQuery} $editor the jquery-object representing the editor in the dom
+ * @param {Wireframe} graph the wireframe object 
+ * @returns {undefined}
+ */
+function TagEditor(cell, $editor, graph) {   
+    //jstree types
+    var types &#x3D; {};
+    var registry &#x3D; TagRegistry.getDescription();
+    for(var key in registry)
+        types[key] &#x3D; { icon : registry[key].image };
+    
+    var tagClasses &#x3D; TagRegistry.getClasses();
+
+    //var supportedTags &#x3D; CONST.TAG.MAPPING[cell.constructor.name];
+    var supportedTags&#x3D; _.keys(tagClasses);
+    if (supportedTags &amp;amp;&amp;amp; supportedTags.length &gt; 0) {
+        //Initialize the tag editor here
+        var htmlTagTab &#x3D; &#x27;&amp;lt;li&gt;&amp;lt;a href&#x3D;&quot;#tagsTab&quot;&gt;Interactivity&amp;lt;/a&gt;&amp;lt;/li&gt;&#x27;;
+        var htmlTagTabContent &#x3D; &#x27;&amp;lt;div id&#x3D;&quot;tagsTab&quot;&gt;&amp;lt;/div&gt;&#x27;;
+        var htmlTagTree &#x3D; &#x27;&amp;lt;div id&#x3D;&quot;&#x27; + cell.getId() + &#x27;_tagTree&quot;&gt;&amp;lt;/div&gt;&#x27;;
+        $editor.find(&#x27;ul&#x27;).append($.parseHTML(htmlTagTab));
+        $editor.append($.parseHTML(htmlTagTabContent));
+
+        var $tagEditor &#x3D; $editor.find(&#x27;#tagsTab&#x27;);
+        var tagForm &#x3D; new mxForm(&#x27;tagForm&#x27;);
+        var combo &#x3D; tagForm.addCombo(&#x27;Tag&#x27;);
+        
+        for (var i &#x3D; 0; i &amp;lt; supportedTags.length; i++) {
+            tagForm.addOption(combo, supportedTags[i], supportedTags[i]);
+        }
+        //Create Tag Button
+        var $createBtn &#x3D; $(&#x27;&amp;lt;button&gt;&#x27;).text(&#x27;Create&#x27;);
+        $createBtn.click(function () {
+            var val &#x3D; $tagEditor.find(&#x27;td:contains(&quot;Tag&quot;) + td select option:selected&#x27;).text();
+            var tag;
+            if(tagClasses.hasOwnProperty(val))
+                tag &#x3D; new tagClasses[val](cell, new mxPoint(-CONST.TAG.SIZE * cell.getTagCounter(), 0), val);
+            if (tag.tagObj.getAttribute(&#x27;isUnique&#x27;)) {
+                if (cell.containsTagType(tag))//Tag type is only allowed once, so dont add it
+                    return;
+            }
+            graph.addCellOverlay(cell, tag);
+
+        });
+        //Delete Tag Button
+        var $deleteBtn &#x3D; $(&#x27;&amp;lt;button&gt;&#x27;).addClass(&#x27;tagDel&#x27;).css(&#x27;display&#x27;, &#x27;none&#x27;).text(&#x27;Delete&#x27;);
+        $deleteBtn.click(function () {
+            var ref &#x3D; $(&#x27;#&#x27; + cell.getId() + &#x27;_tagTree&#x27;).jstree(true);
+            var sel &#x3D; ref.get_selected();
+            var selTagTypes &#x3D; [];
+            for(var i&#x3D;0;i&amp;lt;sel.length;i++){
+                var tag &#x3D; cell.getTagById(sel[i]);
+                selTagTypes.push(tag.constructor.name);
+            }
+            if (sel.length &gt; 0) {
+                y.share.action.set(CONST.ACTIONS.DELETE_TAG, {userId: y.db.userId,  cellId: cell.getId(), selected: sel, types : selTagTypes });
+            }
+        });
+
+        var $tree &#x3D; $($.parseHTML(htmlTagTree)).jstree({
+            core: {
+                check_callback: true,
+                themes: {
+                    stripes: true,
+                    ellipsis: true
+                }
+            },
+            types: types,
+            plugins: [&quot;dnd&quot;, &quot;types&quot;, &quot;wholerow&quot;]
+        });
+
+        //initialize existing tags
+        if (cell.hasOwnProperty(&#x27;overlays&#x27;) &amp;amp;&amp;amp; cell.overlays) {
+            var overlays &#x3D; cell.overlays;
+            for (var i &#x3D; 0; i &amp;lt; overlays.length; i++) {
+                var tag &#x3D; overlays[i];
+                if (tag.hasOwnProperty(&#x27;tagObj&#x27;) &amp;amp;&amp;amp; types.hasOwnProperty(tag.tagObj.getAttribute(&#x27;tagType&#x27;))) {
+                    $tree.jstree(true).create_node(tag.tagObj.getAttribute(&#x27;parent&#x27;), {
+                        id: tag.tagObj.getAttribute(&#x27;id&#x27;),
+                        type: tag.tagObj.getAttribute(&#x27;tagType&#x27;),
+                        text: tag.tagObj.getAttribute(&#x27;tagType&#x27;),
+                        state: {
+                            selected: false
+                        }
+                    });
+
+                }
+            }
+        }
+
+        $tree.on(&#x27;select_node.jstree&#x27;, function (node, sel) {
+            $editor.find(&#x27;.tagAttribute&#x27;).parent().remove();
+            //if ($tagAttrs.length &#x3D;&#x3D; 0) {
+            var overlays &#x3D; cell.overlays;
+            var tagId &#x3D; sel.selected[0];
+            for (var i &#x3D; 0; i &amp;lt; overlays.length; i++) {
+                if ((types.hasOwnProperty(overlays[i].constructor.name) || types.hasOwnProperty(overlays[i].tooltip))
+                        &amp;amp;&amp;amp; overlays[i].tagObj.getAttribute(&#x27;id&#x27;) &#x3D;&#x3D;&#x3D; tagId) {
+                    var form &#x3D; Util.createFormFromCellAttributes(&#x27;tagAttribute&#x27;, overlays[i].tagObj, overlays[i]);
+                    Util.bindSharedAttributes(overlays[i], form);
+                    var $tagAttrs &#x3D; $(&#x27;&amp;lt;div&gt;&#x27;).attr(&#x27;id&#x27;, cell.getId() + &#x27;_tagAttribute&#x27;).addClass(&#x27;tagAttribute&#x27;).append(form.body);
+                    $tagEditor.find(&#x27;tr&#x27;).eq(2).append($(&#x27;&amp;lt;td&gt;&#x27;).append($tagAttrs));
+                    break;
+                }
+            }
+            $editor.find(&#x27;.tagDel&#x27;).show();
+            //}
+        });
+
+        $tree.on(&#x27;move_node.jstree&#x27;, function (node, event) {
+            y.share.action.set(CONST.ACTIONS.MOVE_TAG, {
+                userId: y.db.userId,
+                node: event.node.id,
+                parent: event.parent,
+                position: event.position,
+                cellId: cell.getId()
+            });
+        });
+
+        $tree.on(&#x27;delete_node.jstree&#x27;, function () {
+            $editor.find(&#x27;.tagDel&#x27;).hide();
+        });
+
+        $tagEditor.append($(&#x27;&amp;lt;table&gt;&#x27;)
+            .append($(&#x27;&amp;lt;tr&gt;&#x27;)
+                .append($(&#x27;&amp;lt;td&gt;&#x27;).append($(tagForm.body)))
+                .append($(&#x27;&amp;lt;td&gt;&#x27;).append($createBtn).append($deleteBtn)))
+            .append($(&#x27;&amp;lt;tr&gt;&#x27;).append($(&#x27;&amp;lt;td&gt;&#x27;).append($tree))));
+    }
+}
+
+export default TagEditor;</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on October 9, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

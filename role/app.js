@@ -1,6 +1,5 @@
 webpackJsonp([0],[
-/* 0 */,
-/* 1 */
+/* 0 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,9 +7,9 @@ webpackJsonp([0],[
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return mxEditor; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return mxGraph; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "E", function() { return mxGraphModel; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return mxCell; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return mxCell; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return mxCodec; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return mxCodecRegistry; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return mxCodecRegistry; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return mxEvent; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "z", function() { return mxGraphHandler; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return mxConstants; });
@@ -24,14 +23,14 @@ webpackJsonp([0],[
 /* unused harmony export mxStencilRegistry */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return mxWindow; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return mxShape; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return mxGeometry; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return mxGeometry; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "x", function() { return mxDefaultKeyHandler; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return mxForm; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return mxForm; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return mxDefaultToolbar; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return mxLog; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return mxClipboard; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return mxCellRenderer; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return mxObjectCodec; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return mxObjectCodec; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return mxCellOverlay; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return mxPoint; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "D", function() { return mxCellHighlight; });
@@ -40,8 +39,16 @@ webpackJsonp([0],[
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_mxgraph_javascript_dist_build_js__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_mxgraph_javascript_dist_build_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__node_modules_mxgraph_javascript_dist_build_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Constants_js__ = __webpack_require__(3);
+/**
+ * @module Misc
+ */
 
 
+
+
+/**
+ * Exports the mxGraph modules
+ */
 var mxLib = __WEBPACK_IMPORTED_MODULE_0__node_modules_mxgraph_javascript_dist_build_js___default()({
     mxImageBasePath: __WEBPACK_IMPORTED_MODULE_1__Constants_js__["a" /* default */].MXGRAPH.IMAGE_BASE_PATH,
     mxBasePath: ".",
@@ -103,6 +110,7 @@ var mxGraphLayout = mxLib.mxGraphLayout;
 
 
 /***/ }),
+/* 1 */,
 /* 2 */,
 /* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -110,6 +118,14 @@ var mxGraphLayout = mxLib.mxGraphLayout;
 "use strict";
 var widgetMode = true;
 var basePath = 'https://rwth-acis.github.io/CAE-WireframingEditor/role/';
+
+/**
+ * @module Misc
+ */
+
+/**
+ * Defines the constants for actions, paths to images and other properties of the wireframing editor
+ */
 var constants = {
     MXGRAPH: {
         IMAGE_BASE_PATH: "images"
@@ -164,7 +180,15 @@ var constants = {
         SEPERATOR: 'images/toolbox/separator.gif',
         IMAGE_SHAPE: 'images/image.png',
         SYNC: 'images/toolbox/sync.png',
-        SYNCMETA: 'images/syncmeta.png'
+        SYNCMETA: 'images/syncmeta.png',
+        YOUTUBE: 'images/youtube.png',
+        POLYMER: 'images/polymer.png',
+        TABLE_IMG: 'images/table.png',
+        UL_IMG : 'images/ul.png',
+        OL_IMG : 'images/ol.png',
+        DL_IMG : 'images/dl.png',
+        HTML5CANVAS: 'images/html5canvas.png',
+        SVG : 'images/svg.png'
     },
     TAG: {
         SIZE: 20/*,
@@ -204,18 +228,426 @@ if (widgetMode) {
 
 /***/ }),
 /* 4 */,
-/* 5 */,
-/* 6 */
+/* 5 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mxExport_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_noty__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_noty___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_noty__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_Util__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__misc_ComboAttributeMap_js__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_jquery__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lodash__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_lodash__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__misc_Constants_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__tags_TagRegistry_js__ = __webpack_require__(10);
 /*global y*/
+/**
+ * @module UIElements
+ */
 
+
+
+
+
+
+
+
+
+
+UIControl.prototype = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["t" /* mxCell */]();
+UIControl.prototype.constructor = UIControl;
+window.UIControl = UIControl;
+
+/**
+ * The Name of element in the Wireframing editor
+ * @static 
+ * @default Default
+ * @readonly
+ */
+UIControl.NAME = "Default";
+
+/**
+ * Base class for all UI components of the editor
+ * @classdesc Base abstract class for all UI components of the editor. 
+ * @constructor 
+ * @param {mxGeometry} geometry the width, height, x and y of the ui element
+ * @param {String} style the style of the ui element
+ * @param {String} type the type of the ui element
+ * @extends mxCells
+ * @requires TagRegistry
+ * @requires CONST
+ * @requires ComboAttributeMap
+ */
+function UIControl(geometry, style, type) {
+    var that = this;
+
+    /**
+     * The map of combo attributes.
+     * key is the attribute name. 
+     * value is a array of possible values for the attribute.
+     * @member {ComboAttributeMap} 
+     */
+    var comboAttrMap = new __WEBPACK_IMPORTED_MODULE_2__misc_ComboAttributeMap_js__["a" /* default */]();
+
+    var xmlDoc = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].createXmlDocument();
+    /**
+     * Contains the data for the attributes of the ui element
+     * A ui element always has a 'id'- and 'class'-attribute
+     * @member {XMLDocument}
+     */
+    var uiObj = xmlDoc.createElement('uiObj');
+
+    //uiObj.setAttribute('_id', '');
+    uiObj.setAttribute('_class', '');
+    uiObj.setAttribute('uiType', type || this.constructor.name.toLowerCase());
+
+
+    /**
+     * Contains the data of the tags assigned to the ui element.
+     * The xml document is appended to the uiObj
+     * @member {XMLDocument}
+     */
+    var tagRoot = xmlDoc.createElement('tagRoot');
+    uiObj.append(tagRoot);
+
+    /**
+     * The number of tags assigned to the ui element
+     * @member {Integer}
+     */
+    var tagCounter = 0;
+    if (!geometry)
+        geometry = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["u" /* mxGeometry */](0, 0, 78, 78);
+    if (!style)
+        style = style = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + "=default;" +
+            __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_FILLCOLOR + "=white;" +
+            __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_STROKECOLOR + '=black;' +
+            //mxConstants.STYLE_ASPECT + '=fixed;' +
+            __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_EDITABLE + "=0;";
+    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["t" /* mxCell */].call(this, uiObj, geometry, style);
+
+    this.setVertex(true);
+
+    /**
+     * The callback method for the makeTypeDraggable-function
+     * TODO: Find a proper name for the function
+     * @param  {Wireframe} wf The wireframe
+     * @param  {object} evt a event which is not used
+     * @param  {mxCell} dropTarget the target to add the new cell
+     * @param  {Integer} x0 x-coordinate
+     * @param  {Integer} y0 y-corrdinate
+     * @return {String} the id of the created ui component
+     */
+    this.dropElementCallback = function (wf, evt, dropTarget, x0, y0) {
+        wf.stopEditing(false);
+
+        //encode UIControl
+        var encoder = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["b" /* mxCodec */]();
+
+        //var pt = wf.getPointForEvent(evt);
+
+        var v = wf.getModel().cloneCell(that);
+        v.geometry.x = dropTarget ? Math.abs(x0 - dropTarget.geometry.x) : x0;
+        v.geometry.y = dropTarget ? Math.abs(y0 - dropTarget.geometry.y) : y0;
+        var result = encoder.encode(v);
+
+        var xml = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].getXml(result);
+        var id = __WEBPACK_IMPORTED_MODULE_1__misc_Util__["a" /* default */].GUID();
+        y.share.action.set(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].ADD_VERTEX, {
+            userId: y.db.userId,
+            id: id,
+            data: xml,
+            parent: dropTarget ? dropTarget.getId() : null
+        });
+        return id;
+    }
+
+    /**
+     * Make a type draggable to the canvas
+     * @param {object} type the type
+     * @param {Wireframe} wireframe the wireframe
+     * @return{undefined}
+     */
+    this.makeTypeDraggable = function (type, wireframe) {
+        var preview = document.createElement('div');
+        preview.style.width = that.geometry.width + 'px';
+        preview.style.height = that.geometry.height + 'px';
+        preview.style.border = 'black 0.5px dashed';
+
+        __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].makeDraggable(type, wireframe, that.dropElementCallback, preview, 0, 0);
+    }
+
+    /**
+     * Set attribute values from json file
+     * @param {any} json a json
+     * @return{undefined}
+     */
+    this.setValueFromJson = function (json) {
+        for (var key in json) {
+            if (this.value.hasAttribute(key)) {
+                this.value.setAttribute(key, json[key]);
+            }
+        }
+    }
+
+    /**
+     * Get the current number of tags for the ui element
+     * @returns {Integer} the tag counter
+     */
+    this.getTagCounter = function () {
+        return tagCounter;
+    }
+
+    /**
+     * @param  {AbstractTag} tag the tag to add to the ui element
+     * @return {undefined}
+     */
+    this.addTag = function (tag) {
+        this.value.getElementsByTagName('tagRoot')[0].appendChild(tag.tagObj);
+        tagCounter++;
+    }
+
+    /**
+     * Remove a Tag by the id
+     * @param  {String} tagId the id of the tag as string
+     * @return {undefined}
+     */
+    this.removeTagById = function (tagId) {
+        var r = this.value.getElementsByTagName('tagRoot')[0];
+        var arr = Array.prototype.slice.call(r.childNodes);
+        for (var i = 0; i < arr.length; i++) {
+            if (tagId === arr[i].getAttribute('id')) {
+                r.removeChild(arr[i]);
+                tagCounter--;
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Creates the tags for the ui control
+     * @return {undefined}
+     */
+    this.createTags = function () {
+        var that = this;
+        var tags = {};
+        var _createTag = function (node, point) {
+            var tag;
+            var C = __WEBPACK_IMPORTED_MODULE_7__tags_TagRegistry_js__["a" /* default */].getClass(node.getAttribute('tagType'));
+            if (C)
+                tag = new C(that, point, node.getAttribute('tagType'));
+            return tag;
+        }
+
+        var children = this.value.childNodes[0].childNodes;
+        var arr = Array.prototype.slice.call(children)
+
+        for (var i = 0; i < arr.length; i++) {
+            var point = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["e" /* mxPoint */](-__WEBPACK_IMPORTED_MODULE_6__misc_Constants_js__["a" /* default */].TAG.SIZE * that.getTagCounter(), 0);
+            var tag = _createTag(arr[i], point);
+            tag.tagObj = arr[i];
+            tags[tag.getId()] = tag;
+            this.value.getElementsByTagName('tagRoot')[0].appendChild(tag.tagObj);
+            tagCounter++;
+            if (tag.tagObj.getAttribute('parent') !== '#') {
+                var parentTag = tags[tag.tagObj.getAttribute('parent')];
+                if (parentTag)
+                    parentTag.addChildTag(tag);
+            }
+        }
+        return tags;
+    }
+
+    /**
+     * Get the combo attribute map for the ui element
+     * @return {undefined}
+     */
+    this.getComboAttrMap = function () {
+        return comboAttrMap;
+    }
+
+    /**
+     * Set the uiType attribute
+     * @param {String} type the type of the ui control
+     * @return {undefined}
+     */
+    this.setType = function (type) {
+        that.value.setAttribute('uiType', type);
+    }
+}
+
+/**
+ * Registers a ui element to the mxCodecRegistry
+ * @param  {Function} ctor the constructor to register to mxCodexRegistry
+ * @return {undefined}
+ */
+UIControl.registerCodec = function (ctor) {
+    var codec = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].clone(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["l" /* mxCodecRegistry */].getCodec(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["t" /* mxCell */]));
+    codec.template = new ctor();
+    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["l" /* mxCodecRegistry */].register(codec);
+}
+UIControl.registerCodec(UIControl);
+
+/**
+ * Create the shared attributes
+ * @param  {boolean} createdByLocalUser Only the local user is allowed to create the shared types
+ * @return {undefined}
+ */
+UIControl.prototype.createShared = function (createdByLocalUser) {
+    if (createdByLocalUser) {
+        //y.share.attrs.set(this.getId() + '_id', Y.Text);
+        y.share.attrs.set(this.getId() + '_class', __WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js___default.a.Text);
+    }
+}
+
+/**
+ * Set the value of a boolean attribute in the property editor and the ui element
+ * @param  {String} name the name of the attribtue
+ * @param  {Boolean} value the boolean value
+ * @returns {undefined}
+ */
+UIControl.prototype.setBooleanAttributeValue = function (name, value) {
+    this.value.setAttribute(name, value);
+    var $input = __WEBPACK_IMPORTED_MODULE_4_jquery___default()('#propertyEditor_' + this.getId() + ' #attributesTab').find('td:contains(' + name.substr(1) + ') + td input');
+    if ($input.length > 0)
+        $input[0].checked = value;
+    __WEBPACK_IMPORTED_MODULE_4_jquery___default()('.wfSave').click();
+}
+
+/**
+ * Set the value of a combo attribute in the property editor and the ui element
+ * @param  {String} name the name of the attribute
+ * @param  {String} value a value for the attribute 
+ * @return {undefined}
+ */
+UIControl.prototype.setComboAttributeValue = function (name, value) {
+    this.value.setAttribute(name, value);
+    var $select = __WEBPACK_IMPORTED_MODULE_4_jquery___default()('#propertyEditor_' + this.getId() + ' #attributesTab').find('td:contains(' + name.substr(1) + ') + td select');
+    if ($select.length > 0)
+        $select.find('option[value=' + value + ']').prop('selected', true);
+    __WEBPACK_IMPORTED_MODULE_4_jquery___default()('.wfSave').click();
+}
+
+/**
+ * Initialize shared attributes
+ * @return {undefined}
+ */
+UIControl.prototype.initShared = function () {
+    //this.initYText('_id');
+    this.initYText('_class');
+}
+
+/**
+ * Get the tag by the id or null
+ * @param  {String} id the id of the tag
+ * @return {AbstractTag|Null} the tag or null 
+ */
+UIControl.prototype.getTagById = function (id) {
+    if (this.hasOwnProperty('overlays') && this.overlays) {
+        for (var i = 0; i < this.overlays.length; i++) {
+            var tag = this.overlays[i];
+            if (tag.constructor.name !== 'UserOverlay' && tag.constructor.name !== 'EditOverlay' && tag.constructor.name !== 'SyncMetaSelectOverlay') {
+                if (tag.tagObj.getAttribute('id') === id) {
+                    return tag;
+                }
+            }
+        }
+    }
+    return null;
+}
+
+/**
+ * Check if the ui elements contains the tag
+ * @param  {AbstractTag} tag the tag to check
+ * @return {Boolean}  true if the ui element contains the tag else false
+ */
+UIControl.prototype.containsTagType = function (tag) {
+    if (this.hasOwnProperty('overlays') && this.overlays) {
+        for (var i = 0; i < this.overlays.length; i++) {
+            var t = this.overlays[i];
+            if (t.constructor.name === tag.constructor.name)
+                return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Returns the observer function for a string attribute of a ui element
+ * @return {Function} the observer for a ytext 
+ */
+UIControl.prototype.getYTextObserver = function () {
+    var that = this;
+    var observer = __WEBPACK_IMPORTED_MODULE_5_lodash___default.a.debounce(function (evt) {
+        var value = evt.object.toString();
+        var path = evt.object.getPath()[0];
+        var attrName = path.substring(path.indexOf('_'));
+        that.value.setAttribute(attrName, value);
+        if (evt.type !== 'delete' && y.db.userId === evt.object._content[evt.index].id[0])
+            __WEBPACK_IMPORTED_MODULE_4_jquery___default()('.wfSave').click();
+        else if (evt.type === 'delete')
+            __WEBPACK_IMPORTED_MODULE_4_jquery___default()('.wfSave').click();
+
+    }, 500);
+    return observer;
+}
+
+/**
+ * Create the attribute in y.share.attrs if it does not exists
+ * If it exists bind the Observer and initialize the attribute for the uiObj
+ * @param  {String} attrName the name of the attribute
+ * @return {undefined}
+ */
+UIControl.prototype.initYText = function (attrName) {
+    var ytext = y.share.attrs.get(this.getId() + attrName, __WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js___default.a.Text);
+    if (!ytext)
+        y.share.attrs.set(this.getId() + attrName, __WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js___default.a.Text);
+    else {
+        ytext.observe(this.getYTextObserver());
+        this.value.setAttribute(attrName, ytext.toString());
+    }
+}
+
+/**
+ * Serializes the ui element to xml
+ * @return {XMLDocument} the xml representation of the ui element
+ */
+UIControl.prototype.toXML = function () {
+    var codec = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["b" /* mxCodec */]();
+    var result = codec.encode(this);
+    return __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].getXml(result);
+}
+
+/**
+ * Get the edit overlay for the ui element
+ * @return {EditOverlay} the edit overlay for the ui element
+ */
+UIControl.prototype.getEditOverlay = function () {
+    if (this.hasOwnProperty('overlays') && this.overlays) {
+        for (var i = 0; i < this.overlays.length; i++) {
+            var t = this.overlays[i];
+            if (t.constructor.name === 'EditOverlay')
+                return t;
+        }
+    }
+}
+/* harmony default export */ __webpack_exports__["a"] = (UIControl);
+
+/***/ }),
+/* 6 */,
+/* 7 */,
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mxExport_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery__);
+/*global y*/
 
 
 
@@ -326,7 +758,7 @@ Util.initSharedData = function (parent, graph) {
 }
 
 Util.createFormFromCellAttributes = function (className, obj, entity) {
-    var form = new __WEBPACK_IMPORTED_MODULE_0__mxExport_js__["l" /* mxForm */](className);
+    var form = new __WEBPACK_IMPORTED_MODULE_0__mxExport_js__["j" /* mxForm */](className);
     var attrs = obj.attributes;
     var attr;
     for (var i = 0; i < attrs.length; i++) {
@@ -357,7 +789,16 @@ Util.bindSharedAttributes = function (entity, form) {
             if ($input.attr('type') === 'text') {
                 var ytext = y.share.attrs.get(id + '_' + name);
                 if (ytext) {
-                    ytext.bind($input[0]);
+                    if(entity.hasOwnProperty('value')){
+                        var val = entity.value.getAttribute('_'+name);
+                        ytext.bind($input[0]);
+                        if(val.length > 0 && ytext.toString() !== val){
+                            ytext.delete(0, ytext.toString().length);
+                            ytext.insert(0,val);
+                        }
+                    }
+                    else 
+                        ytext.bind($input[0]);
                     //var caeYText = CAELiveMapper.getSharedWidgetAttr('_'+name);
                     //if(caeYText != undefined)
                     //    caeYText.bind($input[0]);
@@ -390,24 +831,22 @@ Util.GetValueFormAttributes = function(node, name){
 /* harmony default export */ __webpack_exports__["a"] = (Util);
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UIControl_js__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UIControl_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jquery__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_jquery__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_lodash__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__misc_Util_js__ = __webpack_require__(6);
 /*global y*/
 /**
  * @module UIElements
  */
-
 
 
 
@@ -471,8 +910,8 @@ UIText.prototype.initDOM = function(element){
     var _$node;
     var dom = element || 'input';
         _$node = __WEBPACK_IMPORTED_MODULE_2_jquery___default()('<' + dom + '>')
-            .css('width', this.geometry.width - 15)
-            .css('height', this.geometry.height - 15)
+            .css('width', this.geometry.width)
+            .css('height', this.geometry.height)
             .css('font-size', 15)
             .css('pointer-events', 'none');
         
@@ -504,6 +943,9 @@ UIText.prototype.createShared = function (createdByLocalUser) {
  };
 
 UIText.prototype.bindLabel = function(ytext){
+    var $node = this.get$node();
+    if(!$node)
+        this.initDOM();
     ytext.bind(this.get$node()[0]);
     var that = this;    
     ytext.observe(__WEBPACK_IMPORTED_MODULE_4_lodash___default.a.debounce(function(event){
@@ -519,419 +961,16 @@ UIText.registerCodec = function(ctor){
 /* harmony default export */ __webpack_exports__["a"] = (UIText);
 
 /***/ }),
-/* 8 */,
-/* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_Util__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__misc_ComboAttributeMap_js__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_jquery__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lodash__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_lodash__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__misc_Constants_js__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__tags_TagRegistry_js__ = __webpack_require__(10);
-/*global y*/
-/**
- * @module UIElements
- */
-
-
-
-
-
-
-
-
-
-
-UIControl.prototype = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["u" /* mxCell */]();
-UIControl.prototype.constructor = UIControl;
-window.UIControl = UIControl;
-
-/**
- * The Name of element in the Wireframing editor
- * @static 
- * @default Default
- * @readonly
- */
-UIControl.NAME = "Default";
-
-/**
- * Base class for all UI components of the editor
- * @classdesc Base abstract class for all UI components of the editor. 
- * @constructor 
- * @param {mxGeometry} geometry the width, height, x and y of the ui element
- * @param {String} style the style of the ui element
- * @param {String} type the type of the ui element
- * @extends mxCells
- * @requires TagRegistry
- * @requires CONST
- * @requires ComboAttributeMap
- */
-function UIControl(geometry, style, type) {
-    var that = this;
-
-    /**
-     * The map of combo attributes.
-     * key is the attribute name. 
-     * value is a array of possible values for the attribute.
-     * @member {ComboAttributeMap} 
-     */
-    var comboAttrMap = new __WEBPACK_IMPORTED_MODULE_2__misc_ComboAttributeMap_js__["a" /* default */]();
-
-    var xmlDoc = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].createXmlDocument();
-    /**
-     * Contains the data for the attributes of the ui element
-     * A ui element always has a 'id'- and 'class'-attribute
-     * @member {XMLDocument}
-     */
-    var uiObj = xmlDoc.createElement('uiObj');
-
-    uiObj.setAttribute('_id', '');
-    uiObj.setAttribute('_class', '');
-    uiObj.setAttribute('uiType', type || this.constructor.name.toLowerCase());
-    
-    /**
-     * Contains the data of the tags assigned to the ui element.
-     * The xml document is appended to the uiObj
-     * @member {XMLDocument}
-     */
-    var tagRoot = xmlDoc.createElement('tagRoot');
-    uiObj.append(tagRoot);
-
-    /**
-     * The number of tags assigned to the ui element
-     * @member {Integer}
-     */
-    var tagCounter = 0;
-    if (!geometry)
-        geometry = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["t" /* mxGeometry */](0, 0, 78, 78 );
-    if(!style)
-        style =style = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + "=default;" +
-        __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_FILLCOLOR + "=white;" +
-        __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_STROKECOLOR + '=black;' +
-        __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_ASPECT + '=fixed;' +
-        __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_EDITABLE + "=0;";
-    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["u" /* mxCell */].call(this, uiObj, geometry, style);
-
-    this.setVertex(true);
-
-    /**
-     * The callback method for the makeTypeDraggable-function
-     * TODO: Find a proper name for the function
-     * @param  {Wireframe} wf The wireframe
-     * @param  {object} evt a event which is not used
-     * @param  {mxCell} dropTarget the target to add the new cell
-     * @param  {Integer} x0 x-coordinate
-     * @param  {Integer} y0 y-corrdinate
-     * @return {String} the id of the created ui component
-     */
-    this.dropElementCallback = function (wf, evt, dropTarget, x0, y0) {
-        wf.stopEditing(false);
-
-        //encode UIControl
-        var encoder = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["b" /* mxCodec */]();
-
-        //var pt = wf.getPointForEvent(evt);
-
-        var v = wf.getModel().cloneCell(that);
-        v.geometry.x = dropTarget ? Math.abs(x0 - dropTarget.geometry.x) : x0;
-        v.geometry.y = dropTarget ? Math.abs(y0 - dropTarget.geometry.y) : y0;
-        var result = encoder.encode(v);
-
-        var xml = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].getXml(result);
-        var id = __WEBPACK_IMPORTED_MODULE_1__misc_Util__["a" /* default */].GUID();
-        y.share.action.set(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].ADD_VERTEX, {
-            userId: y.db.userId,
-            id: id,
-            data: xml,
-            parent: dropTarget ? dropTarget.getId() : null
-        });
-        return id;
-    }
-    
-    /**
-     * Make a type draggable to the canvas
-     * @param {object} type the type
-     * @param {Wireframe} wireframe the wireframe
-     * @return{undefined}
-     */
-    this.makeTypeDraggable = function (type, wireframe) {
-        var preview = document.createElement('div');
-        preview.style.width = that.geometry.width+'px';
-        preview.style.height = that.geometry.height + 'px';
-        preview.style.border = 'black 0.5px dashed';
-
-        __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].makeDraggable(type, wireframe, that.dropElementCallback, preview, 0, 0);
-    }
-
-    /**
-     * Set attribute values from json file
-     * @param {any} json a json
-     * @return{undefined}
-     */
-    this.setValueFromJson = function (json) {
-        for (var key in json) {
-            if (this.value.hasAttribute(key)) {
-                this.value.setAttribute(key, json[key]);
-            }
-        }
-    }
-
-    /**
-     * Get the current number of tags for the ui element
-     * @returns {Integer} the tag counter
-     */
-    this.getTagCounter = function () {
-        return tagCounter;
-    }
-    
-    /**
-     * @param  {AbstractTag} tag the tag to add to the ui element
-     * @return {undefined}
-     */
-    this.addTag = function (tag) {
-        this.value.getElementsByTagName('tagRoot')[0].appendChild(tag.tagObj);
-        tagCounter++;
-    }
-    
-    /**
-     * Remove a Tag by the id
-     * @param  {String} tagId the id of the tag as string
-     * @return {undefined}
-     */
-    this.removeTagById = function (tagId) {
-        var r = this.value.getElementsByTagName('tagRoot')[0];
-        var arr = Array.prototype.slice.call(r.childNodes);
-        for (var i = 0; i < arr.length; i++) {
-            if (tagId === arr[i].getAttribute('id')) {
-                r.removeChild(arr[i]);
-                tagCounter--;
-                return true;
-            }
-        }
-
-        return false;
-    }
-   
-    /**
-     * Creates the tags for the ui control
-     * @return {undefined}
-     */
-    this.createTags = function () {
-        var that = this;
-        var tags = {};
-        var _createTag = function (node, point) {
-            var tag;
-            var C = __WEBPACK_IMPORTED_MODULE_7__tags_TagRegistry_js__["a" /* default */].getClass(node.getAttribute('tagType'));            
-            if(C)
-                tag = new C(that, point, node.getAttribute('tagType'));
-            return tag;
-        }
-
-        var children = this.value.childNodes[0].childNodes;
-        var arr = Array.prototype.slice.call(children)
-
-        for (var i = 0; i < arr.length; i++) {
-            var point = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["e" /* mxPoint */](-__WEBPACK_IMPORTED_MODULE_6__misc_Constants_js__["a" /* default */].TAG.SIZE * that.getTagCounter(), 0);
-            var tag = _createTag(arr[i], point);
-            tag.tagObj = arr[i];
-            tags[tag.getId()] = tag;
-            this.value.getElementsByTagName('tagRoot')[0].appendChild(tag.tagObj);
-            tagCounter++;
-            if (tag.tagObj.getAttribute('parent') !== '#') {
-                var parentTag = tags[tag.tagObj.getAttribute('parent')];
-                if (parentTag)
-                    parentTag.addChildTag(tag);
-            }
-        }
-        return tags;
-    }
-
-    /**
-     * Get the combo attribute map for the ui element
-     * @return {undefined}
-     */
-    this.getComboAttrMap = function(){
-        return comboAttrMap;
-    }
-
-    /**
-     * Set the uiType attribute
-     * @param {String} type the type of the ui control
-     * @return {undefined}
-     */
-    this.setType = function(type){
-        that.value.setAttribute('uiType', type);
-    }
-}
-
-/**
- * Registers a ui element to the mxCodecRegistry
- * @param  {Function} ctor the constructor to register to mxCodexRegistry
- * @return {undefined}
- */
-UIControl.registerCodec = function (ctor) {
-    var codec = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].clone(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["k" /* mxCodecRegistry */].getCodec(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["u" /* mxCell */]));
-    codec.template = new ctor();
-    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["k" /* mxCodecRegistry */].register(codec);
-}
-UIControl.registerCodec(UIControl);
-
-/**
- * Create the shared attributes
- * @param  {boolean} createdByLocalUser Only the local user is allowed to create the shared types
- * @return {undefined}
- */
-UIControl.prototype.createShared = function (createdByLocalUser) {
-    if (createdByLocalUser) {
-        y.share.attrs.set(this.getId() + '_id', __WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js___default.a.Text);
-        y.share.attrs.set(this.getId() + '_class', __WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js___default.a.Text);
-    }
-}
-
-/**
- * Set the value of a boolean attribute in the property editor and the ui element
- * @param  {String} name the name of the attribtue
- * @param  {Boolean} value the boolean value
- * @returns {undefined}
- */
-UIControl.prototype.setBooleanAttributeValue = function (name, value) {
-    this.value.setAttribute(name, value);
-    var $input = __WEBPACK_IMPORTED_MODULE_4_jquery___default()('#propertyEditor_' + this.getId() + ' #attributesTab').find('td:contains(' + name.substr(1) + ') + td input');
-    if ($input.length > 0)
-        $input[0].checked = value;
-    __WEBPACK_IMPORTED_MODULE_4_jquery___default()('.wfSave').click();
-}
-
-/**
- * Set the value of a combo attribute in the property editor and the ui element
- * @param  {String} name the name of the attribute
- * @param  {String} value a value for the attribute 
- * @return {undefined}
- */
-UIControl.prototype.setComboAttributeValue = function (name, value) {
-    this.value.setAttribute(name, value);
-    var $select = __WEBPACK_IMPORTED_MODULE_4_jquery___default()('#propertyEditor_' + this.getId() + ' #attributesTab').find('td:contains(' + name.substr(1) + ') + td select');
-    if ($select.length > 0)
-        $select.find('option[value=' + value + ']').prop('selected', true);
-    __WEBPACK_IMPORTED_MODULE_4_jquery___default()('.wfSave').click();
-}
-
-/**
- * Initialize shared attributes
- * @return {undefined}
- */
-UIControl.prototype.initShared = function () {
-    this.initYText('_id');
-    this.initYText('_class');
-}
-
-/**
- * Get the tag by the id or null
- * @param  {String} id the id of the tag
- * @return {AbstractTag|Null} the tag or null 
- */
-UIControl.prototype.getTagById = function (id) {
-    if (this.hasOwnProperty('overlays') && this.overlays) {
-        for (var i = 0; i < this.overlays.length; i++) {
-            var tag = this.overlays[i];
-            if (tag.constructor.name !== 'UserOverlay' && tag.constructor.name !== 'EditOverlay' && tag.constructor.name !== 'SyncMetaSelectOverlay') {
-                if (tag.tagObj.getAttribute('id') === id) {
-                    return tag;
-                }
-            }
-        }
-    }
-    return null;
-}
-
-/**
- * Check if the ui elements contains the tag
- * @param  {AbstractTag} tag the tag to check
- * @return {Boolean}  true if the ui element contains the tag else false
- */
-UIControl.prototype.containsTagType = function (tag) {
-    if (this.hasOwnProperty('overlays') && this.overlays) {
-        for (var i = 0; i < this.overlays.length; i++) {
-            var t = this.overlays[i];
-            if (t.constructor.name === tag.constructor.name)
-                return true;
-        }
-    }
-    return false;
-}
-
-/**
- * Returns the observer function for a string attribute of a ui element
- * @return {Function} the observer for a ytext 
- */
-UIControl.prototype.getYTextObserver = function () {
-    var that = this;
-    var observer = __WEBPACK_IMPORTED_MODULE_5_lodash___default.a.debounce(function (evt) {
-        var value = evt.object.toString();
-        var path = evt.object.getPath()[0];
-        var attrName = path.substring(path.indexOf('_'));
-        that.value.setAttribute(attrName, value);
-        __WEBPACK_IMPORTED_MODULE_4_jquery___default()('.wfSave').click();
-    }, 500);
-    return observer;
-}
-
-/**
- * Create the attribute in y.share.attrs if it does not exists
- * If it exists bind the Observer and initialize the attribute for the uiObj
- * @param  {String} attrName the name of the attribute
- * @return {undefined}
- */
-UIControl.prototype.initYText = function (attrName) {
-    var ytext = y.share.attrs.get(this.getId() + attrName, __WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js___default.a.Text);
-    if (!ytext)
-        y.share.attrs.set(this.getId() + attrName, __WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js___default.a.Text);
-    else {
-        ytext.observe(this.getYTextObserver());
-        this.value.setAttribute(attrName, ytext.toString());
-    }
-}
-
-/**
- * Serializes the ui element to xml
- * @return {XMLDocument} the xml representation of the ui element
- */
-UIControl.prototype.toXML = function () {
-    var codec = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["b" /* mxCodec */]();
-    var result = codec.encode(this);
-    return __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].getXml(result);
-}
-
-/**
- * Get the edit overlay for the ui element
- * @return {EditOverlay} the edit overlay for the ui element
- */
-UIControl.prototype.getEditOverlay = function () {
-    if (this.hasOwnProperty('overlays') && this.overlays) {
-        for (var i = 0; i < this.overlays.length; i++) {
-            var t = this.overlays[i];
-            if (t.constructor.name === 'EditOverlay')
-                return t;
-        }
-    }
-}
-/* harmony default export */ __webpack_exports__["a"] = (UIControl);
-
-/***/ }),
 /* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_Constants_js__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SharedTag_js__ = __webpack_require__(110);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__GenericTag_js__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__SharedTag_js__ = __webpack_require__(118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__GenericTag_js__ = __webpack_require__(117);
+/**
+ * @module Tags
+ */
 
 
 
@@ -943,6 +982,7 @@ UIControl.prototype.getEditOverlay = function () {
  * @constructor
  * @requires SharedTag
  * @requires GenericTag
+ * @memberof module:Tags
  */
 function TagRegistry() {
     /**
@@ -971,7 +1011,8 @@ function TagRegistry() {
          * @param {Object} vls the VLS
          * @param {Object} config the configuration file
          * @return {undefined}
-         * @memberof TagRegistry
+         * @memberof module:Tags.TagRegistry
+         * @method
          */
         initFromVLS: function (vls, config) {
             var findNodeClassInVLS = function (nodeClassName, vls) {
@@ -1010,7 +1051,7 @@ function TagRegistry() {
          * 
          * @param {String} nodeClassName get the dsecription for the given node class
          * @return {Object|null} the object containing the description or null
-         * @memberof TagRegistry
+         * @memberof module:Tags.TagRegistry
          */
         get: function (nodeClassName) {
             return _descriptions.hasOwnProperty(nodeClassName) ? _descriptions[nodeClassName] : null;
@@ -1018,7 +1059,7 @@ function TagRegistry() {
         /**
          * Get the whole description map
          * @return {Object} the description map is returned
-         * @memberof TagRegistry
+         * @memberof module:Tags.TagRegistry
          */
         getDescription: function () {
             return _descriptions;
@@ -1027,7 +1068,7 @@ function TagRegistry() {
          * Get the constructor for a given name
          * @param {String} name the alias name of the class
          * @return {Function|null} the constructor function or null
-         * @memberof TagRegistry
+         * @memberof module:Tags.TagRegistry
          */
         getClass: function (name) {
             return _registry.hasOwnProperty(name) ? _registry[name] : null;
@@ -1035,7 +1076,7 @@ function TagRegistry() {
         /**
          * Get the whole registry map with all constructor functions for all predefined tags and generic tags from the VLS
          * @return {Object} returns the registry map
-         * @memberof TagRegistry
+         * @memberof module:Tags.TagRegistry
          */
         getClasses: function () {
             return _registry;
@@ -1054,7 +1095,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 	if ( true ) {
 
 		// AMD. Register as an anonymous module.
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(0), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(1), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -1098,7 +1139,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 	if ( true ) {
 
 		// AMD. Register as an anonymous module.
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(0), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(1), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -1138,7 +1179,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 	if ( true ) {
 
 		// AMD. Register as an anonymous module.
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(0), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(1), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -1202,10 +1243,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 		// AMD. Register as an anonymous module.
 		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-			__webpack_require__(0),
+			__webpack_require__(1),
 			__webpack_require__(59),
 			__webpack_require__(2),
-			__webpack_require__(5)
+			__webpack_require__(6)
 		], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
@@ -1421,18 +1462,22 @@ return $.widget( "ui.mouse", {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_jstree_dist_jstree_min_js__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_jstree_dist_jstree_min_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__node_modules_jstree_dist_jstree_min_js__);
+/**
+ * @module WireframeEditor
+ */
 /*global y*/
 
 
 
 
 /**
- * @classdesc the hierachy tree visualize the hierachical structure of the ui elements in the wireframing editor and allows to edit the hierachy structure
+ * Visualize the hierachy of a wireframe in a separate window with jsTree
+ * @classdesc The hierachy tree visualize the hierachical structure of the ui elements in the wireframing editor and allows to edit the hierachy structure
  * @constructor
  * @requires jQuery
  * @requires jsTree
@@ -1506,10 +1551,11 @@ function HierachyTree() {
         /**
          * Initialize the hierachy tree in a seperate mxWindow-instance
          * @param {mxEditor} editor the wireframing editor instance
+         * @param {boolean} visibility true and the hierachy is visible at startup 
          * @return {undefined}
          * @memberof HierachyTree
          */
-        init: function (editor) {
+        init: function (editor, visibility) {
             function buildTree(parent) {
                 if (!parent.children) return;
                 for (var i = 0; i < parent.children.length; i++) {
@@ -1596,9 +1642,9 @@ function HierachyTree() {
             editor.undoManager.addListener(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].UNDO, undoCallback);
             editor.undoManager.addListener(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].REDO, undoCallback);
 
-            wnd = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["a" /* mxWindow */]('Hierachy', $tree[0], 300, 200, '100%', '40%', true, true);
+            wnd = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["a" /* mxWindow */]('Hierachy', $tree[0], 600, 300, '100%', '40%', true, true);
             wnd.destroyOnClose = false;
-            wnd.setVisible(false);
+            wnd.setVisible(false || visibility);
             wnd.setMaximizable(false);
             wnd.setResizable(false);
             wnd.setClosable(true);
@@ -1700,25 +1746,24 @@ function HierachyTree() {
          * @memberof HierachyTree
          */
         ungroup: function (cells) {
-            var helperFnc = function(cell){
-                $tree.jstree(true).create_node(cell.parent.id === '1' ? '#' : cell.parent.id, {
-                    id: cell.id,
-                    text: cell.constructor.NAME || cell.value.getAttribute('uiType'),
-                    state: {
-                        selected: false,
-                        opened: true
-                    },
-                    pos: cell.parent.getIndex(cell)
-                });
-                if(cell.children){
-                    for(var i=0;i<cell.children.length;i++){
-                        helperFnc(cell.children[i]);
-                    }
+            var helperFnc = function(cell, newParent){
+                for(var i=0; cell.children && i < cell.children.length; i++){
+                    var child = cell.children[i];
+                    $tree.jstree(true).create_node(newParent.id === '1' ? '#' : newParent.id, {
+                        id: child.id,
+                        text: child.constructor.NAME || child.value.getAttribute('uiType'),
+                        state: {
+                            selected: false,
+                            opened: true
+                        },
+                        pos: cell.getIndex(child)
+                    });
+                    helperFnc(child, child);
                 }
-            
             }
+            $tree.jstree(true).delete_node(cells);      
             for (var i = 0; i < cells.length; i++) {
-                helperFnc(cells[i]);
+                helperFnc(cells[i], cells[i].parent);
             }
         }
     }
@@ -1730,15 +1775,15 @@ function HierachyTree() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jquery_ui_ui_widgets_tabs__ = __webpack_require__(69);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jquery_ui_ui_widgets_tabs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_jquery_ui_ui_widgets_tabs__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__TagEditor_js__ = __webpack_require__(76);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__misc_Util_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__TagEditor_js__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__misc_Util_js__ = __webpack_require__(8);
 /**
- * @module
+ * @module WireframeEditor/AttributeEditor
  */
 
 
@@ -1863,7 +1908,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 	if ( true ) {
 
 		// AMD. Register as an anonymous module.
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(0), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(1), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -1942,7 +1987,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 	if ( true ) {
 
 		// AMD. Register as an anonymous module.
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(0), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(1), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -1995,7 +2040,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 	if ( true ) {
 
 		// AMD. Register as an anonymous module.
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(0), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(1), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -2039,7 +2084,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 	if ( true ) {
 
 		// AMD. Register as an anonymous module.
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(0), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(1), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -2100,7 +2145,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 		// AMD. Register as an anonymous module.
 		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-			__webpack_require__(0),
+			__webpack_require__(1),
 			__webpack_require__(15),
 			__webpack_require__(55),
 			__webpack_require__(29),
@@ -2108,7 +2153,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			__webpack_require__(30),
 			__webpack_require__(62),
 			__webpack_require__(2),
-			__webpack_require__(5)
+			__webpack_require__(6)
 		], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
@@ -3361,12 +3406,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 		// AMD. Register as an anonymous module.
 		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-			__webpack_require__(0),
+			__webpack_require__(1),
 			__webpack_require__(15),
 			__webpack_require__(56),
 			__webpack_require__(29),
 			__webpack_require__(2),
-			__webpack_require__(5)
+			__webpack_require__(6)
 		], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
@@ -4549,7 +4594,7 @@ return $.ui.resizable;
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! jsTree - v3.3.4 - 2017-04-06 - (MIT) */
-!function(a){"use strict"; true?!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0)], __WEBPACK_AMD_DEFINE_FACTORY__ = (a),
+!function(a){"use strict"; true?!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_FACTORY__ = (a),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)):"undefined"!=typeof module&&module.exports?module.exports=a(require("jquery")):a(jQuery)}(function(a,b){"use strict";if(!a.jstree){var c=0,d=!1,e=!1,f=!1,g=[],h=a("script:last").attr("src"),i=window.document;a.jstree={version:"3.3.4",defaults:{plugins:[]},plugins:{},path:h&&-1!==h.indexOf("/")?h.replace(/\/[^\/]+$/,""):"",idregex:/[\\:&!^|()\[\]<>@*'+~#";.,=\- \/${}%?`]/g,root:"#"},a.jstree.create=function(b,d){var e=new a.jstree.core(++c),f=d;return d=a.extend(!0,{},a.jstree.defaults,d),f&&f.plugins&&(d.plugins=f.plugins),a.each(d.plugins,function(a,b){"core"!==a&&(e=e.plugin(b,d[b]))}),a(b).data("jstree",e),e.init(b,d),e},a.jstree.destroy=function(){a(".jstree:jstree").jstree("destroy"),a(i).off(".jstree")},a.jstree.core=function(a){this._id=a,this._cnt=0,this._wrk=null,this._data={core:{themes:{name:!1,dots:!1,icons:!1,ellipsis:!1},selected:[],last_error:{},working:!1,worker_queue:[],focused:null}}},a.jstree.reference=function(b){var c=null,d=null;if(!b||!b.id||b.tagName&&b.nodeType||(b=b.id),!d||!d.length)try{d=a(b)}catch(e){}if(!d||!d.length)try{d=a("#"+b.replace(a.jstree.idregex,"\\$&"))}catch(e){}return d&&d.length&&(d=d.closest(".jstree")).length&&(d=d.data("jstree"))?c=d:a(".jstree").each(function(){var d=a(this).data("jstree");return d&&d._model.data[b]?(c=d,!1):void 0}),c},a.fn.jstree=function(c){var d="string"==typeof c,e=Array.prototype.slice.call(arguments,1),f=null;return c!==!0||this.length?(this.each(function(){var g=a.jstree.reference(this),h=d&&g?g[c]:null;return f=d&&h?h.apply(g,e):null,g||d||c!==b&&!a.isPlainObject(c)||a.jstree.create(this,c),(g&&!d||c===!0)&&(f=g||!1),null!==f&&f!==b?!1:void 0}),null!==f&&f!==b?f:this):!1},a.expr.pseudos.jstree=a.expr.createPseudo(function(c){return function(c){return a(c).hasClass("jstree")&&a(c).data("jstree")!==b}}),a.jstree.defaults.core={data:!1,strings:!1,check_callback:!1,error:a.noop,animation:200,multiple:!0,themes:{name:!1,url:!1,dir:!1,dots:!0,icons:!0,ellipsis:!1,stripes:!1,variant:!1,responsive:!1},expand_selected_onload:!0,worker:!0,force_text:!1,dblclick_toggle:!0},a.jstree.core.prototype={plugin:function(b,c){var d=a.jstree.plugins[b];return d?(this._data[b]={},d.prototype=this,new d(c,this)):this},init:function(b,c){this._model={data:{},changed:[],force_full_redraw:!1,redraw_timeout:!1,default_state:{loaded:!0,opened:!1,selected:!1,disabled:!1}},this._model.data[a.jstree.root]={id:a.jstree.root,parent:null,parents:[],children:[],children_d:[],state:{loaded:!1}},this.element=a(b).addClass("jstree jstree-"+this._id),this.settings=c,this._data.core.ready=!1,this._data.core.loaded=!1,this._data.core.rtl="rtl"===this.element.css("direction"),this.element[this._data.core.rtl?"addClass":"removeClass"]("jstree-rtl"),this.element.attr("role","tree"),this.settings.core.multiple&&this.element.attr("aria-multiselectable",!0),this.element.attr("tabindex")||this.element.attr("tabindex","0"),this.bind(),this.trigger("init"),this._data.core.original_container_html=this.element.find(" > ul > li").clone(!0),this._data.core.original_container_html.find("li").addBack().contents().filter(function(){return 3===this.nodeType&&(!this.nodeValue||/^\s+$/.test(this.nodeValue))}).remove(),this.element.html("<ul class='jstree-container-ul jstree-children' role='group'><li id='j"+this._id+"_loading' class='jstree-initial-node jstree-loading jstree-leaf jstree-last' role='tree-item'><i class='jstree-icon jstree-ocl'></i><a class='jstree-anchor' href='#'><i class='jstree-icon jstree-themeicon-hidden'></i>"+this.get_string("Loading ...")+"</a></li></ul>"),this.element.attr("aria-activedescendant","j"+this._id+"_loading"),this._data.core.li_height=this.get_container_ul().children("li").first().outerHeight()||24,this._data.core.node=this._create_prototype_node(),this.trigger("loading"),this.load_node(a.jstree.root)},destroy:function(a){if(this.trigger("destroy"),this._wrk)try{window.URL.revokeObjectURL(this._wrk),this._wrk=null}catch(b){}a||this.element.empty(),this.teardown()},_create_prototype_node:function(){var a=i.createElement("LI"),b,c;return a.setAttribute("role","treeitem"),b=i.createElement("I"),b.className="jstree-icon jstree-ocl",b.setAttribute("role","presentation"),a.appendChild(b),b=i.createElement("A"),b.className="jstree-anchor",b.setAttribute("href","#"),b.setAttribute("tabindex","-1"),c=i.createElement("I"),c.className="jstree-icon jstree-themeicon",c.setAttribute("role","presentation"),b.appendChild(c),a.appendChild(b),b=c=null,a},teardown:function(){this.unbind(),this.element.removeClass("jstree").removeData("jstree").find("[class^='jstree']").addBack().attr("class",function(){return this.className.replace(/jstree[^ ]*|$/gi,"")}),this.element=null},bind:function(){var b="",c=null,d=0;this.element.on("dblclick.jstree",function(a){if(a.target.tagName&&"input"===a.target.tagName.toLowerCase())return!0;if(i.selection&&i.selection.empty)i.selection.empty();else if(window.getSelection){var b=window.getSelection();try{b.removeAllRanges(),b.collapse()}catch(c){}}}).on("mousedown.jstree",a.proxy(function(a){a.target===this.element[0]&&(a.preventDefault(),d=+new Date)},this)).on("mousedown.jstree",".jstree-ocl",function(a){a.preventDefault()}).on("click.jstree",".jstree-ocl",a.proxy(function(a){this.toggle_node(a.target)},this)).on("dblclick.jstree",".jstree-anchor",a.proxy(function(a){return a.target.tagName&&"input"===a.target.tagName.toLowerCase()?!0:void(this.settings.core.dblclick_toggle&&this.toggle_node(a.target))},this)).on("click.jstree",".jstree-anchor",a.proxy(function(b){b.preventDefault(),b.currentTarget!==i.activeElement&&a(b.currentTarget).focus(),this.activate_node(b.currentTarget,b)},this)).on("keydown.jstree",".jstree-anchor",a.proxy(function(b){if(b.target.tagName&&"input"===b.target.tagName.toLowerCase())return!0;if(32!==b.which&&13!==b.which&&(b.shiftKey||b.ctrlKey||b.altKey||b.metaKey))return!0;var c=null;switch(this._data.core.rtl&&(37===b.which?b.which=39:39===b.which&&(b.which=37)),b.which){case 32:b.ctrlKey&&(b.type="click",a(b.currentTarget).trigger(b));break;case 13:b.type="click",a(b.currentTarget).trigger(b);break;case 37:b.preventDefault(),this.is_open(b.currentTarget)?this.close_node(b.currentTarget):(c=this.get_parent(b.currentTarget),c&&c.id!==a.jstree.root&&this.get_node(c,!0).children(".jstree-anchor").focus());break;case 38:b.preventDefault(),c=this.get_prev_dom(b.currentTarget),c&&c.length&&c.children(".jstree-anchor").focus();break;case 39:b.preventDefault(),this.is_closed(b.currentTarget)?this.open_node(b.currentTarget,function(a){this.get_node(a,!0).children(".jstree-anchor").focus()}):this.is_open(b.currentTarget)&&(c=this.get_node(b.currentTarget,!0).children(".jstree-children")[0],c&&a(this._firstChild(c)).children(".jstree-anchor").focus());break;case 40:b.preventDefault(),c=this.get_next_dom(b.currentTarget),c&&c.length&&c.children(".jstree-anchor").focus();break;case 106:this.open_all();break;case 36:b.preventDefault(),c=this._firstChild(this.get_container_ul()[0]),c&&a(c).children(".jstree-anchor").filter(":visible").focus();break;case 35:b.preventDefault(),this.element.find(".jstree-anchor").filter(":visible").last().focus();break;case 113:b.preventDefault(),this.edit(b.currentTarget)}},this)).on("load_node.jstree",a.proxy(function(b,c){c.status&&(c.node.id!==a.jstree.root||this._data.core.loaded||(this._data.core.loaded=!0,this._firstChild(this.get_container_ul()[0])&&this.element.attr("aria-activedescendant",this._firstChild(this.get_container_ul()[0]).id),this.trigger("loaded")),this._data.core.ready||setTimeout(a.proxy(function(){if(this.element&&!this.get_container_ul().find(".jstree-loading").length){if(this._data.core.ready=!0,this._data.core.selected.length){if(this.settings.core.expand_selected_onload){var b=[],c,d;for(c=0,d=this._data.core.selected.length;d>c;c++)b=b.concat(this._model.data[this._data.core.selected[c]].parents);for(b=a.vakata.array_unique(b),c=0,d=b.length;d>c;c++)this.open_node(b[c],!1,0)}this.trigger("changed",{action:"ready",selected:this._data.core.selected})}this.trigger("ready")}},this),0))},this)).on("keypress.jstree",a.proxy(function(d){if(d.target.tagName&&"input"===d.target.tagName.toLowerCase())return!0;c&&clearTimeout(c),c=setTimeout(function(){b=""},500);var e=String.fromCharCode(d.which).toLowerCase(),f=this.element.find(".jstree-anchor").filter(":visible"),g=f.index(i.activeElement)||0,h=!1;if(b+=e,b.length>1){if(f.slice(g).each(a.proxy(function(c,d){return 0===a(d).text().toLowerCase().indexOf(b)?(a(d).focus(),h=!0,!1):void 0},this)),h)return;if(f.slice(0,g).each(a.proxy(function(c,d){return 0===a(d).text().toLowerCase().indexOf(b)?(a(d).focus(),h=!0,!1):void 0},this)),h)return}if(new RegExp("^"+e.replace(/[-\/\\^$*+?.()|[\]{}]/g,"\\$&")+"+$").test(b)){if(f.slice(g+1).each(a.proxy(function(b,c){return a(c).text().toLowerCase().charAt(0)===e?(a(c).focus(),h=!0,!1):void 0},this)),h)return;if(f.slice(0,g+1).each(a.proxy(function(b,c){return a(c).text().toLowerCase().charAt(0)===e?(a(c).focus(),h=!0,!1):void 0},this)),h)return}},this)).on("init.jstree",a.proxy(function(){var a=this.settings.core.themes;this._data.core.themes.dots=a.dots,this._data.core.themes.stripes=a.stripes,this._data.core.themes.icons=a.icons,this._data.core.themes.ellipsis=a.ellipsis,this.set_theme(a.name||"default",a.url),this.set_theme_variant(a.variant)},this)).on("loading.jstree",a.proxy(function(){this[this._data.core.themes.dots?"show_dots":"hide_dots"](),this[this._data.core.themes.icons?"show_icons":"hide_icons"](),this[this._data.core.themes.stripes?"show_stripes":"hide_stripes"](),this[this._data.core.themes.ellipsis?"show_ellipsis":"hide_ellipsis"]()},this)).on("blur.jstree",".jstree-anchor",a.proxy(function(b){this._data.core.focused=null,a(b.currentTarget).filter(".jstree-hovered").mouseleave(),this.element.attr("tabindex","0")},this)).on("focus.jstree",".jstree-anchor",a.proxy(function(b){var c=this.get_node(b.currentTarget);c&&c.id&&(this._data.core.focused=c.id),this.element.find(".jstree-hovered").not(b.currentTarget).mouseleave(),a(b.currentTarget).mouseenter(),this.element.attr("tabindex","-1")},this)).on("focus.jstree",a.proxy(function(){if(+new Date-d>500&&!this._data.core.focused){d=0;var a=this.get_node(this.element.attr("aria-activedescendant"),!0);a&&a.find("> .jstree-anchor").focus()}},this)).on("mouseenter.jstree",".jstree-anchor",a.proxy(function(a){this.hover_node(a.currentTarget)},this)).on("mouseleave.jstree",".jstree-anchor",a.proxy(function(a){this.dehover_node(a.currentTarget)},this))},unbind:function(){this.element.off(".jstree"),a(i).off(".jstree-"+this._id)},trigger:function(a,b){b||(b={}),b.instance=this,this.element.triggerHandler(a.replace(".jstree","")+".jstree",b)},get_container:function(){return this.element},get_container_ul:function(){return this.element.children(".jstree-children").first()},get_string:function(b){var c=this.settings.core.strings;return a.isFunction(c)?c.call(this,b):c&&c[b]?c[b]:b},_firstChild:function(a){a=a?a.firstChild:null;while(null!==a&&1!==a.nodeType)a=a.nextSibling;return a},_nextSibling:function(a){a=a?a.nextSibling:null;while(null!==a&&1!==a.nodeType)a=a.nextSibling;return a},_previousSibling:function(a){a=a?a.previousSibling:null;while(null!==a&&1!==a.nodeType)a=a.previousSibling;return a},get_node:function(b,c){b&&b.id&&(b=b.id);var d;try{if(this._model.data[b])b=this._model.data[b];else if("string"==typeof b&&this._model.data[b.replace(/^#/,"")])b=this._model.data[b.replace(/^#/,"")];else if("string"==typeof b&&(d=a("#"+b.replace(a.jstree.idregex,"\\$&"),this.element)).length&&this._model.data[d.closest(".jstree-node").attr("id")])b=this._model.data[d.closest(".jstree-node").attr("id")];else if((d=a(b,this.element)).length&&this._model.data[d.closest(".jstree-node").attr("id")])b=this._model.data[d.closest(".jstree-node").attr("id")];else{if(!(d=a(b,this.element)).length||!d.hasClass("jstree"))return!1;b=this._model.data[a.jstree.root]}return c&&(b=b.id===a.jstree.root?this.element:a("#"+b.id.replace(a.jstree.idregex,"\\$&"),this.element)),b}catch(e){return!1}},get_path:function(b,c,d){if(b=b.parents?b:this.get_node(b),!b||b.id===a.jstree.root||!b.parents)return!1;var e,f,g=[];for(g.push(d?b.id:b.text),e=0,f=b.parents.length;f>e;e++)g.push(d?b.parents[e]:this.get_text(b.parents[e]));return g=g.reverse().slice(1),c?g.join(c):g},get_next_dom:function(b,c){var d;if(b=this.get_node(b,!0),b[0]===this.element[0]){d=this._firstChild(this.get_container_ul()[0]);while(d&&0===d.offsetHeight)d=this._nextSibling(d);return d?a(d):!1}if(!b||!b.length)return!1;if(c){d=b[0];do d=this._nextSibling(d);while(d&&0===d.offsetHeight);return d?a(d):!1}if(b.hasClass("jstree-open")){d=this._firstChild(b.children(".jstree-children")[0]);while(d&&0===d.offsetHeight)d=this._nextSibling(d);if(null!==d)return a(d)}d=b[0];do d=this._nextSibling(d);while(d&&0===d.offsetHeight);return null!==d?a(d):b.parentsUntil(".jstree",".jstree-node").nextAll(".jstree-node:visible").first()},get_prev_dom:function(b,c){var d;if(b=this.get_node(b,!0),b[0]===this.element[0]){d=this.get_container_ul()[0].lastChild;while(d&&0===d.offsetHeight)d=this._previousSibling(d);return d?a(d):!1}if(!b||!b.length)return!1;if(c){d=b[0];do d=this._previousSibling(d);while(d&&0===d.offsetHeight);return d?a(d):!1}d=b[0];do d=this._previousSibling(d);while(d&&0===d.offsetHeight);if(null!==d){b=a(d);while(b.hasClass("jstree-open"))b=b.children(".jstree-children").first().children(".jstree-node:visible:last");return b}return d=b[0].parentNode.parentNode,d&&d.className&&-1!==d.className.indexOf("jstree-node")?a(d):!1},get_parent:function(b){return b=this.get_node(b),b&&b.id!==a.jstree.root?b.parent:!1},get_children_dom:function(a){return a=this.get_node(a,!0),a[0]===this.element[0]?this.get_container_ul().children(".jstree-node"):a&&a.length?a.children(".jstree-children").children(".jstree-node"):!1},is_parent:function(a){return a=this.get_node(a),a&&(a.state.loaded===!1||a.children.length>0)},is_loaded:function(a){return a=this.get_node(a),a&&a.state.loaded},is_loading:function(a){return a=this.get_node(a),a&&a.state&&a.state.loading},is_open:function(a){return a=this.get_node(a),a&&a.state.opened},is_closed:function(a){return a=this.get_node(a),a&&this.is_parent(a)&&!a.state.opened},is_leaf:function(a){return!this.is_parent(a)},load_node:function(b,c){var d,e,f,g,h;if(a.isArray(b))return this._load_nodes(b.slice(),c),!0;if(b=this.get_node(b),!b)return c&&c.call(this,b,!1),!1;if(b.state.loaded){for(b.state.loaded=!1,f=0,g=b.parents.length;g>f;f++)this._model.data[b.parents[f]].children_d=a.vakata.array_filter(this._model.data[b.parents[f]].children_d,function(c){return-1===a.inArray(c,b.children_d)});for(d=0,e=b.children_d.length;e>d;d++)this._model.data[b.children_d[d]].state.selected&&(h=!0),delete this._model.data[b.children_d[d]];h&&(this._data.core.selected=a.vakata.array_filter(this._data.core.selected,function(c){return-1===a.inArray(c,b.children_d)})),b.children=[],b.children_d=[],h&&this.trigger("changed",{action:"load_node",node:b,selected:this._data.core.selected})}return b.state.failed=!1,b.state.loading=!0,this.get_node(b,!0).addClass("jstree-loading").attr("aria-busy",!0),this._load_node(b,a.proxy(function(a){b=this._model.data[b.id],b.state.loading=!1,b.state.loaded=a,b.state.failed=!b.state.loaded;var d=this.get_node(b,!0),e=0,f=0,g=this._model.data,h=!1;for(e=0,f=b.children.length;f>e;e++)if(g[b.children[e]]&&!g[b.children[e]].state.hidden){h=!0;break}b.state.loaded&&d&&d.length&&(d.removeClass("jstree-closed jstree-open jstree-leaf"),h?"#"!==b.id&&d.addClass(b.state.opened?"jstree-open":"jstree-closed"):d.addClass("jstree-leaf")),d.removeClass("jstree-loading").attr("aria-busy",!1),this.trigger("load_node",{node:b,status:a}),c&&c.call(this,b,a)},this)),!0},_load_nodes:function(a,b,c,d){var e=!0,f=function(){this._load_nodes(a,b,!0)},g=this._model.data,h,i,j=[];for(h=0,i=a.length;i>h;h++)g[a[h]]&&(!g[a[h]].state.loaded&&!g[a[h]].state.failed||!c&&d)&&(this.is_loading(a[h])||this.load_node(a[h],f),e=!1);if(e){for(h=0,i=a.length;i>h;h++)g[a[h]]&&g[a[h]].state.loaded&&j.push(a[h]);b&&!b.done&&(b.call(this,j),b.done=!0)}},load_all:function(b,c){if(b||(b=a.jstree.root),b=this.get_node(b),!b)return!1;var d=[],e=this._model.data,f=e[b.id].children_d,g,h;for(b.state&&!b.state.loaded&&d.push(b.id),g=0,h=f.length;h>g;g++)e[f[g]]&&e[f[g]].state&&!e[f[g]].state.loaded&&d.push(f[g]);d.length?this._load_nodes(d,function(){this.load_all(b,c)}):(c&&c.call(this,b),this.trigger("load_all",{node:b}))},_load_node:function(b,c){var d=this.settings.core.data,e,f=function g(){return 3!==this.nodeType&&8!==this.nodeType};return d?a.isFunction(d)?d.call(this,b,a.proxy(function(d){d===!1?c.call(this,!1):this["string"==typeof d?"_append_html_data":"_append_json_data"](b,"string"==typeof d?a(a.parseHTML(d)).filter(f):d,function(a){c.call(this,a)})},this)):"object"==typeof d?d.url?(d=a.extend(!0,{},d),a.isFunction(d.url)&&(d.url=d.url.call(this,b)),a.isFunction(d.data)&&(d.data=d.data.call(this,b)),a.ajax(d).done(a.proxy(function(d,e,g){var h=g.getResponseHeader("Content-Type");return h&&-1!==h.indexOf("json")||"object"==typeof d?this._append_json_data(b,d,function(a){c.call(this,a)}):h&&-1!==h.indexOf("html")||"string"==typeof d?this._append_html_data(b,a(a.parseHTML(d)).filter(f),function(a){c.call(this,a)}):(this._data.core.last_error={error:"ajax",plugin:"core",id:"core_04",reason:"Could not load node",data:JSON.stringify({id:b.id,xhr:g})},this.settings.core.error.call(this,this._data.core.last_error),c.call(this,!1))},this)).fail(a.proxy(function(a){this._data.core.last_error={error:"ajax",plugin:"core",id:"core_04",reason:"Could not load node",data:JSON.stringify({id:b.id,xhr:a})},c.call(this,!1),this.settings.core.error.call(this,this._data.core.last_error)},this))):(e=a.isArray(d)?a.extend(!0,[],d):a.isPlainObject(d)?a.extend(!0,{},d):d,b.id===a.jstree.root?this._append_json_data(b,e,function(a){c.call(this,a)}):(this._data.core.last_error={error:"nodata",plugin:"core",id:"core_05",reason:"Could not load node",data:JSON.stringify({id:b.id})},this.settings.core.error.call(this,this._data.core.last_error),c.call(this,!1))):"string"==typeof d?b.id===a.jstree.root?this._append_html_data(b,a(a.parseHTML(d)).filter(f),function(a){c.call(this,a)}):(this._data.core.last_error={error:"nodata",plugin:"core",id:"core_06",reason:"Could not load node",data:JSON.stringify({id:b.id})},this.settings.core.error.call(this,this._data.core.last_error),c.call(this,!1)):c.call(this,!1):b.id===a.jstree.root?this._append_html_data(b,this._data.core.original_container_html.clone(!0),function(a){c.call(this,a)}):c.call(this,!1)},_node_changed:function(a){a=this.get_node(a),a&&this._model.changed.push(a.id)},_append_html_data:function(b,c,d){b=this.get_node(b),b.children=[],b.children_d=[];var e=c.is("ul")?c.children():c,f=b.id,g=[],h=[],i=this._model.data,j=i[f],k=this._data.core.selected.length,l,m,n;for(e.each(a.proxy(function(b,c){l=this._parse_model_from_html(a(c),f,j.parents.concat()),l&&(g.push(l),h.push(l),i[l].children_d.length&&(h=h.concat(i[l].children_d)))},this)),j.children=g,j.children_d=h,m=0,n=j.parents.length;n>m;m++)i[j.parents[m]].children_d=i[j.parents[m]].children_d.concat(h);this.trigger("model",{nodes:h,parent:f}),f!==a.jstree.root?(this._node_changed(f),this.redraw()):(this.get_container_ul().children(".jstree-initial-node").remove(),this.redraw(!0)),this._data.core.selected.length!==k&&this.trigger("changed",{action:"model",selected:this._data.core.selected}),d.call(this,!0)},_append_json_data:function(b,c,d,e){if(null!==this.element){b=this.get_node(b),b.children=[],b.children_d=[],c.d&&(c=c.d,"string"==typeof c&&(c=JSON.parse(c))),a.isArray(c)||(c=[c]);var f=null,g={df:this._model.default_state,dat:c,par:b.id,m:this._model.data,t_id:this._id,t_cnt:this._cnt,sel:this._data.core.selected},h=function(a,b){a.data&&(a=a.data);var c=a.dat,d=a.par,e=[],f=[],g=[],h=a.df,i=a.t_id,j=a.t_cnt,k=a.m,l=k[d],m=a.sel,n,o,p,q,r=function(a,c,d){d=d?d.concat():[],c&&d.unshift(c);var e=a.id.toString(),f,i,j,l,m={id:e,text:a.text||"",icon:a.icon!==b?a.icon:!0,parent:c,parents:d,children:a.children||[],children_d:a.children_d||[],data:a.data,state:{},li_attr:{id:!1},a_attr:{href:"#"},original:!1};for(f in h)h.hasOwnProperty(f)&&(m.state[f]=h[f]);if(a&&a.data&&a.data.jstree&&a.data.jstree.icon&&(m.icon=a.data.jstree.icon),(m.icon===b||null===m.icon||""===m.icon)&&(m.icon=!0),a&&a.data&&(m.data=a.data,a.data.jstree))for(f in a.data.jstree)a.data.jstree.hasOwnProperty(f)&&(m.state[f]=a.data.jstree[f]);if(a&&"object"==typeof a.state)for(f in a.state)a.state.hasOwnProperty(f)&&(m.state[f]=a.state[f]);if(a&&"object"==typeof a.li_attr)for(f in a.li_attr)a.li_attr.hasOwnProperty(f)&&(m.li_attr[f]=a.li_attr[f]);if(m.li_attr.id||(m.li_attr.id=e),a&&"object"==typeof a.a_attr)for(f in a.a_attr)a.a_attr.hasOwnProperty(f)&&(m.a_attr[f]=a.a_attr[f]);for(a&&a.children&&a.children===!0&&(m.state.loaded=!1,m.children=[],m.children_d=[]),k[m.id]=m,f=0,i=m.children.length;i>f;f++)j=r(k[m.children[f]],m.id,d),l=k[j],m.children_d.push(j),l.children_d.length&&(m.children_d=m.children_d.concat(l.children_d));return delete a.data,delete a.children,k[m.id].original=a,m.state.selected&&g.push(m.id),m.id},s=function(a,c,d){d=d?d.concat():[],c&&d.unshift(c);var e=!1,f,l,m,n,o;do e="j"+i+"_"+ ++j;while(k[e]);o={id:!1,text:"string"==typeof a?a:"",icon:"object"==typeof a&&a.icon!==b?a.icon:!0,parent:c,parents:d,children:[],children_d:[],data:null,state:{},li_attr:{id:!1},a_attr:{href:"#"},original:!1};for(f in h)h.hasOwnProperty(f)&&(o.state[f]=h[f]);if(a&&a.id&&(o.id=a.id.toString()),a&&a.text&&(o.text=a.text),a&&a.data&&a.data.jstree&&a.data.jstree.icon&&(o.icon=a.data.jstree.icon),(o.icon===b||null===o.icon||""===o.icon)&&(o.icon=!0),a&&a.data&&(o.data=a.data,a.data.jstree))for(f in a.data.jstree)a.data.jstree.hasOwnProperty(f)&&(o.state[f]=a.data.jstree[f]);if(a&&"object"==typeof a.state)for(f in a.state)a.state.hasOwnProperty(f)&&(o.state[f]=a.state[f]);if(a&&"object"==typeof a.li_attr)for(f in a.li_attr)a.li_attr.hasOwnProperty(f)&&(o.li_attr[f]=a.li_attr[f]);if(o.li_attr.id&&!o.id&&(o.id=o.li_attr.id.toString()),o.id||(o.id=e),o.li_attr.id||(o.li_attr.id=o.id),a&&"object"==typeof a.a_attr)for(f in a.a_attr)a.a_attr.hasOwnProperty(f)&&(o.a_attr[f]=a.a_attr[f]);if(a&&a.children&&a.children.length){for(f=0,l=a.children.length;l>f;f++)m=s(a.children[f],o.id,d),n=k[m],o.children.push(m),n.children_d.length&&(o.children_d=o.children_d.concat(n.children_d));o.children_d=o.children_d.concat(o.children)}return a&&a.children&&a.children===!0&&(o.state.loaded=!1,o.children=[],o.children_d=[]),delete a.data,delete a.children,o.original=a,k[o.id]=o,o.state.selected&&g.push(o.id),o.id};if(c.length&&c[0].id!==b&&c[0].parent!==b){for(o=0,p=c.length;p>o;o++)c[o].children||(c[o].children=[]),k[c[o].id.toString()]=c[o];for(o=0,p=c.length;p>o;o++)k[c[o].parent.toString()].children.push(c[o].id.toString()),l.children_d.push(c[o].id.toString());for(o=0,p=l.children.length;p>o;o++)n=r(k[l.children[o]],d,l.parents.concat()),f.push(n),k[n].children_d.length&&(f=f.concat(k[n].children_d));for(o=0,p=l.parents.length;p>o;o++)k[l.parents[o]].children_d=k[l.parents[o]].children_d.concat(f);q={cnt:j,mod:k,sel:m,par:d,dpc:f,add:g}}else{for(o=0,p=c.length;p>o;o++)n=s(c[o],d,l.parents.concat()),n&&(e.push(n),f.push(n),k[n].children_d.length&&(f=f.concat(k[n].children_d)));for(l.children=e,l.children_d=f,o=0,p=l.parents.length;p>o;o++)k[l.parents[o]].children_d=k[l.parents[o]].children_d.concat(f);q={cnt:j,mod:k,sel:m,par:d,dpc:f,add:g}}return"undefined"!=typeof window&&"undefined"!=typeof window.document?q:void postMessage(q)},i=function(b,c){if(null!==this.element){this._cnt=b.cnt;var e,f=this._model.data;for(e in f)f.hasOwnProperty(e)&&f[e].state&&f[e].state.loading&&b.mod[e]&&(b.mod[e].state.loading=!0);if(this._model.data=b.mod,c){var g,h=b.add,i=b.sel,j=this._data.core.selected.slice();if(f=this._model.data,i.length!==j.length||a.vakata.array_unique(i.concat(j)).length!==i.length){for(e=0,g=i.length;g>e;e++)-1===a.inArray(i[e],h)&&-1===a.inArray(i[e],j)&&(f[i[e]].state.selected=!1);for(e=0,g=j.length;g>e;e++)-1===a.inArray(j[e],i)&&(f[j[e]].state.selected=!0)}}b.add.length&&(this._data.core.selected=this._data.core.selected.concat(b.add)),this.trigger("model",{nodes:b.dpc,parent:b.par}),b.par!==a.jstree.root?(this._node_changed(b.par),this.redraw()):this.redraw(!0),b.add.length&&this.trigger("changed",{action:"model",selected:this._data.core.selected}),d.call(this,!0)}};if(this.settings.core.worker&&window.Blob&&window.URL&&window.Worker)try{null===this._wrk&&(this._wrk=window.URL.createObjectURL(new window.Blob(["self.onmessage = "+h.toString()],{type:"text/javascript"}))),!this._data.core.working||e?(this._data.core.working=!0,f=new window.Worker(this._wrk),f.onmessage=a.proxy(function(a){i.call(this,a.data,!0);try{f.terminate(),f=null}catch(b){}this._data.core.worker_queue.length?this._append_json_data.apply(this,this._data.core.worker_queue.shift()):this._data.core.working=!1},this),g.par?f.postMessage(g):this._data.core.worker_queue.length?this._append_json_data.apply(this,this._data.core.worker_queue.shift()):this._data.core.working=!1):this._data.core.worker_queue.push([b,c,d,!0])}catch(j){i.call(this,h(g),!1),this._data.core.worker_queue.length?this._append_json_data.apply(this,this._data.core.worker_queue.shift()):this._data.core.working=!1}else i.call(this,h(g),!1)}},_parse_model_from_html:function(c,d,e){e=e?[].concat(e):[],d&&e.unshift(d);var f,g,h=this._model.data,i={id:!1,text:!1,icon:!0,parent:d,parents:e,children:[],children_d:[],data:null,state:{},li_attr:{id:!1},a_attr:{href:"#"},original:!1},j,k,l;for(j in this._model.default_state)this._model.default_state.hasOwnProperty(j)&&(i.state[j]=this._model.default_state[j]);if(k=a.vakata.attributes(c,!0),a.each(k,function(b,c){return c=a.trim(c),c.length?(i.li_attr[b]=c,void("id"===b&&(i.id=c.toString()))):!0}),k=c.children("a").first(),k.length&&(k=a.vakata.attributes(k,!0),a.each(k,function(b,c){c=a.trim(c),c.length&&(i.a_attr[b]=c)})),k=c.children("a").first().length?c.children("a").first().clone():c.clone(),k.children("ins, i, ul").remove(),k=k.html(),k=a("<div />").html(k),i.text=this.settings.core.force_text?k.text():k.html(),k=c.data(),i.data=k?a.extend(!0,{},k):null,i.state.opened=c.hasClass("jstree-open"),i.state.selected=c.children("a").hasClass("jstree-clicked"),i.state.disabled=c.children("a").hasClass("jstree-disabled"),i.data&&i.data.jstree)for(j in i.data.jstree)i.data.jstree.hasOwnProperty(j)&&(i.state[j]=i.data.jstree[j]);k=c.children("a").children(".jstree-themeicon"),k.length&&(i.icon=k.hasClass("jstree-themeicon-hidden")?!1:k.attr("rel")),i.state.icon!==b&&(i.icon=i.state.icon),(i.icon===b||null===i.icon||""===i.icon)&&(i.icon=!0),k=c.children("ul").children("li");do l="j"+this._id+"_"+ ++this._cnt;while(h[l]);return i.id=i.li_attr.id?i.li_attr.id.toString():l,k.length?(k.each(a.proxy(function(b,c){f=this._parse_model_from_html(a(c),i.id,e),g=this._model.data[f],i.children.push(f),g.children_d.length&&(i.children_d=i.children_d.concat(g.children_d))},this)),i.children_d=i.children_d.concat(i.children)):c.hasClass("jstree-closed")&&(i.state.loaded=!1),i.li_attr["class"]&&(i.li_attr["class"]=i.li_attr["class"].replace("jstree-closed","").replace("jstree-open","")),i.a_attr["class"]&&(i.a_attr["class"]=i.a_attr["class"].replace("jstree-clicked","").replace("jstree-disabled","")),h[i.id]=i,i.state.selected&&this._data.core.selected.push(i.id),i.id},_parse_model_from_flat_json:function(a,c,d){d=d?d.concat():[],c&&d.unshift(c);var e=a.id.toString(),f=this._model.data,g=this._model.default_state,h,i,j,k,l={id:e,text:a.text||"",icon:a.icon!==b?a.icon:!0,parent:c,parents:d,children:a.children||[],children_d:a.children_d||[],data:a.data,state:{},li_attr:{id:!1},a_attr:{href:"#"},original:!1};for(h in g)g.hasOwnProperty(h)&&(l.state[h]=g[h]);if(a&&a.data&&a.data.jstree&&a.data.jstree.icon&&(l.icon=a.data.jstree.icon),(l.icon===b||null===l.icon||""===l.icon)&&(l.icon=!0),a&&a.data&&(l.data=a.data,a.data.jstree))for(h in a.data.jstree)a.data.jstree.hasOwnProperty(h)&&(l.state[h]=a.data.jstree[h]);if(a&&"object"==typeof a.state)for(h in a.state)a.state.hasOwnProperty(h)&&(l.state[h]=a.state[h]);if(a&&"object"==typeof a.li_attr)for(h in a.li_attr)a.li_attr.hasOwnProperty(h)&&(l.li_attr[h]=a.li_attr[h]);if(l.li_attr.id||(l.li_attr.id=e),a&&"object"==typeof a.a_attr)for(h in a.a_attr)a.a_attr.hasOwnProperty(h)&&(l.a_attr[h]=a.a_attr[h]);for(a&&a.children&&a.children===!0&&(l.state.loaded=!1,l.children=[],l.children_d=[]),f[l.id]=l,h=0,i=l.children.length;i>h;h++)j=this._parse_model_from_flat_json(f[l.children[h]],l.id,d),k=f[j],l.children_d.push(j),k.children_d.length&&(l.children_d=l.children_d.concat(k.children_d));return delete a.data,delete a.children,f[l.id].original=a,l.state.selected&&this._data.core.selected.push(l.id),l.id},_parse_model_from_json:function(a,c,d){d=d?d.concat():[],c&&d.unshift(c);var e=!1,f,g,h,i,j=this._model.data,k=this._model.default_state,l;do e="j"+this._id+"_"+ ++this._cnt;while(j[e]);l={id:!1,text:"string"==typeof a?a:"",icon:"object"==typeof a&&a.icon!==b?a.icon:!0,parent:c,parents:d,children:[],children_d:[],data:null,state:{},li_attr:{id:!1},a_attr:{href:"#"},original:!1};for(f in k)k.hasOwnProperty(f)&&(l.state[f]=k[f]);if(a&&a.id&&(l.id=a.id.toString()),a&&a.text&&(l.text=a.text),a&&a.data&&a.data.jstree&&a.data.jstree.icon&&(l.icon=a.data.jstree.icon),(l.icon===b||null===l.icon||""===l.icon)&&(l.icon=!0),a&&a.data&&(l.data=a.data,a.data.jstree))for(f in a.data.jstree)a.data.jstree.hasOwnProperty(f)&&(l.state[f]=a.data.jstree[f]);if(a&&"object"==typeof a.state)for(f in a.state)a.state.hasOwnProperty(f)&&(l.state[f]=a.state[f]);if(a&&"object"==typeof a.li_attr)for(f in a.li_attr)a.li_attr.hasOwnProperty(f)&&(l.li_attr[f]=a.li_attr[f]);if(l.li_attr.id&&!l.id&&(l.id=l.li_attr.id.toString()),l.id||(l.id=e),l.li_attr.id||(l.li_attr.id=l.id),a&&"object"==typeof a.a_attr)for(f in a.a_attr)a.a_attr.hasOwnProperty(f)&&(l.a_attr[f]=a.a_attr[f]);if(a&&a.children&&a.children.length){for(f=0,g=a.children.length;g>f;f++)h=this._parse_model_from_json(a.children[f],l.id,d),i=j[h],l.children.push(h),i.children_d.length&&(l.children_d=l.children_d.concat(i.children_d));l.children_d=l.children_d.concat(l.children)}return a&&a.children&&a.children===!0&&(l.state.loaded=!1,l.children=[],l.children_d=[]),delete a.data,delete a.children,l.original=a,j[l.id]=l,l.state.selected&&this._data.core.selected.push(l.id),l.id},_redraw:function(){var b=this._model.force_full_redraw?this._model.data[a.jstree.root].children.concat([]):this._model.changed.concat([]),c=i.createElement("UL"),d,e,f,g=this._data.core.focused;for(e=0,f=b.length;f>e;e++)d=this.redraw_node(b[e],!0,this._model.force_full_redraw),d&&this._model.force_full_redraw&&c.appendChild(d);this._model.force_full_redraw&&(c.className=this.get_container_ul()[0].className,c.setAttribute("role","group"),this.element.empty().append(c)),null!==g&&(d=this.get_node(g,!0),d&&d.length&&d.children(".jstree-anchor")[0]!==i.activeElement?d.children(".jstree-anchor").focus():this._data.core.focused=null),this._model.force_full_redraw=!1,this._model.changed=[],this.trigger("redraw",{nodes:b})},redraw:function(a){a&&(this._model.force_full_redraw=!0),this._redraw()},draw_children:function(b){var c=this.get_node(b),d=!1,e=!1,f=!1,g=i;if(!c)return!1;if(c.id===a.jstree.root)return this.redraw(!0);if(b=this.get_node(b,!0),!b||!b.length)return!1;if(b.children(".jstree-children").remove(),b=b[0],c.children.length&&c.state.loaded){for(f=g.createElement("UL"),f.setAttribute("role","group"),f.className="jstree-children",d=0,e=c.children.length;e>d;d++)f.appendChild(this.redraw_node(c.children[d],!0,!0));b.appendChild(f)}},redraw_node:function(b,c,d,e){
@@ -4565,7 +4610,7 @@ m&&m.removeClass(f[i].a_attr[k])):e[c.id].a_attr[k]===f[i].a_attr[k]&&("href"===
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UIControl_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UIControl_js__ = __webpack_require__(5);
 /*global y*/
 /**
  * @module UIElements
@@ -4617,7 +4662,7 @@ UIMedia.registerCodec = function(ctor){
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_Constants_js__ = __webpack_require__(3);
 /**
  * @module Overlays
@@ -4651,13 +4696,13 @@ function UserOverlay(userId, username, imageURL, offset, cursor) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__misc_Util_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__misc_Util_js__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__PropertyEditor_js__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__misc_ComboAttributeMap_js__ = __webpack_require__(20);
@@ -4804,9 +4849,9 @@ AbstractTag.prototype.toXML = function () {
  * @return {undefined}
  */
 AbstractTag.registerCodec = function (ctor) {
-    var codec = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["j" /* mxObjectCodec */]();
+    var codec = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["k" /* mxObjectCodec */]();
     codec.template = new ctor();
-    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["k" /* mxCodecRegistry */].register(codec);
+    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["l" /* mxCodecRegistry */].register(codec);
 }
 /**
  * Set the value for a boolean attribute in tagObj and the property editor
@@ -4866,8 +4911,10 @@ AbstractTag.prototype.getYTextObserver = function(){
         var tagRoot = cell.value.getElementsByTagName('tagRoot')[0];
         var tag = tagRoot.getElementsByTagName('tagObj').namedItem(that.getId());
         tag.setAttribute(attrName, value);
-        __WEBPACK_IMPORTED_MODULE_1_jquery___default()('.wfSave').click();
-    },500);
+        if (evt.type !== 'delete' && y.db.userId === evt.object._content[evt.index].id[0])
+            __WEBPACK_IMPORTED_MODULE_1_jquery___default()('.wfSave').click();
+        else if (evt.type === 'delete')
+            __WEBPACK_IMPORTED_MODULE_1_jquery___default()('.wfSave').click();    },500);
     return observer;
 }
 
@@ -4904,48 +4951,12 @@ AbstractTag.prototype.initYText = function(attrName){
 module.exports = {
 	"html": {
 		"exclude": [
-			"br",
-			"CUSTOM"
+			"br"
 		],
 		"map": {
 			"input": "TextBox"
 		}
-	},
-	"___tags": [
-		{
-			"node_class": "IWC Response",
-			"options": {
-				"imgConst": "IWC_RESP_TAG"
-			}
-		},
-		{
-			"node_class": "Event",
-			"options": {
-				"imgConst": "EVENT_TAG"
-			}
-		},
-		{
-			"node_class": "Function",
-			"options": {
-				"imgConst": "FUNC_TAG"
-			}
-		},
-		{
-			"node_class": "IWC Call",
-			"options": {
-				"imgConst": "IWC_REQ_TAG"
-			}
-		},
-		{
-			"node_class": "Microservice Call",
-			"options": {
-				"imgConst": "MICROSERVICECALL"
-			}
-		},
-		{
-			"node_class": "Input Parameter"
-		}
-	]
+	}
 };
 
 /***/ }),
@@ -4953,7 +4964,23 @@ module.exports = {
 /***/ (function(module, exports) {
 
 module.exports = {
-	"attributes": {},
+	"attributes": {
+		"3ec5d2ddcd6d185b008866c9": {
+			"key": "type",
+			"value": "ModelTypes",
+			"options": {
+				"frontend-component": "frontend-component"
+			}
+		},
+		"6799ef51e99f2b5d7dd6121b": {
+			"key": "name",
+			"value": "string"
+		},
+		"7123edd98e7fb1045ef13c35": {
+			"key": "version",
+			"value": "integer"
+		}
+	},
 	"nodes": {
 		"182e51d01e990b398cd0b4cc": {
 			"label": "Widget",
@@ -5003,13 +5030,26 @@ module.exports = {
 					"key": "type",
 					"value": "HTML Type",
 					"options": {
-						"input": "input",
-						"table": "table",
-						"br": "br",
-						"button": "button",
+						"span": "span",
 						"p": "p",
-						"div": "div",
+						"input": "input",
 						"textarea": "textarea",
+						"br": "br",
+						"a": "a",
+						"button": "button",
+						"radio": "radio",
+						"checkbox": "checkbox",
+						"div": "div",
+						"img": "img",
+						"video": "video",
+						"audio": "audio",
+						"table": "table",
+						"ul": "ul",
+						"ol": "ol",
+						"dl": "dl",
+						"canvas": "canvas",
+						"svg": "svg",
+						"iframe": "iframe",
 						"CUSTOM": "CUSTOM"
 					}
 				},
@@ -5405,6 +5445,28 @@ module.exports = {
 				}
 			],
 			"attributes": {}
+		},
+		"6d9f778f5e6d61dca81a0470": {
+			"label": "hasChild",
+			"shape": {
+				"arrow": "generalisation",
+				"shape": "segmented",
+				"color": "blue",
+				"overlay": "hasChild",
+				"overlayPosition": "hidden",
+				"overlayRotate": true
+			},
+			"relations": [
+				{
+					"sourceTypes": [
+						"HTML Element"
+					],
+					"targetTypes": [
+						"HTML Element"
+					]
+				}
+			],
+			"attributes": {}
 		}
 	}
 };
@@ -5415,84 +5477,20 @@ module.exports = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery_ui_ui_widgets_dialog__ = __webpack_require__(67);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery_ui_ui_widgets_dialog___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery_ui_ui_widgets_dialog__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jquery_ui_ui_widgets_progressbar__ = __webpack_require__(68);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jquery_ui_ui_widgets_progressbar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_jquery_ui_ui_widgets_progressbar__);
-
-
-
-
-function Loader() {
-    var $init, $progressbar, $progressLabel;
-    return {
-        init: function(){
-            $init  = __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#init');
-            $progressbar = __WEBPACK_IMPORTED_MODULE_0_jquery___default()("#progressbar");
-            $progressLabel = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(".progress-label");
-            $init.dialog({
-                resizable: false,
-                modal: true,
-                height: "auto",
-                width: 400,
-                classes: {
-                    "ui-dialog": "no-close",
-                }
-            });
-            $progressbar.progressbar({
-                value: false,
-                change: function () {
-                    $progressLabel.text($progressbar.progressbar("value") + "%");
-                },
-                complete: function () {
-                    $progressLabel.text("Complete!");
-                }
-            });
-        },
-        checkSuccessful: function (index, progress) {
-            var $node = __WEBPACK_IMPORTED_MODULE_0_jquery___default()("#loading").find('p:eq(' + index + ')');
-            $node.append('<span class="ui-icon ui-icon-circle-check" style="float:left;"></span>');
-            $node.css('opacity', 1);
-            $progressbar.progressbar("value", progress);
-        },
-        checkFail : function(index, progress){
-            var $node = __WEBPACK_IMPORTED_MODULE_0_jquery___default()("#loading").find('p:eq(' + index + ')');
-            $node.append('<span class="ui-icon ui-icon-alert" style="float:left;"></span>');
-            $node.css('opacity', 1);
-            $progressbar.progressbar("value", progress);
-        },
-        destroy : function(timeout){
-            setTimeout(function(){
-                $init.dialog( "destroy" );    
-                $init.remove();            
-            }, timeout);
-        }
-    }
-}
-/* harmony default export */ __webpack_exports__["a"] = (new Loader());
-
-
-/***/ }),
-/* 51 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery_ui_ui_widgets_resizable__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery_ui_ui_widgets_resizable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery_ui_ui_widgets_resizable__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jquery_ui_ui_widgets_draggable__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jquery_ui_ui_widgets_draggable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_jquery_ui_ui_widgets_draggable__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__misc_mxExport_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__misc_Constants_js__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__misc_Util_js__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__WireframeModel_js__ = __webpack_require__(81);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Wireframe_js__ = __webpack_require__(79);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Palette_js__ = __webpack_require__(75);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__Editor_js__ = __webpack_require__(73);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Toolbox_js__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__misc_Util_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__WireframeModel_js__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Wireframe_js__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Palette_js__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__Editor_js__ = __webpack_require__(72);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Toolbox_js__ = __webpack_require__(76);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__HierachyTree_js__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__tags_TagRegistry_js__ = __webpack_require__(10);
 /*global y, vls*/
@@ -5515,9 +5513,11 @@ function Loader() {
  * The Main function of the Wireframing editor
  * @param {Object} config the configuration file
  * @param {boolean} disableDragging true if drag&drop of the wireframe canvas should be disabled else false
+ * @param {boolean} showHierachy show the hierachy editor at startup
  * @return {Editor} the editor
+ * @memberof module:WireframeEditor
  */
-/* harmony default export */ __webpack_exports__["a"] = (function (config, disableDragging) {
+/* harmony default export */ __webpack_exports__["a"] = (function (config, disableDragging, showHierachy) {
   if (!__WEBPACK_IMPORTED_MODULE_3__misc_mxExport_js__["m" /* mxClient */].isBrowserSupported()) {
     // Displays an error message if the browser is not supported.
     __WEBPACK_IMPORTED_MODULE_3__misc_mxExport_js__["c" /* mxUtils */].error('Browser is not supported!', 200, false);
@@ -5555,7 +5555,7 @@ function Loader() {
 
     var htmlToolbox = document.getElementById('toolbox');
     new __WEBPACK_IMPORTED_MODULE_10__Toolbox_js__["a" /* default */](htmlToolbox, editor);
-    __WEBPACK_IMPORTED_MODULE_11__HierachyTree_js__["a" /* default */].init(editor);
+    __WEBPACK_IMPORTED_MODULE_11__HierachyTree_js__["a" /* default */].init(editor, showHierachy);
     __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#wireframeWrap').resizable({
       //handles: "n, e, s, w, se, sw, nw, ne",
       handles: "se",
@@ -5606,16 +5606,16 @@ function Loader() {
 });
 
 /***/ }),
-/* 52 */
+/* 51 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UserList_js__ = __webpack_require__(78);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_UserList_js__ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery__);
-/*@global localStorage*/
+/*global localStorage, y*/
 /**
- * @module
+ * @module Authentification
  */
 
 
@@ -5627,10 +5627,34 @@ function Loader() {
  * @return {undefined}
  */
 function RoleLogin(){
+    var COLORS = [
+        "#8AFFC8", //türkis
+        "#8A9FFF", //light blue
+        "#FF8A8A", //Rot
+        "#FFC08A", //Orange
+        "#FF8AD2", //Pink
+        "#8AEBFF", //Blue
+        "#C68AFF", //Lila
+        "#8EFF8A" //green
+    ];
+
+    /**
+     * Map an integer to one of ten colors
+     * @param {string} id the global id
+     * @return {string} the color
+     */
+    var getColor = function(id){
+        return COLORS[id%COLORS.length];
+    };
     var deferred = __WEBPACK_IMPORTED_MODULE_1_jquery___default.a.Deferred();
     var url = localStorage.userinfo_endpoint + '?access_token=' + localStorage.access_token;
     __WEBPACK_IMPORTED_MODULE_1_jquery___default.a.get(url, function(data){
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__UserList_js__["a" /* default */])({name : data.name, imageUrl : data.picture}, false);
+        var userInfo = y.share.userList.get(data.sub);
+        var color;
+        if(userInfo)
+            color = getColor(userInfo.globalId);
+
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__misc_UserList_js__["a" /* default */])({id: data.sub, name : data.name, imageUrl : data.picture, color : color}, false);
         deferred.resolve();
     }).fail(function(error){
         deferred.reject(error);
@@ -5642,19 +5666,27 @@ function RoleLogin(){
 /* harmony default export */ __webpack_exports__["a"] = (RoleLogin);
 
 /***/ }),
-/* 53 */
+/* 52 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_Constants_js__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin__ = __webpack_require__(70);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tags_TagRegistry_js__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_jquery__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__overlays_SyncMetaSelectOverlay_js__ = __webpack_require__(96);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__misc_Util_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__tags_TagRegistry_js__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_jquery__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__overlays_SyncMetaSelectOverlay_js__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_noty__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_noty___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_noty__);
 /*global y, mxLog*/
+/**
+ * @module CAE-Mapper
+ */
+
+
 
 
 
@@ -5666,6 +5698,7 @@ function RoleLogin(){
  * @classdesc Live mapper for the CAE. Its a Singleton class.
  * @constructor
  * @requires syncmeta-plugin
+ * @memberof module:CAE-Mapper
  */
 function CAELiveMapper() {
 
@@ -5677,23 +5710,33 @@ function CAELiveMapper() {
          * @param {mxEditor} editor the editor
          * @param {String} userId the id of the user which is just passed to the syncmeta-plugin module
          * @return {undefined}
-         * @memberof CAELiveMapper
+         * @memberof module:CAE-Mapper.CAELiveMapper
          */
         init: function (editor, userId) {
             //The live mapper starts here
-            __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.init(y, userId);
+            __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.init(y, userId);
             var model = y.share.data.get('model');
             var widgetNodeId = null;
             var hasChildMap = {};
-            var nodeCreateMap = {};
-            var mxCellsAddedFlag = true, mxCellsRemoveFlag = true, mxCellOverlayAddFlag = true;
+            var isStaticMap = {}; //is the html element static
+            var isConnected = {}; //is the html element connected to the widget
+            var mxCellOverlayAddFlag = true;
             if (model) {
+                nodeLoop:
                 for (var key in model.nodes) {
                     if (model.nodes.hasOwnProperty(key)) {
                         var node = model.nodes[key];
                         if (node.type === 'Widget') {
                             widgetNodeId = key;
-                            break;
+                        } else if (node.type === 'HTML Element') {
+                            attrLoop:
+                            for (var attrKey in node.attributes) {
+                                var attr = node.attributes[attrKey];
+                                if (attr.name === 'static') {
+                                    isStaticMap[key] = attr.value.value;
+                                    break attrLoop;
+                                }
+                            }
                         }
                     }
                 }
@@ -5703,15 +5746,48 @@ function CAELiveMapper() {
                         if (edge.type === 'hasChild') {
                             hasChildMap[edge.target] = key;
                         }
+                        else if (edge.type === 'Widget to HTML Element') {
+                            isConnected[edge.target] = true;
+                        }
                     }
                 }
             }
+            //check if the frontend component metamodel is loaded
+            var metamodelCheck = false;
+            var metamodel = y.share.data.get('metamodel');
+            if (metamodel && metamodel.hasOwnProperty("nodes") && metamodel.hasOwnProperty("edges") && metamodel.hasOwnProperty("attributes")) {
+                //check if a 'Widget'-node type is a part of the metamodel 
+                for (var nodeKey in metamodel.nodes) {
+                    var node = metamodel.nodes[nodeKey];
+                    if (node.label === 'Widget') {
+                        metamodelCheck = true;
+                        break;
+                    }
+                }
+            }
+            if (!metamodelCheck) {
+                new __WEBPACK_IMPORTED_MODULE_7_noty___default.a({
+                    type: 'error',
+                    layout: 'topRight',
+                    text: 'No CAE-Frontend-Component metamodel found! Please load it and refresh.',
+                    timeout: 2000
+                }).show();
+                return;
+            } else {
+                new __WEBPACK_IMPORTED_MODULE_7_noty___default.a({
+                    type: 'success',
+                    layout: 'topRight',
+                    text: 'Found a CAE-Frontend-Component metamodel.',
+                    timeout: 2000
+                }).show();
+            }
+
             if (!widgetNodeId) {
-                widgetNodeId = __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.createNode('Widget', 4500, 4500, 100, 100, 1);
+                widgetNodeId = __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.createNode('Widget', 4500, 4500, 100, 100, 1);
                 setTimeout(function () {
                     var meta = editor.graph.model.getMeta();
-                    __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.setAttributeValue(widgetNodeId, 'width', meta.getAttribute('width'));
-                    __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.setAttributeValue(widgetNodeId, 'height', meta.getAttribute('height'));
+                    __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.setAttributeValue(widgetNodeId, 'width', meta.getAttribute('width'));
+                    __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.setAttributeValue(widgetNodeId, 'height', meta.getAttribute('height'));
                 }, 750);
             } else {
                 var meta = editor.graph.model.getMeta();
@@ -5722,75 +5798,85 @@ function CAELiveMapper() {
                         widgetAttr[attrib.name] = ytext;
                     else mxLog.writeln('Widget node attribute ' + attrib.name + ' is not ytext????');
                 }*/
-                __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.setAttributeValue(widgetNodeId, 'width', meta.getAttribute('width'));
-                __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.setAttributeValue(widgetNodeId, 'height', meta.getAttribute('height'));
+                __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.setAttributeValue(widgetNodeId, 'width', meta.getAttribute('width'));
+                __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.setAttributeValue(widgetNodeId, 'height', meta.getAttribute('height'));
             }
-
-            //if no widget node is found dont initialize the events
-            if (!widgetNodeId) return;
 
             editor.graph.model.setAttribute('id', widgetNodeId);
 
-            __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.onNodeAdd(function (event) {
+            __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.onNodeAdd(function (event) {
                 mxLog.writeln('Node was created in SyncMeta: ' + JSON.stringify(event));
-                nodeCreateMap[event.id] = event;
             });
-            __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.onEdgeAdd(function (event) {
+
+            function createUIControlElementFromNode(nodeId) {
+                var ymap = y.share.nodes.get(nodeId);
+                if (ymap) {
+                    var attr = ymap.get(nodeId + '[type]');
+                    var type;
+                    if (attr)
+                        type = attr.value;
+                    else
+                        type = 'input';
+
+                    var UIControl = editor.getUIComponentFromHTMLName(type);
+                    if (UIControl) {
+                        var encoder = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["b" /* mxCodec */]();
+                        var uiControl = new UIControl();
+                        var result = encoder.encode(uiControl);
+
+                        var xml = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].getXml(result);
+                        //Create Node
+                        y.share.action.set(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].ADD_VERTEX, {
+                            userId: y.db.userId,
+                            id: nodeId,
+                            data: xml,
+                            parent: null,
+                            fromSyncMeta: true
+                        });
+                        if (editor.graph.getDefaultParent().children.length > 1) {
+                            y.share.action.set(__WEBPACK_IMPORTED_MODULE_1__misc_Constants_js__["a" /* default */].ACTIONS.SHARED.APPLY_LAYOUT, { userId: y.db.userId, cellId: null });
+                        }
+                    }
+
+                }
+            }
+            __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.onEdgeAdd(function (event) {
                 mxLog.writeln('Edge was created in SyncMeta: ' + JSON.stringify(event));
+
                 var cell = editor.graph.model.getCell(event.target);
                 if (cell) return;
                 if (event.source === widgetNodeId && event.type === 'Widget to HTML Element') {
-                    var ymap = y.share.nodes.get(event.target);
-                    if (ymap) {
-                        var attr = ymap.get(event.target + '[type]');
-                        var type;
-                        if (attr)
-                            type = attr.value;
-                        else
-                            type = 'input';
-
-                        var UIControl = editor.getUIComponentFromHTMLName(type);
-                        if (UIControl) {
-                            var encoder = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["b" /* mxCodec */]();
-                            var uiControl = new UIControl();
-                            var result = encoder.encode(uiControl);
-
-                            var xml = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].getXml(result);
-                            mxCellsAddedFlag = false;
-                            //Create Node
-                            y.share.action.set(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].ADD_VERTEX, {
-                                userId: y.db.userId,
-                                id: event.target,
-                                data: xml,
-                                parent: null
-                            });
-                            if (editor.graph.getDefaultParent().children.length > 1) {
-                                y.share.action.set(__WEBPACK_IMPORTED_MODULE_1__misc_Constants_js__["a" /* default */].ACTIONS.SHARED.APPLY_LAYOUT, { userId: y.db.userId, cellId: null });
-                            }
-                        }
-
+                    if (isStaticMap.hasOwnProperty(event.target) && isStaticMap[event.target]) {
+                        //only the user who triggered the event in syncmeta create the UI control and progapates it to the others
+                        var userInfo = y.share.yfUsers.get(y.db.userId);
+                        if (userInfo && userInfo.id === event.jabberId)
+                            createUIControlElementFromNode(event.target);
                     }
+                    else isConnected[event.target] = true;
                 }
             });
-            __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.onNodeDelete(function (event) {
+            __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.onNodeDelete(function (event) {
                 mxLog.writeln('Node deleted from Widget: ' + JSON.stringify(event));
                 y.share.action.set(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].REMOVE, {
                     userId: y.db.userId,
-                    cells: [event]
+                    cells: [event],
+                    fromSyncMeta: true
                 });
 
             });
-            __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.onEdgeDelete(function (event) {
+            __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.onEdgeDelete(function (event) {
                 mxLog.writeln('Edge deleted from the Widget: ' + JSON.stringify(event));
                 var cell = editor.graph.model.getCell(event.target);
                 if (cell && event.type === 'Widget to HTML Element') {
+                    delete isConnected[cell.id];
                     y.share.action.set(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].REMOVE, {
                         userId: y.db.userId,
-                        cells: [cell.id]
+                        cells: [cell.id],
+                        fromSyncMeta: true
                     });
                 }
             });
-            __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.onNodeAttributeChange(function (value, entity, entityValueId, userId) {
+            __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.onNodeAttributeChange(function (value, entity, entityValueId, userId) {
                 var cell = editor.graph.model.getCell(entity);
                 if (!entityValueId) return;
                 var attr = entityValueId.substring(entityValueId.indexOf('[') + 1, entityValueId.length - 1);
@@ -5799,10 +5885,10 @@ function CAELiveMapper() {
                         if (!value || !cell || cell.constructor.HTML_NODE_NAME === value || cell.value.getAttribute('uiType') === value) return;
                         var UIControl = editor.getUIComponentFromHTMLName(value);
                         if (UIControl) {
-                            mxCellsRemoveFlag = false;
                             y.share.action.set(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].REMOVE, {
                                 userId: y.db.userId,
-                                cells: [entity]
+                                cells: [entity],
+                                fromSyncMeta: true
                             });
 
                             var uiControl = new UIControl();
@@ -5812,24 +5898,25 @@ function CAELiveMapper() {
                             var result = encoder.encode(uiControl);
 
                             var xml = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].getXml(result);
-                            mxCellsAddedFlag = false;
                             y.share.action.set(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].ADD_VERTEX, {
                                 userId: y.db.userId,
                                 id: entity,
                                 data: xml,
-                                parent: cell.parent
+                                parent: cell.parent,
+                                fromSyncMeta: true
                             });
                         } else {
                             y.share.action.set(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].REMOVE, {
                                 userId: y.db.userId,
-                                cells: [entity]
+                                cells: [entity],
+                                fromSyncMeta: true
                             });
                         }
                         break;
                     }
                     case 'collaborative': {
                         if (value) {
-                            var Tag = __WEBPACK_IMPORTED_MODULE_3__tags_TagRegistry_js__["a" /* default */].getClass('Shared');
+                            var Tag = __WEBPACK_IMPORTED_MODULE_4__tags_TagRegistry_js__["a" /* default */].getClass('Shared');
                             var tag = new Tag(cell, new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["e" /* mxPoint */](-__WEBPACK_IMPORTED_MODULE_1__misc_Constants_js__["a" /* default */].TAG.SIZE * cell.getTagCounter(), 0));
                             if (cell && tag && userId && !cell.containsTagType(tag)) {
                                 mxCellOverlayAddFlag = false;
@@ -5839,7 +5926,7 @@ function CAELiveMapper() {
                                 if (tag.hasOwnProperty('initAttributes')) tag.initAttributes();
                                 tag.createShared(y.share.yfUsers.get(y.db.userId).id === userId);
                                 tag.bindClickEvent(editor.graph);
-                                var ref = __WEBPACK_IMPORTED_MODULE_4_jquery___default()('#' + cell.getId() + '_tagTree').jstree(true);
+                                var ref = __WEBPACK_IMPORTED_MODULE_5_jquery___default()('#' + cell.getId() + '_tagTree').jstree(true);
                                 if (ref) {
                                     ref.create_node(null, {
                                         id: tag.tagObj.getAttribute('id'),
@@ -5865,95 +5952,25 @@ function CAELiveMapper() {
                         }
                         break;
                     }
-                }
-
-            });
-
-            editor.graph.addListener(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].CELLS_ADDED, function (graph, event) {
-                if (!mxCellsAddedFlag) {
-                    mxCellsAddedFlag = true;
-                    return;
-                }
-                var cells = event.getProperty('cells');
-                var absolute = event.getProperty('absolute');
-                var parent = event.getProperty('parent');
-
-                if (!absolute) {
-                    for (var i = 0; i < cells.length; i++) {
-                        var cell = cells[i];
-                        if (y.share.nodes.get(cell.id) != null) return;
-                        __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.createNode('HTML Element', 4500, 4500, 100, 100, 1, null, cell.id);
-                        setTimeout(function () {
-                            __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.setAttributeValue(cell.id, 'type', cell.constructor.HTML_NODE_NAME || cell.value.getAttribute('uiType'));
-                            __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.createEdge('Widget to HTML Element', widgetNodeId, cell.id);
-                            if (parent.id != '1') {
-                                var edgeId = __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.createEdge('hasChild', parent.id, cell.id);
-                                hasChildMap[cell.id] = edgeId;
-                            }
-
-                        }, 500);
-                    }
-                } else {
-                    if (parent.id != '1') {
-                        for (var i = 0; i < cells.length; i++) {
-                            if (hasChildMap.hasOwnProperty(cells[i].id)) {
-                                __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.deleteEdge(hasChildMap[cells[i].id]);
-                                delete hasChildMap[cells[i].id];
-                            }
-                            var edgeId = __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.createEdge('hasChild', parent.id, cells[i].id);
-                            hasChildMap[cells[i].id] = edgeId;
-                        }
-                    } else {
-                        for (var i = 0; i < cells.length; i++) {
-                            if (hasChildMap.hasOwnProperty(cells[i].id)) {
-                                __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.deleteEdge(hasChildMap[cells[i].id]);
-                                delete hasChildMap[cells[i].id];
+                    case 'static': {
+                        isStaticMap[entity] = value;
+                        if (value) {
+                            if (isConnected.hasOwnProperty(entity) && isConnected[entity]) {
+                                var uiControl = editor.graph.model.getCell(entity);
+                                var userInfo = y.share.yfUsers.get(y.db.userId);
+                                if (!uiControl && userInfo && userInfo.id === userId)
+                                    createUIControlElementFromNode(entity);
                             }
                         }
+                        else {
+                            //check if ui control element exists and delete it from wireframe only
+                            var uiControl = editor.graph.model.getCell(entity);
+                            if (uiControl) {
+                                editor.graph.removeCells([uiControl]);
+                            }
+                        }
+                        break;
                     }
-                }
-                setTimeout(function () {
-                    __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.applyLayout();
-                }, 1000);
-            });
-            editor.graph.addListener(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].REMOVE_CELLS, function (graph, event) {
-                if (!mxCellsRemoveFlag) {
-                    mxCellsRemoveFlag = true;
-                    return;
-                }
-                var recursiveDelete = function (parent) {
-                    if (!parent || !parent.children) return;
-                    for (var i = 0; i < parent.children.length; i++) {
-                        var cell = parent.children[i];
-                        __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.deleteNode(cell.id);
-                        delete hasChildMap[cell.id];
-                    }
-                    recursiveDelete(cell);
-                }
-                var cells = event.getProperty('cells');
-                for (var i = 0; i < cells.length; i++) {
-                    __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.deleteNode(cells[i].id);
-                    recursiveDelete(cells[i]);
-                    setTimeout(function () {
-                        __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.applyLayout();
-                    }, 500);
-                }
-            });
-            editor.graph.addListener(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].GROUP_CELLS, function (graph, event) {
-                var group = event.getProperty('group');
-                var cells = event.getProperty('cells');
-                setTimeout(function () {
-                    for (var i = 0; i < cells.length; i++) {
-                        var edgeId = __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.createEdge('hasChild', group.id, cells[i].id);
-                        hasChildMap[cells[i].id] = edgeId;
-                    }
-                }, 800);
-            });
-            editor.graph.addListener(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].UNGROUP_CELLS, function (graph, event) {
-                var cells = event.getProperty('cells');
-                for (var i = 0; i < cells.length; i++) {
-                    var cell = cells[i];
-                    __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.deleteNode(cell.id);
                 }
 
             });
@@ -5966,51 +5983,230 @@ function CAELiveMapper() {
                             return;
                         }
                         if (event.value.fromSyncMeta) return;
-                        if (event.value.xml.indexOf('SharedTag') != -1)
-                            __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.setAttributeValue(event.value.id, 'collaborative', true);
+                        if (event.value.xml.indexOf('SharedTag') != -1){
+                            __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.setAttributeValue(event.value.id, 'collaborative', true);
+
+                            var cell = editor.graph.model.getCell(event.value.id);
+                            var msg = cell ? cell.constructor.NAME : 'UI Element';
+                            __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.createActivity('WireframeCreateTag', event.value.id,
+                            '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Tagged ' + msg + ' as shared', event.value);
+                        }
                         break;
                     }
                     case __WEBPACK_IMPORTED_MODULE_1__misc_Constants_js__["a" /* default */].ACTIONS.SHARED.GRAPH_RESIZE: {
-                        __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.setAttributeValue(widgetNodeId, 'width', event.value.width.toString());
-                        __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.setAttributeValue(widgetNodeId, 'height', event.value.height.toString());
+                        __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.setAttributeValue(widgetNodeId, 'width', event.value.width.toString());
+                        __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.setAttributeValue(widgetNodeId, 'height', event.value.height.toString());
                         break;
                     }
                     case __WEBPACK_IMPORTED_MODULE_1__misc_Constants_js__["a" /* default */].ACTIONS.DELETE_TAG: {
                         if (event.value.fromSyncMeta) return;
                         for (var i = 0; i < event.value.types.length; i++) {
                             var type = event.value.types[i];
-                            if (type === 'SharedTag')
-                                __WEBPACK_IMPORTED_MODULE_2_syncmeta_plugin___default.a.setAttributeValue(event.value.cellId, 'collaborative', false);
+                            if (type === 'SharedTag'){
+                                __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.setAttributeValue(event.value.cellId, 'collaborative', false);
+                                
+                                var cell = editor.graph.model.getCell(event.value.cellId);
+                                var msg = cell ? cell.constructor.NAME : 'UI Element';
+                                __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.createActivity('WireframeDeleteTag', event.value.cellId,
+                                '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Removed shared tag from ' + msg, event.value);
+                            }
                         }
+                        break;
+                    }
+                    case __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].GROUP_CELLS: {
+                        if (event.value.fromSyncMeta) return;
+                        if (event.value.userId !== y.db.userId) return;
+                        if (y.share.nodes.get(event.value.groupId) != null) return;
+                        __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.createNode('HTML Element', 4500, 4500, 100, 100, 1, null, event.value.groupId);
+                        var msg = '';
+                        setTimeout(function () {
+                            __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.setAttributeValue(event.value.groupId, 'type', 'div');
+                            __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.setAttributeValue(event.value.groupId, 'static', true);
+                            __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.setAttributeValue(event.value.groupId, 'id', 'div_' + __WEBPACK_IMPORTED_MODULE_2__misc_Util_js__["a" /* default */].GUID().substr(0, 5));
+                            __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.createEdge('Widget to HTML Element', widgetNodeId, event.value.groupId);
+                            for (var i = 0; i < event.value.ids.length; i++) {
+                                var edgeId = __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.createEdge('hasChild', event.value.groupId, event.value.ids[i]);
+                                hasChildMap[event.value.ids[i]] = edgeId;
+
+                                var cell = editor.graph.model.getCell(event.value.ids[i]);
+                                msg += cell ? cell.constructor.NAME + ', ': 'UI element, ';
+                            }
+                            msg = msg.substr(0, msg.lastIndexOf(', '));                             
+                            __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.createActivity('WireframeGroupEvent', null,
+                            '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Created a group with ' + msg, event.value);
+                            setTimeout(function () {
+                                __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.applyLayout();
+                            }, 1000);
+                        }, 1000);
+                        break;
+                    }
+                    case __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].UNGROUP_CELLS: {
+                        if (event.value.fromSyncMeta) return;
+                        if (event.value.userId !== y.db.userId) return;
+                        for (var i = 0; i < event.value.ids.length; i++) {
+                            var cellId = event.value.ids[i];
+                            __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.deleteNodeSave(cellId);
+                        }
+                        __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.createActivity('WireframeUngroupEvent', null,
+                        '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Ungrouped UI elements! ', event.value);
+                        setTimeout(function () {
+                            __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.applyLayout();
+                        }, 1000);
+                        break;
+                    }
+                    case __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].ADD_VERTEX: {
+                        if (event.value.fromSyncMeta) return;
+                        if (event.value.userId !== y.db.userId) return;
+
+                        var doc = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].parseXml(event.value.data);
+                        var codec = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["b" /* mxCodec */](doc);
+                        var type = doc.documentElement.getAttribute('uiType');
+                        var elt = doc.documentElement.childNodes[1];
+                        var cells = [];
+                        while (elt != null) {
+                            var cell = codec.decode(elt);
+                            cell.setId(event.value.id);
+                            cell.setType(type);
+                            cells.push(cell);
+                            elt = elt.nextSibling;
+                        }
+                        if (y.share.nodes.get(cell.id) != null) return;
+                        for (var i = 0; i < cells.length; i++) {
+                            var cell = cells[i];
+                            if (y.share.nodes.get(cell.id) != null) return;
+                            __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.createNode('HTML Element', 4500, 4500, 100, 100, 1, null, cell.id);
+                            setTimeout(function () {
+                                var type = cell.constructor.HTML_NODE_NAME || cell.value.getAttribute('uiType');
+                                __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.setAttributeValue(cell.id, 'type', type);
+                                __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.setAttributeValue(cell.id, 'static', true);
+                                __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.setAttributeValue(cell.id, 'id', type + '_' + __WEBPACK_IMPORTED_MODULE_2__misc_Util_js__["a" /* default */].GUID().substr(0, 5));
+                                __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.createEdge('Widget to HTML Element', widgetNodeId, cell.id);
+                                var parent = editor.graph.model.getCell(event.value.parent);
+                                if (parent && parent.id != '1') {
+                                    var edgeId = __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.createEdge('hasChild', parent.id, cell.id);
+                                    hasChildMap[cell.id] = edgeId;
+                                }
+                                setTimeout(function () {
+                                    __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.applyLayout();
+                                    __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.createActivity('WireframeCreateEvent', cell.id, '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong>\nCreated a new ' + cell.constructor.NAME, event.value);
+                                }, 1000);
+                            }, 1000);
+                        }
+
+                        break;
+                    }
+                    case __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].MOVE: {
+                        if (event.value.userId !== y.db.userId) return;
+                        var msg = '';
+                        for (var i = 0; i < event.value.ids.length; i++) {
+                            var id = event.value.ids[i];
+                            if (hasChildMap.hasOwnProperty(id)) {
+                                __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.deleteEdge(hasChildMap[id]);
+                                delete hasChildMap[id];
+                            }
+                            if (event.value.parentId != '1') {
+                                var edgeId = __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.createEdge('hasChild', event.value.parentId, id);
+                                hasChildMap[id] = edgeId;
+                            }
+                            var cell = editor.graph.model.getCell(id);  
+                            msg += cell ? cell.constructor.NAME + ', ' : 'UI element, ';                          
+                                                        
+                        }
+                        msg = msg.substr(0, msg.lastIndexOf(', ')); 
+                        __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.createActivity('WireframeMoveEvent', null,
+                        '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Moved ' + msg, event.value);
+                        setTimeout(function () {
+                            __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.applyLayout();
+                            
+                        }, 1000);
+                        break;
+                    }case __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].RESIZE:{
+                        var msg = '';
+                        for (var i = 0; i < event.value.ids.length; i++) {
+                            var id = event.value.ids[i];                            
+                            var cell = editor.graph.model.getCell(id);  
+                            msg += cell ? cell.constructor.NAME + ', ' : 'UI element, ';
+                        }
+                        msg = msg.substr(0, msg.lastIndexOf(', ')); 
+                        __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.createActivity('WireResizeEvent', null,
+                        '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Resized ' + msg, event.value);      
+                        break;
+                    }
+                    case __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].REMOVE: {
+                        if (event.value.fromSyncMeta) return;
+                        if (event.value.userId !== y.db.userId) return;
+                        var children = event.value.children;
+
+                        function recursiveDelete(parent) {
+                            if (children.hasOwnProperty(parent)) {
+                                for (var i = 0; i < children[parent].length; i++) {
+                                    __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.deleteNodeSave(children[parent][i]);
+                                    delete hasChildMap[children[parent][i]];
+                                    if (children.hasOwnProperty(children[parent][i]))
+                                        recursiveDelete(children[parent][i]);
+                                }
+                            }
+                        }
+                        var cells = event.value.cells;
+                        for (var i = 0; i < cells.length; i++) {
+                            __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.deleteNodeSave(cells[i]);
+                             recursiveDelete(cells[i]);
+                        }
+                        setTimeout(function () {
+                            __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.applyLayout();
+                            //Create activity for the syncmeta activity widget
+                            var txt = event.value.cells.length > 1 ? " Removed multiple UI elements" : " Removed a UI element";                          
+                            __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.createActivity('WireframeDeleteEvent', null,
+                             '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong>' + txt, event.value);                            
+                        }, 1000);
                         break;
                     }
                 }
             });
 
-            y.share.select.observe(function (event) {
-                var cell = editor.graph.model.getCell(event.value);
-                if (cell) {
-                    var overlay = new __WEBPACK_IMPORTED_MODULE_5__overlays_SyncMetaSelectOverlay_js__["a" /* default */](null, new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["e" /* mxPoint */](0, -cell.geometry.height));
-                    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["f" /* mxGraph */].prototype.addCellOverlay.apply(editor.graph, [cell, overlay]);
+
+            /**
+             * hihglight the selected ui control element in SyncMeta
+             */
+            y.share.awareness.observe(function (event) {
+                if (event.name === y.db.userId) {
+                    var userInfo = y.share.yfUsers.get(y.db.userId);
+                    if (userInfo) {
+                        __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.highlight(event.value.highlight, 'yellow', 'Selected in CAE-Wireframe', userInfo.id);
+                        __WEBPACK_IMPORTED_MODULE_3_syncmeta_plugin___default.a.unhighlight(event.value.unhighlight, userInfo.id);
+                    }
                 }
-                var oldCell = editor.graph.model.getCell(event.oldValue);
-                if (oldCell) {
-                    for (var i = 0; oldCell.overlays && i < oldCell.overlays.length; i++) {
-                        var overlay = oldCell.overlays[i];
-                        if (overlay instanceof __WEBPACK_IMPORTED_MODULE_5__overlays_SyncMetaSelectOverlay_js__["a" /* default */]) {
-                            __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["f" /* mxGraph */].prototype.removeCellOverlay.apply(editor.graph, [oldCell, overlay]);
+            });
+
+            /**
+             * y.share.select-map from SyncMeta
+
+             */
+            y.share.select.observe(function (event) {
+                var userInfo = y.share.yfUsers.get(y.db.userId);
+                if (userInfo && event.name === userInfo.id) {
+                    var cell = editor.graph.model.getCell(event.value);
+                    if (cell) {
+                        var overlay = new __WEBPACK_IMPORTED_MODULE_6__overlays_SyncMetaSelectOverlay_js__["a" /* default */](null, new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["e" /* mxPoint */](0, -cell.geometry.height));
+                        __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["f" /* mxGraph */].prototype.addCellOverlay.apply(editor.graph, [cell, overlay]);
+                    }
+                    var oldCell = editor.graph.model.getCell(event.oldValue);
+                    if (oldCell) {
+                        for (var i = 0; oldCell.overlays && i < oldCell.overlays.length; i++) {
+                            var overlay = oldCell.overlays[i];
+                            if (overlay instanceof __WEBPACK_IMPORTED_MODULE_6__overlays_SyncMetaSelectOverlay_js__["a" /* default */]) {
+                                __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["f" /* mxGraph */].prototype.removeCellOverlay.apply(editor.graph, [oldCell, overlay]);
+                            }
                         }
                     }
                 }
-
             });
-
         },
         /**
          * Get a shared widget attribute with the given name
          * @param {String} name the name of the attribute
          * @return {YText} the shared y-text object
-         * @memberof CAELiveMapper
+         * @memberof module:CAE-Mapper.CAELiveMapper
          */
         getSharedWidgetAttr: function (name) {
             return widgetAttr.hasOwnProperty(name) ? widgetAttr[name] : undefined;
@@ -6020,11 +6216,112 @@ function CAELiveMapper() {
 /* harmony default export */ __webpack_exports__["a"] = (new CAELiveMapper());
 
 /***/ }),
+/* 53 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery_ui_ui_widgets_dialog__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery_ui_ui_widgets_dialog___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery_ui_ui_widgets_dialog__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jquery_ui_ui_widgets_progressbar__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jquery_ui_ui_widgets_progressbar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_jquery_ui_ui_widgets_progressbar__);
+/**
+ * @module Misc
+ */
+
+
+
+
+
+/**
+ * A singelton class which provides a loading screen for the initialization of the wireframing editor
+ * @classdesc Provides the loading screen at startup 
+ * @constructor
+ * @requires jquery
+ * @memberof module:Misc
+ */
+function Loader() {
+    var $init, $progressbar, $progressLabel;
+    return {
+        /**
+         * Initialize the loader
+         * Always call this method first
+         * @returns {undefined}
+         * @memberof module:Misc.Loader
+         */
+        init: function(){
+            $init  = __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#init');
+            $progressbar = __WEBPACK_IMPORTED_MODULE_0_jquery___default()("#progressbar");
+            $progressLabel = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(".progress-label");
+            $init.dialog({
+                resizable: false,
+                modal: true,
+                height: "auto",
+                width: 400,
+                classes: {
+                    "ui-dialog": "no-close",
+                }
+            });
+            $progressbar.progressbar({
+                value: false,
+                change: function () {
+                    $progressLabel.text($progressbar.progressbar("value") + "%");
+                },
+                complete: function () {
+                    $progressLabel.text("Complete!");
+                }
+            });
+        },
+        /**
+         * Check the step in the initialization at the corresponding index as successful
+         * @param {Integer} index the index in the initialization step
+         * @param {Integer} progress the progress of the initialization
+         * @returns {undefined}
+         * @memberof module:Misc.Loader
+         */
+        checkSuccessful: function (index, progress) {
+            var $node = __WEBPACK_IMPORTED_MODULE_0_jquery___default()("#loading").find('p:eq(' + index + ')');
+            $node.append('<span class="ui-icon ui-icon-circle-check" style="float:left;"></span>');
+            $node.css('opacity', 1);
+            $progressbar.progressbar("value", progress);
+        },
+        /**
+         * Check the step in the initialization at the corresponding index as fail
+         * @param {Integer} index the index in the initialization step
+         * @param {Integer} progress the progress of the initialization
+         * @returns {undefined}
+         * @memberof module:Misc.Loader
+         */
+        checkFail : function(index, progress){
+            var $node = __WEBPACK_IMPORTED_MODULE_0_jquery___default()("#loading").find('p:eq(' + index + ')');
+            $node.append('<span class="ui-icon ui-icon-alert" style="float:left;"></span>');
+            $node.css('opacity', 1);
+            $progressbar.progressbar("value", progress);
+        },
+        /**
+         * Destroy the initlialization loader
+         * @param {Integer} timeout the timeout of the destroy
+         * @returns {undefined}
+         * @memberof module:Misc.Loader
+         */
+        destroy : function(timeout){
+            setTimeout(function(){
+                $init.dialog( "destroy" );    
+                $init.remove();            
+            }, timeout);
+        }
+    }
+}
+/* harmony default export */ __webpack_exports__["a"] = (new Loader());
+
+
+/***/ }),
 /* 54 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_yjs_dist_y_js__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_yjs_dist_y_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__node_modules_yjs_dist_y_js__);
@@ -6038,6 +6335,9 @@ function CAELiveMapper() {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__node_modules_y_text_dist_y_text_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__node_modules_y_text_dist_y_text_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__node_modules_y_array_dist_y_array_js__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__node_modules_y_array_dist_y_array_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__node_modules_y_array_dist_y_array_js__);
+/**
+ * @module Misc
+ */
 
 
 
@@ -6048,6 +6348,13 @@ function CAELiveMapper() {
 __WEBPACK_IMPORTED_MODULE_1__node_modules_yjs_dist_y_js___default.a.extend(__WEBPACK_IMPORTED_MODULE_6__node_modules_y_array_dist_y_array_js___default.a, __WEBPACK_IMPORTED_MODULE_2__node_modules_y_websockets_client_dist_y_websockets_client_js___default.a, __WEBPACK_IMPORTED_MODULE_3__node_modules_y_memory_dist_y_memory_js___default.a, __WEBPACK_IMPORTED_MODULE_4__node_modules_y_map_dist_y_map_js___default.a, __WEBPACK_IMPORTED_MODULE_5__node_modules_y_text_dist_y_text_js___default.a);
 
 window.Y = __WEBPACK_IMPORTED_MODULE_1__node_modules_yjs_dist_y_js___default.a;
+/**
+ * Connect to the Yjs room using websockets-client and the memory adapter
+ * @method 
+ * @param {String} space the name of the room to connect to
+ * @return {Promise} the promise
+ * @memberof Misc
+ */
 /* harmony default export */ __webpack_exports__["a"] = (function (space) {
     var deferred = __WEBPACK_IMPORTED_MODULE_0_jquery___default.a.Deferred();
     __WEBPACK_IMPORTED_MODULE_1__node_modules_yjs_dist_y_js___default()({
@@ -6056,7 +6363,7 @@ window.Y = __WEBPACK_IMPORTED_MODULE_1__node_modules_yjs_dist_y_js___default.a;
         },
         connector: {
             name: "websockets-client",
-            room: space || 'yireframe'
+            room: space || 'yireframe',
         },
         share: {
             action: 'Map',
@@ -6069,7 +6376,9 @@ window.Y = __WEBPACK_IMPORTED_MODULE_1__node_modules_yjs_dist_y_js___default.a;
             nodes: 'Map',
             edges : 'Map', 
             select: 'Map', 
-            canvas: 'Map'
+            canvas: 'Map',
+            activity: 'Map',
+            userList: 'Map'
         }
     }).then(function (y) {
         window.y = y;
@@ -6100,7 +6409,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 	if ( true ) {
 
 		// AMD. Register as an anonymous module.
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(0), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(1), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -6149,7 +6458,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 	if ( true ) {
 
 		// AMD. Register as an anonymous module.
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(0), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(1), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -6204,7 +6513,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 		// AMD. Register as an anonymous module.
 		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-			__webpack_require__(0),
+			__webpack_require__(1),
 			__webpack_require__(58),
 			__webpack_require__(2)
 		], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
@@ -6275,7 +6584,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 	if ( true ) {
 
 		// AMD. Register as an anonymous module.
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(0), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(1), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -6304,7 +6613,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 	if ( true ) {
 
 		// AMD. Register as an anonymous module.
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(0), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(1), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -6342,7 +6651,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 	if ( true ) {
 
 		// AMD. Register as an anonymous module.
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(0), __webpack_require__(2), __webpack_require__(12) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(1), __webpack_require__(2), __webpack_require__(12) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -6416,7 +6725,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 	if ( true ) {
 
 		// AMD. Register as an anonymous module.
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(0), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(1), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -6920,7 +7229,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 	if ( true ) {
 
 		// AMD. Register as an anonymous module.
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(0), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(1), __webpack_require__(2) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -6974,7 +7283,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 	if ( true ) {
 
 		// AMD. Register as an anonymous module.
-		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(0), __webpack_require__(2), __webpack_require__(28) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [ __webpack_require__(1), __webpack_require__(2), __webpack_require__(28) ], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
@@ -7023,7 +7332,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 		// AMD. Register as an anonymous module.
 		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-			__webpack_require__(0),
+			__webpack_require__(1),
 
 			// These are only for backcompat
 			// TODO: Remove after 1.12
@@ -7031,7 +7340,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			__webpack_require__(65),
 
 			__webpack_require__(13),
-			__webpack_require__(5)
+			__webpack_require__(6)
 		], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
@@ -7419,11 +7728,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 		// AMD. Register as an anonymous module.
 		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-			__webpack_require__(0),
+			__webpack_require__(1),
 			__webpack_require__(12),
 			__webpack_require__(57),
 			__webpack_require__(60),
-			__webpack_require__(5)
+			__webpack_require__(6)
 		], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
@@ -7713,8 +8022,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 		// AMD. Register as an anonymous module.
 		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-			__webpack_require__(0),
-			__webpack_require__(5)
+			__webpack_require__(1),
+			__webpack_require__(6)
 		], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
@@ -8020,7 +8329,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 		// AMD. Register as an anonymous module.
 		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-			__webpack_require__(0),
+			__webpack_require__(1),
 			__webpack_require__(64),
 			__webpack_require__(32),
 			__webpack_require__(15),
@@ -8033,7 +8342,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 			__webpack_require__(63),
 			__webpack_require__(31),
 			__webpack_require__(2),
-			__webpack_require__(5)
+			__webpack_require__(6)
 		], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
@@ -8971,9 +9280,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 		// AMD. Register as an anonymous module.
 		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-			__webpack_require__(0),
+			__webpack_require__(1),
 			__webpack_require__(2),
-			__webpack_require__(5)
+			__webpack_require__(6)
 		], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
@@ -9156,13 +9465,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 		// AMD. Register as an anonymous module.
 		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [
-			__webpack_require__(0),
+			__webpack_require__(1),
 			__webpack_require__(12),
 			__webpack_require__(13),
 			__webpack_require__(14),
 			__webpack_require__(31),
 			__webpack_require__(2),
-			__webpack_require__(5)
+			__webpack_require__(6)
 		], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
 				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
 				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
@@ -10066,7 +10375,10 @@ return $.ui.tabs;
 /* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(module) {(function (root, factory) {
+/* WEBPACK VAR INJECTION */(function(module) {/**
+ * @module Syncmeta-Plugin
+ */
+(function (root, factory) {
     // Support CommonJS
     if (true) {
         var plugin = factory();
@@ -10596,10 +10908,20 @@ return $.ui.tabs;
         },
         /**
          * delete a node
-         * @param {string} id of the node to delete
+         * @param {string} entityId of the node to delete
          */
         deleteNode: function (entityId) {
             ySyncMetaInstance.share.nodes.delete(entityId);
+        },
+        /**
+         * same as delete node, but triggers save in the canvas after
+         * @param {String} entitiyId the id of the node to delete
+         */
+        deleteNodeSave: function(entityId) {
+            ySyncMetaInstance.share.canvas.set('NodeDeleteOperation', {
+                entityId: entityId,
+                jabberId : jabberId
+            });
         },
         /**
          * create a edge
@@ -10656,6 +10978,62 @@ return $.ui.tabs;
          */
         applyLayout: function () {
             ySyncMetaInstance.share.canvas.set('applyLayout', true);
+        },
+        /**
+         * highlight entities in the SyncMeta canvas
+         * @param {Array[String]} entities the list of ids from the entities to highlight
+         * @param {String} color the color 
+         * @param {String} label the label of the hightlighted entity
+         * @param {String} userId the user id 
+         * @param {boolean} remote if true all users will see it, otherwise only the local user
+         * @return {undefined}
+         */
+        highlight : function(entities, color, label, userId, remote){
+            if(entities.length < 1 || !userId) return;
+            if(!remote) 
+                remote = false;
+            y.share.canvas.set('highlight', {
+                entities: entities,
+                color : color, 
+                label: label,
+                userId: userId,
+                remote: remote
+            });
+        },
+        /**
+         * Unhighligh entities in the SyncMeta canvas
+         * @param {Array[String]} entities the list of ids of the entities to unhighlight
+         * @param {String}
+         * @param {boolean} remote if true all users will see it, otherwise only the local user
+         * @return {undefined}
+         */
+        unhighlight : function(entities, userId, remote){
+            if(entities.length < 1) return;
+            if(!remote) 
+                remote = false;
+            y.share.canvas.set('unhighlight', {
+                entities: entities,
+                remote: remote,
+                userId : userId
+            });
+        },
+        /**
+         * create a activity which is displayed in the activity widget
+         * @param {String} type the type of the activity
+         * @param {String} entityId the entity id
+         * @param {String} sender the user id of the sender
+         * @param {String} text the text of the activity
+         * @param {Object} data some additional data
+         * @return {undefined}
+         */
+        createActivity : function(type, entityId, text, data){
+            ySyncMetaInstance.share.activity.set("ActivityOperation",{
+                type: type, 
+                entityId : entityId,
+                sender: jabberId, 
+                text : text,
+                data: data
+            });
         }
 
         /**
@@ -10671,7 +11049,7 @@ return $.ui.tabs;
          * @param {integer} event.zIndex - depth value of the node
          * @param {object} event.json - the json representation. Only used for import of (meta-)models. Should be always null
          * @param {string} event.jabberId - jabberId of the user who created the node
-         *
+         * @return {undefined}
          */
 
         /**
@@ -10736,123 +11114,17 @@ return $.ui.tabs;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__overlays_UserOverlay__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__misc_Constants_js__ = __webpack_require__(3);
-/*global y*/
-/**
- * @module
- */
-
-
-
-/** 
- * The function realizes the awareness features for the Wireframe editor.
- * Enables cell hightlighting and overlays for user informations
- * @param {Wireframe} wireframe the wireframe
- * @return {undefined}
- * @requires UserOverlay
- * @method
- */
-function Awareness(wireframe) {
-    var highlightMap = {};
-
-    wireframe.getSelectionModel().addListener(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].CHANGE, function (sender, evt) {
-        var unselectedCells = evt.getProperty('added');
-        var unhighlight = [];
-        for (var i = 0; i < unselectedCells.length; i++) {
-            unhighlight.push(unselectedCells[i].getId());
-        }
-        var highlight = [];
-        for (var i = 0; i < sender.cells.length; i++) {
-            highlight.push(sender.cells[i].getId());
-        }
-        y.share.awareness.set(y.db.userId, {
-            highlight: highlight,
-            unhighlight: unhighlight
-        });
-
-    });
-
-    y.share.awareness.observe(function (event) {
-        if (event.name != y.db.userId) {
-            var userInfo = y.share.yfUsers.get(event.name);
-
-            //unhighlight cells
-            var unhighlightCells = event.value.unhighlight;
-            for (var i = 0; i < unhighlightCells.length; i++) {
-                var highlightId = unhighlightCells[i] + '_' + event.name;
-                var highlight = highlightMap[highlightId];
-                if (highlight) {
-                    highlight.hide();
-                    delete highlightMap[highlightId];
-                    var cell = wireframe.getModel().getCell(unhighlightCells[i]);
-                    if (cell) {
-                        for (var j = 0; cell.overlays && j < cell.overlays.length; j++) {
-                            if (cell.overlays[j] instanceof __WEBPACK_IMPORTED_MODULE_1__overlays_UserOverlay__["a" /* default */] && cell.overlays[j].getUserId() === event.name) {
-                                wireframe.removeCellOverlay(cell, cell.overlays[j]);
-                                j--;
-                            }
-                        }
-                        var k = 0;
-                        var state = wireframe.view.getState(cell);
-                        if (state.overlays) {
-                            for (var o in state.overlays.map) {
-                                var tag = state.overlays.map[o].overlay;
-                                if (tag instanceof __WEBPACK_IMPORTED_MODULE_1__overlays_UserOverlay__["a" /* default */]) {
-                                    tag.offset.x = -k * __WEBPACK_IMPORTED_MODULE_2__misc_Constants_js__["a" /* default */].TAG.SIZE;
-                                    k++;
-                                }
-                            }
-                            wireframe.cellRenderer.redraw(state);
-                        }
-                    }
-                }
-            }
-
-
-                //highlight cells
-                var highlightCells = event.value.highlight;
-                for (var i = 0; i < highlightCells.length; i++) {
-                    var highlight = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["D" /* mxCellHighlight */](wireframe, userInfo ? userInfo.color : '#672d2d', 2);
-                    highlightMap[highlightCells[i] + '_' + event.name] = highlight;
-                    var cell = wireframe.getModel().getCell(highlightCells[i]);
-                    if (cell) {
-                        highlight.highlight(wireframe.view.getState(cell));
-                        var overlay;
-                        var offset = null;
-                        var userOverlayCount = 0;
-                        if (cell.overlays && cell.overlays.length > 0) {
-                            for (var j = 0; j < cell.overlays.length; j++) {
-                                if (cell.overlays[i] instanceof __WEBPACK_IMPORTED_MODULE_1__overlays_UserOverlay__["a" /* default */])
-                                    userOverlayCount++;
-                            }
-                            offset = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["e" /* mxPoint */](-__WEBPACK_IMPORTED_MODULE_2__misc_Constants_js__["a" /* default */].TAG.SIZE * userOverlayCount, 0)
-                        }
-                        if (userInfo)
-                            overlay = new __WEBPACK_IMPORTED_MODULE_1__overlays_UserOverlay__["a" /* default */](event.name, userInfo.name, userInfo.image, offset);
-                        else
-                            overlay = new __WEBPACK_IMPORTED_MODULE_1__overlays_UserOverlay__["a" /* default */](event.name, 'Unknown User', null, offset);
-                        wireframe.addCellOverlay(cell, overlay);
-                    }
-                }
-            }
-        });
-}
-/* harmony default export */ __webpack_exports__["a"] = (Awareness);
-
-/***/ }),
-/* 72 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__PropertyEditor_js__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_Constants_js__ = __webpack_require__(3);
+/**
+ * @module WireframeEditor
+ */
 /*global y*/
 
 
 
 /**
+ * The context menu of the wireframe canvas
  * @classdesc The class builds the context menu for the wireframing editor
  * @constructor
  * @param {mxEditor} editor the editor
@@ -10929,39 +11201,63 @@ function ContextMenu(editor) {
 /* harmony default export */ __webpack_exports__["a"] = (ContextMenu);
 
 /***/ }),
-/* 73 */
+/* 72 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__KeyHandler_js__ = __webpack_require__(74);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ContextMenu_js__ = __webpack_require__(72);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shapes_DefaultShape_js__ = __webpack_require__(100);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shapes_VideoShape_js__ = __webpack_require__(108);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__shapes_AudioShape_js__ = __webpack_require__(97);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__shapes_ButtonShape_js__ = __webpack_require__(98);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__shapes_TextNodeShape_js__ = __webpack_require__(107);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__shapes_LinkShape_js__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__shapes_ParagraphShape_js__ = __webpack_require__(103);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__shapes_TextAreaShape_js__ = __webpack_require__(105);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__shapes_TextBoxShape_js__ = __webpack_require__(106);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__shapes_CheckboxShape_js__ = __webpack_require__(99);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__shapes_RadioButtonShape_js__ = __webpack_require__(104);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__shapes_ImageShape_js__ = __webpack_require__(101);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__elements_UIControl_js__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__elements_Link_js__ = __webpack_require__(87);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__elements_TextBox_js__ = __webpack_require__(91);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__elements_Paragraph_js__ = __webpack_require__(88);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__elements_TextArea_js__ = __webpack_require__(90);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__elements_Button_js__ = __webpack_require__(83);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__elements_TextNode_js__ = __webpack_require__(92);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__elements_CheckBox_js__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__elements_RadioButton_js__ = __webpack_require__(89);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__elements_Image_js__ = __webpack_require__(86);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__elements_VideoPlayer_js__ = __webpack_require__(93);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__elements_AudioPlayer_js__ = __webpack_require__(82);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__elements_DivContainer_js__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__KeyHandler_js__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ContextMenu_js__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__misc_Constants_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__shapes_DefaultShape_js__ = __webpack_require__(108);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__shapes_VideoShape_js__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__shapes_AudioShape_js__ = __webpack_require__(105);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__shapes_ButtonShape_js__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__shapes_TextNodeShape_js__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__shapes_LinkShape_js__ = __webpack_require__(110);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__shapes_ParagraphShape_js__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__shapes_TextAreaShape_js__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__shapes_TextBoxShape_js__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__shapes_CheckboxShape_js__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__shapes_RadioButtonShape_js__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__shapes_ImageShapeFactory_js__ = __webpack_require__(109);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__elements_UIControl_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__elements_basic_Link_js__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__elements_basic_TextBox_js__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__elements_basic_Paragraph_js__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__elements_basic_TextArea_js__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__elements_basic_Button_js__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__elements_basic_TextNode_js__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__elements_basic_CheckBox_js__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__elements_basic_RadioButton_js__ = __webpack_require__(88);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__elements_media_Image_js__ = __webpack_require__(97);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__elements_media_VideoPlayer_js__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__elements_media_AudioPlayer_js__ = __webpack_require__(96);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__elements_basic_DivContainer_js__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__elements_media_YouTube_js__ = __webpack_require__(99);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__elements_custom_PolymerElement_js__ = __webpack_require__(93);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__elements_basic_Table_js__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__elements_basic_List_js__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__elements_basic_OrderedList_js__ = __webpack_require__(86);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__elements_basic_DescriptionList_js__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__elements_graphics_HTML5Canvas_js__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__elements_graphics_SVGElement_js__ = __webpack_require__(95);
+/**
+ * @module WireframeEditor
+ */
 /*global y, vls*/
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10997,6 +11293,8 @@ Editor.prototype = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["r" /* mx
 Editor.prototype.constructor = Editor;
 
 /**
+ * The Wireframe Editor instance manages shapes and UI control elements.
+ * Further it provides the context menu and short cuts
  * @classdesc The main editor class of the wireframing editor 
  * @constructor
  * @param {Wireframe} wireframe the wireframe of the editor 
@@ -11015,19 +11313,27 @@ function Editor(wireframe, palette, config) {
     //Editor.prototype.disableContextMenu = false;
     new __WEBPACK_IMPORTED_MODULE_2__ContextMenu_js__["a" /* default */](this);
 
-    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes[__WEBPACK_IMPORTED_MODULE_4__shapes_VideoShape_js__["a" /* default */].prototype.cst.SHAPE] = __WEBPACK_IMPORTED_MODULE_4__shapes_VideoShape_js__["a" /* default */];
-    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes[__WEBPACK_IMPORTED_MODULE_5__shapes_AudioShape_js__["a" /* default */].prototype.cst.SHAPE] = __WEBPACK_IMPORTED_MODULE_5__shapes_AudioShape_js__["a" /* default */];
-    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["button"] = __WEBPACK_IMPORTED_MODULE_6__shapes_ButtonShape_js__["a" /* default */];
-    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["link"] = __WEBPACK_IMPORTED_MODULE_8__shapes_LinkShape_js__["a" /* default */];
-    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["textbox"] = __WEBPACK_IMPORTED_MODULE_11__shapes_TextBoxShape_js__["a" /* default */];
-    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["paragraph"] = __WEBPACK_IMPORTED_MODULE_9__shapes_ParagraphShape_js__["a" /* default */];
-    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["textarea"] = __WEBPACK_IMPORTED_MODULE_10__shapes_TextAreaShape_js__["a" /* default */];
-    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["checkbox"] = __WEBPACK_IMPORTED_MODULE_12__shapes_CheckboxShape_js__["a" /* default */];
-    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["radio"] = __WEBPACK_IMPORTED_MODULE_13__shapes_RadioButtonShape_js__["a" /* default */];
-    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["image"] = __WEBPACK_IMPORTED_MODULE_14__shapes_ImageShape_js__["a" /* default */];
-    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["textnode"] = __WEBPACK_IMPORTED_MODULE_7__shapes_TextNodeShape_js__["a" /* default */];
-    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["default"] = __WEBPACK_IMPORTED_MODULE_3__shapes_DefaultShape_js__["a" /* default */];
-
+    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes[__WEBPACK_IMPORTED_MODULE_6__shapes_VideoShape_js__["a" /* default */].prototype.cst.SHAPE] = __WEBPACK_IMPORTED_MODULE_6__shapes_VideoShape_js__["a" /* default */];
+    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes[__WEBPACK_IMPORTED_MODULE_7__shapes_AudioShape_js__["a" /* default */].prototype.cst.SHAPE] = __WEBPACK_IMPORTED_MODULE_7__shapes_AudioShape_js__["a" /* default */];
+    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["button"] = __WEBPACK_IMPORTED_MODULE_8__shapes_ButtonShape_js__["a" /* default */];
+    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["link"] = __WEBPACK_IMPORTED_MODULE_10__shapes_LinkShape_js__["a" /* default */];
+    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["textbox"] = __WEBPACK_IMPORTED_MODULE_13__shapes_TextBoxShape_js__["a" /* default */];
+    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["paragraph"] = __WEBPACK_IMPORTED_MODULE_11__shapes_ParagraphShape_js__["a" /* default */];
+    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["textarea"] = __WEBPACK_IMPORTED_MODULE_12__shapes_TextAreaShape_js__["a" /* default */];
+    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["checkbox"] = __WEBPACK_IMPORTED_MODULE_14__shapes_CheckboxShape_js__["a" /* default */];
+    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["radio"] = __WEBPACK_IMPORTED_MODULE_15__shapes_RadioButtonShape_js__["a" /* default */];
+    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["image"] = __WEBPACK_IMPORTED_MODULE_16__shapes_ImageShapeFactory_js__["a" /* default */].createImageShape("image", __WEBPACK_IMPORTED_MODULE_4__misc_Constants_js__["a" /* default */].IMAGES.IMAGE_SHAPE);
+    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["textnode"] = __WEBPACK_IMPORTED_MODULE_9__shapes_TextNodeShape_js__["a" /* default */];
+    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["default"] = __WEBPACK_IMPORTED_MODULE_5__shapes_DefaultShape_js__["a" /* default */];
+    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["youtube"] = __WEBPACK_IMPORTED_MODULE_16__shapes_ImageShapeFactory_js__["a" /* default */].createImageShape("youtube", __WEBPACK_IMPORTED_MODULE_4__misc_Constants_js__["a" /* default */].IMAGES.YOUTUBE);
+    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["polymer"] = __WEBPACK_IMPORTED_MODULE_16__shapes_ImageShapeFactory_js__["a" /* default */].createImageShape("polymer", __WEBPACK_IMPORTED_MODULE_4__misc_Constants_js__["a" /* default */].IMAGES.POLYMER);
+    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["table"] = __WEBPACK_IMPORTED_MODULE_16__shapes_ImageShapeFactory_js__["a" /* default */].createImageShape("table", __WEBPACK_IMPORTED_MODULE_4__misc_Constants_js__["a" /* default */].IMAGES.TABLE_IMG);
+    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["ul"] = __WEBPACK_IMPORTED_MODULE_16__shapes_ImageShapeFactory_js__["a" /* default */].createImageShape("ul", __WEBPACK_IMPORTED_MODULE_4__misc_Constants_js__["a" /* default */].IMAGES.UL_IMG);
+    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["ol"] = __WEBPACK_IMPORTED_MODULE_16__shapes_ImageShapeFactory_js__["a" /* default */].createImageShape("ol", __WEBPACK_IMPORTED_MODULE_4__misc_Constants_js__["a" /* default */].IMAGES.OL_IMG);
+    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["dl"] = __WEBPACK_IMPORTED_MODULE_16__shapes_ImageShapeFactory_js__["a" /* default */].createImageShape("dl", __WEBPACK_IMPORTED_MODULE_4__misc_Constants_js__["a" /* default */].IMAGES.DL_IMG);
+    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["html5canvas"] = __WEBPACK_IMPORTED_MODULE_16__shapes_ImageShapeFactory_js__["a" /* default */].createImageShape("html5canvas", __WEBPACK_IMPORTED_MODULE_4__misc_Constants_js__["a" /* default */].IMAGES.HTML5CANVAS);
+    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["s" /* mxCellRenderer */].prototype.defaultShapes["svg"] = __WEBPACK_IMPORTED_MODULE_16__shapes_ImageShapeFactory_js__["a" /* default */].createImageShape("svg", __WEBPACK_IMPORTED_MODULE_4__misc_Constants_js__["a" /* default */].IMAGES.SVG);
+    
     y.share.attrs.observe(function (event) {
         var name;
         var arr = event.name.split('_');
@@ -11044,7 +11350,7 @@ function Editor(wireframe, palette, config) {
                 name = event.name.substring(event.name.indexOf('_'));
                 cell.setComboAttributeValue(name, event.value);
             }
-            else if (event.value.constructor.name === 'YText') {
+            else if (event.value instanceof __WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js___default.a.Text.typeDefinition.class) {
                 event.value.observe(cell.getYTextObserver());
             }
         } else {
@@ -11058,7 +11364,7 @@ function Editor(wireframe, palette, config) {
                     name = event.name.substring(event.name.lastIndexOf('_'));
                     tag.setComboAttributeValue(name, event.value);
                 }
-                else if (event.value.constructor.name === 'YText') {
+                else if (event.value instanceof __WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js___default.a.Text.typeDefinition.class) {
                     event.value.observe(tag.getYTextObserver());
                 }
             }
@@ -11075,7 +11381,7 @@ function Editor(wireframe, palette, config) {
      */
     that.graph.getLabel = function (state) {
         var label = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["f" /* mxGraph */].prototype.getLabel.apply(this, arguments);
-        if (state instanceof __WEBPACK_IMPORTED_MODULE_27__elements_DivContainer_js__["a" /* default */])
+        if (state instanceof __WEBPACK_IMPORTED_MODULE_29__elements_basic_DivContainer_js__["a" /* default */])
             return state.value.getAttribute('label');
         else return label;
     }
@@ -11084,7 +11390,7 @@ function Editor(wireframe, palette, config) {
      */
     /*eslint-disable no-unused-vars*/
     that.graph.createGroupCell = function (cells) {
-        var group = new __WEBPACK_IMPORTED_MODULE_27__elements_DivContainer_js__["a" /* default */]();
+        var group = new __WEBPACK_IMPORTED_MODULE_29__elements_basic_DivContainer_js__["a" /* default */]();
         return group;
     };
     //-------------------------------------------------------------------
@@ -11095,16 +11401,27 @@ function Editor(wireframe, palette, config) {
      * @member {Object}
      */
     var htmlNodeMap = {};
-    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_27__elements_DivContainer_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_27__elements_DivContainer_js__["a" /* default */].NAME;
-    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_18__elements_Paragraph_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_18__elements_Paragraph_js__["a" /* default */].NAME;
-    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_20__elements_Button_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_20__elements_Button_js__["a" /* default */].NAME;
-    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_19__elements_TextArea_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_19__elements_TextArea_js__["a" /* default */].NAME;
-    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_16__elements_Link_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_16__elements_Link_js__["a" /* default */].NAME;
-    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_17__elements_TextBox_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_17__elements_TextBox_js__["a" /* default */].NAME;
-    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_24__elements_Image_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_24__elements_Image_js__["a" /* default */].NAME;
-    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_26__elements_AudioPlayer_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_26__elements_AudioPlayer_js__["a" /* default */].NAME;
-    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_25__elements_VideoPlayer_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_25__elements_VideoPlayer_js__["a" /* default */].NAME;
-    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_21__elements_TextNode_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_21__elements_TextNode_js__["a" /* default */].NAME;
+    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_29__elements_basic_DivContainer_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_29__elements_basic_DivContainer_js__["a" /* default */].NAME;
+    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_20__elements_basic_Paragraph_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_20__elements_basic_Paragraph_js__["a" /* default */].NAME;
+    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_22__elements_basic_Button_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_22__elements_basic_Button_js__["a" /* default */].NAME;
+    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_21__elements_basic_TextArea_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_21__elements_basic_TextArea_js__["a" /* default */].NAME;
+    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_18__elements_basic_Link_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_18__elements_basic_Link_js__["a" /* default */].NAME;
+    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_19__elements_basic_TextBox_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_19__elements_basic_TextBox_js__["a" /* default */].NAME;
+    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_26__elements_media_Image_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_26__elements_media_Image_js__["a" /* default */].NAME;
+    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_28__elements_media_AudioPlayer_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_28__elements_media_AudioPlayer_js__["a" /* default */].NAME;
+    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_27__elements_media_VideoPlayer_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_27__elements_media_VideoPlayer_js__["a" /* default */].NAME;
+    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_23__elements_basic_TextNode_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_23__elements_basic_TextNode_js__["a" /* default */].NAME;
+    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_25__elements_basic_RadioButton_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_25__elements_basic_RadioButton_js__["a" /* default */].NAME;
+    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_24__elements_basic_CheckBox_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_24__elements_basic_CheckBox_js__["a" /* default */].NAME;
+    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_30__elements_media_YouTube_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_30__elements_media_YouTube_js__["a" /* default */].NAME;
+    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_31__elements_custom_PolymerElement_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_31__elements_custom_PolymerElement_js__["a" /* default */].NAME;
+    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_32__elements_basic_Table_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_32__elements_basic_Table_js__["a" /* default */].NAME;
+    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_33__elements_basic_List_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_33__elements_basic_List_js__["a" /* default */].NAME;
+    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_34__elements_basic_OrderedList_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_34__elements_basic_OrderedList_js__["a" /* default */].NAME;    
+    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_35__elements_basic_DescriptionList_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_35__elements_basic_DescriptionList_js__["a" /* default */].NAME;
+    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_36__elements_graphics_HTML5Canvas_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_36__elements_graphics_HTML5Canvas_js__["a" /* default */].NAME;
+    htmlNodeMap[__WEBPACK_IMPORTED_MODULE_37__elements_graphics_SVGElement_js__["a" /* default */].HTML_NODE_NAME] = __WEBPACK_IMPORTED_MODULE_37__elements_graphics_SVGElement_js__["a" /* default */].NAME;
+    
 
      /**
      * Maps the HTML elements types defined in the VLS to their corresponding ui control element in the wireframing editor.
@@ -11113,7 +11430,7 @@ function Editor(wireframe, palette, config) {
      * @member {Object}
      */
     var vlsComponents = {};
-    for (var key in vls.nodes) {
+    for (var key in vls.nodes) {    
         var node = vls.nodes[key];
         if (node.label === 'HTML Element') {
             for (var attrKey in node.attributes) {
@@ -11140,34 +11457,41 @@ function Editor(wireframe, palette, config) {
      * @member {Object}
      */
     var yfUIComponents = {};
-    yfUIComponents[__WEBPACK_IMPORTED_MODULE_15__elements_UIControl_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_15__elements_UIControl_js__["a" /* default */];
-    yfUIComponents[__WEBPACK_IMPORTED_MODULE_27__elements_DivContainer_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_27__elements_DivContainer_js__["a" /* default */];
-    yfUIComponents[__WEBPACK_IMPORTED_MODULE_20__elements_Button_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_20__elements_Button_js__["a" /* default */];
-    yfUIComponents[__WEBPACK_IMPORTED_MODULE_19__elements_TextArea_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_19__elements_TextArea_js__["a" /* default */];
-    yfUIComponents[__WEBPACK_IMPORTED_MODULE_18__elements_Paragraph_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_18__elements_Paragraph_js__["a" /* default */];
-    yfUIComponents[__WEBPACK_IMPORTED_MODULE_17__elements_TextBox_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_17__elements_TextBox_js__["a" /* default */];
-    yfUIComponents[__WEBPACK_IMPORTED_MODULE_16__elements_Link_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_16__elements_Link_js__["a" /* default */];
-    yfUIComponents[__WEBPACK_IMPORTED_MODULE_21__elements_TextNode_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_21__elements_TextNode_js__["a" /* default */];
-    yfUIComponents[__WEBPACK_IMPORTED_MODULE_24__elements_Image_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_24__elements_Image_js__["a" /* default */];
-    yfUIComponents[__WEBPACK_IMPORTED_MODULE_26__elements_AudioPlayer_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_26__elements_AudioPlayer_js__["a" /* default */];
-    yfUIComponents[__WEBPACK_IMPORTED_MODULE_25__elements_VideoPlayer_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_25__elements_VideoPlayer_js__["a" /* default */];
-    yfUIComponents[__WEBPACK_IMPORTED_MODULE_22__elements_CheckBox_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_22__elements_CheckBox_js__["a" /* default */];
-    yfUIComponents[__WEBPACK_IMPORTED_MODULE_23__elements_RadioButton_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_23__elements_RadioButton_js__["a" /* default */];
-
+    yfUIComponents[__WEBPACK_IMPORTED_MODULE_17__elements_UIControl_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_17__elements_UIControl_js__["a" /* default */];
+    yfUIComponents[__WEBPACK_IMPORTED_MODULE_29__elements_basic_DivContainer_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_29__elements_basic_DivContainer_js__["a" /* default */];
+    yfUIComponents[__WEBPACK_IMPORTED_MODULE_22__elements_basic_Button_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_22__elements_basic_Button_js__["a" /* default */];
+    yfUIComponents[__WEBPACK_IMPORTED_MODULE_21__elements_basic_TextArea_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_21__elements_basic_TextArea_js__["a" /* default */];
+    yfUIComponents[__WEBPACK_IMPORTED_MODULE_20__elements_basic_Paragraph_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_20__elements_basic_Paragraph_js__["a" /* default */];
+    yfUIComponents[__WEBPACK_IMPORTED_MODULE_19__elements_basic_TextBox_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_19__elements_basic_TextBox_js__["a" /* default */];
+    yfUIComponents[__WEBPACK_IMPORTED_MODULE_18__elements_basic_Link_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_18__elements_basic_Link_js__["a" /* default */];
+    yfUIComponents[__WEBPACK_IMPORTED_MODULE_23__elements_basic_TextNode_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_23__elements_basic_TextNode_js__["a" /* default */];
+    yfUIComponents[__WEBPACK_IMPORTED_MODULE_26__elements_media_Image_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_26__elements_media_Image_js__["a" /* default */];
+    yfUIComponents[__WEBPACK_IMPORTED_MODULE_28__elements_media_AudioPlayer_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_28__elements_media_AudioPlayer_js__["a" /* default */];
+    yfUIComponents[__WEBPACK_IMPORTED_MODULE_27__elements_media_VideoPlayer_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_27__elements_media_VideoPlayer_js__["a" /* default */];
+    yfUIComponents[__WEBPACK_IMPORTED_MODULE_24__elements_basic_CheckBox_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_24__elements_basic_CheckBox_js__["a" /* default */];
+    yfUIComponents[__WEBPACK_IMPORTED_MODULE_25__elements_basic_RadioButton_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_25__elements_basic_RadioButton_js__["a" /* default */];
+    yfUIComponents[__WEBPACK_IMPORTED_MODULE_30__elements_media_YouTube_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_30__elements_media_YouTube_js__["a" /* default */];
+    yfUIComponents[__WEBPACK_IMPORTED_MODULE_31__elements_custom_PolymerElement_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_31__elements_custom_PolymerElement_js__["a" /* default */];
+    yfUIComponents[__WEBPACK_IMPORTED_MODULE_32__elements_basic_Table_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_32__elements_basic_Table_js__["a" /* default */];
+    yfUIComponents[__WEBPACK_IMPORTED_MODULE_33__elements_basic_List_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_33__elements_basic_List_js__["a" /* default */];
+    yfUIComponents[__WEBPACK_IMPORTED_MODULE_34__elements_basic_OrderedList_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_34__elements_basic_OrderedList_js__["a" /* default */];
+    yfUIComponents[__WEBPACK_IMPORTED_MODULE_35__elements_basic_DescriptionList_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_35__elements_basic_DescriptionList_js__["a" /* default */];
+    yfUIComponents[__WEBPACK_IMPORTED_MODULE_36__elements_graphics_HTML5Canvas_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_36__elements_graphics_HTML5Canvas_js__["a" /* default */];
+    yfUIComponents[__WEBPACK_IMPORTED_MODULE_37__elements_graphics_SVGElement_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_37__elements_graphics_SVGElement_js__["a" /* default */];
     /**
      * The map contains as key as the name of the UIObjects and as value the style as String
      * The shape has to be registered before to the mxCellRenderer-object of this class
      * @member {Object}
      */
     var yfShapeMapping = {};
-    yfShapeMapping[__WEBPACK_IMPORTED_MODULE_18__elements_Paragraph_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=paragraph;' + __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_FILLCOLOR + "=white;" + +__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_STROKECOLOR + '=black;';
-    yfShapeMapping[__WEBPACK_IMPORTED_MODULE_19__elements_TextArea_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=textarea;' + __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_FILLCOLOR + "=white;" + +__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_STROKECOLOR + '=black;';
-    yfShapeMapping[__WEBPACK_IMPORTED_MODULE_21__elements_TextNode_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=textnode;';
-    yfShapeMapping[__WEBPACK_IMPORTED_MODULE_20__elements_Button_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=button;';
-    yfShapeMapping[__WEBPACK_IMPORTED_MODULE_16__elements_Link_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=link;' + __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_FILLCOLOR + "=none;";
-    yfShapeMapping[__WEBPACK_IMPORTED_MODULE_17__elements_TextBox_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=textbox;' + __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_FILLCOLOR + "=white;" + +__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_STROKECOLOR + '=black;';
-    yfShapeMapping[__WEBPACK_IMPORTED_MODULE_22__elements_CheckBox_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=checkbox;' + __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_FILLCOLOR + "=white;" + +__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_STROKECOLOR + '=black;';
-    yfShapeMapping[__WEBPACK_IMPORTED_MODULE_23__elements_RadioButton_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=radio;' + __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_FILLCOLOR + "=white;" + +__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_STROKECOLOR + '=black;';
+    yfShapeMapping[__WEBPACK_IMPORTED_MODULE_20__elements_basic_Paragraph_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=paragraph;' + __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_FILLCOLOR + "=white;" + +__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_STROKECOLOR + '=black;';
+    yfShapeMapping[__WEBPACK_IMPORTED_MODULE_21__elements_basic_TextArea_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=textarea;' + __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_FILLCOLOR + "=white;" + +__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_STROKECOLOR + '=black;';
+    yfShapeMapping[__WEBPACK_IMPORTED_MODULE_23__elements_basic_TextNode_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=textnode;';
+    yfShapeMapping[__WEBPACK_IMPORTED_MODULE_22__elements_basic_Button_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=button;';
+    yfShapeMapping[__WEBPACK_IMPORTED_MODULE_18__elements_basic_Link_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=link;' + __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_FILLCOLOR + "=none;";
+    yfShapeMapping[__WEBPACK_IMPORTED_MODULE_19__elements_basic_TextBox_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=textbox;' + __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_FILLCOLOR + "=white;" + +__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_STROKECOLOR + '=black;';
+    yfShapeMapping[__WEBPACK_IMPORTED_MODULE_24__elements_basic_CheckBox_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=checkbox;' + __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_FILLCOLOR + "=white;" + +__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_STROKECOLOR + '=black;';
+    yfShapeMapping[__WEBPACK_IMPORTED_MODULE_25__elements_basic_RadioButton_js__["a" /* default */].NAME] = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=radio;' + __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_FILLCOLOR + "=white;" + +__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_STROKECOLOR + '=black;';
 
     /**
      * Adds a UI component to the palette and makes it drag&drop-able to the wireframe canvas
@@ -11178,15 +11502,15 @@ function Editor(wireframe, palette, config) {
         var cell, type, shapeCell;
         var tmp = componentName;
         componentName = vlsComponents[componentName];
-        if(componentName === __WEBPACK_IMPORTED_MODULE_15__elements_UIControl_js__["a" /* default */].NAME)
+        if(componentName === __WEBPACK_IMPORTED_MODULE_17__elements_UIControl_js__["a" /* default */].NAME)
             cell = new yfUIComponents[componentName](null, null, tmp);
         else
             cell = new yfUIComponents[componentName]();
         if (yfShapeMapping.hasOwnProperty(componentName))
-            shapeCell = new __WEBPACK_IMPORTED_MODULE_15__elements_UIControl_js__["a" /* default */](cell.geometry, yfShapeMapping[componentName]);
+            shapeCell = new __WEBPACK_IMPORTED_MODULE_17__elements_UIControl_js__["a" /* default */](cell.geometry, yfShapeMapping[componentName]);
         else
             shapeCell = cell;
-        type = palette.createItem(shapeCell, componentName === __WEBPACK_IMPORTED_MODULE_15__elements_UIControl_js__["a" /* default */].NAME ? tmp : componentName, false);
+        type = palette.createItem(shapeCell, componentName === __WEBPACK_IMPORTED_MODULE_17__elements_UIControl_js__["a" /* default */].NAME ? tmp : componentName, false);
         cell.makeTypeDraggable(type, wireframe);
     }
     /**
@@ -11229,12 +11553,15 @@ function Editor(wireframe, palette, config) {
 /* harmony default export */ __webpack_exports__["a"] = (Editor);
 
 /***/ }),
-/* 74 */
+/* 73 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_Constants_js__ = __webpack_require__(3);
+/**
+ * @module WireframeEditor
+ */
 
 
 KeyHandler.prototype = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["x" /* mxDefaultKeyHandler */]();
@@ -11286,11 +11613,14 @@ function KeyHandler(editor){
 /* harmony default export */ __webpack_exports__["a"] = (KeyHandler);
 
 /***/ }),
-/* 75 */
+/* 74 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
+/**
+ * @module WireframeEditor
+ */
 
 Palette.prototype = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["y" /* mxToolbar */]();
 Palette.prototype.constructor = Palette;
@@ -11414,21 +11744,24 @@ function Palette(container) {
 /* harmony default export */ __webpack_exports__["a"] = (Palette);
 
 /***/ }),
-/* 76 */
+/* 75 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_jstree_dist_jstree_min_js__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_jstree_dist_jstree_min_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__node_modules_jstree_dist_jstree_min_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__misc_Constants_js__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__misc_mxExport_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__misc_Util_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__misc_mxExport_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__misc_Util_js__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tags_TagRegistry_js__ = __webpack_require__(10);
 /*global y*/
+/**
+ * @module WireframeEditor/AttributeEditor
+ */
 
 
 
@@ -11438,6 +11771,15 @@ function Palette(container) {
 
 
 
+/**
+ * Generates the form of the tag editor which is a part of the property editor
+ * This function is called by the property editor function and does not need be called explictly
+ * @method
+ * @param {mxCell} cell the cell to generate the tag editor for
+ * @param {jQuery} $editor the jquery-object representing the editor in the dom
+ * @param {Wireframe} graph the wireframe object 
+ * @returns {undefined}
+ */
 function TagEditor(cell, $editor, graph) {   
     //jstree types
     var types = {};
@@ -11458,7 +11800,7 @@ function TagEditor(cell, $editor, graph) {
         $editor.append(__WEBPACK_IMPORTED_MODULE_0_jquery___default.a.parseHTML(htmlTagTabContent));
 
         var $tagEditor = $editor.find('#tagsTab');
-        var tagForm = new __WEBPACK_IMPORTED_MODULE_4__misc_mxExport_js__["l" /* mxForm */]('tagForm');
+        var tagForm = new __WEBPACK_IMPORTED_MODULE_4__misc_mxExport_js__["j" /* mxForm */]('tagForm');
         var combo = tagForm.addCombo('Tag');
         
         for (var i = 0; i < supportedTags.length; i++) {
@@ -11568,18 +11910,21 @@ function TagEditor(cell, $editor, graph) {
 /* harmony default export */ __webpack_exports__["a"] = (TagEditor);
 
 /***/ }),
-/* 77 */
+/* 76 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__misc_Util_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__misc_Util_js__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__misc_Constants_js__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mapper_CAE_js__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mapper_CAE_js__ = __webpack_require__(100);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__HierachyTree_js__ = __webpack_require__(18);
 /*global y*/
+/**
+ * @module WireframeEditor
+ */
 
 
 
@@ -11618,9 +11963,25 @@ function Toolbox(container, editor) {
     });
 
     editor.addAction(__WEBPACK_IMPORTED_MODULE_3__misc_Constants_js__["a" /* default */].ACTIONS.SHARED.DELETE, function (editor, cell) {
+        var children = {};
+        var cells = that._editor.graph.getSelectionCells();
+        function helper(cell){
+            var childrenArr = [];
+            for(var i=0; cell.children && i < cell.children.length; i++){
+                var child = cell.children[i];
+                childrenArr.push(child.getId());
+                helper(child);
+            }
+            children[cell.getId()] = childrenArr;
+        }
+        for(var i=0;i <cells.length;i++){
+            helper(cells[i]);
+        }
+
         y.share.action.set(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].REMOVE, {
             userId: y.db.userId,
-            cells: __WEBPACK_IMPORTED_MODULE_2__misc_Util_js__["a" /* default */].getIdsOfSelectedCells(that._editor.graph)
+            cells: __WEBPACK_IMPORTED_MODULE_2__misc_Util_js__["a" /* default */].getIdsOfSelectedCells(that._editor.graph),
+            children : children 
         });
     });
 
@@ -11646,6 +12007,7 @@ function Toolbox(container, editor) {
     editor.addAction(__WEBPACK_IMPORTED_MODULE_3__misc_Constants_js__["a" /* default */].ACTIONS.SHARED.GROUP, function (editor, cell) {
         y.share.action.set(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].GROUP_CELLS, {
             userId: y.db.userId,
+            groupId : __WEBPACK_IMPORTED_MODULE_2__misc_Util_js__["a" /* default */].GUID(),
             ids: __WEBPACK_IMPORTED_MODULE_2__misc_Util_js__["a" /* default */].getIdsOfSelectedCells(that._editor.graph)
         });
     });
@@ -11759,7 +12121,13 @@ function Toolbox(container, editor) {
                 break;
             case __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].GROUP_CELLS:
                 var cells = __WEBPACK_IMPORTED_MODULE_2__misc_Util_js__["a" /* default */].getCellsFromIdList(that._editor.graph, event.value.ids);
-                var group = that._editor.graph.groupCells(null, 20, cells);
+
+                if(event.value.userId !== y.db.userId) that._editor.graph.setEventsEnabled(false);
+                var group = that._editor.graph.createGroupCell();
+                group.setId(event.value.groupId);
+                that._editor.graph.groupCells(group, 30, cells);
+                if(event.value.userId !== y.db.userId) that._editor.graph.setEventsEnabled(true);
+
                 if (y.db.userId === event.value.userId) {
                     //that._editor.graph.setSelectionCells(group);
                     that._editor.graph.getSelectionModel().setCell(group);
@@ -11769,11 +12137,18 @@ function Toolbox(container, editor) {
                 __WEBPACK_IMPORTED_MODULE_5__HierachyTree_js__["a" /* default */].group(group, cells);
                 break;
             case __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].UNGROUP_CELLS:
-                var cells = that._editor.graph.ungroupCells(__WEBPACK_IMPORTED_MODULE_2__misc_Util_js__["a" /* default */].getCellsFromIdList(that._editor.graph, event.value.ids));
+                var cells = __WEBPACK_IMPORTED_MODULE_2__misc_Util_js__["a" /* default */].getCellsFromIdList(that._editor.graph, event.value.ids);
+                var ungroupable =[];
+                for(var i=0; i<cells.length;i++){
+                    if(cells[i].constructor.name === 'DivContainer')
+                        ungroupable.push(cells[i]);
+                }
+                //Note: important to call Hierachy.ungroup() before graph.ungroupCells, otherwise parent and child information is lost
+                __WEBPACK_IMPORTED_MODULE_5__HierachyTree_js__["a" /* default */].ungroup(ungroupable);                
+                that._editor.graph.ungroupCells(ungroupable);
                 if (y.db.userId === event.value.userId)
                     that._editor.graph.setSelectionCells(cells);
                 that._editor.graph.updateBounds();
-                __WEBPACK_IMPORTED_MODULE_5__HierachyTree_js__["a" /* default */].ungroup(cells);
                 break;
             case __WEBPACK_IMPORTED_MODULE_3__misc_Constants_js__["a" /* default */].ACTIONS.SHARED.PASTE:
                 var selectedCells = that._editor.graph.getSelectionCells();
@@ -11850,183 +12225,24 @@ function Toolbox(container, editor) {
 /* harmony default export */ __webpack_exports__["a"] = (Toolbox);
 
 /***/ }),
-/* 78 */
+/* 77 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_randomcolor__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_randomcolor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_randomcolor__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_noty__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_noty___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_noty__);
-/*global  y*/
-/**
- * @module
- */
-
-
-
-
-/**
- * Generate a user list wrapped in a mxWindow
- * Retrieve all necessary infromation with y.share.yfUsers.get(y.db.userId) 
- * @example y.share.yfUsers.get(y.db.userId) = 
-        {
-            id: "some id",
-            name: "Name Surname",
-            image: "A url",
-            color: "a color"
-        }
- * @param {Object} user the object consists of the data about the user
- * @param {Boolean} visible true if the mxWindow is visible or false if not 
- * @return {undefined}
- */
-function UserList(user, visible) {
-    /**
-     * the div html elements that contains the user list
-     * @member {jQuery}
-     */
-    var $userList = __WEBPACK_IMPORTED_MODULE_1_jquery___default()('#userList');
-
-    /**
-     * The user list table
-     * @member {jQuery}
-     */
-    var $userTable = $userList.find('table');
-
-    /**
-     * The ids of all remote users
-     * @member {String[]}
-     */
-    var remoteUsers = [];
-
-    /**
-     * The default height of the mxWindow 
-     * @default 50
-     * @member {Integer}
-     */
-    var height = 50;
-    
-    /**
-     * The default width of the mxWindow
-     * @member {Integer}
-     * @default 210
-     */
-    var width = 210;
-    
-    /**
-     * The mxWindow-instance of the user list
-     * @member {mxWindow}
-     */
-    var wnd = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["a" /* mxWindow */]("User List", $userList[0], 600, 100, width, height, false, true);
-    wnd.setVisible(visible !== undefined ? visible : true);
-    wnd.setMaximizable(false);
-    wnd.setResizable(true);
-    wnd.setClosable(true);
-    wnd.destroyOnClose = false;
-
-    /**
-     * @event
-     * @return {undefined}
-     * @memberof {UserList}
-     */
-    window.onbeforeunload = function () {
-        y.share.yfJoin.set('leave', y.db.userId);
-    };
-    window.onunload = function () {
-        y.share.yfJoin.set('leave', y.db.userId);
-    }
-    /**
-     * Generate a row entry for user list table
-     * @param {String} userId the user id
-     * @param {String} userName the name of the user
-     * @param {String} imageUrl the url to the avatar of the user
-     * @param {String} color the randomed color for the user
-     * @return {JQuery} the tr-element as a jquery object
-     */
-    var getUserEntry = function (userId, userName, imageUrl, color) {
-        var entry = '<tr id="' + userId + '" style="display: flex; background : ' + color + '"><td><img src="' + imageUrl + '" height="42" width="42"></td><td style="font-size: 15;color: white;padding : 12;">' + userName + '</td></tr>';
-        return __WEBPACK_IMPORTED_MODULE_1_jquery___default()(entry);
-    }
-    if (user) {
-        y.share.yfUsers.observe(function (event) {
-            if (event.name !== y.db.userId && remoteUsers.indexOf(event.name) == -1) {
-                var $entry = getUserEntry(event.name, event.value.name, event.value.image, event.value.color);
-                $userTable.append($entry);
-                remoteUsers.push(event.name);
-                height += 45;
-                wnd.setSize(width, height);
-                new __WEBPACK_IMPORTED_MODULE_3_noty___default.a({
-                    type: 'success',
-                    layout : 'topRight',
-                    text: 'User ' + event.value.name + ' joined the space',
-                    timeout: 750
-                }).show();
-            }
-        });
-        y.share.yfJoin.observe(function (event) {
-            if (event.name === 'leave' && y.db.userId !== event.value) {
-                __WEBPACK_IMPORTED_MODULE_1_jquery___default()('#' + event.value).remove();
-                if (remoteUsers.indexOf(event.value) !== -1)
-                    remoteUsers.splice(remoteUsers.indexOf(event.value), 1);
-                new __WEBPACK_IMPORTED_MODULE_3_noty___default.a({
-                    type: 'error',
-                    layout : 'topRight',
-                    text: 'User ' + y.share.yfUsers.get(event.value).name + ' left the space',
-                    timeout: 750
-                }).show();
-                return;
-            }
-            if (event.name !== y.db.userId && !event.value) {
-                y.share.yfJoin.set(y.db.userId, {
-                    receiver: event.name,
-                    userInfo: y.share.yfUsers.get(y.db.userId)
-                });
-            } else if (event.value && event.value.receiver === y.db.userId && remoteUsers.indexOf(event.name) == -1) {
-                $userTable.append(getUserEntry(event.value.name, event.value.userInfo.name, event.value.userInfo.image, event.value.userInfo.color));
-                remoteUsers.push(event.value.userId);
-                height += 45;
-                wnd.setSize(width, height);
-            }
-        });
-
-        __WEBPACK_IMPORTED_MODULE_1_jquery___default()('.g-signin2').hide();
-        var color = __WEBPACK_IMPORTED_MODULE_2_randomcolor___default()();
-        var $userEntry = getUserEntry(y.db.userId, user.name, user.imageUrl, color);
-        $userTable.append($userEntry);
-        $userTable.append(__WEBPACK_IMPORTED_MODULE_1_jquery___default()('<tr><th>Collaborators</th></tr>'));
-        height += 50;
-        wnd.setSize(width, height);
-        y.share.yfUsers.set(y.db.userId, {
-            id: user.id,
-            name: user.name,
-            image: user.imageUrl,
-            color: color
-        });
-        y.share.yfJoin.set(y.db.userId, false);
-    }
-}
-
-/* harmony default export */ __webpack_exports__["a"] = (UserList);
-
-/***/ }),
-/* 79 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_Util_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_Util_js__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__overlays_UserOverlay_js__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__overlays_EditOverlay_js__ = __webpack_require__(95);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Awareness_js__ = __webpack_require__(71);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__WireframeLayout_js__ = __webpack_require__(80);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__overlays_EditOverlay_js__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__misc_Awareness_js__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__WireframeLayout_js__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_jquery__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_jquery__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__misc_Constants_js__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__HierachyTree_js__ = __webpack_require__(18);
 /*global y*/
+/**
+ * @module WireframeEditor
+ */
 
 
 
@@ -12037,11 +12253,12 @@ function UserList(user, visible) {
 
 
 
-window.mxGeometry = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["t" /* mxGeometry */];
+window.mxGeometry = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["u" /* mxGeometry */];
 Wireframe.prototype = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["f" /* mxGraph */]();
 Wireframe.prototype.constructor = Wireframe;
 
 /**
+ * Main class that visualizes a wireframe
  * @classdesc The class represents the visuale representation of the wireframe
  * @constructor
  * @param {DOM} container the div container containning the canvas
@@ -12069,12 +12286,20 @@ function Wireframe(container, model) {
     __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["z" /* mxGraphHandler */].prototype.highlightEnabled = true;
 
     //enables user highlighting and overlay for cells of the wireframe
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__Awareness_js__["a" /* default */])(this);
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__misc_Awareness_js__["a" /* default */])(this);
 
     new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["A" /* mxKeyHandler */](this);
     new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["B" /* mxRubberband */](this);
 
     var sharedAction = null;
+
+    /**
+     * An event for the move of multiple cells
+     * @param {Wireframe} wf the wireframe object
+     * @param {Object} event the event-object
+     * @private
+     * @returns {undefined}
+     */
     var SharedCellsMovedEvent = function (wf, event) {
         var properties = event.getProperties();
         var cells = properties.cells;
@@ -12089,6 +12314,14 @@ function Wireframe(container, model) {
             ids: ids
         };
     };
+
+    /**
+     * An event for the resize of multiple cells
+     * @param {Wireframe} graph the wireframe object
+     * @param {Object} event the event-object
+     * @private
+     * @returns {undefined}
+     */
     var SharedCellResizedEvent = function (graph, event) {
         //Proudly stolen from the docs
         var cells = event.getProperty('cells');
@@ -12142,21 +12375,21 @@ function Wireframe(container, model) {
     });
     that.getSelectionModel().addListener(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].CHANGE, function (sender, event) {
         var deselected = event.getProperty('added');
-        for (var i = 0; i < deselected.length; i++) {
+        for (var i = 0; deselected && i < deselected.length; i++) {
             if (deselected[i].hasOwnProperty('get$node'))
                 deselected[i].get$node().css('pointer-events', 'none');
-                __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["f" /* mxGraph */].prototype.removeCellOverlay.call(that, deselected[i], deselected[i].getEditOverlay());
+            __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["f" /* mxGraph */].prototype.removeCellOverlay.call(that, deselected[i], deselected[i].getEditOverlay());
         }
         var selected = event.getProperty('removed');
         if (selected) {
-            for (var i = 0; i < selected.length && selected[i]; i++) {
+            for (var i = 0; selected && i < selected.length && selected[i]; i++) {
                 var editOverlay = new __WEBPACK_IMPORTED_MODULE_3__overlays_EditOverlay_js__["a" /* default */]();
                 __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["f" /* mxGraph */].prototype.addCellOverlay.call(that, selected[i], editOverlay);
                 editOverlay.bindClickEvent(that);
             }
         }
     });
-    
+
     /**
      * Overrides the moveCells-method from the parent class to make the move NRTC 
      * @param {UIObject[]} cells the cells to move
@@ -12206,6 +12439,13 @@ function Wireframe(container, model) {
         return cells;
     };
 
+    /**
+     * Overrides the addCellOverlay of the mxGraph module
+     * @param {mxCell} cell the cell which will hold the overlay
+     * @param {mxCellOverlay} overlay the overlay to add to the cell
+     * @param {boolean} fromSyncMeta indicates if the event comes from a SyncMeta plugin callback
+     * @returns {undefined}
+     */
     that.addCellOverlay = function (cell, overlay, fromSyncMeta) {
         if (overlay instanceof __WEBPACK_IMPORTED_MODULE_2__overlays_UserOverlay_js__["a" /* default */] || overlay instanceof __WEBPACK_IMPORTED_MODULE_3__overlays_EditOverlay_js__["a" /* default */]) {
             __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["f" /* mxGraph */].prototype.addCellOverlay.apply(this, arguments);
@@ -12214,14 +12454,18 @@ function Wireframe(container, model) {
                 userId: y.db.userId,
                 id: cell.getId(),
                 xml: overlay.toXML(),
-                fromSyncMeta : !fromSyncMeta ? false : true
+                fromSyncMeta: !fromSyncMeta ? false : true
             });
         }
     };
 
+    /**
+     * Update the bounding box of the wireframing editor
+     * @returns {undefined}
+     */
     that.updateBounds = function () {
         var bounds = that.getBoundingBox(that.getDefaultParent().children);
-        if(bounds){
+        if (bounds) {
             __WEBPACK_IMPORTED_MODULE_6_jquery___default()('#wireframeWrap').resizable('option', 'minWidth', bounds.x + bounds.width);
             __WEBPACK_IMPORTED_MODULE_6_jquery___default()('#wireframeWrap').resizable('option', 'minHeight', bounds.y + bounds.height);
         }
@@ -12234,6 +12478,8 @@ function Wireframe(container, model) {
         switch (event.name) {
             case __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].ADD_VERTEX:
                 {
+                    //disable events for the remote user 
+
                     var doc = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].parseXml(event.value.data);
                     var codec = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["b" /* mxCodec */](doc);
                     var type = doc.documentElement.getAttribute('uiType');
@@ -12247,6 +12493,9 @@ function Wireframe(container, model) {
                         cells.push(cell);
                         elt = elt.nextSibling;
                     }
+                    //deactivate ADD_CELLS event for the remote user during transaction
+                    if (event.value.userId !== y.db.userId)
+                        that.setEventsEnabled(false);
                     that.getModel().beginUpdate();
                     try {
                         if (event.value.parent)
@@ -12259,6 +12508,10 @@ function Wireframe(container, model) {
                         that.getModel().endUpdate();
                         if (!event.value.parent)
                             that.updateBounds();
+                        //activate events after transaction
+                        if (event.value.userId !== y.db.userId)
+                            that.setEventsEnabled(true);
+
                     }
                     __WEBPACK_IMPORTED_MODULE_8__HierachyTree_js__["a" /* default */].add(cell);
                     for (var i = 0; i < cells.length; i++) {
@@ -12268,43 +12521,61 @@ function Wireframe(container, model) {
                         that.setSelectionCells(cells);
                         __WEBPACK_IMPORTED_MODULE_6_jquery___default()('#wireframe').focus();
                     }
-
                     break;
                 }
             case __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].MOVE:
                 {
                     var parent = that.getModel().getCell(event.value.parentId);
                     if (event.value.userId !== y.db.userId) {
-                        that.removeListener(SharedCellsMovedEvent);
-                        var cells = __WEBPACK_IMPORTED_MODULE_1__misc_Util_js__["a" /* default */].getCellsFromIdList(that, event.value.ids);
-                        if (cells.length > 0) {
-                            if (event.value.dx != 0 || event.value.dy != 0)
-                                that.moveCells(cells, event.value.dx, event.value.dy, false, parent, null, null, true);
+                        that.getModel().beginUpdate();
+                        try {
+                            that.setEventsEnabled(false);
+                            var cells = __WEBPACK_IMPORTED_MODULE_1__misc_Util_js__["a" /* default */].getCellsFromIdList(that, event.value.ids);
+                            if (cells.length > 0) {
+                                if (event.value.dx != 0 || event.value.dy != 0)
+                                    that.moveCells(cells, event.value.dx, event.value.dy, false, parent, null, null, true);
+                            }
                         }
-                        that.addListener(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].CELLS_MOVED, SharedCellsMovedEvent);
+                        finally {
+                            that.getModel().endUpdate();
+                            that.setEventsEnabled(true);
+                        }
                     }
-                    __WEBPACK_IMPORTED_MODULE_8__HierachyTree_js__["a" /* default */].move(event.value.ids, event.value.parentId, parent.children.length);
+                    for(var i=0;i<event.value.ids.length; i++){
+                        var cell = that.getModel().getCell(event.value.ids[i]);
+                        var parent = that.getModel().getCell(event.value.parentId);
+                        if(cell && parent){
+                            __WEBPACK_IMPORTED_MODULE_8__HierachyTree_js__["a" /* default */].move(event.value.ids, event.value.parentId, parent.getIndex(cell));
+                        }
+                    }
                     that.updateBounds();
                     break;
                 }
             case __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].RESIZE:
                 {
-                    if (event.value.userId !== y.db.userId) {
-                        that.removeListener(SharedCellResizedEvent);
-                        var cells = __WEBPACK_IMPORTED_MODULE_1__misc_Util_js__["a" /* default */].getCellsFromIdList(that, event.value.ids);
-                        var bounds = [];
-                        for (var i = 0; i < event.value.bounds.length; i++) {
-                            var bound = event.value.bounds[i];
-                            bounds.push(new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["n" /* mxRectangle */](bound.x, bound.y, bound.width, bound.height));
+                    var bounds = [];
+                    for (var i = 0; i < event.value.bounds.length; i++) {
+                        var bound = event.value.bounds[i];
+                        bounds.push(new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["n" /* mxRectangle */](bound.x, bound.y, bound.width, bound.height));
+                        var cell = that.model.getCell(event.value.ids[i]);
+                        if (cell && cell.hasOwnProperty('get$node')) {
+                            var $node = cell.get$node();
+                            $node.css('width', bound.width).css('height', bound.height);
                         }
+                    }
+                    if (event.value.userId !== y.db.userId) {
+                       
+                        var cells = __WEBPACK_IMPORTED_MODULE_1__misc_Util_js__["a" /* default */].getCellsFromIdList(that, event.value.ids);
+
                         if (cells.length > 0) {
                             that.getModel().beginUpdate();
                             try {
+                                that.setEventsEnabled(false);                                
                                 that.resizeCells(cells, bounds, false, true);
                             } finally {
                                 that.getModel().endUpdate();
                                 that.updateBounds();
-                                that.addListener(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["d" /* mxEvent */].CELLS_RESIZED, SharedCellResizedEvent);
+                                that.setEventsEnabled(true);
                             }
                         }
                     }
@@ -12317,7 +12588,7 @@ function Wireframe(container, model) {
                     codec.decode = function (node, into) {
                         var obj = null;
                         if (node != null && node.nodeType == __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].NODETYPE_ELEMENT) {
-                            var dec = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["k" /* mxCodecRegistry */].getCodec(node.nodeName);
+                            var dec = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["l" /* mxCodecRegistry */].getCodec(node.nodeName);
                             if (dec != null) {
                                 obj = dec.decode(this, node, into);
                             } else {
@@ -12334,14 +12605,14 @@ function Wireframe(container, model) {
                         __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["f" /* mxGraph */].prototype.addCellOverlay.apply(that, [cell, tag]);
                         cell.addTag(tag);
                         tag.setCell(cell);
-                        if(tag.hasOwnProperty('initAttributes')) tag.initAttributes();
+                        if (tag.hasOwnProperty('initAttributes')) tag.initAttributes();
                         tag.createShared(y.db.userId === event.value.userId);
                         tag.bindClickEvent(that);
                         var ref = __WEBPACK_IMPORTED_MODULE_6_jquery___default()('#' + cell.getId() + '_tagTree').jstree(true);
                         if (ref) {
                             ref.create_node(null, {
                                 id: tag.tagObj.getAttribute('id'),
-                                type:  tag.tagObj.getAttribute('tagType'),
+                                type: tag.tagObj.getAttribute('tagType'),
                                 text: tag.constructor.Alias || tag.tagObj.getAttribute('tagType'),
                                 state: {
                                     selected: false,
@@ -12369,8 +12640,7 @@ function Wireframe(container, model) {
                     cell.addTag(tag);
                     break;
                 }
-            case __WEBPACK_IMPORTED_MODULE_7__misc_Constants_js__["a" /* default */].ACTIONS.DELETE_TAG:
-                {
+            case __WEBPACK_IMPORTED_MODULE_7__misc_Constants_js__["a" /* default */].ACTIONS.DELETE_TAG:{
                     var $tree = __WEBPACK_IMPORTED_MODULE_6_jquery___default()('#' + event.value.cellId + '_tagTree');
                     if ($tree.length > 0)
                         $tree.jstree(true).delete_node(event.value.selected);
@@ -12416,9 +12686,8 @@ function Wireframe(container, model) {
                     }
                     break;
                 }
-            case __WEBPACK_IMPORTED_MODULE_7__misc_Constants_js__["a" /* default */].ACTIONS.RENAME_TAG:
-                {
-                    //TODO
+            case __WEBPACK_IMPORTED_MODULE_7__misc_Constants_js__["a" /* default */].ACTIONS.RENAME_TAG:{
+                    //Not implemented, but maybe it might be a necessary feature in the future, but for now not required
                     break;
                 }
             case __WEBPACK_IMPORTED_MODULE_7__misc_Constants_js__["a" /* default */].ACTIONS.SHARED.APPLY_LAYOUT: {
@@ -12428,25 +12697,25 @@ function Wireframe(container, model) {
                 var cell;
                 if (event.value.cellId)
                     cell = that.getModel().getCell(event.value.cellId);
-                else 
+                else
                     cell = that.getDefaultParent();
 
-                if(!event.value.recursive)
+                if (!event.value.recursive)
                     layout.execute(cell);
                 else {
-                    var applyLayoutRecusively = function(parent){
-                        if(parent.children && parent.children.length < 1 ) return;
-                        for(var i=0;i<parent.children.length;i++){
+                    var applyLayoutRecusively = function (parent) {
+                        if (parent.children && parent.children.length < 1) return;
+                        for (var i = 0; i < parent.children.length; i++) {
                             var child = parent.children[i];
-                            if(child.constructor.name === 'DivContainer'){
+                            if (child.constructor.name === 'DivContainer') {
                                 layout.execute(child);
-                                applyLayoutRecusively(child);   
+                                applyLayoutRecusively(child);
                             }
                         }
                     }
                     applyLayoutRecusively(cell);
                     layout.execute(cell);
-                    
+
                 }
                 break;
             }
@@ -12458,52 +12727,16 @@ function Wireframe(container, model) {
     //--------------------------------------End Yjs Observer for actions------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------------
 
+    /**
+     * Convert a value of the cell to string which is displayed as a label
+     * @param {mxCell} cell the cell
+     * @returns {DOM} the dom element 
+     */
     that.convertValueToString = function (cell) {
         if (__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].isNode(cell.value)) {
             if (cell.hasOwnProperty('get$node')) {
-                if (!cell.get$node()) cell.initDOM();
-                /*mxEvent.addListener(cell.get$node()[0], 'change', function () {
-                    var elt = cell.value.cloneNode(true);
-                    elt.setAttribute('label', cell.get$node().val());
-                    that.model.setValue(cell, elt);
-                    Util.Save(that);
-                });*/
-                cell.get$node().css('width', cell.geometry.width - 15).css('height', cell.geometry.height - 15);
-
-                switch (cell.value.getAttribute('uiType').toLowerCase()) {
-                    case 'link':
-                    case 'textbox':
-                    case 'button':
-                    case 'textnode':
-                        {
-                            cell.get$node().click(function () {
-                                that.getSelectionModel().setCell(cell);
-                            });
-                            break;
-                        }
-                    case 'paragraph':
-                    case 'textarea':
-                        {
-                            cell.get$node().click(function () {
-                                this.focus();
-                                this.setSelectionRange(this.value.length, this.value.length);
-                            });
-
-                            cell.get$node().dblclick(function () {
-                                this.focus();
-                                this.setSelectionRange(0, this.value.length);
-                            })
-                            break;
-                        }
-                    case 'radiobutton':
-                    case 'checkbox':
-                        {
-                            cell.get$node().find('input[type="input"]').click(function () {
-                                that.getSelectionModel().setCell(cell);
-                            });
-                            break;
-                        }
-                }
+                if (!cell.get$node())
+                    cell.initDOM();
                 return cell.get$node()[0];
             }
         }
@@ -12512,15 +12745,19 @@ function Wireframe(container, model) {
 /* harmony default export */ __webpack_exports__["a"] = (Wireframe);
 
 /***/ }),
-/* 80 */
+/* 78 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
+/**
+ * @module WireframeEditor
+ */
 
 __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].extend(WireframeLayout, __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["C" /* mxPartitionLayout */]);
 
 /**
+ * A simple layout for wireframes based on the partition layout
  * @classdesc A simple Layout for Wireframes based on the PartitionLayout from mxGraph
  * @constructor
  * @param {Wireframe} graph the wireframe 
@@ -12624,20 +12861,23 @@ WireframeLayout.prototype.execute = function (parent) {
 /* harmony default export */ __webpack_exports__["a"] = (WireframeLayout);
 
 /***/ }),
-/* 81 */
+/* 79 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_yjs_dist_y_js__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_yjs_dist_y_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__node_modules_yjs_dist_y_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__misc_ComboAttributeMap_js__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__misc_Util_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__misc_Util_js__ = __webpack_require__(8);
 /*global y*/
+/**
+ * @module WireframeEditor
+ */
 
 
 
@@ -12647,12 +12887,13 @@ WireframeLayout.prototype.execute = function (parent) {
 
 __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].extend(WireframeModel, __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["E" /* mxGraphModel */]);
 
-var codec = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["k" /* mxCodecRegistry */].getCodec(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["E" /* mxGraphModel */]);
+var codec = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["l" /* mxCodecRegistry */].getCodec(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["E" /* mxGraphModel */]);
 codec.template = new WireframeModel();
-__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["k" /* mxCodecRegistry */].addAlias('WireframeModel', 'mxGraphModel');
+__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["l" /* mxCodecRegistry */].addAlias('WireframeModel', 'mxGraphModel');
 window.WireframeModel = WireframeModel;
 
 /**
+ * The data model of the wireframing editor
  * @classdesc The conceptual model behind the wireframe
  * @constructor
  * @extends mxGraphModel
@@ -12787,76 +13028,28 @@ function WireframeModel() {
 /* harmony default export */ __webpack_exports__["a"] = (WireframeModel);
 
 /***/ }),
-/* 82 */
+/* 80 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UIMedia_js__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__UIText_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__misc_mxExport_js__ = __webpack_require__(0);
 /**
- * @module UIElements
- */
-
-
-
-AudioPlayer.prototype = new __WEBPACK_IMPORTED_MODULE_1__UIMedia_js__["a" /* default */]();
-AudioPlayer.prototype.constructor = AudioPlayer;
-window.AudioPlayer = AudioPlayer;
-__WEBPACK_IMPORTED_MODULE_1__UIMedia_js__["a" /* default */].registerCodec(AudioPlayer);
-
-/**
- * The HTML node name
- * @static 
- * @default audio
- * @readonly
- */
-AudioPlayer.HTML_NODE_NAME = 'audio';
-
-/**
- * The Name in the wireframing editor
- * @static 
- * @default AudioPlayer
- * @readonly
- */
-AudioPlayer.NAME = "Audio Player";
-
-/**
- * @classdesc The Audio Player HTML 5 element
- * @constructor
- * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 200, 30)] the width, height, x and y of the ui element
- * @extends UIMedia
- */
-function AudioPlayer(geometry) {
-    if (!geometry)
-        geometry = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["t" /* mxGeometry */](0, 0, 200, 30);
-    //style in html5stencils.xml and registered in the editor
-    var style = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + "=AudioPlayer;" +
-        __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_FILLCOLOR + "=none;" +
-        __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_STROKECOLOR + '=grey;' +
-        __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_ASPECT + '=fixed;' +
-        __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_EDITABLE + "=0;";
-
-    __WEBPACK_IMPORTED_MODULE_1__UIMedia_js__["a" /* default */].call(this, geometry, style);
-}
-/* harmony default export */ __webpack_exports__["a"] = (AudioPlayer);
-
-/***/ }),
-/* 83 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UIText_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__ = __webpack_require__(1);
-/**
- * @module UIElements
+ * @module UIElements/Basic
  */
 
 
 
 
-Button.prototype = new __WEBPACK_IMPORTED_MODULE_0__UIText_js__["a" /* default */]();
+
+
+Button.prototype = new __WEBPACK_IMPORTED_MODULE_2__UIText_js__["a" /* default */]();
 Button.prototype.constructor = Button;
-__WEBPACK_IMPORTED_MODULE_0__UIText_js__["a" /* default */].registerCodec(Button);
+__WEBPACK_IMPORTED_MODULE_2__UIText_js__["a" /* default */].registerCodec(Button);
 //Global for the codec converter
 window.Button = Button;
 
@@ -12892,9 +13085,9 @@ function Button(geometry) {
     var text = 'Button';
 
     if (!geometry)
-        geometry = new __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["t" /* mxGeometry */](0, 0, 100, 50);
+        geometry = new __WEBPACK_IMPORTED_MODULE_3__misc_mxExport_js__["u" /* mxGeometry */](0, 0, 100, 50);
 
-    __WEBPACK_IMPORTED_MODULE_0__UIText_js__["a" /* default */].call(this, text, geometry);
+    __WEBPACK_IMPORTED_MODULE_2__UIText_js__["a" /* default */].call(this, text, geometry);
     this.value.setAttribute('_disabled', false);
     this.value.setAttribute('_autofocus', false);
     this.value.setAttribute('_type', 'button');
@@ -12906,14 +13099,18 @@ function Button(geometry) {
      * @override
      */
     this.initDOM = function () {
-        __WEBPACK_IMPORTED_MODULE_0__UIText_js__["a" /* default */].prototype.initDOM.call(this);
-        var $node = this.get$node();
-        $node.css('text-align', 'center')
-            .css('border-radius', '12px')
-            .css('background-color', 'rgb(227, 227, 228)')
-            .css('border-style', 'ridge')
-            .val(text);
-        this.set$node($node);
+        var $button = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(document.createElement('button'));
+        $button.attr('disabled', true)
+        .css('width', this.geometry.width)
+        .css('height', this.geometry.height)
+        .append(
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(document.createElement('input')).css('text-align', 'center')
+            //.css('border-radius', '12px')
+            .css('background-color', 'transparent')
+            .css('border-style', 'unset')
+            .css('width', '100%')
+            .val(text));
+        this.set$node($button);
     }
 
     /**
@@ -12922,31 +13119,36 @@ function Button(geometry) {
      * @return {undefined}
      */
     this.createShared = function (createdByLocalUser) {
-        __WEBPACK_IMPORTED_MODULE_0__UIText_js__["a" /* default */].prototype.createShared.call(this, createdByLocalUser);
+        __WEBPACK_IMPORTED_MODULE_2__UIText_js__["a" /* default */].prototype.createShared.call(this, createdByLocalUser);
     };
 }
 
-/**
- * Init shared content for the button
- * @override
- */
-Button.prototype.initShared = function(){
-    __WEBPACK_IMPORTED_MODULE_0__UIText_js__["a" /* default */].prototype.initShared.call(this);
+Button.prototype.bindLabel = function(ytext){
+    var that = this;
+    ytext.bind(this.get$node().find('input')[0]);
+    ytext.observe(__WEBPACK_IMPORTED_MODULE_1_lodash___default.a.debounce(function(event){
+        that.value.setAttribute('label', event.object.toString());
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.wfSave').click();
+    }, 300));
+
 }
 /* harmony default export */ __webpack_exports__["a"] = (Button);
 
 /***/ }),
-/* 84 */
+/* 81 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UIText_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UIText_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__misc_mxExport_js__ = __webpack_require__(0);
 /**
- * @module UIElements
+ * @module UIElements/Basic
  */
+
 
 
 
@@ -12965,6 +13167,15 @@ window.CheckBox = CheckBox;
 CheckBox.NAME = "Checkbox";
 
 /**
+ * The HTML node name
+ * @static 
+ * @default button
+ * @readonly
+ */
+CheckBox.HTML_NODE_NAME = 'checkbox';
+
+/**
+ * A HTML checkbox with label
  * @classdesc A HTMl checkbox element
  * @constructor
  * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 150, 30)] the width, height, x and y of the ui element
@@ -12973,7 +13184,7 @@ CheckBox.NAME = "Checkbox";
 function CheckBox(geometry) {
     var text = 'Option';
     if (!geometry)
-        geometry = new __WEBPACK_IMPORTED_MODULE_2__misc_mxExport_js__["t" /* mxGeometry */](0, 0, 150, 30);
+        geometry = new __WEBPACK_IMPORTED_MODULE_3__misc_mxExport_js__["u" /* mxGeometry */](0, 0, 150, 30);
     __WEBPACK_IMPORTED_MODULE_0__UIText_js__["a" /* default */].call(this, text, geometry);
     this.value.setAttribute('_checked', false);
     this.value.setAttribute('_autofocus', false);
@@ -12996,6 +13207,11 @@ function CheckBox(geometry) {
 }
 CheckBox.prototype.bindLabel = function(ytext){
     ytext.bind(this.get$node().find('input[type="input"]')[0]);
+    var that = this;    
+    ytext.observe(__WEBPACK_IMPORTED_MODULE_2_lodash___default.a.debounce(function(event){
+        that.value.setAttribute('label', event.object.toString());
+        __WEBPACK_IMPORTED_MODULE_1_jquery___default()('.wfSave').click();
+    }, 300));
 }
 
 CheckBox.prototype.initShared = function () {
@@ -13004,14 +13220,68 @@ CheckBox.prototype.initShared = function () {
 /* harmony default export */ __webpack_exports__["a"] = (CheckBox);
 
 /***/ }),
-/* 85 */
+/* 82 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UIControl_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UIControl_js__ = __webpack_require__(5);
 /**
- * @module UIElements
+ * @module UIElements/Basic
+ */
+
+
+
+DescriptionList.prototype = new __WEBPACK_IMPORTED_MODULE_1__UIControl_js__["a" /* default */]();
+DescriptionList.prototype.constructor = DescriptionList;
+
+/**
+ * The HTML node name
+ * @static 
+ * @default dl
+ * @readonly
+ */
+DescriptionList.HTML_NODE_NAME = 'dl';
+
+/**
+ * The Name in the wireframing editor
+ * @static 
+ * @default DescriptionList
+ * @readonly
+ */
+DescriptionList.NAME = "Description List";
+
+window.DescriptionList = DescriptionList;
+
+var codec = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].clone(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["l" /* mxCodecRegistry */].getCodec(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["t" /* mxCell */]));
+codec.template = new DescriptionList();
+__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["l" /* mxCodecRegistry */].register(codec);
+
+/**
+ * A HTML description list
+ * @classdesc A HTMl description list
+ * @constructor
+ * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 128, 128)] the width, height, x and y of the ui element
+ * @extends UIControl
+ */
+function DescriptionList(geometry) {
+    if(!geometry)
+        geometry = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["u" /* mxGeometry */](0, 0, 128, 128);
+    var style = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=dl;' +
+        __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_EDITABLE + "=0;";
+    __WEBPACK_IMPORTED_MODULE_1__UIControl_js__["a" /* default */].call(this, geometry, style);
+}
+/* harmony default export */ __webpack_exports__["a"] = (DescriptionList);
+
+/***/ }),
+/* 83 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UIControl_js__ = __webpack_require__(5);
+/**
+ * @module UIElements/Basic
  */
 
 
@@ -13038,6 +13308,7 @@ DivContainer.HTML_NODE_NAME = 'div';
 DivContainer.NAME = "UI Component Container";
 
 /**
+ * A Container for UI control elements. Corresponds to the HTML div-element
  * @classdesc A HTMl div element
  * @constructor
  * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 180, 150)] the width, height, x and y of the ui element
@@ -13045,7 +13316,7 @@ DivContainer.NAME = "UI Component Container";
  */
 function DivContainer(geometry) {
     if (!geometry)
-        geometry = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["t" /* mxGeometry */](0, 0, 180, 150);
+        geometry = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["u" /* mxGeometry */](0, 0, 180, 150);
     var style = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + "=" + __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].SHAPE_SWIMLANE + ';' +
         __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_FILLCOLOR + "=none;" +
         __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_POINTER_EVENTS + "=true;" +
@@ -13053,100 +13324,29 @@ function DivContainer(geometry) {
         __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_VERTICAL_ALIGN + '=middle;' +
         __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_LABEL_BACKGROUNDCOLOR + '=none;' +
         __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_FONTSIZE + '=11;' +
-        __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_STARTSIZE + '=13;' +
+        __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_STARTSIZE + '=0;' +
         //mxConstants.STYLE_HORIZONTAL + '=false;' +
         __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_FONTCOLOR + '=rgba(91, 93, 90, 0.25);' +
         __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_EDITABLE + "=0;"; 
 
     __WEBPACK_IMPORTED_MODULE_1__UIControl_js__["a" /* default */].call(this, geometry, style);
-    this.setAttribute('label', 'Container');
+    //this.setAttribute('label', 'Container');
     this.setConnectable(false);
 }
 /* harmony default export */ __webpack_exports__["a"] = (DivContainer);
 
 /***/ }),
-/* 86 */
+/* 84 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__UIControl_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UIText_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__misc_mxExport_js__ = __webpack_require__(0);
 /*global y*/
 /**
- * @module UIElements
- */
-
-
-
-
-Image.prototype = new __WEBPACK_IMPORTED_MODULE_2__UIControl_js__["a" /* default */]();
-Image.prototype.constructor = Image;
-
-/**
- * The HTML node name
- * @static 
- * @default img
- * @readonly
- */
-Image.HTML_NODE_NAME = 'img';
-
-/**
- * The Name in the wireframing editor
- * @static 
- * @default Image
- * @readonly
- */
-Image.NAME = "Image";
-
-window.Image = Image;
-
-var codec = __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["c" /* mxUtils */].clone(__WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["k" /* mxCodecRegistry */].getCodec(__WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["u" /* mxCell */]));
-codec.template = new Image();
-__WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["k" /* mxCodecRegistry */].register(codec);
-
-/**
- * @classdesc A HTMl image element
- * @constructor
- * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 128, 128)] the width, height, x and y of the ui element
- * @extends UIMedia
- */
-function Image(geometry) {
-    if(!geometry)
-        geometry = new __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["t" /* mxGeometry */](0, 0, 128, 128);
-    //style in html5stencils.xml and registered in the editor
-    var style = __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=image;' +
-        __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["i" /* mxConstants */].STYLE_EDITABLE + "=0;";
-
-    __WEBPACK_IMPORTED_MODULE_2__UIControl_js__["a" /* default */].call(this, geometry, style);
-    this.setAttribute('_src','');
-}
-Image.prototype.createShared = function(createdByLocalUser){
-    __WEBPACK_IMPORTED_MODULE_2__UIControl_js__["a" /* default */].prototype.createShared.call(this, createdByLocalUser);
-    if(createdByLocalUser){
-        y.share.attrs.set(this.getId()+'_src', __WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js___default.a.Text);
-    }
-}
-
-Image.prototype.initShared = function(){
-    __WEBPACK_IMPORTED_MODULE_2__UIControl_js__["a" /* default */].prototype.initShared.call(this);
-    this.initYText('_src');
-}
-/* harmony default export */ __webpack_exports__["a"] = (Image);
-
-/***/ }),
-/* 87 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UIText_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__misc_mxExport_js__ = __webpack_require__(1);
-/*global y*/
-/**
- * @module UIElements
+ * @module UIElements/Basic
  */
 
 
@@ -13175,7 +13375,8 @@ Link.NAME = "Link";
 window.Link = Link;
 
 /**
- * @classdesc A HTMl link element
+ * A HTML <link>
+ * @classdesc A HTML link element
  * @constructor
  * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 50, 30)] the width, height, x and y of the ui element
  * @extends UIMedia
@@ -13183,7 +13384,7 @@ window.Link = Link;
 function Link(geometry) {
     var text = 'Link';
     if(!geometry)
-        geometry = new __WEBPACK_IMPORTED_MODULE_2__misc_mxExport_js__["t" /* mxGeometry */](0, 0, 50, 30)
+        geometry = new __WEBPACK_IMPORTED_MODULE_2__misc_mxExport_js__["u" /* mxGeometry */](0, 0, 50, 30)
     __WEBPACK_IMPORTED_MODULE_1__UIText_js__["a" /* default */].call(this, text, geometry);
     this.value.setAttribute('_href', '');
 
@@ -13227,14 +13428,122 @@ Link.prototype.initShared = function(){
 /* harmony default export */ __webpack_exports__["a"] = (Link);
 
 /***/ }),
-/* 88 */
+/* 85 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UIText_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UIControl_js__ = __webpack_require__(5);
 /**
- * @module UIElements
+ * @module UIElements/Basic
+ */
+
+
+
+List.prototype = new __WEBPACK_IMPORTED_MODULE_1__UIControl_js__["a" /* default */]();
+List.prototype.constructor = List;
+
+/**
+ * The HTML node name
+ * @static 
+ * @default ul
+ * @readonly
+ */
+List.HTML_NODE_NAME = 'ul';
+
+/**
+ * The Name in the wireframing editor
+ * @static 
+ * @default List
+ * @readonly
+ */
+List.NAME = "List";
+
+window.List = List;
+
+var codec = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].clone(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["l" /* mxCodecRegistry */].getCodec(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["t" /* mxCell */]));
+codec.template = new List();
+__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["l" /* mxCodecRegistry */].register(codec);
+
+/**
+ * A HTML List element. <ul>
+ * @classdesc A HTMl list element
+ * @constructor
+ * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 128, 128)] the width, height, x and y of the ui element
+ * @extends UIControl
+ */
+function List(geometry) {
+    if(!geometry)
+        geometry = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["u" /* mxGeometry */](0, 0, 128, 128);
+    var style = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=ul;' +
+        __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_EDITABLE + "=0;";
+    __WEBPACK_IMPORTED_MODULE_1__UIControl_js__["a" /* default */].call(this, geometry, style);
+}
+/* harmony default export */ __webpack_exports__["a"] = (List);
+
+/***/ }),
+/* 86 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UIControl_js__ = __webpack_require__(5);
+/**
+ * @module UIElements/Basic
+ */
+
+
+
+OrderedList.prototype = new __WEBPACK_IMPORTED_MODULE_1__UIControl_js__["a" /* default */]();
+OrderedList.prototype.constructor = OrderedList;
+
+/**
+ * The HTML node name
+ * @static 
+ * @default ol
+ * @readonly
+ */
+OrderedList.HTML_NODE_NAME = 'ol';
+
+/**
+ * The Name in the wireframing editor
+ * @static 
+ * @default OrderedList
+ * @readonly
+ */
+OrderedList.NAME = "Ordered List";
+
+window.OrderedList = OrderedList;
+
+var codec = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].clone(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["l" /* mxCodecRegistry */].getCodec(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["t" /* mxCell */]));
+codec.template = new OrderedList();
+__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["l" /* mxCodecRegistry */].register(codec);
+
+/**
+ * An ordered list. <ol>
+ * @classdesc A HTMl ordered list
+ * @constructor
+ * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 128, 128)] the width, height, x and y of the ui element
+ * @extends UIControl
+ */
+function OrderedList(geometry) {
+    if(!geometry)
+        geometry = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["u" /* mxGeometry */](0, 0, 128, 128);
+    var style = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=ol;' +
+        __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_EDITABLE + "=0;";
+    __WEBPACK_IMPORTED_MODULE_1__UIControl_js__["a" /* default */].call(this, geometry, style);
+}
+/* harmony default export */ __webpack_exports__["a"] = (OrderedList);
+
+/***/ }),
+/* 87 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UIText_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__ = __webpack_require__(0);
+/**
+ * @module UIElements/Basic
  */
 
 
@@ -13260,6 +13569,7 @@ Paragraph.HTML_NODE_NAME = 'p';
 Paragraph.NAME = "Paragraph of Text";
 
 /**
+ * A paragraph of text. <p>
  * @classdesc A HTMl paragraph element
  * @constructor
  * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 150, 35)] the width, height, x and y of the ui element
@@ -13268,7 +13578,7 @@ Paragraph.NAME = "Paragraph of Text";
 function Paragraph(geometry) {
     var text = 'Some text for this paragraph';
     if(!geometry)
-        geometry = new __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["t" /* mxGeometry */](0, 0, 150, 35);
+        geometry = new __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["u" /* mxGeometry */](0, 0, 150, 35);
     __WEBPACK_IMPORTED_MODULE_0__UIText_js__["a" /* default */].call(this, text, geometry);
 
     this.initDOM = function () {
@@ -13287,17 +13597,20 @@ function Paragraph(geometry) {
 /* harmony default export */ __webpack_exports__["a"] = (Paragraph);
 
 /***/ }),
-/* 89 */
+/* 88 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UIText_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UIText_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__misc_mxExport_js__ = __webpack_require__(0);
 /**
- * @module UIElements
+ * @module UIElements/Basic
  */
+
 
 
 
@@ -13316,18 +13629,36 @@ window.RadioButton = RadioButton;
  */
 RadioButton.NAME = "Radio Button";
 
+/**
+ * The HTML node name
+ * @static 
+ * @default radio
+ * @readonly
+ */
+RadioButton.HTML_NODE_NAME = 'radio';
+
+/**
+ * A radio button with label
+ * @classdesc A radio button element
+ * @param {mxGeometry} geometry the geometry object which holds the size and position of the element
+ * @constructor
+ * @extends UIText
+ */
 function RadioButton(geometry) {
     var text = 'Option';
     if (!geometry)
-        geometry = new __WEBPACK_IMPORTED_MODULE_2__misc_mxExport_js__["t" /* mxGeometry */](0, 0, 150, 30);
+        geometry = new __WEBPACK_IMPORTED_MODULE_3__misc_mxExport_js__["u" /* mxGeometry */](0, 0, 150, 30);
     __WEBPACK_IMPORTED_MODULE_0__UIText_js__["a" /* default */].call(this, text, geometry);
     this.value.setAttribute('_checked', false);
     this.value.setAttribute('_autofocus', false);
     this.value.setAttribute('_disabled', false);
 
+    /**
+     * Intialize the DOM elements for the label
+     * @returns {undefined}
+     */
     this.initDOM = function () {
-        this.set$node
-            (__WEBPACK_IMPORTED_MODULE_1_jquery___default()('<div>')
+        this.set$node(__WEBPACK_IMPORTED_MODULE_1_jquery___default()('<div>')
                 .css('pointer-events', 'none')
                 .append(__WEBPACK_IMPORTED_MODULE_1_jquery___default()('<input>').attr('type', 'radio').attr('checked', true))
                 .append(__WEBPACK_IMPORTED_MODULE_1_jquery___default()('<input>').attr('type', 'input')
@@ -13338,16 +13669,84 @@ function RadioButton(geometry) {
                     .css('border-style', 'initial')
                     .val(text)));
     }
-    return this;
-}
-RadioButton.prototype.bindLabel = function (ytext) {
-    ytext.bind(this.get$node().find('input[type="input"]')[0]);
 }
 
+/**
+ * Bind the text input element for the label
+ * @param {Y.Text} ytext the y-text which is used for binding
+ * @returns {undefined}
+ */
+RadioButton.prototype.bindLabel = function (ytext) {
+    ytext.bind(this.get$node().find('input[type="input"]')[0]);
+    var that = this;    
+    ytext.observe(__WEBPACK_IMPORTED_MODULE_2_lodash___default.a.debounce(function(event){
+        that.value.setAttribute('label', event.object.toString());
+        __WEBPACK_IMPORTED_MODULE_1_jquery___default()('.wfSave').click();
+    }, 300));
+}
+
+/**
+ * Initialize the shared data objects
+ * @returns {undefined}
+ */
 RadioButton.prototype.initShared = function () {
     __WEBPACK_IMPORTED_MODULE_0__UIText_js__["a" /* default */].prototype.initShared.call(this);
 }
 /* harmony default export */ __webpack_exports__["a"] = (RadioButton);
+
+/***/ }),
+/* 89 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UIControl_js__ = __webpack_require__(5);
+/**
+ * @module UIElements/Basic
+ */
+
+
+
+Table.prototype = new __WEBPACK_IMPORTED_MODULE_1__UIControl_js__["a" /* default */]();
+Table.prototype.constructor = Table;
+
+/**
+ * The HTML node name
+ * @static 
+ * @default table
+ * @readonly
+ */
+Table.HTML_NODE_NAME = 'table';
+
+/**
+ * The Name in the wireframing editor
+ * @static 
+ * @default Table
+ * @readonly
+ */
+Table.NAME = "Table";
+
+window.Table = Table;
+
+var codec = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].clone(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["l" /* mxCodecRegistry */].getCodec(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["t" /* mxCell */]));
+codec.template = new Table();
+__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["l" /* mxCodecRegistry */].register(codec);
+
+/**
+ * A HTML table
+ * @classdesc A HTMl <table>-element
+ * @constructor
+ * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 128, 128)] the width, height, x and y of the ui element
+ * @extends UIControl
+ */
+function Table(geometry) {
+    if(!geometry)
+        geometry = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["u" /* mxGeometry */](0, 0, 128, 128);
+    var style = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=table;' +
+        __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_EDITABLE + "=0;";
+    __WEBPACK_IMPORTED_MODULE_1__UIControl_js__["a" /* default */].call(this, geometry, style);
+}
+/* harmony default export */ __webpack_exports__["a"] = (Table);
 
 /***/ }),
 /* 90 */
@@ -13356,11 +13755,11 @@ RadioButton.prototype.initShared = function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UIText_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UIText_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__misc_mxExport_js__ = __webpack_require__(0);
 /*global y*/
 /**
- * @module UIElements
+ * @module UIElements/Basic
  */
 
 
@@ -13388,7 +13787,8 @@ TextArea.HTML_NODE_NAME = 'textarea';
 TextArea.NAME = "Multi-Line Text Area";
 
 /**
- * @classdesc A HTMl textarea element
+ * A HTML text area
+ * @classdesc A HTMl <textarea>-element
  * @constructor
  * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 200, 55)] the width, height, x and y of the ui element
  * @extends UIText
@@ -13397,7 +13797,7 @@ function TextArea(geometry) {
     var text = 'Multi-Line text input area';
     // var text = 'hallo';
     if (!geometry)
-        geometry = new __WEBPACK_IMPORTED_MODULE_2__misc_mxExport_js__["t" /* mxGeometry */](0, 0, 200, 55);
+        geometry = new __WEBPACK_IMPORTED_MODULE_2__misc_mxExport_js__["u" /* mxGeometry */](0, 0, 200, 55);
 
     __WEBPACK_IMPORTED_MODULE_1__UIText_js__["a" /* default */].call(this, text, geometry);
     this.value.setAttribute('_placeholder', '');
@@ -13441,10 +13841,10 @@ TextArea.prototype.initShared = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UIText_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UIText_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__ = __webpack_require__(0);
 /**
- * @module UIElements
+ * @module UIElements/Basic
  */
 
 
@@ -13467,14 +13867,15 @@ TextBox.HTML_NODE_NAME = 'input';
  * @readonly
  */
 TextBox.NAME = "TextBox";
-var codec = __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["c" /* mxUtils */].clone(__WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["k" /* mxCodecRegistry */].getCodec(__WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["u" /* mxCell */]));
+var codec = __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["c" /* mxUtils */].clone(__WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["l" /* mxCodecRegistry */].getCodec(__WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["t" /* mxCell */]));
 codec.template = new TextBox();
 codec.isCellCodec   = function(){return true;};
-__WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["k" /* mxCodecRegistry */].register(codec);
+__WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["l" /* mxCodecRegistry */].register(codec);
 window.TextBox = TextBox;
 
 /**
- * @classdesc A HTMl textbox element
+ * A text box element
+ * @classdesc A HTMl <span>-element
  * @constructor
  * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 120, 30)] the width, height, x and y of the ui element
  * @extends UIText
@@ -13482,7 +13883,7 @@ window.TextBox = TextBox;
 function TextBox(geometry) {
     var text = 'Some Text...';
     if(!geometry)
-        geometry = new __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["t" /* mxGeometry */](0, 0, 120, 30);
+        geometry = new __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["u" /* mxGeometry */](0, 0, 120, 30);
     __WEBPACK_IMPORTED_MODULE_0__UIText_js__["a" /* default */].call(this, text, geometry);
     this.setAttribute('_autofocus', false);
     this.setAttribute('_disabled', false);
@@ -13506,10 +13907,10 @@ TextBox.prototype.initShared = function(){
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UIText_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UIText_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__ = __webpack_require__(0);
 /**
- * @module UIElements
+ * @module UIElements/Basic
  */
 
 
@@ -13526,7 +13927,7 @@ window.TextNode = TextNode;
  * @default text
  * @readonly
  */
-TextNode.HTML_NODE_NAME = 'text';
+TextNode.HTML_NODE_NAME = 'span';
 
 /**
  * The Name in the wireframing editor
@@ -13537,7 +13938,8 @@ TextNode.HTML_NODE_NAME = 'text';
 TextNode.NAME = "Text Node";
 
 /**
- * @classdesc A HTMl textnode element
+ * A simple element to represent text
+ * @classdesc A HTMl <span>-element
  * @constructor
  * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 75, 30)] the width, height, x and y of the ui element
  * @extends UIText
@@ -13545,7 +13947,7 @@ TextNode.NAME = "Text Node";
 function TextNode(geometry) {
     var text = 'text';
     if(!geometry)
-        geometry = new __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["t" /* mxGeometry */](0, 0, 75, 30);
+        geometry = new __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["u" /* mxGeometry */](0, 0, 75, 30);
     __WEBPACK_IMPORTED_MODULE_0__UIText_js__["a" /* default */].call(this, text, geometry);
 
     this.initDOM = function(element){
@@ -13570,11 +13972,322 @@ function TextNode(geometry) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__UIControl_js__ = __webpack_require__(5);
+/*global y*/
+/**
+ * @module UIElements/Custom
+ */
+
+
+
+
+PoylmerElement.prototype = new __WEBPACK_IMPORTED_MODULE_2__UIControl_js__["a" /* default */]();
+PoylmerElement.prototype.constructor = PoylmerElement;
+
+/**
+ * The HTML node name
+ * @static 
+ * @default CUSTOM
+ * @readonly
+ */
+PoylmerElement.HTML_NODE_NAME = 'CUSTOM';
+
+/**
+ * The Name in the wireframing editor
+ * @static 
+ * @default Polymer
+ * @readonly
+ */
+PoylmerElement.NAME = "Polymer";
+
+window.PoylmerElement = PoylmerElement;
+
+var codec = __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["c" /* mxUtils */].clone(__WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["l" /* mxCodecRegistry */].getCodec(__WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["t" /* mxCell */]));
+codec.template = new PoylmerElement();
+__WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["l" /* mxCodecRegistry */].register(codec);
+
+/**
+ * Represent a polymer element
+ * @classdesc A Polymer element
+ * @constructor
+ * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 128, 128)] the width, height, x and y of the ui element
+ * @extends UIControl
+ */
+function PoylmerElement(geometry) {
+    if(!geometry)
+        geometry = new __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["u" /* mxGeometry */](0, 0, 128, 128);
+    //style in html5stencils.xml and registered in the editor
+    var style = __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=polymer;' +
+        __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["i" /* mxConstants */].STYLE_EDITABLE + "=0;";
+
+    __WEBPACK_IMPORTED_MODULE_2__UIControl_js__["a" /* default */].call(this, geometry, style);
+    this.setAttribute('_link','');
+    this.setAttribute('_name', '');
+}
+PoylmerElement.prototype.createShared = function(createdByLocalUser){
+    __WEBPACK_IMPORTED_MODULE_2__UIControl_js__["a" /* default */].prototype.createShared.call(this, createdByLocalUser);
+    if(createdByLocalUser){
+        y.share.attrs.set(this.getId()+'_link', __WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js___default.a.Text);
+        y.share.attrs.set(this.getId()+'_name', __WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js___default.a.Text);
+    }
+}
+
+PoylmerElement.prototype.initShared = function(){
+    __WEBPACK_IMPORTED_MODULE_2__UIControl_js__["a" /* default */].prototype.initShared.call(this);
+    this.initYText('_link');
+    this.initYText('_name');
+}
+/* harmony default export */ __webpack_exports__["a"] = (PoylmerElement);
+
+/***/ }),
+/* 94 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UIControl_js__ = __webpack_require__(5);
+/**
+ * @module UIElements/Graphics
+ */
+
+
+
+HTML5Canvas.prototype = new __WEBPACK_IMPORTED_MODULE_1__UIControl_js__["a" /* default */]();
+HTML5Canvas.prototype.constructor = HTML5Canvas;
+
+/**
+ * The HTML node name
+ * @static 
+ * @default canvas
+ * @readonly
+ */
+HTML5Canvas.HTML_NODE_NAME = 'canvas';
+
+/**
+ * The Name in the wireframing editor
+ * @static 
+ * @default Canvas
+ * @readonly
+ */
+HTML5Canvas.NAME = "HTML5 Canvas";
+
+window.HTML5Canvas = HTML5Canvas;
+
+var codec = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].clone(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["l" /* mxCodecRegistry */].getCodec(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["t" /* mxCell */]));
+codec.template = new HTML5Canvas();
+__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["l" /* mxCodecRegistry */].register(codec);
+
+/**
+ * A HTML5 canvas element
+ * @classdesc A HTMl5 canvas element
+ * @constructor
+ * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 128, 128)] the width, height, x and y of the ui element
+ * @extends UIControl
+ */
+function HTML5Canvas(geometry) {
+    if(!geometry)
+        geometry = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["u" /* mxGeometry */](0, 0, 128, 128);
+    var style = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=html5canvas;' +
+        __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_EDITABLE + "=0;";
+    __WEBPACK_IMPORTED_MODULE_1__UIControl_js__["a" /* default */].call(this, geometry, style);
+}
+/* harmony default export */ __webpack_exports__["a"] = (HTML5Canvas);
+
+/***/ }),
+/* 95 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UIControl_js__ = __webpack_require__(5);
+/**
+ * @module UIElements/Graphics
+ */
+
+
+
+SVGElement.prototype = new __WEBPACK_IMPORTED_MODULE_1__UIControl_js__["a" /* default */]();
+SVGElement.prototype.constructor = SVGElement;
+
+/**
+ * The HTML node name
+ * @static 
+ * @default svg
+ * @readonly
+ */
+SVGElement.HTML_NODE_NAME = 'svg';
+
+/**
+ * The Name in the wireframing editor
+ * @static 
+ * @default SVG
+ * @readonly
+ */
+SVGElement.NAME = "SVG";
+
+window.SVGElement = SVGElement;
+
+var codec = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].clone(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["l" /* mxCodecRegistry */].getCodec(__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["t" /* mxCell */]));
+codec.template = new SVGElement();
+__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["l" /* mxCodecRegistry */].register(codec);
+
+/**
+ * Represent a scalable vector graphic
+ * @classdesc A <svg>-element
+ * @constructor
+ * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 128, 128)] the width, height, x and y of the ui element
+ * @extends UIControl
+ */
+function SVGElement(geometry) {
+    if(!geometry)
+        geometry = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["u" /* mxGeometry */](0, 0, 128, 128);
+    var style = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=svg;' +
+        __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_EDITABLE + "=0;";
+    __WEBPACK_IMPORTED_MODULE_1__UIControl_js__["a" /* default */].call(this, geometry, style);
+}
+/* harmony default export */ __webpack_exports__["a"] = (SVGElement);
+
+/***/ }),
+/* 96 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UIMedia_js__ = __webpack_require__(35);
+/**
+ * @module UIElements/Media
+ */
+
+
+
+AudioPlayer.prototype = new __WEBPACK_IMPORTED_MODULE_1__UIMedia_js__["a" /* default */]();
+AudioPlayer.prototype.constructor = AudioPlayer;
+window.AudioPlayer = AudioPlayer;
+__WEBPACK_IMPORTED_MODULE_1__UIMedia_js__["a" /* default */].registerCodec(AudioPlayer);
+
+/**
+ * The HTML node name
+ * @static 
+ * @default audio
+ * @readonly
+ */
+AudioPlayer.HTML_NODE_NAME = 'audio';
+
+/**
+ * The Name in the wireframing editor
+ * @static 
+ * @default AudioPlayer
+ * @readonly
+ */
+AudioPlayer.NAME = "Audio Player";
+
+/**
+ * The Audio Player HTML 5 element
+ * @classdesc <audio>
+ * @constructor
+ * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 200, 30)] the width, height, x and y of the ui element
+ * @extends UIMedia
+ */
+function AudioPlayer(geometry) {
+    if (!geometry)
+        geometry = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["u" /* mxGeometry */](0, 0, 200, 30);
+    //style in html5stencils.xml and registered in the editor
+    var style = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + "=AudioPlayer;" +
+        __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_FILLCOLOR + "=none;" +
+        __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_STROKECOLOR + '=grey;' +
+        __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_ASPECT + '=fixed;' +
+        __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["i" /* mxConstants */].STYLE_EDITABLE + "=0;";
+
+    __WEBPACK_IMPORTED_MODULE_1__UIMedia_js__["a" /* default */].call(this, geometry, style);
+    this.value.setAttribute('_src', 'https://rwth-acis.github.io/CAE-WireframingEditor/resources/horse.mp3');
+}
+/* harmony default export */ __webpack_exports__["a"] = (AudioPlayer);
+
+/***/ }),
+/* 97 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__UIControl_js__ = __webpack_require__(5);
+/*global y*/
+/**
+ * @module UIElements/Media
+ */
+
+
+
+
+Image.prototype = new __WEBPACK_IMPORTED_MODULE_2__UIControl_js__["a" /* default */]();
+Image.prototype.constructor = Image;
+
+/**
+ * The HTML node name
+ * @static 
+ * @default img
+ * @readonly
+ */
+Image.HTML_NODE_NAME = 'img';
+
+/**
+ * The Name in the wireframing editor
+ * @static 
+ * @default Image
+ * @readonly
+ */
+Image.NAME = "Image";
+
+window.Image = Image;
+
+var codec = __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["c" /* mxUtils */].clone(__WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["l" /* mxCodecRegistry */].getCodec(__WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["t" /* mxCell */]));
+codec.template = new Image();
+__WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["l" /* mxCodecRegistry */].register(codec);
+
+/**
+ * Represent a image
+ * @classdesc A HTMl <img>-element
+ * @constructor
+ * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 128, 128)] the width, height, x and y of the ui element
+ * @extends UIControl
+ */
+function Image(geometry) {
+    if(!geometry)
+        geometry = new __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["u" /* mxGeometry */](0, 0, 128, 128);
+    //style in html5stencils.xml and registered in the editor
+    var style = __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=image;' +
+        __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["i" /* mxConstants */].STYLE_EDITABLE + "=0;";
+
+    __WEBPACK_IMPORTED_MODULE_2__UIControl_js__["a" /* default */].call(this, geometry, style);
+    this.setAttribute('_src','https://rwth-acis.github.io/CAE-WireframingEditor/resources/image-placeholder.jpg');
+}
+Image.prototype.createShared = function(createdByLocalUser){
+    __WEBPACK_IMPORTED_MODULE_2__UIControl_js__["a" /* default */].prototype.createShared.call(this, createdByLocalUser);
+    if(createdByLocalUser){
+        y.share.attrs.set(this.getId()+'_src', __WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js___default.a.Text);
+    }
+}
+
+Image.prototype.initShared = function(){
+    __WEBPACK_IMPORTED_MODULE_2__UIControl_js__["a" /* default */].prototype.initShared.call(this);
+    this.initYText('_src');
+}
+/* harmony default export */ __webpack_exports__["a"] = (Image);
+
+/***/ }),
+/* 98 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__UIMedia_js__ = __webpack_require__(35);
 /*global y*/
 /**
- * @module UIElements
+ * @module UIElements/Media
  */
 
 
@@ -13602,14 +14315,15 @@ VideoPlayer.HTML_NODE_NAME = 'video';
 VideoPlayer.NAME = "Video Player";
 
 /**
- * @classdesc The Video Player HTML 5 element
+ * The Video Player HTML 5 element
+ * @classdesc <video>
  * @constructor
  * @param {mxGeometry} [geometry=new mxGeometry(0, 0, 200, 100)] the width, height, x and y of the ui element
  * @extends UIMedia
  */
 function VideoPlayer(geometry) {
     if(!geometry)
-        geometry = new __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["t" /* mxGeometry */](0, 0, 200, 100);
+        geometry = new __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["u" /* mxGeometry */](0, 0, 200, 100);
     //style in html5stencils.xml and registered in the editor
     var style = __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + "=VideoPlayer;" +
         __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["i" /* mxConstants */].STYLE_FILLCOLOR + "=none;" +
@@ -13619,6 +14333,9 @@ function VideoPlayer(geometry) {
 
     __WEBPACK_IMPORTED_MODULE_2__UIMedia_js__["a" /* default */].call(this, geometry, style);
     this.value.setAttribute('_poster', '');
+    //https://static.videezy.com/system/resources/previews/000/005/341/original/Earth_Spin_Medium.mp4
+    //https://www.w3schools.com/html/mov_bbb.mp4
+    this.value.setAttribute('_src', 'https://rwth-acis.github.io/CAE-WireframingEditor/resources/mov_bbb.mp4');
 }
 
 VideoPlayer.prototype.createShared = function(createdByLocalUser){
@@ -13634,18 +14351,90 @@ VideoPlayer.prototype.initShared = function(){
 /* harmony default export */ __webpack_exports__["a"] = (VideoPlayer);
 
 /***/ }),
-/* 94 */
+/* 99 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__UIControl_js__ = __webpack_require__(5);
+/*global y*/
+/**
+ * @module UIElements/Media
+ */
+
+
+
+
+YouTube.prototype = new __WEBPACK_IMPORTED_MODULE_2__UIControl_js__["a" /* default */]();
+YouTube.prototype.constructor = YouTube;
+
+/**
+ * The HTML node name
+ * @static 
+ * @default iframe
+ * @readonly
+ */
+YouTube.HTML_NODE_NAME = 'iframe';
+
+/**
+ * The Name in the wireframing editor
+ * @static 
+ * @default YouTube
+ * @readonly
+ */
+YouTube.NAME = "YouTube";
+
+window.YouTube = YouTube;
+
+var codec = __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["c" /* mxUtils */].clone(__WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["l" /* mxCodecRegistry */].getCodec(__WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["t" /* mxCell */]));
+codec.template = new YouTube();
+__WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["l" /* mxCodecRegistry */].register(codec);
+
+/**
+ * A iframe that embbeds a YouTube-link
+ * @classdesc A HTML <iframe>-element that embeds a youtube link
+ * @constructor
+ * @param {mxGeometry} [geometry= new mxGeometry(0, 0, 128, 128)] the width, height, x and y of the ui element
+ * @extends UIControl
+ */
+function YouTube(geometry) {
+    if(!geometry)
+        geometry = new __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["u" /* mxGeometry */](0, 0, 128, 128);
+    //style in html5stencils.xml and registered in the editor
+    var style = __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["i" /* mxConstants */].STYLE_SHAPE + '=youtube;' +
+        __WEBPACK_IMPORTED_MODULE_1__misc_mxExport_js__["i" /* mxConstants */].STYLE_EDITABLE + "=0;";
+
+    __WEBPACK_IMPORTED_MODULE_2__UIControl_js__["a" /* default */].call(this, geometry, style);
+    this.setAttribute('_src','https://www.youtube.com/embed/rnj6cnlIjM4');
+}
+YouTube.prototype.createShared = function(createdByLocalUser){
+    __WEBPACK_IMPORTED_MODULE_2__UIControl_js__["a" /* default */].prototype.createShared.call(this, createdByLocalUser);
+    if(createdByLocalUser){
+        y.share.attrs.set(this.getId()+'_src', __WEBPACK_IMPORTED_MODULE_0__node_modules_yjs_dist_y_js___default.a.Text);
+    }
+}
+
+YouTube.prototype.initShared = function(){
+    __WEBPACK_IMPORTED_MODULE_2__UIControl_js__["a" /* default */].prototype.initShared.call(this);
+    this.initYText('_src');
+}
+/* harmony default export */ __webpack_exports__["a"] = (YouTube);
+
+/***/ }),
+/* 100 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return WireframeToModel; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ModelToWireframe; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_Util_js__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_Util_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__misc_mxExport_js__ = __webpack_require__(0);
 /**
- * @module FrontendComponentMapper
+ * @module CAE-Mapper
  */
 
 
@@ -13745,22 +14534,23 @@ function WireframeToModel(wireframeModel, vls) {
             option: false
         });
         var attributes = {};
+        var type = cell.constructor.HTML_NODE_NAME || cell.value.getAttribute('uiType');
         attributes[htmlAttributesMap['type']] = JSON.parse(attrCompiled({
             id: cell.id,
             attrName: 'type',
-            value: '"' + cell.constructor.HTML_NODE_NAME + '"',
+            value: '"' + type + '"',
             option: true
         }));
         attributes[htmlAttributesMap['id']] = JSON.parse(attrCompiled({
             id: cell.id,
             attrName: 'id',
-            value: '""',
+            value: '"' + type + '_' + __WEBPACK_IMPORTED_MODULE_1__misc_Util_js__["a" /* default */].GUID().substr(0,5) + '"',
             option: false
         }));
         attributes[htmlAttributesMap['static']] = JSON.parse(attrCompiled({
             id: cell.id,
             attrName: 'static',
-            value: false,
+            value: true,
             option: false
         }));
         var shared = false;
@@ -13909,11 +14699,285 @@ function ModelToWireframe(model, editor) {
 
 
 /***/ }),
-/* 95 */
+/* 101 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mxExport_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__overlays_UserOverlay__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Constants_js__ = __webpack_require__(3);
+/*global y*/
+/**
+ * @module Misc
+ */
+
+
+
+/** 
+ * The function realizes the awareness features for the Wireframe editor.
+ * Enables cell hightlighting and overlays for user informations
+ * @param {Wireframe} wireframe the wireframe
+ * @return {undefined}
+ * @requires UserOverlay
+ * @method
+ */
+function Awareness(wireframe) {
+    var highlightMap = {};
+
+    wireframe.getSelectionModel().addListener(__WEBPACK_IMPORTED_MODULE_0__mxExport_js__["d" /* mxEvent */].CHANGE, function (sender, evt) {
+        var unselectedCells = evt.getProperty('added');
+        var unhighlight = [];
+        for (var i = 0; unselectedCells && i < unselectedCells.length; i++) {
+            unhighlight.push(unselectedCells[i].getId());
+        }
+        var highlight = [];
+        for (var i = 0; i < sender.cells.length; i++) {
+            highlight.push(sender.cells[i].getId());
+        }
+        y.share.awareness.set(y.db.userId, {
+            highlight: highlight,
+            unhighlight: unhighlight
+        });
+
+    });
+
+    y.share.awareness.observe(function (event) {
+        if (event.name != y.db.userId) {
+            var userInfo = y.share.yfUsers.get(event.name);
+
+            //unhighlight cells
+            var unhighlightCells = event.value.unhighlight;
+            for (var i = 0; i < unhighlightCells.length; i++) {
+                var highlightId = unhighlightCells[i] + '_' + event.name;
+                var highlight = highlightMap[highlightId];
+                if (highlight) {
+                    highlight.hide();
+                    delete highlightMap[highlightId];
+                    var cell = wireframe.getModel().getCell(unhighlightCells[i]);
+                    if (cell) {
+                        for (var j = 0; cell.overlays && j < cell.overlays.length; j++) {
+                            if (cell.overlays[j] instanceof __WEBPACK_IMPORTED_MODULE_1__overlays_UserOverlay__["a" /* default */] && cell.overlays[j].getUserId() === event.name) {
+                                wireframe.removeCellOverlay(cell, cell.overlays[j]);
+                                j--;
+                            }
+                        }
+                        var k = 0;
+                        var state = wireframe.view.getState(cell);
+                        if (state.overlays) {
+                            for (var o in state.overlays.map) {
+                                var tag = state.overlays.map[o].overlay;
+                                if (tag instanceof __WEBPACK_IMPORTED_MODULE_1__overlays_UserOverlay__["a" /* default */]) {
+                                    tag.offset.x = -k * __WEBPACK_IMPORTED_MODULE_2__Constants_js__["a" /* default */].TAG.SIZE;
+                                    k++;
+                                }
+                            }
+                            wireframe.cellRenderer.redraw(state);
+                        }
+                    }
+                }
+            }
+
+
+                //highlight cells
+                var highlightCells = event.value.highlight;
+                for (var i = 0; i < highlightCells.length; i++) {
+                    var highlight = new __WEBPACK_IMPORTED_MODULE_0__mxExport_js__["D" /* mxCellHighlight */](wireframe, userInfo ? userInfo.color : '#672d2d', 2);
+                    highlightMap[highlightCells[i] + '_' + event.name] = highlight;
+                    var cell = wireframe.getModel().getCell(highlightCells[i]);
+                    if (cell) {
+                        highlight.highlight(wireframe.view.getState(cell));
+                        var overlay;
+                        var offset = null;
+                        var userOverlayCount = 0;
+                        if (cell.overlays && cell.overlays.length > 0) {
+                            for (var j = 0; j < cell.overlays.length; j++) {
+                                if (cell.overlays[i] instanceof __WEBPACK_IMPORTED_MODULE_1__overlays_UserOverlay__["a" /* default */])
+                                    userOverlayCount++;
+                            }
+                            offset = new __WEBPACK_IMPORTED_MODULE_0__mxExport_js__["e" /* mxPoint */](-__WEBPACK_IMPORTED_MODULE_2__Constants_js__["a" /* default */].TAG.SIZE * userOverlayCount, 0)
+                        }
+                        if (userInfo)
+                            overlay = new __WEBPACK_IMPORTED_MODULE_1__overlays_UserOverlay__["a" /* default */](event.name, userInfo.name, userInfo.image, offset);
+                        else
+                            overlay = new __WEBPACK_IMPORTED_MODULE_1__overlays_UserOverlay__["a" /* default */](event.name, 'Unknown User', null, offset);
+                        wireframe.addCellOverlay(cell, overlay);
+                    }
+                }
+            }
+        });
+}
+/* harmony default export */ __webpack_exports__["a"] = (Awareness);
+
+/***/ }),
+/* 102 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mxExport_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_randomcolor__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_randomcolor___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_randomcolor__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_noty__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_noty___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_noty__);
+/*global  y*/
+/**
+ * @module Misc
+ */
+
+
+
+
+/**
+ * Generate a user list wrapped in a mxWindow
+ * Retrieve all necessary infromation with y.share.yfUsers.get(y.db.userId) 
+ * @example y.share.yfUsers.get(y.db.userId) = 
+        {
+            id: "some id",
+            name: "Name Surname",
+            image: "A url",
+            color: "a color"
+        }
+ * @param {Object} user the object consists of the data about the user
+ * @param {Boolean} visible true if the mxWindow is visible or false if not 
+ * @param {mxWindow} wnd the mxWindew-object otherwise it will be created
+ * @return {undefined}
+ * @memberof module:Misc
+ */
+function UserList(user, visible, wnd) {
+    /**
+     * the div html elements that contains the user list
+     * @member {jQuery}
+     */
+    var $userList = __WEBPACK_IMPORTED_MODULE_1_jquery___default()('#userList');
+
+    /**
+     * The user list table
+     * @member {jQuery}
+     */
+    var $userTable = $userList.find('table');
+
+    /**
+     * The ids of all remote users
+     * @member {String[]}
+     */
+    var remoteUsers = [];
+
+    /**
+     * The default height of the mxWindow 
+     * @default 50
+     * @member {Integer}
+     */
+    var height = 50;
+    
+    /**
+     * The default width of the mxWindow
+     * @member {Integer}
+     * @default 210
+     */
+    var width = 210;
+    
+    /**
+     * The mxWindow-instance of the user list
+     * @member {mxWindow}
+     */
+    var wnd = new __WEBPACK_IMPORTED_MODULE_0__mxExport_js__["a" /* mxWindow */]("User List", $userList[0], 600, 100, width, height, false, true);
+    wnd.setVisible(visible !== undefined ? visible : true);
+    wnd.setMaximizable(false);
+    wnd.setResizable(true);
+    wnd.setClosable(true);
+    wnd.destroyOnClose = false;
+
+    /**
+     * @event
+     * @return {undefined}
+     * @memberof {UserList}
+     */
+    window.onbeforeunload = function () {
+        y.share.yfJoin.set('leave', y.db.userId);
+    };
+    window.onunload = function () {
+        y.share.yfJoin.set('leave', y.db.userId);
+    }
+    /**
+     * Generate a row entry for user list table
+     * @param {String} userId the user id
+     * @param {String} userName the name of the user
+     * @param {String} imageUrl the url to the avatar of the user
+     * @param {String} color the randomed color for the user
+     * @return {JQuery} the tr-element as a jquery object
+     */
+    var getUserEntry = function (userId, userName, imageUrl, color) {
+        var entry = '<tr id="' + userId + '" style="display: flex; background : ' + color + '"><td><img src="' + imageUrl + '" height="42" width="42"></td><td style="font-size: 15;color: white;padding : 12;">' + userName + '</td></tr>';
+        return __WEBPACK_IMPORTED_MODULE_1_jquery___default()(entry);
+    }
+    if (user) {
+        y.share.yfUsers.observe(function (event) {
+            if (event.name !== y.db.userId && remoteUsers.indexOf(event.name) == -1) {
+                var $entry = getUserEntry(event.name, event.value.name, event.value.image, event.value.color);
+                $userTable.append($entry);
+                remoteUsers.push(event.name);
+                height += 45;
+                wnd.setSize(width, height);
+                new __WEBPACK_IMPORTED_MODULE_3_noty___default.a({
+                    type: 'success',
+                    layout : 'topRight',
+                    text: 'User ' + event.value.name + ' joined the space',
+                    timeout: 750
+                }).show();
+            }
+        });
+        y.share.yfJoin.observe(function (event) {
+            if (event.name === 'leave' && y.db.userId !== event.value) {
+                __WEBPACK_IMPORTED_MODULE_1_jquery___default()('#' + event.value).remove();
+                if (remoteUsers.indexOf(event.value) !== -1)
+                    remoteUsers.splice(remoteUsers.indexOf(event.value), 1);
+                new __WEBPACK_IMPORTED_MODULE_3_noty___default.a({
+                    type: 'error',
+                    layout : 'topRight',
+                    text: 'User ' + y.share.yfUsers.get(event.value).name + ' left the space',
+                    timeout: 750
+                }).show();
+                return;
+            }
+            if (event.name !== y.db.userId && !event.value) {
+                y.share.yfJoin.set(y.db.userId, {
+                    receiver: event.name,
+                    userInfo: y.share.yfUsers.get(y.db.userId)
+                });
+            } else if (event.value && event.value.receiver === y.db.userId && remoteUsers.indexOf(event.name) == -1) {
+                $userTable.append(getUserEntry(event.value.name, event.value.userInfo.name, event.value.userInfo.image, event.value.userInfo.color));
+                remoteUsers.push(event.value.userId);
+                height += 45;
+                wnd.setSize(width, height);
+            }
+        });
+
+        var color = user.hasOwnProperty('color') ? user.color : __WEBPACK_IMPORTED_MODULE_2_randomcolor___default()();            
+        var $userEntry = getUserEntry(y.db.userId, user.name, user.imageUrl, color);
+        $userTable.append($userEntry);
+        $userTable.append(__WEBPACK_IMPORTED_MODULE_1_jquery___default()('<tr><th>Collaborators</th></tr>'));
+        height += 50;
+        wnd.setSize(width, height);
+        y.share.yfUsers.set(y.db.userId, {
+            id: user.id,
+            name: user.name,
+            image: user.imageUrl,
+            color: color
+        });
+        y.share.yfJoin.set(y.db.userId, false);
+    }
+    return wnd;
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (UserList);
+
+/***/ }),
+/* 103 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_Constants_js__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__PropertyEditor_js__ = __webpack_require__(19);
 /**
@@ -13950,11 +15014,11 @@ function EditOverlay(imageURL, cursor) {
 /* harmony default export */ __webpack_exports__["a"] = (EditOverlay);
 
 /***/ }),
-/* 96 */
+/* 104 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_Constants_js__ = __webpack_require__(3);
 /**
  * @module Overlays
@@ -13978,11 +15042,11 @@ function SyncMetaSelectOverlay(imageURL, offset, cursor) {
 /* harmony default export */ __webpack_exports__["a"] = (SyncMetaSelectOverlay);
 
 /***/ }),
-/* 97 */
+/* 105 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
 
 /**
  * @module Shapes
@@ -14173,11 +15237,11 @@ AudioShape.prototype.otherShapes = function (c, x, y, w, h, buttonColor, frameCo
 /* harmony default export */ __webpack_exports__["a"] = (AudioShape);
 
 /***/ }),
-/* 98 */
+/* 106 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
 
 /**
  * @module Shapes
@@ -14200,11 +15264,11 @@ function ButtonShape(){
 /* harmony default export */ __webpack_exports__["a"] = (ButtonShape);
 
 /***/ }),
-/* 99 */
+/* 107 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
 
 /**
  * @module Shapes
@@ -14227,11 +15291,11 @@ function CheckboxShape(){
 /* harmony default export */ __webpack_exports__["a"] = (CheckboxShape);
 
 /***/ }),
-/* 100 */
+/* 108 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
 
 
 /**
@@ -14254,40 +15318,54 @@ function DefaultShape(){
 /* harmony default export */ __webpack_exports__["a"] = (DefaultShape);
 
 /***/ }),
-/* 101 */
+/* 109 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__misc_Constants_js__ = __webpack_require__(3);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
 
 
 /**
  * @module Shapes
  */
 
-__WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].extend(ImageShape, __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["v" /* mxShape */]);
 /**
- * @classdesc The shape for the Image-element
+ * A singelton factory class to generate image shapes
+ * @classdesc A factory class that generates images shape
  * @constructor
  * @extends mxShape
- * @see Image
+ * @memberof module:Shapes
+ * @see GenericImageShape
  */
-function ImageShape(){
-    var str = '<shape name="image" w="128" h="128" aspect="4/3"><background><fillcolor color="none"/><strokecolor color="none"/><rect x="0" y="0" w="128" h="128"/><fillstroke/></background><foreground><image src="'+ __WEBPACK_IMPORTED_MODULE_1__misc_Constants_js__["a" /* default */].IMAGES.IMAGE_SHAPE +'" x="0" y="0" w="128" h="128"/></foreground></shape>';
-    var xml = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].parseXml(str);
-    var stencil = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["w" /* mxStencil */](xml.documentElement);
-    __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["v" /* mxShape */].call(this, stencil);
+function ImageShapeFactory(){
+    return {
+        /**
+         * Create a shape class that consists only of an image
+         * @param {String} name the name of the shape
+         * @param {String} imageUrl the url to the image
+         * @returns {Function} the constructor function of the new shape
+         * @memberof module:Shapes.ImageShapeFactory
+         */
+        createImageShape: function(name,imageUrl){
+            __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].extend(GenericImageShape, __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["v" /* mxShape */]);
+            function GenericImageShape(){
+                var str = '<shape name="'+ name + '" w="128" h="128"><background><fillcolor color="none"/><strokecolor color="none"/><rect x="0" y="0" w="128" h="128"/><fillstroke/></background><foreground><image src="'+ imageUrl +'" x="0" y="0" w="128" h="128"/></foreground></shape>';
+                var xml = __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["c" /* mxUtils */].parseXml(str);
+                var stencil = new __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["w" /* mxStencil */](xml.documentElement);
+                __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__["v" /* mxShape */].call(this, stencil);
+            }
+            return GenericImageShape;
+        }
+    }
 }
-/* harmony default export */ __webpack_exports__["a"] = (ImageShape);
+/* harmony default export */ __webpack_exports__["a"] = (new ImageShapeFactory());
 
 /***/ }),
-/* 102 */
+/* 110 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
 
 
 /**
@@ -14310,11 +15388,11 @@ function LinkShape(){
 /* harmony default export */ __webpack_exports__["a"] = (LinkShape);
 
 /***/ }),
-/* 103 */
+/* 111 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
 
 
 /**
@@ -14337,11 +15415,11 @@ function ParagraphShape(){
 /* harmony default export */ __webpack_exports__["a"] = (ParagraphShape);
 
 /***/ }),
-/* 104 */
+/* 112 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
 
 
 /**
@@ -14364,11 +15442,11 @@ function RadioButtonShape(){
 /* harmony default export */ __webpack_exports__["a"] = (RadioButtonShape);
 
 /***/ }),
-/* 105 */
+/* 113 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
 
 
 /**
@@ -14391,11 +15469,11 @@ function TextAreaShape(){
 /* harmony default export */ __webpack_exports__["a"] = (TextAreaShape);
 
 /***/ }),
-/* 106 */
+/* 114 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
 
 
 /**
@@ -14418,11 +15496,11 @@ function TextBoxShape(){
 /* harmony default export */ __webpack_exports__["a"] = (TextBoxShape);
 
 /***/ }),
-/* 107 */
+/* 115 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
 
 
 /**
@@ -14445,11 +15523,11 @@ function TextNodeShape(){
 /* harmony default export */ __webpack_exports__["a"] = (TextNodeShape);
 
 /***/ }),
-/* 108 */
+/* 116 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
 
 
 /**
@@ -14661,11 +15739,11 @@ VideoShape.prototype.otherShapes = function (c, x, y, w, h, buttonColor, frameCo
 /* harmony default export */ __webpack_exports__["a"] = (VideoShape);
 
 /***/ }),
-/* 109 */
+/* 117 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AbstractTag_js__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__misc_Constants_js__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_yjs_dist_y_js__ = __webpack_require__(4);
@@ -14750,11 +15828,11 @@ function GenericTag(cell, offset, className) {
 /* harmony default export */ __webpack_exports__["a"] = (GenericTag);
 
 /***/ }),
-/* 110 */
+/* 118 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__misc_mxExport_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AbstractTag_js__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__misc_Constants_js__ = __webpack_require__(3);
 /**
@@ -14803,18 +15881,18 @@ function SharedTag(cell, offset){
 /* harmony default export */ __webpack_exports__["a"] = (SharedTag);
 
 /***/ }),
-/* 111 */
+/* 119 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__js_ROLELogin_js__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__js_auth_ROLELogin_js__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__js_misc_YjsSync_js__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__js_Main_js__ = __webpack_require__(51);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__js_mapper_CAELiveMapper_js__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__js_Loader_js__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__js_Main_js__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__js_mapper_CAELiveMapper_js__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__js_misc_Loader_js__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__data_config_widget_json__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__data_config_widget_json___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__data_config_widget_json__);
 
@@ -14827,10 +15905,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 __WEBPACK_IMPORTED_MODULE_0_jquery___default()(function(){
-    __WEBPACK_IMPORTED_MODULE_5__js_Loader_js__["a" /* default */].init();
+    __WEBPACK_IMPORTED_MODULE_5__js_misc_Loader_js__["a" /* default */].init();
     var roleSpaceTitle = frameElement.baseURI.substring(frameElement.baseURI.lastIndexOf('spaces/')).replace(/spaces|#\S*|\?\S*|\//g, '');
      __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__js_misc_YjsSync_js__["a" /* default */])(roleSpaceTitle).done(function (y) {
-        __WEBPACK_IMPORTED_MODULE_5__js_Loader_js__["a" /* default */].checkSuccessful(0, 25);        
+        __WEBPACK_IMPORTED_MODULE_5__js_misc_Loader_js__["a" /* default */].checkSuccessful(0, 25);        
         var vls = y.share.data.get('metamodel');
         if(vls){
           window.vls = vls;
@@ -14841,18 +15919,18 @@ __WEBPACK_IMPORTED_MODULE_0_jquery___default()(function(){
         }
         //Important load a vls before calling Main
         var editor = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__js_Main_js__["a" /* default */])(__WEBPACK_IMPORTED_MODULE_6__data_config_widget_json___default.a, true);
-        __WEBPACK_IMPORTED_MODULE_5__js_Loader_js__["a" /* default */].checkSuccessful(1, 25);
+        __WEBPACK_IMPORTED_MODULE_5__js_misc_Loader_js__["a" /* default */].checkSuccessful(1, 25);
         
         __WEBPACK_IMPORTED_MODULE_4__js_mapper_CAELiveMapper_js__["a" /* default */].init(editor);
-        __WEBPACK_IMPORTED_MODULE_5__js_Loader_js__["a" /* default */].checkSuccessful(2, 75);
+        __WEBPACK_IMPORTED_MODULE_5__js_misc_Loader_js__["a" /* default */].checkSuccessful(2, 75);
 
-        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__js_ROLELogin_js__["a" /* default */])().done(function(){
-            __WEBPACK_IMPORTED_MODULE_5__js_Loader_js__["a" /* default */].checkSuccessful(3, 100);
-            __WEBPACK_IMPORTED_MODULE_5__js_Loader_js__["a" /* default */].destroy(500);    
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__js_auth_ROLELogin_js__["a" /* default */])().done(function(){
+            __WEBPACK_IMPORTED_MODULE_5__js_misc_Loader_js__["a" /* default */].checkSuccessful(3, 100);
+            __WEBPACK_IMPORTED_MODULE_5__js_misc_Loader_js__["a" /* default */].destroy(500);    
         }).fail(function(){
             __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.widget-title-bar', frameElement.offsetParent).find('span').text('CAE-WireframingEditor[NOT LOGGED IN]');
-            __WEBPACK_IMPORTED_MODULE_5__js_Loader_js__["a" /* default */].destroy(500);       
-            __WEBPACK_IMPORTED_MODULE_5__js_Loader_js__["a" /* default */].checkFail(3, 100);     
+            __WEBPACK_IMPORTED_MODULE_5__js_misc_Loader_js__["a" /* default */].destroy(500);       
+            __WEBPACK_IMPORTED_MODULE_5__js_misc_Loader_js__["a" /* default */].checkFail(3, 100);     
         });
         
         
@@ -14862,4 +15940,4 @@ __WEBPACK_IMPORTED_MODULE_0_jquery___default()(function(){
 
 
 /***/ })
-],[111]);
+],[119]);

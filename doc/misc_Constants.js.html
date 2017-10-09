@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Source: misc/Constants.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: misc/Constants.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>var widgetMode &#x3D; false;
+var basePath &#x3D; &#x27;&amp;lt;%&#x3D;basePath%&gt;&#x27;;
+
+/**
+ * @module Misc
+ */
+
+/**
+ * Defines the constants for actions, paths to images and other properties of the wireframing editor
+ */
+var constants &#x3D; {
+    MXGRAPH: {
+        IMAGE_BASE_PATH: &quot;images&quot;
+    },
+    ACTIONS: {
+        SHARED: {
+            DELETE: &#x27;shared_delete&#x27;,
+            GROUP: &#x27;shared_group&#x27;,
+            UNGROUP: &#x27;shared_ungroup&#x27;,
+            UNDO: &#x27;shared_undo&#x27;,
+            REDO: &#x27;shared_redo&#x27;,
+            PASTE: &#x27;shared_paste&#x27;,
+            GRAPH_RESIZE: &#x27;graphResize&#x27;,
+            APPLY_LAYOUT: &#x27;applyLayout&#x27;
+        },
+        COPY: &#x27;copy&#x27;,
+        PASTE: &#x27;paste&#x27;,
+        SHOW_USER_LIST: &#x27;showUserList&#x27;,
+        SHOW_CONSOLE: &#x27;showConsole&#x27;,
+        EXPORT: &#x27;export&#x27;,
+        IMPORT: &#x27;import&#x27;,
+        MOVE_TAG: &#x27;moveTag&#x27;,
+        DELETE_TAG: &#x27;deleteTag&#x27;,
+        RENAME_TAG: &#x27;renameTag&#x27;,
+        SAVE: &#x27;save&#x27;,
+        SYNC: &#x27;sync&#x27;,
+        HIERACHY_TREE: &#x27;hierachy&#x27;
+    },
+    IMAGES: {
+        COPY: &#x27;images/toolbox/copy.png&#x27;,
+        PASTE: &#x27;images/toolbox/paste.png&#x27;,
+        DELETE: &#x27;images/toolbox/delete.png&#x27;,
+        UNDO: &#x27;images/toolbox/undo2.png&#x27;,
+        REDO: &#x27;images/toolbox/redo2.png&#x27;,
+        GROUP: &#x27;images/toolbox/group.png&#x27;,
+        UNGROUP: &#x27;images/toolbox/ungroup.png&#x27;,
+        ADD: &#x27;images/toolbox/add.png&#x27;,
+        FLASH: &#x27;images/toolbox/flash.png&#x27;,
+        IMPORT: &#x27;images/toolbox/import.png&#x27;,
+        EXPORT: &#x27;images/toolbox/export.png&#x27;,
+        LAYOUT : &#x27;images/toolbox/layout.png&#x27;,
+        YJS: &#x27;images/tags/yjs.png&#x27;,
+        MICROSERVICECALL: &#x27;images/tags/las2peer-logo-circle.png&#x27;,
+        EVENT_TAG: &#x27;images/tags/event.png&#x27;,
+        FUNC_TAG: &#x27;images/tags/func.png&#x27;,
+        IWC_REQ_TAG: &#x27;images/tags/IWCRequest.png&#x27;,
+        IWC_RESP_TAG: &#x27;images/tags/IWCResponse.png&#x27;,
+        DEFAULT_TAG: &#x27;images/tags/default.png&#x27;,
+        DEFAULT_USER: &#x27;images/user.png&#x27;,
+        SAVE: &#x27;images/toolbox/save.png&#x27;,
+        USER_LIST: &#x27;images/toolbox/list.png&#x27;,
+        SEPERATOR: &#x27;images/toolbox/separator.gif&#x27;,
+        IMAGE_SHAPE: &#x27;images/image.png&#x27;,
+        SYNC: &#x27;images/toolbox/sync.png&#x27;,
+        SYNCMETA: &#x27;images/syncmeta.png&#x27;,
+        YOUTUBE: &#x27;images/youtube.png&#x27;,
+        POLYMER: &#x27;images/polymer.png&#x27;,
+        TABLE_IMG: &#x27;images/table.png&#x27;,
+        UL_IMG : &#x27;images/ul.png&#x27;,
+        OL_IMG : &#x27;images/ol.png&#x27;,
+        DL_IMG : &#x27;images/dl.png&#x27;,
+        HTML5CANVAS: &#x27;images/html5canvas.png&#x27;,
+        SVG : &#x27;images/svg.png&#x27;
+    },
+    TAG: {
+        SIZE: 20/*,
+        ALIAS: {
+            EVENT: &#x27;Event&#x27;,
+            MICRO_CALL: &#x27;Microservice Call&#x27;,
+            FUNC: &#x27;Function&#x27;,
+            IWC_CALL: &#x27;IWC Call&#x27;,
+            IWC_RESP: &#x27;IWC Response&#x27;,
+            SHARED: &#x27;Share&#x27;
+        }*/
+    }
+};
+
+//Specify which elements supports which interactivity tags
+/*var T &#x3D; constants.TAG.ALIAS;
+constants.TAG.MAPPING &#x3D; {
+    Button: [T.EVENT, T.FUNC, T.MICRO_CALL, T.IWC_CALL, T.IWC_RESP],
+    TextArea: [T.SHARED],
+    TextBox: [T.SHARED],
+    Paragraph: [T.SHARED],
+    TextNode: [T.SHARED],
+    Checkbox: [T.EVENT, T.FUNC, T.MICRO_CALL, T.IWC_CALL, T.IWC_RESP],
+    RadioButton: [T.EVENT, T.FUNC, T.MICRO_CALL, T.IWC_CALL, T.IWC_RESP],
+    Link: [T.EVENT, T.FUNC, T.MICRO_CALL, T.IWC_CALL, T.IWC_RESP],
+    DivContainer: [T.EVENT, T.FUNC, T.MICRO_CALL, T.IWC_CALL, T.IWC_RESP],
+    Image: [T.EVENT, T.FUNC, T.MICRO_CALL, T.IWC_CALL, T.IWC_RESP]
+}*/
+//add base path to urls if not null
+if (widgetMode) {
+    constants.MXGRAPH.IMAGE_BASE_PATH &#x3D; basePath + constants.MXGRAPH.IMAGE_BASE_PATH;
+    
+    for (var key in constants.IMAGES) 
+        constants.IMAGES[key] &#x3D; basePath + constants.IMAGES[key];
+}
+export default constants;</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on October 9, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

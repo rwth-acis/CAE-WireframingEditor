@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Source: misc/Loader.js</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: misc/Loader.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/**
+ * @module Misc
+ */
+
+import $ from &#x27;jquery&#x27;;
+import &#x27;jquery-ui/ui/widgets/dialog&#x27;;
+import &#x27;jquery-ui/ui/widgets/progressbar&#x27;;
+
+/**
+ * A singelton class which provides a loading screen for the initialization of the wireframing editor
+ * @classdesc Provides the loading screen at startup 
+ * @constructor
+ * @requires jquery
+ * @memberof module:Misc
+ */
+function Loader() {
+    var $init, $progressbar, $progressLabel;
+    return {
+        /**
+         * Initialize the loader
+         * Always call this method first
+         * @returns {undefined}
+         * @memberof module:Misc.Loader
+         */
+        init: function(){
+            $init  &#x3D; $(&#x27;#init&#x27;);
+            $progressbar &#x3D; $(&quot;#progressbar&quot;);
+            $progressLabel &#x3D; $(&quot;.progress-label&quot;);
+            $init.dialog({
+                resizable: false,
+                modal: true,
+                height: &quot;auto&quot;,
+                width: 400,
+                classes: {
+                    &quot;ui-dialog&quot;: &quot;no-close&quot;,
+                }
+            });
+            $progressbar.progressbar({
+                value: false,
+                change: function () {
+                    $progressLabel.text($progressbar.progressbar(&quot;value&quot;) + &quot;%&quot;);
+                },
+                complete: function () {
+                    $progressLabel.text(&quot;Complete!&quot;);
+                }
+            });
+        },
+        /**
+         * Check the step in the initialization at the corresponding index as successful
+         * @param {Integer} index the index in the initialization step
+         * @param {Integer} progress the progress of the initialization
+         * @returns {undefined}
+         * @memberof module:Misc.Loader
+         */
+        checkSuccessful: function (index, progress) {
+            var $node &#x3D; $(&quot;#loading&quot;).find(&#x27;p:eq(&#x27; + index + &#x27;)&#x27;);
+            $node.append(&#x27;&amp;lt;span class&#x3D;&quot;ui-icon ui-icon-circle-check&quot; style&#x3D;&quot;float:left;&quot;&gt;&amp;lt;/span&gt;&#x27;);
+            $node.css(&#x27;opacity&#x27;, 1);
+            $progressbar.progressbar(&quot;value&quot;, progress);
+        },
+        /**
+         * Check the step in the initialization at the corresponding index as fail
+         * @param {Integer} index the index in the initialization step
+         * @param {Integer} progress the progress of the initialization
+         * @returns {undefined}
+         * @memberof module:Misc.Loader
+         */
+        checkFail : function(index, progress){
+            var $node &#x3D; $(&quot;#loading&quot;).find(&#x27;p:eq(&#x27; + index + &#x27;)&#x27;);
+            $node.append(&#x27;&amp;lt;span class&#x3D;&quot;ui-icon ui-icon-alert&quot; style&#x3D;&quot;float:left;&quot;&gt;&amp;lt;/span&gt;&#x27;);
+            $node.css(&#x27;opacity&#x27;, 1);
+            $progressbar.progressbar(&quot;value&quot;, progress);
+        },
+        /**
+         * Destroy the initlialization loader
+         * @param {Integer} timeout the timeout of the destroy
+         * @returns {undefined}
+         * @memberof module:Misc.Loader
+         */
+        destroy : function(timeout){
+            setTimeout(function(){
+                $init.dialog( &quot;destroy&quot; );    
+                $init.remove();            
+            }, timeout);
+        }
+    }
+}
+export default new Loader();
+</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on October 9, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>

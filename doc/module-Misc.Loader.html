@@ -1,0 +1,259 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="generator" content="JSDoc 3.5.4">
+  <meta charset="utf-8">
+  <title>Class: Loader</title>
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Karla:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Noto+Serif:400,400i,700,700i" type="text/css">
+  <link rel="stylesheet" href="https://brick.a.ssl.fastly.net/Inconsolata:500" type="text/css">
+  <link href="css/baseline.css" rel="stylesheet">
+</head>
+
+<body onload="prettyPrint()">
+  <nav id="jsdoc-navbar" role="navigation" class="jsdoc-navbar">
+    <div id="jsdoc-navbar-container">
+      <div id="jsdoc-navbar-content">
+        <a href="index.html" class="jsdoc-navbar-package-name">Home</a>
+      </div>
+    </div>
+  </nav>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <div class="symbol-detail-labels"><span class="label label-kind">class</span>&nbsp;<span class="label label-static">static</span></div>
+            <h1><small><a href="module-Misc.html">Misc</a>.<wbr></small><span class="symbol-name">Loader</span></h1>
+            <p class="source-link">Source: <a href="misc_Loader.js.html#source-line-16">misc/<wbr>Loader.<wbr>js:16</a></p>
+            <div class="symbol-classdesc">
+              <p>Provides the loading screen at startup</p>
+            </div>
+            <dl class="dl-compact">
+            </dl>
+          </header>
+          <section id="summary">
+            <div class="summary-callout">
+              <h2 class="summary-callout-heading">Methods</h2>
+              <div class="summary-content">
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="module-Misc.Loader.html#.checkFail">checkFail(index, progress)</a></dt>
+                    <dd>
+                      <p>Check the step in the initialization at the corresponding index as fail.</p>
+                    </dd>
+                    <dt><a href="module-Misc.Loader.html#.checkSuccessful">checkSuccessful(index, progress)</a></dt>
+                    <dd>
+                      <p>Check the step in the initialization at the corresponding index as successful.</p>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="summary-column">
+                  <dl class="dl-summary-callout">
+                    <dt><a href="module-Misc.Loader.html#.destroy">destroy(timeout)</a></dt>
+                    <dd>
+                      <p>Destroy the initlialization loader.</p>
+                    </dd>
+                    <dt><a href="module-Misc.Loader.html#.init">init()</a></dt>
+                    <dd>
+                      <p>Initialize the loader Always call this method first.</p>
+                    </dd>
+                  </dl>
+                </div>
+                <div class="summary-column">
+                </div>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h2 id="Loader">new&nbsp;<span class="symbol-name">Loader</span><span class="signature"><span class="signature-params">()</span></span>
+            </h2>
+            <p>A singelton class which provides a loading screen for the initialization of the wireframing editor</p>
+            <dl class="dl-compact">
+              <dt>Requires</dt>
+              <dd>module:jquery</dd>
+            </dl>
+          </section>
+          <section>
+            <h2>Methods</h2>
+            <section>
+              <div class="symbol-detail-labels"><span class="label label-static">static</span></div>
+              <h3 id=".checkFail"><span class="symbol-name">checkFail</span><span class="signature"><span class="signature-params">(index, progress)</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Check the step in the initialization at the corresponding index as fail</p>
+              <section>
+                <h4>Parameters</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>index</p>
+                      </td>
+                      <td>
+                        <p>Integer</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the index in the initialization step</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>progress</p>
+                      </td>
+                      <td>
+                        <p>Integer</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the progress of the initialization</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-static">static</span></div>
+              <h3 id=".checkSuccessful"><span class="symbol-name">checkSuccessful</span><span class="signature"><span class="signature-params">(index, progress)</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Check the step in the initialization at the corresponding index as successful</p>
+              <section>
+                <h4>Parameters</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>index</p>
+                      </td>
+                      <td>
+                        <p>Integer</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the index in the initialization step</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p>progress</p>
+                      </td>
+                      <td>
+                        <p>Integer</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the progress of the initialization</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-static">static</span></div>
+              <h3 id=".destroy"><span class="symbol-name">destroy</span><span class="signature"><span class="signature-params">(timeout)</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Destroy the initlialization loader</p>
+              <section>
+                <h4>Parameter</h4>
+                <table class="jsdoc-details-table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Type</th>
+                      <th>Optional</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p>timeout</p>
+                      </td>
+                      <td>
+                        <p>Integer</p>
+                      </td>
+                      <td>
+                        <p>&nbsp;</p>
+                      </td>
+                      <td>
+                        <p>the timeout of the destroy</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+              <div class="symbol-detail-labels"><span class="label label-static">static</span></div>
+              <h3 id=".init"><span class="symbol-name">init</span><span class="signature"><span class="signature-params">()</span>&nbsp;&rarr; <span class="signature-returns"> undefined</span></span>
+              </h3>
+              <p>Initialize the loader Always call this method first</p>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>undefined</code>&nbsp;</p>
+                </dd>
+              </dl>
+            </section>
+          </section>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+  <footer id="jsdoc-footer" class="jsdoc-footer">
+    <div id="jsdoc-footer-container">
+      <p>
+        Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc</a> 3.5.4 on October 9, 2017.
+      </p>
+    </div>
+  </footer>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/jquery.cookie.js"></script>
+  <script src="scripts/tree.jquery.js"></script>
+  <script src="scripts/prettify.js"></script>
+  <script src="scripts/jsdoc-toc.js"></script>
+  <script src="scripts/linenumber.js"></script>
+  <script src="scripts/scrollanchor.js"></script>
+</body>
+
+</html>
