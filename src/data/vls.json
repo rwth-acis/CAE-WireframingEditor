@@ -63,7 +63,11 @@
                         "video": "video",
                         "audio": "audio",
                         "iframe": "iframe",
-                        "span":"span"
+                        "span":"span",
+                        "ul":"ul",
+                        "ol":"ol",
+                        "dl": "dl",
+                        "img": "img"
                     }
                 },
                 "d326bc315a5c9e11522b58e5": {

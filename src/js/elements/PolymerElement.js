@@ -16,7 +16,7 @@ PoylmerElement.prototype.constructor = PoylmerElement;
 /**
  * The HTML node name
  * @static 
- * @default img
+ * @default CUSTOM
  * @readonly
  */
 PoylmerElement.HTML_NODE_NAME = 'CUSTOM';
@@ -24,7 +24,7 @@ PoylmerElement.HTML_NODE_NAME = 'CUSTOM';
 /**
  * The Name in the wireframing editor
  * @static 
- * @default Image
+ * @default Polymer
  * @readonly
  */
 PoylmerElement.NAME = "Polymer";

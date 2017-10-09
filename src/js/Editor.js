@@ -8,6 +8,7 @@ import {
 import KeyHandler from './KeyHandler.js';
 import ContextMenu from './ContextMenu.js';
 import Y from './../../node_modules/yjs/dist/y.js';
+import CONST from './misc/Constants.js';
 
 import DefaultShape from './shapes/DefaultShape.js';
 import VideoPlayerShape from './shapes/VideoShape.js';
@@ -20,9 +21,7 @@ import TextAreaShape from './shapes/TextAreaShape.js';
 import TextBoxShape from './shapes/TextBoxShape.js';
 import CheckboxShape from './shapes/CheckboxShape.js';
 import RadioButtonShape from './shapes/RadioButtonShape.js';
-import ImageShape from './shapes/ImageShape.js';
-import YouTubeShape from './shapes/YouTubeShape.js';
-import PolymerShape from './shapes/PolymerShape.js';
+import GenericImageShape from './shapes/ImageShapeFactory.js';
 
 import UIControl from './elements/UIControl.js';
 import Link from './elements/Link.js';
@@ -39,6 +38,10 @@ import AudioPlayer from './elements/AudioPlayer.js';
 import DivContainer from './elements/DivContainer.js';
 import YouTube from './elements/YouTube.js';
 import PolymerElement from './elements/PolymerElement.js';
+import Table from './elements/Table.js';
+import List from './elements/List.js';
+import OrderedList from './elements/OrderedList.js';
+import DescriptionList from './elements/DescriptionList.js';
 
 Editor.prototype = new mxEditor();
 Editor.prototype.constructor = Editor;
@@ -71,11 +74,15 @@ function Editor(wireframe, palette, config) {
     mxCellRenderer.prototype.defaultShapes["textarea"] = TextAreaShape;
     mxCellRenderer.prototype.defaultShapes["checkbox"] = CheckboxShape;
     mxCellRenderer.prototype.defaultShapes["radio"] = RadioButtonShape;
-    mxCellRenderer.prototype.defaultShapes["image"] = ImageShape;
+    mxCellRenderer.prototype.defaultShapes["image"] = GenericImageShape.createImageShape("image", CONST.IMAGES.IMAGE_SHAPE);
     mxCellRenderer.prototype.defaultShapes["textnode"] = TextNodeShape;
     mxCellRenderer.prototype.defaultShapes["default"] = DefaultShape;
-    mxCellRenderer.prototype.defaultShapes["youtube"] = YouTubeShape;
-    mxCellRenderer.prototype.defaultShapes["polymer"] = PolymerShape;
+    mxCellRenderer.prototype.defaultShapes["youtube"] = GenericImageShape.createImageShape("youtube", CONST.IMAGES.YOUTUBE);
+    mxCellRenderer.prototype.defaultShapes["polymer"] = GenericImageShape.createImageShape("polymer", CONST.IMAGES.POLYMER);
+    mxCellRenderer.prototype.defaultShapes["table"] = GenericImageShape.createImageShape("table", CONST.IMAGES.TABLE_IMG);
+    mxCellRenderer.prototype.defaultShapes["ul"] = GenericImageShape.createImageShape("ul", CONST.IMAGES.UL_IMG);
+    mxCellRenderer.prototype.defaultShapes["ol"] = GenericImageShape.createImageShape("ol", CONST.IMAGES.OL_IMG);
+    mxCellRenderer.prototype.defaultShapes["dl"] = GenericImageShape.createImageShape("dl", CONST.IMAGES.DL_IMG);
     
     y.share.attrs.observe(function (event) {
         var name;
@@ -158,6 +165,11 @@ function Editor(wireframe, palette, config) {
     htmlNodeMap[CheckBox.HTML_NODE_NAME] = CheckBox.NAME;
     htmlNodeMap[YouTube.HTML_NODE_NAME] = YouTube.NAME;
     htmlNodeMap[PolymerElement.HTML_NODE_NAME] = PolymerElement.NAME;
+    htmlNodeMap[Table.HTML_NODE_NAME] = Table.NAME;
+    htmlNodeMap[List.HTML_NODE_NAME] = List.NAME;
+    htmlNodeMap[OrderedList.HTML_NODE_NAME] = OrderedList.NAME;    
+    htmlNodeMap[DescriptionList.HTML_NODE_NAME] = DescriptionList.NAME;
+    
 
      /**
      * Maps the HTML elements types defined in the VLS to their corresponding ui control element in the wireframing editor.
@@ -208,6 +220,10 @@ function Editor(wireframe, palette, config) {
     yfUIComponents[RadioBtn.NAME] = RadioBtn;
     yfUIComponents[YouTube.NAME] = YouTube;
     yfUIComponents[PolymerElement.NAME] = PolymerElement;
+    yfUIComponents[Table.NAME] = Table;
+    yfUIComponents[List.NAME] = List;
+    yfUIComponents[OrderedList.NAME] = OrderedList;
+    yfUIComponents[DescriptionList.NAME] = DescriptionList;
     
     /**
      * The map contains as key as the name of the UIObjects and as value the style as String

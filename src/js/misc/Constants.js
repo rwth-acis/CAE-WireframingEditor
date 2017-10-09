@@ -56,7 +56,11 @@ var constants = {
         SYNC: 'images/toolbox/sync.png',
         SYNCMETA: 'images/syncmeta.png',
         YOUTUBE: 'images/youtube.png',
-        POLYMER: 'images/polymer.png'
+        POLYMER: 'images/polymer.png',
+        TABLE_IMG: 'images/table.png',
+        UL_IMG : 'images/ul.png',
+        OL_IMG : 'images/ol.png',
+        DL_IMG : 'images/dl.png'
     },
     TAG: {
         SIZE: 20/*,
