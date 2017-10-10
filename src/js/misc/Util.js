@@ -56,6 +56,12 @@ Util.GUID = function () {
     return _p8() + _p8(true) + _p8(true) + _p8();
 }
 
+Util.formatNumber = function(number){
+    if(number.indexOf('.') != -1)
+        return number.substr(0, number.indexOf('.'));
+    else return number;
+}
+
 /**
  * Serializes the current wireframe to XML and stores it in y.share.data.wireframe
  * @param {Wireframe} graph the wireframe

@@ -103,8 +103,8 @@ function CAELiveMapper() {
                 widgetNodeId = SyncMeta.createNode('Widget', 4500, 4500, 100, 100, 1);
                 setTimeout(function () {
                     var meta = editor.graph.model.getMeta();
-                    SyncMeta.setAttributeValue(widgetNodeId, 'width', meta.getAttribute('width'));
-                    SyncMeta.setAttributeValue(widgetNodeId, 'height', meta.getAttribute('height'));
+                    SyncMeta.setAttributeValue(widgetNodeId, 'width', Util.formatNumber(meta.getAttribute('width')));
+                    SyncMeta.setAttributeValue(widgetNodeId, 'height', Util.formatNumber(meta.getAttribute('height')));
                 }, 750);
             } else {
                 var meta = editor.graph.model.getMeta();
@@ -115,8 +115,8 @@ function CAELiveMapper() {
                         widgetAttr[attrib.name] = ytext;
                     else mxLog.writeln('Widget node attribute ' + attrib.name + ' is not ytext????');
                 }*/
-                SyncMeta.setAttributeValue(widgetNodeId, 'width', meta.getAttribute('width'));
-                SyncMeta.setAttributeValue(widgetNodeId, 'height', meta.getAttribute('height'));
+                SyncMeta.setAttributeValue(widgetNodeId, 'width', Util.formatNumber(meta.getAttribute('width')));
+                SyncMeta.setAttributeValue(widgetNodeId, 'height', Util.formatNumber(meta.getAttribute('height')));
             }
 
             editor.graph.model.setAttribute('id', widgetNodeId);
@@ -311,8 +311,8 @@ function CAELiveMapper() {
                         break;
                     }
                     case CONST.ACTIONS.SHARED.GRAPH_RESIZE: {
-                        SyncMeta.setAttributeValue(widgetNodeId, 'width', event.value.width.toString());
-                        SyncMeta.setAttributeValue(widgetNodeId, 'height', event.value.height.toString());
+                        SyncMeta.setAttributeValue(widgetNodeId, 'width', Util.formatNumber(event.value.width.toString()));
+                        SyncMeta.setAttributeValue(widgetNodeId, 'height', Util.formatNumber(event.value.height.toString()));
                         break;
                     }
                     case CONST.ACTIONS.DELETE_TAG: {

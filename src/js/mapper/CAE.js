@@ -63,10 +63,14 @@ function WireframeToModel(wireframeModel, vls) {
     for (var i = 0; i < wireframeModel.getMeta().attributes.length; i++) {
         var attr = wireframeModel.getMeta().attributes[i];
         var attrName = attr.name[0] === '_' ? attr.name.slice(1) : attr.name;
+        var val;
+        if(attrName === 'height' || attrName === 'width')
+            val = Util.formatNumber(attr.value);
+        else val = attr.value
         var json = attrCompiled({
             id: widgetNodeId,
             attrName: attrName,
-            value: '"' + attr.value + '"',
+            value: '"' + val + '"',
             option: false
         });
         if (attrName === 'name')
