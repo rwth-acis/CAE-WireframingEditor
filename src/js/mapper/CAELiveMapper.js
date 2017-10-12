@@ -311,6 +311,8 @@ function CAELiveMapper() {
                         break;
                     }
                     case CONST.ACTIONS.SHARED.GRAPH_RESIZE: {
+                        if(event.value.fromSyncMeta) return;
+                        if(event.value.userId !== y.db.userId) return;
                         SyncMeta.setAttributeValue(widgetNodeId, 'width', Util.formatNumber(event.value.width.toString()));
                         SyncMeta.setAttributeValue(widgetNodeId, 'height', Util.formatNumber(event.value.height.toString()));
                         break;
