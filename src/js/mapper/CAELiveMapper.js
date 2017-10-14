@@ -447,7 +447,7 @@ function CAELiveMapper() {
                             msg += cell ? cell.constructor.NAME + ', ' : 'UI element, ';
                         }
                         msg = msg.substr(0, msg.lastIndexOf(', ')); 
-                        SyncMeta.createActivity('WireResizeEvent', null,
+                        SyncMeta.createActivity('WireframeResizeEvent', null,
                         '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Resized ' + msg, event.value);      
                         break;
                     }
