@@ -149,8 +149,9 @@ Util.bindSharedAttributes = function (entity, form) {
                     if(entity.hasOwnProperty('value')){
                         var val = entity.value.getAttribute('_'+name);
                         ytext.bind($input[0]);
-                        if(val.length > 0 && ytext.toString() !== val){
-                            ytext.delete(0, ytext.toString().length);
+                        if(val.length > 0){
+                            if(ytext.toString().length > 0)
+                                ytext.delete(0, ytext.toString().length);
                             ytext.insert(0,val);
                         }
                     }
