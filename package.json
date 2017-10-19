@@ -11,7 +11,7 @@
     "build:dist": "webpack --env=dist --progress --profile --colors",
     "build:widget": "node task/pre.js && webpack --env=widget --progress --profile --colors && node task/post.js",
     "dashTest": "webpack-dashboard -- webpack-dev-server --env=test",
-    "devTest": "webpack-dev-server --env=test",    
+    "devTest": "webpack-dev-server --env=test",
     "doc": "./node_modules/.bin/jsdoc -r --debug -t ./node_modules/jsdoc-baseline --verbose --readme README.md -c jsdoc.conf.json -d doc"
   },
   "author": "Mario Rosenstengel",
@@ -42,7 +42,7 @@
     "mxgraph": "^3.7.2-2",
     "noty": "^3.1.2",
     "randomcolor": "^0.5.3",
-    "syncmeta-plugin": "git+https://github.com/Mari0/syncmeta-plugin.git",
+    "syncmeta-plugin": "git+https://github.com/rwth-acis/syncmeta-plugin.git",
     "y-array": "^10.1.2",
     "y-map": "^10.1.0",
     "y-memory": "^8.0.8",
