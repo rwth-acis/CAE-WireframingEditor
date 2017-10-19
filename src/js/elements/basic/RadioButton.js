@@ -1,6 +1,8 @@
+/*global y*/
 /**
  * @module UIElements/Basic
  */
+import Y from './../../../../node_modules/yjs/dist/y.js';
 import UIText from '../UIText.js';
 import $ from 'jquery';
 import _ from 'lodash';
@@ -45,6 +47,7 @@ function RadioButton(geometry) {
     this.value.setAttribute('_checked', false);
     this.value.setAttribute('_autofocus', false);
     this.value.setAttribute('_disabled', false);
+    this.value.setAttribute('_name', '');
 
     /**
      * Intialize the DOM elements for the label
@@ -78,11 +81,19 @@ RadioButton.prototype.bindLabel = function (ytext) {
     }, 300));
 }
 
+RadioButton.prototype.createShared = function (createdByLocalUser) {
+    UIText.prototype.createShared.call(this, createdByLocalUser);
+    if (createdByLocalUser) {
+        y.share.attrs.set(this.getId() + '_name', Y.Text);
+    }
+}
+
 /**
  * Initialize the shared data objects
  * @returns {undefined}
  */
 RadioButton.prototype.initShared = function () {
     UIText.prototype.initShared.call(this);
+    this.initYText('_name');
 }
 export default RadioButton;
