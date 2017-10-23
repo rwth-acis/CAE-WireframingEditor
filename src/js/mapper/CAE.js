@@ -116,22 +116,29 @@ function WireframeToModel(wireframeModel, vls) {
             value: '"' + type + '_' + Util.GUID().substr(0,5) + '"',
             option: false
         }));
-        attributes[htmlAttributesMap['static']] = JSON.parse(attrCompiled({
-            id: cell.id,
-            attrName: 'static',
-            value: true,
-            option: false
-        }));
-        var shared = false;
+        
+        var shared = false, staticAttr = true;
         if (cell.overlays) {
             for (var i = 0; i < cell.overlays.length; i++) {
                 var overlay = cell.overlays[i];
-                if (overlay.constructor.name === 'SharedTag') {
-                    shared = true;
-                    break;
+                switch(overlay.constructor.name){
+                    case 'SharedTag':{
+                        shared = true;                        
+                        break;
+                    }
+                    case 'DynamicTag':{
+                        staticAttr = false;
+                        break;
+                    }
                 }
             }
         }
+        attributes[htmlAttributesMap['static']] = JSON.parse(attrCompiled({
+            id: cell.id,
+            attrName: 'static',
+            value: staticAttr,
+            option: false
+        }));
         attributes[htmlAttributesMap['collaborative']] = JSON.parse(attrCompiled({
             id: cell.id,
             attrName: 'collaborative',

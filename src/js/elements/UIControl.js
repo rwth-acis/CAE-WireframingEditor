@@ -111,7 +111,8 @@ function UIControl(geometry, style, type) {
         var encoder = new mxCodec();
 
         //var pt = wf.getPointForEvent(evt);
-
+        if(dropTarget && dropTarget.constructor.name !== 'DivContainer')
+            dropTarget = null;
         var v = wf.getModel().cloneCell(that);
         v.geometry.x = dropTarget ? Math.abs(x0 - dropTarget.geometry.x) : x0;
         v.geometry.y = dropTarget ? Math.abs(y0 - dropTarget.geometry.y) : y0;

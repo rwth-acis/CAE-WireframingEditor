@@ -4,6 +4,7 @@
 import CONST from '../misc/Constants.js';
 import SharedTag from './SharedTag.js';
 import GenericTag from './GenericTag.js';
+import DynamicTag from './DynamicTag.js';
 
 /**
  * @classdesc A registry for all generic and predefined tags
@@ -29,8 +30,12 @@ function TagRegistry() {
     
     //Register the SharedTag
     _registry[SharedTag.Alias] = SharedTag;
+    _registry[DynamicTag.Alias] = DynamicTag;
     _descriptions[SharedTag.Alias] = {
         image: SharedTag.IMAGE
+    };
+    _descriptions[DynamicTag.Alias] = {
+        image: DynamicTag.IMAGE
     };
 
     return {

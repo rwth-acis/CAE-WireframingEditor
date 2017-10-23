@@ -70,7 +70,8 @@ var constants = {
         OL_IMG : 'images/ol.png',
         DL_IMG : 'images/dl.png',
         HTML5CANVAS: 'images/html5canvas.png',
-        SVG : 'images/svg.png'
+        SVG : 'images/svg.png',
+        DYNAMIC: 'images/tags/dynamic.png'
     },
     TAG: {
         SIZE: 20/*,

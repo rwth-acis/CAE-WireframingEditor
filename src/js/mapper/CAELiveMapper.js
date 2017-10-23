@@ -35,8 +35,6 @@ function CAELiveMapper() {
             var model = y.share.data.get('model');
             var widgetNodeId = null;
             var hasChildMap = {};
-            var isStaticMap = {}; //is the html element static
-            var isConnected = {}; //is the html element connected to the widget
             var mxCellOverlayAddFlag = true;
             if (model) {
                 nodeLoop:
@@ -45,15 +43,6 @@ function CAELiveMapper() {
                         var node = model.nodes[key];
                         if (node.type === 'Widget') {
                             widgetNodeId = key;
-                        } else if (node.type === 'HTML Element') {
-                            attrLoop:
-                            for (var attrKey in node.attributes) {
-                                var attr = node.attributes[attrKey];
-                                if (attr.name === 'static') {
-                                    isStaticMap[key] = attr.value.value;
-                                    break attrLoop;
-                                }
-                            }
                         }
                     }
                 }
@@ -62,9 +51,6 @@ function CAELiveMapper() {
                         var edge = model.edges[key];
                         if (edge.type === 'hasChild') {
                             hasChildMap[edge.target] = key;
-                        }
-                        else if (edge.type === 'Widget to HTML Element') {
-                            isConnected[edge.target] = true;
                         }
                     }
                 }
@@ -128,12 +114,12 @@ function CAELiveMapper() {
             function createUIControlElementFromNode(nodeId) {
                 var ymap = y.share.nodes.get(nodeId);
                 if (ymap) {
-                    var attr = ymap.get(nodeId + '[type]');
+                    var attr = ymap.get(nodeId + '[type]');                       
                     var type;
                     if (attr)
                         type = attr.value;
                     else
-                        type = 'input';
+                        type = 'span';
 
                     var UIControl = editor.getUIComponentFromHTMLName(type);
                     if (UIControl) {
@@ -150,6 +136,19 @@ function CAELiveMapper() {
                             parent: null,
                             fromSyncMeta: true
                         });
+
+                        var cell = editor.graph.model.getCell(nodeId);
+                        var staticAttr = ymap.get(nodeId+'[static]');                        
+                        if(!staticAttr)
+                            createTag('Dynamic', cell);
+                        else 
+                            deleteTag('Dynamic', cell);
+                        var sharedAttr = ymap.get(nodeId+'[collaborative]');                        
+                        if(sharedAttr)
+                            createTag('Shared', cell);
+                        else 
+                            deleteTag('Shared', cell);                   
+                        
                         if (editor.graph.getDefaultParent().children.length > 1) {
                             y.share.action.set(CONST.ACTIONS.SHARED.APPLY_LAYOUT, { userId: y.db.userId, cellId: null });
                         }
@@ -157,19 +156,61 @@ function CAELiveMapper() {
 
                 }
             }
+            function createTag(tagAlias, cell){
+                var Tag = TagRegistry.getClass(tagAlias);
+                var tag = new Tag(cell, new mxPoint(-CONST.TAG.SIZE * cell.getTagCounter(), 0));
+                if (cell && tag && userId && !cell.containsTagType(tag)) {
+                    mxCellOverlayAddFlag = false;
+                    mxGraph.prototype.addCellOverlay.apply(editor.graph, [cell, tag]);
+                    cell.addTag(tag);
+                    tag.setCell(cell);
+                    if (tag.hasOwnProperty('initAttributes')) tag.initAttributes();
+                    tag.createShared(y.share.yfUsers.get(y.db.userId).id === userId);
+                    tag.bindClickEvent(editor.graph);
+                    var ref = $('#' + cell.getId() + '_tagTree').jstree(true);
+                    if (ref) {
+                        ref.create_node(null, {
+                            id: tag.tagObj.getAttribute('id'),
+                            type: tag.tagObj.getAttribute('tagType'),
+                            text: tag.constructor.Alias || tag.tagObj.getAttribute('tagType'),
+                            state: {
+                                selected: false,
+                                opened: true
+                            }
+                        });
+                        //if (sel) ref.edit(sel);
+                    }
+                }
+            };
+            function deleteTag(tagAlias, cell){
+                var tagId;
+                var types = [];
+                for (var i = 0; cell.overlays && i < cell.overlays.length; i++) {
+                    var overlay = cell.overlays[i];
+                    if (overlay.constructor.Alias === tagAlias){
+                        tagId = overlay.getId();
+                        types.push(overlay.constructor.name);
+                    }
+                }
+                y.share.action.set(CONST.ACTIONS.DELETE_TAG, { 
+                    userId: y.db.userId,
+                    cellId: cell.getId(),
+                    selected: [tagId],
+                    types: types,
+                    fromSyncMeta: true
+                });
+            }
+    
             SyncMeta.onEdgeAdd(function (event) {
                 mxLog.writeln('Edge was created in SyncMeta: ' + JSON.stringify(event));
 
                 var cell = editor.graph.model.getCell(event.target);
                 if (cell) return;
                 if (event.source === widgetNodeId && event.type === 'Widget to HTML Element') {
-                    if (isStaticMap.hasOwnProperty(event.target) && isStaticMap[event.target]) {
-                        //only the user who triggered the event in syncmeta create the UI control and progapates it to the others
-                        var userInfo = y.share.yfUsers.get(y.db.userId);
-                        if (userInfo && userInfo.id === event.jabberId)
-                            createUIControlElementFromNode(event.target);
-                    }
-                    else isConnected[event.target] = true;
+                    //only the user who triggered the event in syncmeta create the UI control and progapates it to the others
+                    var userInfo = y.share.yfUsers.get(y.db.userId);
+                    if (userInfo && userInfo.id === event.jabberId)
+                        createUIControlElementFromNode(event.target);
                 }
             });
             SyncMeta.onNodeDelete(function (event) {
@@ -185,7 +226,6 @@ function CAELiveMapper() {
                 mxLog.writeln('Edge deleted from the Widget: ' + JSON.stringify(event));
                 var cell = editor.graph.model.getCell(event.target);
                 if (cell && event.type === 'Widget to HTML Element') {
-                    delete isConnected[cell.id];
                     y.share.action.set(mxEvent.REMOVE, {
                         userId: y.db.userId,
                         cells: [cell.id],
@@ -193,10 +233,11 @@ function CAELiveMapper() {
                     });
                 }
             });
-            SyncMeta.onNodeAttributeChange(function (value, entity, entityValueId, userId) {
+            SyncMeta.onNodeAttributeChange(function (value, entity, entityValueId) {
                 var cell = editor.graph.model.getCell(entity);
                 if (!entityValueId) return;
                 var attr = entityValueId.substring(entityValueId.indexOf('[') + 1, entityValueId.length - 1);
+              
                 switch (attr) {
                     case 'type': {
                         if (!value || !cell || cell.constructor.HTML_NODE_NAME === value || cell.value.getAttribute('uiType') === value) return;
@@ -232,60 +273,17 @@ function CAELiveMapper() {
                         break;
                     }
                     case 'collaborative': {
-                        if (value) {
-                            var Tag = TagRegistry.getClass('Shared');
-                            var tag = new Tag(cell, new mxPoint(-CONST.TAG.SIZE * cell.getTagCounter(), 0));
-                            if (cell && tag && userId && !cell.containsTagType(tag)) {
-                                mxCellOverlayAddFlag = false;
-                                mxGraph.prototype.addCellOverlay.apply(editor.graph, [cell, tag]);
-                                cell.addTag(tag);
-                                tag.setCell(cell);
-                                if (tag.hasOwnProperty('initAttributes')) tag.initAttributes();
-                                tag.createShared(y.share.yfUsers.get(y.db.userId).id === userId);
-                                tag.bindClickEvent(editor.graph);
-                                var ref = $('#' + cell.getId() + '_tagTree').jstree(true);
-                                if (ref) {
-                                    ref.create_node(null, {
-                                        id: tag.tagObj.getAttribute('id'),
-                                        type: tag.tagObj.getAttribute('tagType'),
-                                        text: tag.constructor.Alias || tag.tagObj.getAttribute('tagType'),
-                                        state: {
-                                            selected: false,
-                                            opened: true
-                                        }
-                                    });
-                                    //if (sel) ref.edit(sel);
-                                }
-                            }
-                        }
-                        else {
-                            var tagId;
-                            for (var i = 0; cell.overlays && i < cell.overlays.length; i++) {
-                                var overlay = cell.overlays[i];
-                                if (overlay.constructor.name === 'SharedTag')
-                                    tagId = overlay.getId();
-                            }
-                            y.share.action.set(CONST.ACTIONS.DELETE_TAG, { userId: y.db.userId, cellId: cell.getId(), selected: [tagId], types: ['SharedTag'], fromSyncMeta: true });
-                        }
+                        if (value) 
+                            createTag('Shared', cell);
+                        else 
+                            deleteTag('Shared', cell);
                         break;
                     }
                     case 'static': {
-                        isStaticMap[entity] = value;
-                        if (value) {
-                            if (isConnected.hasOwnProperty(entity) && isConnected[entity]) {
-                                var uiControl = editor.graph.model.getCell(entity);
-                                var userInfo = y.share.yfUsers.get(y.db.userId);
-                                if (!uiControl && userInfo && userInfo.id === userId)
-                                    createUIControlElementFromNode(entity);
-                            }
-                        }
-                        else {
-                            //check if ui control element exists and delete it from wireframe only
-                            var uiControl = editor.graph.model.getCell(entity);
-                            if (uiControl) {
-                                editor.graph.removeCells([uiControl]);
-                            }
-                        }
+                        if (!value) 
+                            createTag('Dynamic', cell);
+                        else 
+                           deleteTag('Dynamic', cell);
                         break;
                     }
                 }
@@ -300,19 +298,26 @@ function CAELiveMapper() {
                             return;
                         }
                         if (event.value.fromSyncMeta) return;
-                        if (event.value.xml.indexOf('SharedTag') != -1){
+                        if (event.value.xml.indexOf('SharedTag') != -1) {
                             SyncMeta.setAttributeValue(event.value.id, 'collaborative', true);
 
                             var cell = editor.graph.model.getCell(event.value.id);
                             var msg = cell ? cell.constructor.NAME : 'UI Element';
                             SyncMeta.createActivity('WireframeCreateTag', event.value.id,
-                            '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Tagged ' + msg + ' as shared', event.value);
+                                '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Tagged ' + msg + ' as shared', event.value);
+                        } else if (event.value.xml.indexOf('DynamicTag') != -1) {
+                            SyncMeta.setAttributeValue(event.value.id, 'static', false);
+
+                            var cell = editor.graph.model.getCell(event.value.id);
+                            var msg = cell ? cell.constructor.NAME : 'UI Element';
+                            SyncMeta.createActivity('WireframeCreateTag', event.value.id,
+                                '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Tagged ' + msg + ' as dynamic', event.value);
                         }
                         break;
                     }
                     case CONST.ACTIONS.SHARED.GRAPH_RESIZE: {
-                        if(event.value.fromSyncMeta) return;
-                        if(event.value.userId !== y.db.userId) return;
+                        if (event.value.fromSyncMeta) return;
+                        if (event.value.userId !== y.db.userId) return;
                         SyncMeta.setAttributeValue(widgetNodeId, 'width', Util.formatNumber(event.value.width.toString()));
                         SyncMeta.setAttributeValue(widgetNodeId, 'height', Util.formatNumber(event.value.height.toString()));
                         break;
@@ -321,13 +326,21 @@ function CAELiveMapper() {
                         if (event.value.fromSyncMeta) return;
                         for (var i = 0; i < event.value.types.length; i++) {
                             var type = event.value.types[i];
-                            if (type === 'SharedTag'){
+                            if (type === 'SharedTag') {
                                 SyncMeta.setAttributeValue(event.value.cellId, 'collaborative', false);
-                                
+
                                 var cell = editor.graph.model.getCell(event.value.cellId);
                                 var msg = cell ? cell.constructor.NAME : 'UI Element';
                                 SyncMeta.createActivity('WireframeDeleteTag', event.value.cellId,
-                                '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Removed shared tag from ' + msg, event.value);
+                                    '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Removed shared tag from ' + msg, event.value);
+                            }
+                            else if (type === 'DynamicTag') {
+                                SyncMeta.setAttributeValue(event.value.cellId, 'static', true);
+
+                                var cell = editor.graph.model.getCell(event.value.cellId);
+                                var msg = cell ? cell.constructor.NAME : 'UI Element';
+                                SyncMeta.createActivity('WireframeDeleteTag', event.value.cellId,
+                                    '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Removed dynamic tag from ' + msg, event.value);
                             }
                         }
                         break;
@@ -348,11 +361,11 @@ function CAELiveMapper() {
                                 hasChildMap[event.value.ids[i]] = edgeId;
 
                                 var cell = editor.graph.model.getCell(event.value.ids[i]);
-                                msg += cell ? cell.constructor.NAME + ', ': 'UI element, ';
+                                msg += cell ? cell.constructor.NAME + ', ' : 'UI element, ';
                             }
-                            msg = msg.substr(0, msg.lastIndexOf(', '));                             
+                            msg = msg.substr(0, msg.lastIndexOf(', '));
                             SyncMeta.createActivity('WireframeGroupEvent', null,
-                            '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Created a group with ' + msg, event.value);
+                                '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Created a group with ' + msg, event.value);
                             setTimeout(function () {
                                 SyncMeta.applyLayout();
                             }, 1000);
@@ -367,7 +380,7 @@ function CAELiveMapper() {
                             SyncMeta.deleteNodeSave(cellId);
                         }
                         SyncMeta.createActivity('WireframeUngroupEvent', null,
-                        '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Ungrouped UI elements! ', event.value);
+                            '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Ungrouped UI elements! ', event.value);
                         setTimeout(function () {
                             SyncMeta.applyLayout();
                         }, 1000);
@@ -427,28 +440,28 @@ function CAELiveMapper() {
                                 var edgeId = SyncMeta.createEdge('hasChild', event.value.parentId, id);
                                 hasChildMap[id] = edgeId;
                             }
-                            var cell = editor.graph.model.getCell(id);  
-                            msg += cell ? cell.constructor.NAME + ', ' : 'UI element, ';                          
-                                                        
+                            var cell = editor.graph.model.getCell(id);
+                            msg += cell ? cell.constructor.NAME + ', ' : 'UI element, ';
+
                         }
-                        msg = msg.substr(0, msg.lastIndexOf(', ')); 
+                        msg = msg.substr(0, msg.lastIndexOf(', '));
                         SyncMeta.createActivity('WireframeMoveEvent', null,
-                        '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Moved ' + msg, event.value);
+                            '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Moved ' + msg, event.value);
                         setTimeout(function () {
                             SyncMeta.applyLayout();
-                            
+
                         }, 1000);
                         break;
-                    }case mxEvent.RESIZE:{
+                    } case mxEvent.RESIZE: {
                         var msg = '';
                         for (var i = 0; i < event.value.ids.length; i++) {
-                            var id = event.value.ids[i];                            
-                            var cell = editor.graph.model.getCell(id);  
+                            var id = event.value.ids[i];
+                            var cell = editor.graph.model.getCell(id);
                             msg += cell ? cell.constructor.NAME + ', ' : 'UI element, ';
                         }
-                        msg = msg.substr(0, msg.lastIndexOf(', ')); 
+                        msg = msg.substr(0, msg.lastIndexOf(', '));
                         SyncMeta.createActivity('WireframeResizeEvent', null,
-                        '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Resized ' + msg, event.value);      
+                            '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong> Resized ' + msg, event.value);
                         break;
                     }
                     case mxEvent.REMOVE: {
@@ -469,14 +482,14 @@ function CAELiveMapper() {
                         var cells = event.value.cells;
                         for (var i = 0; i < cells.length; i++) {
                             SyncMeta.deleteNodeSave(cells[i]);
-                             recursiveDelete(cells[i]);
+                            recursiveDelete(cells[i]);
                         }
                         setTimeout(function () {
                             SyncMeta.applyLayout();
                             //Create activity for the syncmeta activity widget
-                            var txt = event.value.cells.length > 1 ? " Removed multiple UI elements" : " Removed a UI element";                          
+                            var txt = event.value.cells.length > 1 ? " Removed multiple UI elements" : " Removed a UI element";
                             SyncMeta.createActivity('WireframeDeleteEvent', null,
-                             '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong>' + txt, event.value);                            
+                                '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong>' + txt, event.value);
                         }, 1000);
                         break;
                     }
