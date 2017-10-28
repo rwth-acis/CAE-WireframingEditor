@@ -307,6 +307,7 @@ function Editor(wireframe, palette, config) {
         addUIComponent(componentName);
     }
     palette.addLine(); //conclude with a horizontal line at the end
+    palette.createTooltips();
     return this;
 }
 export default Editor;

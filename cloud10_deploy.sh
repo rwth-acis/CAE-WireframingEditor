@@ -3,6 +3,6 @@
 #set in src/js/misc/YjsSync.js
 #       url : "http://cloud10.dbis.rwth-aachen.de:8083"
 
-#npm run build:widget
+npm run build:widget
 echo COPY TO cloud10
 scp -r widget/** cae@cloud10.dbis.rwth-aachen.de:./web/wireframing

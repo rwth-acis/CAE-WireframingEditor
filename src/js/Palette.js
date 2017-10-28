@@ -7,6 +7,9 @@ import {
     mxConstants,
     mxEvent
 } from './misc/mxExport.js';
+//not working currently
+//import tippy from 'tippy.js';
+var tippy = require('tippy.js');
 Palette.prototype = new mxToolbar();
 Palette.prototype.constructor = Palette;
 
@@ -41,11 +44,10 @@ function Palette(container) {
         return graph;
     };
 
-    //TODO
     var graph = new createTemporaryGraph();
     var thumbBorder = 1;
-    var thumbWidth = 50;
-    var thumbHeight = 50;
+    var thumbWidth = 48;
+    var thumbHeight = 48;
     var thumbPadding = 1;
 
     /**
@@ -98,7 +100,8 @@ function Palette(container) {
     this.createItem = function (cell, name, showLabel) {
         var elt = document.createElement('a');
         elt.setAttribute('href', 'javascript:void(0);');
-        elt.className = 'item tooltip';
+        elt.className = 'item';
+        elt.setAttribute('title', name);
         elt.style.overflow = 'hidden';
         var border = 2 * thumbBorder;
         elt.style.width = (thumbWidth + border) + 'px';
@@ -110,20 +113,23 @@ function Palette(container) {
             mxEvent.consume(evt);
         });
         elt.appendChild(getNodeEntry(cell, showLabel));
-        var tooltip = createTooltip(name);
 
-        //var bounds = new mxRectangle(0, 0, width, height);
-        elt.appendChild(tooltip);
         container.appendChild(elt);
         return elt;
     }
 
-    var createTooltip = function (text) {
-        var tooltip = document.createElement('span');
-        tooltip.className = 'tooltiptext';
-        tooltip.innerHTML = text;
-        return tooltip;
+    this.createTooltips = function () {
+        tippy('.item', {
+            position: 'right',
+            animation: 'scale',
+            duration: 1000,
+            arrow: true,
+            arrowSize: 'big',
+            size: 'big',
+            theme: 'transparent'
+        })
     }
+
     return this;
 }
 export default Palette;

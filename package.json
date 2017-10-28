@@ -43,6 +43,7 @@
     "noty": "^3.1.2",
     "randomcolor": "^0.5.3",
     "syncmeta-plugin": "git+https://github.com/rwth-acis/syncmeta-plugin.git",
+    "tippy.js": "^1.4.1",
     "y-array": "^10.1.2",
     "y-map": "^10.1.0",
     "y-memory": "^8.0.8",

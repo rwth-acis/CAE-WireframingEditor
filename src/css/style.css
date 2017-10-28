@@ -235,48 +235,6 @@
     float: right;
 }
 
-
-/**Tooltip */
-
-.tooltip {
-    position: relative;
-    display: inline-block;
-}
-
-.tooltip .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: fixed;
-    z-index: 1;
-    top: inherit;
-    left: inherit;
-    margin-left: 56px;
-    margin-top: -40px;
-    opacity: 0;
-    transition: opacity 1s;
-}
-
-.tooltip .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 40%;
-    left: 0%;
-    margin-left: -10px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent #555 transparent transparent;
-}
-
-.tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-}
-
 .jstree-themeicon-custom {
     background-size: contain!important;
 }
