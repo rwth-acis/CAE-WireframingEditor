@@ -34,7 +34,7 @@ module.exports = function(env) {
     conf.plugins.push(require('./webpack/dashboard.js'));
   }
 
-  if(env === 'dist'){
+  if(env === 'dist' || env =='widget'){
     conf.plugins.push(require('./webpack/uglify.js'));
   }
   console.log(conf);

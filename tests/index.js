@@ -3,7 +3,7 @@ import {
     mxUtils
 } from '../src/js/misc/mxExport.js';
 import $ from 'jquery';
-import GoogleLogin from '../src/js/GoogleLogin.js';
+import GoogleLogin from '../src/js/auth/GoogleLogin.js';
 import YjsSync from '../src/js/misc/YjsSync.js';
 import Main from '../src/js/Main.js';
 

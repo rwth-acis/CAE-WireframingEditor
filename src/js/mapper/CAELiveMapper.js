@@ -453,6 +453,7 @@ function CAELiveMapper() {
                         }, 1000);
                         break;
                     } case mxEvent.RESIZE: {
+                        if (event.value.userId !== y.db.userId) return;                        
                         var msg = '';
                         for (var i = 0; i < event.value.ids.length; i++) {
                             var id = event.value.ids[i];
