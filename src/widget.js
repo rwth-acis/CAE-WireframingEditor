@@ -9,8 +9,8 @@ import config from './data/config_widget.json';
 
 $(function(){
     Loader.init();
-    var roleSpaceTitle = frameElement.baseURI.substring(frameElement.baseURI.lastIndexOf('spaces/')).replace(/spaces|#\S*|\?\S*|\//g, '');
-     YjsSync(roleSpaceTitle).done(function (y) {
+    var roleSpaceTitle = parent.caeRoom; 
+    YjsSync(roleSpaceTitle).done(function (y) {
         Loader.checkSuccessful(0, 25);        
         var vls = y.share.data.get('metamodel');
         if(vls){

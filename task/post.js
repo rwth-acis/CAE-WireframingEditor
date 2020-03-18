@@ -15,7 +15,10 @@ fs.readFile('src/widget.xml', 'utf8', function(err, data){
             if(err) throw err;
             console.log('Widget successfully created!');
         });
+        fs.writeFile('widget/index.html', htmlOut, function(){
+            if(err) throw err;
+            console.log('Widget successfully created!');
+        });
         fs.rename('Constants.js', 'src/js/misc/Constants.js');//copy original version back
-        fs.unlinkSync('widget/index.html');
     })
 });
