@@ -11,14 +11,14 @@ fs.readFile('src/widget.xml', 'utf8', function(err, data){
         var htmlOut = htmlTpl({basePath : jsonConfig.basePath});
         var compiled = _.template(widgetXML);
         var output = compiled({html: htmlOut});
-        fs.writeFile('widget/yireframe.xml', output, function(){
+        fs.writeFileSync('widget/yireframe.xml', output, function(){
             if(err) throw err;
             console.log('Widget successfully created!');
         });
-        fs.writeFile('widget/index.html', htmlOut, function(){
+        fs.writeFileSync('widget/index.html', htmlOut, function(){
             if(err) throw err;
             console.log('Widget successfully created!');
         });
-        fs.rename('Constants.js', 'src/js/misc/Constants.js');//copy original version back
+        fs.renameSync('Constants.js', 'src/js/misc/Constants.js');//copy original version back
     })
 });

@@ -4,11 +4,11 @@ console.log('Run preprocessing task to build widget.');
 fs.readFile('task/config.json', 'utf8', function (err, config) {
     var jsonConfig = JSON.parse(config);
     fs.readFile('src/js/misc/Constants.js', 'utf8', function (err, data) {
-        fs.writeFile('Constants.js', data); //make a copy of Constants.js
+        fs.writeFileSync('Constants.js', data); //make a copy of Constants.js
         var compile = _.template(data);
         var output = compile({ basePath: jsonConfig.basePath });
         output = output.replace('var widgetMode = false;', 'var widgetMode = true;');
-        fs.writeFile('src/js/misc/Constants.js', output);
+        fs.writeFileSync('src/js/misc/Constants.js', output);
         console.log('Preprocess Finished');
     });
 });
