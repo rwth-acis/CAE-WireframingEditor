@@ -251,13 +251,13 @@ function CAELiveMapper() {
               console.log('onEdgeDelete.................................................................');
                 mxLog.writeln('Edge deleted from the Widget: ' + JSON.stringify(event));
                 var cell = editor.graph.model.getCell(event.target);
-                if (cell && event.type === 'Widget to HTML Element') {
-                    y.share.action.set(mxEvent.REMOVE, {
-                        userId: y.db.userId,
-                        cells: [cell.id],
-                        fromSyncMeta: true
-                    });
-                }
+                // if (cell && event.type === 'Widget to HTML Element') {
+                //     y.share.action.set(mxEvent.REMOVE, {
+                //         userId: y.db.userId,
+                //         cells: [cell.id],
+                //         fromSyncMeta: true
+                //     });
+                // }
             });
             SyncMeta.onNodeAttributeChange(function (value, entity, entityValueId) {
               console.log('onNodeAttributeChange...........................................................');
@@ -537,7 +537,6 @@ function CAELiveMapper() {
                                       console.log(cell.id);
                                       if (parent && parent.id != '1') {
                                         console.log('ok...........');
-                                        SyncMeta.createEdge('Widget to View Component', widgetNodeId, cell.id);
                                           var edgeId = SyncMeta.createEdge('View Component to HTML', parent.id, cell.id);
                                           console.log('end..........');
                                           hasChildMap[cell.id] = edgeId;
