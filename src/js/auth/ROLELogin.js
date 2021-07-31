@@ -32,17 +32,25 @@ function RoleLogin(){
         return COLORS[id%COLORS.length];
     };
     var deferred = $.Deferred();
-    var url = localStorage.userinfo_endpoint + '?access_token=' + localStorage.access_token;
-    $.get(url, function(data){
-        var userInfo = y.share.userList.get(data.sub);
-        var color;
-        if(userInfo)
-            color = getColor(userInfo.globalId);
+    var url = localStorage.userinfo_endpoint;
+    $.ajax({
+        type: "GET",
+        headers: {
+          "Authorization": "Bearer " + localStorage.access_token
+        },
+        url: url,
+        success: function(data){
+            var userInfo = y.share.userList.get(data.sub);
+            var color;
+            if(userInfo)
+                color = getColor(userInfo.globalId);
 
-        UserList({id: data.sub, name : data.name, imageUrl : data.picture, color : color}, false);
-        deferred.resolve();
-    }).fail(function(error){
-        deferred.reject(error);
+            UserList({id: data.sub, name : data.name, imageUrl : data.picture, color : color}, false);
+            deferred.resolve();
+        },
+        error: function(error) {
+            deferred.reject(error);
+        }
     });
     
     return deferred.promise();
