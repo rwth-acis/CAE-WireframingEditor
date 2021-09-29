@@ -24,7 +24,10 @@ $(function(){
         var editor = Main(config, true);
         Loader.checkSuccessful(1, 25);
         
-        CAELiveMapper.init(editor);
+        const userInfo = JSON.parse(localStorage.userInfo);
+        const userId = userInfo.sub;
+
+        CAELiveMapper.init(editor, userId);
         Loader.checkSuccessful(2, 75);
 
         RoleLogin().done(function(){

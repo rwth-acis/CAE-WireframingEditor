@@ -1,6 +1,6 @@
 {
   "name": "Yireframe",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "description": "",
   "main": "Gruntfile.js",
   "scripts": {
@@ -25,7 +25,7 @@
     "file-loader": "^0.11.1",
     "html-webpack-plugin": "^2.28.0",
     "jsdoc": "^3.5.4",
-    "jsdoc-baseline": "https://github.com/hegemonic/baseline/tarball/master",
+    "jsdoc-baseline": "https://github.com/hegemonic/baseline/tarball/main",
     "json-loader": "^0.5.4",
     "mocha": "^3.4.2",
     "raw-loader": "^0.5.1",
