@@ -386,7 +386,7 @@ function CAELiveMapper() {
                         if (event.value.userId !== y.db.userId) return;
                         if (y.share.nodes.get(event.value.groupId) != null) return;
 
-                        SyncMeta.createNode('View Component', 4500, 4500, 100, 100, 1, null, event.value.groupId);
+                        SyncMeta.createNode('View Component', 4500, 4500, 100, 100, 1, true, null, event.value.groupId);
                         var msg = '';
                         setTimeout(function () {
                             SyncMeta.setAttributeValue(event.value.groupId, 'type', 'div');
@@ -443,25 +443,8 @@ function CAELiveMapper() {
                         if (event.value.fromSyncMeta) return;
                         if (event.value.userId !== y.db.userId) return;
 
-                        // var widgetCheck = false;
-                        // console.log(model);
-                        //
-                        // for (var key in model.nodes) {
-                        //   console.log('key');
-                        //   console.log(key);
-                        //     if (model.nodes.hasOwnProperty(key)) {
-                        //         var node = model.nodes[key];
-                        //         if (node.type === 'Widget') {
-                        //           console.log('truuuuuuuuuuuuuuuuuu...................');
-                        //           widgetCheck = true;
-                        //         }
-                        //     }
-                        // }
-                        // console.log('widget check...............................');
-                        // console.log(widgetCheck);
-
                         if (!widgetNodeId) {
-                            widgetNodeId = SyncMeta.createNode('Widget', 4500, 4500, 600, 600, 1);
+                            widgetNodeId = SyncMeta.createNode('Widget', 4500, 4500, 600, 600, 1, true);
                             setTimeout(function () {
                                 var meta = editor.graph.model.getMeta();
                                 SyncMeta.setAttributeValue(widgetNodeId, 'width', Util.formatNumber(meta.getAttribute('width')));
@@ -482,7 +465,6 @@ function CAELiveMapper() {
                         var elt = doc.documentElement.childNodes[1];
                         var cells = [];
                         while (elt != null) {
-                          console.log('while......');
                             var cell = codec.decode(elt);
                             cell.setId(event.value.id);
                             cell.setType(type);
@@ -501,25 +483,33 @@ function CAELiveMapper() {
                             console.log(cell.value.getAttribute('uiType')); // divcontainer
 
                             if (cell.constructor.HTML_NODE_NAME === 'div') {
-                              SyncMeta.createNode('View Component', 4500, 4500, 300, 200, 1, null, cell.id);
+                              console.log('cell2...');
+                              console.log(cell);
+                              SyncMeta.createNode('View Component', 4550, 4600, 300, 200, 1, true, null, cell.id);
                               setTimeout(function () {
+                                console.log('timeout...');
                                   var type = cell.constructor.HTML_NODE_NAME || cell.value.getAttribute('uiType');
                                   SyncMeta.setAttributeValue(cell.id, 'type', type);
                                   SyncMeta.setAttributeValue(cell.id, 'static', true);
                                   SyncMeta.setAttributeValue(cell.id, 'id', type + '_' + Util.GUID().substr(0, 5));
                                   SyncMeta.createEdge('Widget to View Component', widgetNodeId, cell.id);
-                                  // var parent = editor.graph.model.getCell(event.value.parent);
-                                  // if (parent && parent.id != '1') {
-                                  //     var edgeId = SyncMeta.createEdge('hasChild', parent.id, cell.id);
-                                  //     hasChildMap[cell.id] = edgeId;
-                                  // }
+
                                   setTimeout(function () {
                                       SyncMeta.applyLayout();
                                       SyncMeta.createActivity('WireframeCreateEvent', cell.id, '<strong style="background: black; color: white;">CAE-WIREFRAME:</strong>\nCreated a new ' + cell.constructor.NAME, event.value);
                                   }, 1000);
                               }, 1000);
                             } else {
-                              SyncMeta.createNode('HTML Element', 4500, 4500, 200, 50, 1, null, cell.id);
+                              console.log('parentt');
+                              console.log(editor.graph.model.getCell(event.value.parent));
+                              console.log(cell);
+                              var parent = editor.graph.model.getCell(event.value.parent);
+                              console.log(cell.geometry.y);
+                              console.log(parent.geometry.y);
+                              var offsetX = 4550 + cell.geometry.x;
+                              var offsetY = 4600 + cell.geometry.y + 60;
+
+                              SyncMeta.createNode('HTML Element', offsetX, offsetY, 200, 50, 1, false, null, cell.id);
                               setTimeout(function () {
                                   var type = cell.constructor.HTML_NODE_NAME || cell.value.getAttribute('uiType');
                                   SyncMeta.setAttributeValue(cell.id, 'type', type);
@@ -577,12 +567,25 @@ function CAELiveMapper() {
                         }, 1000);
                         break;
                     } case mxEvent.RESIZE: {
-                      console.log('mxEvent.RESIZE..........................................................');
+                      console.log('mxEvent.RESIZE3..........................................................');
+                      console.log(event.value);
                         if (event.value.userId !== y.db.userId) return;
+
                         var msg = '';
                         for (var i = 0; i < event.value.ids.length; i++) {
                             var id = event.value.ids[i];
                             var cell = editor.graph.model.getCell(id);
+                            var width = event.value.bounds[i].width + 100;
+                            var height = event.value.bounds[i].height + 100;
+
+                            console.log(typeof id);
+                            console.log(id);
+                            console.log(typeof width);
+                            console.log(width);
+                            console.log(typeof height);
+                            console.log(height);
+
+                            SyncMeta.resizeNode(id, width, height);
                             msg += cell ? cell.constructor.NAME + ', ' : 'UI element, ';
                         }
                         msg = msg.substr(0, msg.lastIndexOf(', '));
