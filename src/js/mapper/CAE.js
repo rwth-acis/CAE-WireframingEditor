@@ -7,7 +7,7 @@ import {mxUtils} from '../misc/mxExport.js';
 
 /**
  * Map a wireframe model to a CAE frontend component model
- * @param {WireframeModel} wireframeModel the wireframe model to transform to a SyncMeta model 
+ * @param {WireframeModel} wireframeModel the wireframe model to transform to a SyncMeta model
  * @param {Object} vls the vls of the metamodel
  * @return {Object} the CAE frontend component model
  */
@@ -27,7 +27,7 @@ function WireframeToModel(wireframeModel, vls) {
         if(vls.nodes.hasOwnProperty(nodeId)){
             var nodeType = vls.nodes[nodeId];
             switch(nodeType.label){
-                case 'HTML Element':
+                case 'View Component Part':
                     htmlAttributesMap = getAttributeMap(nodeType.attributes);
                 break;
                 case 'Widget':
@@ -95,7 +95,7 @@ function WireframeToModel(wireframeModel, vls) {
     model.nodes[widgetNodeId] = node;
 
     function mapHTMLElement(cell) {
-        //Create the HTML Elements node     
+        //Create the HTML Elements node
         var label = attrCompiled({
             id: cell.id,
             attrName: 'label',
@@ -116,14 +116,14 @@ function WireframeToModel(wireframeModel, vls) {
             value: '"' + type + '_' + Util.GUID().substr(0,5) + '"',
             option: false
         }));
-        
+
         var shared = false, staticAttr = true;
         if (cell.overlays) {
             for (var i = 0; i < cell.overlays.length; i++) {
                 var overlay = cell.overlays[i];
                 switch(overlay.constructor.name){
                     case 'SharedTag':{
-                        shared = true;                        
+                        shared = true;
                         break;
                     }
                     case 'DynamicTag':{
@@ -146,7 +146,7 @@ function WireframeToModel(wireframeModel, vls) {
             option: false
         }));
         var node = JSON.parse(nodeCompiled({
-            type: 'HTML Element',
+            type: 'View Component Part',
             labelAttr: label,
             attributes: JSON.stringify(attributes)
         }));
@@ -201,7 +201,7 @@ function WireframeToModel(wireframeModel, vls) {
 
 /**
  * Transform a frontend component model from syncmeta to a wireframe XML
- * @param {Object} model the front end component model 
+ * @param {Object} model the front end component model
  * @param {mxEditor} editor the editor
  * @return {XMLDocument} the wireframe model as XML
  */
@@ -211,7 +211,7 @@ function ModelToWireframe(model, editor) {
     var doc = mxUtils.parseXml(xml);
     var wireframe = doc.documentElement;
     var root = wireframe.getElementsByTagName('root')[0];
-    
+
     var childMap = {};
     for (var key in model.edges) {
         if (model.edges.hasOwnProperty(key)) {
@@ -232,7 +232,7 @@ function ModelToWireframe(model, editor) {
                     wireframe.setAttribute('id', key);
                     break;
                 }
-                case 'HTML Element':{
+                case 'View Component Part':{
                     var type = Util.GetValueFormAttributes(node, 'type');
                     var Ctor = editor.getUIComponentFromHTMLName(type);
                     if(Ctor){
@@ -240,7 +240,7 @@ function ModelToWireframe(model, editor) {
                         ui.setId(key);
                         var doc = mxUtils.parseXml(ui.toXML());
                         var uiObj = doc.documentElement;
-                        
+
                         //geometry
                         uiObj.lastElementChild.firstChild.setAttribute('x', 0);
                         uiObj.lastElementChild.firstChild.setAttribute('y', 0);
@@ -256,7 +256,7 @@ function ModelToWireframe(model, editor) {
                         if(childMap.hasOwnProperty(key))
                             uiObj.lastElementChild.setAttribute('parent', childMap[key]);
                         else uiObj.lastElementChild.setAttribute('parent', '1');
-                        
+
                         if(ui.constructor.name === 'DivContainer')
                             root.prepend(uiObj);
                         else

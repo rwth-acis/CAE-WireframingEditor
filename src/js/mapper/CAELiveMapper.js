@@ -509,7 +509,7 @@ function CAELiveMapper() {
                               var offsetX = 4550 + cell.geometry.x;
                               var offsetY = 4600 + cell.geometry.y + 60;
 
-                              SyncMeta.createNode('HTML Element', offsetX, offsetY, 200, 50, 1, false, null, cell.id);
+                              SyncMeta.createNode('View Component Part', offsetX, offsetY, 200, 50, 1, false, null, cell.id);
                               setTimeout(function () {
                                   var type = cell.constructor.HTML_NODE_NAME || cell.value.getAttribute('uiType');
                                   SyncMeta.setAttributeValue(cell.id, 'type', type);
