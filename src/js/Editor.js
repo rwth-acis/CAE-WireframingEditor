@@ -54,12 +54,12 @@ Editor.prototype.constructor = Editor;
 /**
  * The Wireframe Editor instance manages shapes and UI control elements.
  * Further it provides the context menu and short cuts
- * @classdesc The main editor class of the wireframing editor 
+ * @classdesc The main editor class of the wireframing editor
  * @constructor
- * @param {Wireframe} wireframe the wireframe of the editor 
+ * @param {Wireframe} wireframe the wireframe of the editor
  * @param {Palette} palette the palette
  * @param {Object} config the configuration file
- * @extends mxEditor 
+ * @extends mxEditor
  */
 function Editor(wireframe, palette, config) {
     var that = this;
@@ -92,7 +92,7 @@ function Editor(wireframe, palette, config) {
     mxCellRenderer.prototype.defaultShapes["dl"] = ImageShapeFactory.createImageShape("dl", CONST.IMAGES.DL_IMG);
     mxCellRenderer.prototype.defaultShapes["html5canvas"] = ImageShapeFactory.createImageShape("html5canvas", CONST.IMAGES.HTML5CANVAS);
     mxCellRenderer.prototype.defaultShapes["svg"] = ImageShapeFactory.createImageShape("svg", CONST.IMAGES.SVG);
-    
+
     y.share.attrs.observe(function (event) {
         var name;
         var arr = event.name.split('_');
@@ -131,7 +131,7 @@ function Editor(wireframe, palette, config) {
     });
 
     //-------------------------------------------------------------------
-    // Overrides functions from Wireframe which is derived from mxGraph 
+    // Overrides functions from Wireframe which is derived from mxGraph
     //-------------------------------------------------------------------
     /**
      * Overrides getLabel from mxGraph for the Wireframe-class
@@ -155,7 +155,7 @@ function Editor(wireframe, palette, config) {
     //-------------------------------------------------------------------
 
      /**
-     * A map that maps the HTML tag name to the name of the of the class 
+     * A map that maps the HTML tag name to the name of the of the class
      * representing the html element in the wireframing editor.
      * @member {Object}
      */
@@ -176,11 +176,11 @@ function Editor(wireframe, palette, config) {
     htmlNodeMap[PolymerElement.HTML_NODE_NAME] = PolymerElement.NAME;
     htmlNodeMap[Table.HTML_NODE_NAME] = Table.NAME;
     htmlNodeMap[List.HTML_NODE_NAME] = List.NAME;
-    htmlNodeMap[OrderedList.HTML_NODE_NAME] = OrderedList.NAME;    
+    htmlNodeMap[OrderedList.HTML_NODE_NAME] = OrderedList.NAME;
     htmlNodeMap[DescriptionList.HTML_NODE_NAME] = DescriptionList.NAME;
     htmlNodeMap[Canvas.HTML_NODE_NAME] = Canvas.NAME;
     htmlNodeMap[SVG.HTML_NODE_NAME] = SVG.NAME;
-    
+
 
      /**
      * Maps the HTML elements types defined in the VLS to their corresponding ui control element in the wireframing editor.
@@ -189,9 +189,9 @@ function Editor(wireframe, palette, config) {
      * @member {Object}
      */
     var vlsComponents = {};
-    for (var key in vls.nodes) {    
+    for (var key in vls.nodes) {
         var node = vls.nodes[key];
-        if (node.label === 'HTML Element') {
+        if (node.label === 'View Component Part') {
             for (var attrKey in node.attributes) {
                 var attr = node.attributes[attrKey];
                 if (attr.value === 'HTML Type') {

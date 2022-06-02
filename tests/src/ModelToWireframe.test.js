@@ -11,7 +11,7 @@ export default function(editor){
 
         var childMap = {};
         var $wireframe = $(wireframe);
-        
+
         expect($wireframe.find('WireframeModel').length).to.be.equal(1);
         expect($wireframe.find('root').length).to.be.equal(1);
         var $root = $wireframe.find('#0');
@@ -20,7 +20,7 @@ export default function(editor){
         var $defaultParent = $wireframe.find('#1');
         expect($defaultParent.length).to.be.equal(1);
         expect($defaultParent[0].tagName.toLowerCase()).to.be.equal('mxcell');
-        
+
         expect($wireframe.find('mxCell').length).to.be.equal(2);
         for (var key in model.edges) {
             if (model.edges.hasOwnProperty(key)) {
@@ -31,7 +31,7 @@ export default function(editor){
             }
         }
         for (var key in model.nodes) {
-            if (model.nodes.hasOwnProperty(key) && model.nodes[key].type === 'HTML Element') {
+            if (model.nodes.hasOwnProperty(key) && model.nodes[key].type === 'View Component Part') {
                 var node = model.nodes[key];
                 var type = Util.GetValueFormAttributes(node, 'type');
                 var Ctor = editor.getUIComponentFromHTMLName(type);
