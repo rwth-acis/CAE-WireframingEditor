@@ -41,8 +41,6 @@ function CAELiveMapper() {
                     if (model.nodes.hasOwnProperty(key)) {
                         var node = model.nodes[key];
                         if (node.type === 'Widget') {
-                          console.log('widgetNodeId key');
-                          console.log(key);
                             widgetNodeId = key;
                         }
                     }
@@ -338,17 +336,6 @@ function CAELiveMapper() {
                             SyncMeta.setAttributeValue(event.value.groupId, 'static', true);
                             SyncMeta.setAttributeValue(event.value.groupId, 'id', 'div_' + Util.GUID().substr(0, 5));
 
-                            // for (var key in model.nodes) {
-                            //     if (model.nodes.hasOwnProperty(key)) {
-                            //         var node = model.nodes[key];
-                            //         if (node.type === 'Widget') {
-                            //           console.log('widgetNodeId key');
-                            //           console.log(key);
-                            //             widgetNodeId = key;
-                            //         }
-                            //     }
-                            // }
-
                             SyncMeta.createEdge('Widget to View Component', widgetNodeId, event.value.groupId);
                             for (var i = 0; i < event.value.ids.length; i++) {
                               //change to View Component to HTML
@@ -395,8 +382,6 @@ function CAELiveMapper() {
                                 SyncMeta.setAttributeValue(widgetNodeId, 'height', Util.formatNumber(meta.getAttribute('height')));
                                 setTimeout(function () {
                                     SyncMeta.applyLayout();
-                                    console.log('mmmm........');
-                                    console.log(model.nodes);
                                 }, 1000);
                             }, 1000);
                             // editor.graph.model.setAttribute('id', widgetNodeId);
@@ -422,16 +407,10 @@ function CAELiveMapper() {
                             if (y.share.nodes.get(cell.id) != null) return;
                             // if type create view component return
                             // is syncmeta call always create timeout?
-                            console.log('type.....');
-                            console.log(cell.constructor.HTML_NODE_NAME); // div
-                            console.log(cell.value.getAttribute('uiType')); // divcontainer
 
                             if (cell.constructor.HTML_NODE_NAME === 'div') {
-                              console.log('cell2...');
-                              console.log(cell);
                               SyncMeta.createNode('View Component', 4550, 4600, 300, 200, 1, true, null, cell.id);
                               setTimeout(function () {
-                                console.log('timeout...');
                                   var type = cell.constructor.HTML_NODE_NAME || cell.value.getAttribute('uiType');
                                   SyncMeta.setAttributeValue(cell.id, 'type', type);
                                   SyncMeta.setAttributeValue(cell.id, 'static', true);
@@ -444,12 +423,7 @@ function CAELiveMapper() {
                                   }, 1000);
                               }, 1000);
                             } else {
-                              console.log('parentt');
-                              console.log(editor.graph.model.getCell(event.value.parent));
-                              console.log(cell);
                               var parent = editor.graph.model.getCell(event.value.parent);
-                              console.log(cell.geometry.y);
-                              console.log(parent.geometry.y);
                               var offsetX = 4550 + cell.geometry.x;
                               var offsetY = 4600 + cell.geometry.y + 60;
 
@@ -460,19 +434,10 @@ function CAELiveMapper() {
                                   SyncMeta.setAttributeValue(cell.id, 'static', true);
                                   SyncMeta.setAttributeValue(cell.id, 'id', type + '_' + Util.GUID().substr(0, 5));
 
-                                  console.log('widgetNodeId...........');
-                                  console.log(widgetNodeId);
-
                                   setTimeout(function () {
                                       var parent = editor.graph.model.getCell(event.value.parent);
-                                      console.log('parent.......');
-                                      console.log(parent.id);
-                                      console.log('cell..........');
-                                      console.log(cell.id);
                                       if (parent && parent.id != '1') {
-                                        console.log('ok...........');
                                           var edgeId = SyncMeta.createEdge('View Component to HTML', parent.id, cell.id);
-                                          console.log('end..........');
                                           hasChildMap[cell.id] = edgeId;
                                       }
                                       SyncMeta.applyLayout();
@@ -521,13 +486,6 @@ function CAELiveMapper() {
                             var width = event.value.bounds[i].width + 100;
                             var height = event.value.bounds[i].height + 100;
 
-                            console.log(typeof id);
-                            console.log(id);
-                            console.log(typeof width);
-                            console.log(width);
-                            console.log(typeof height);
-                            console.log(height);
-
                             SyncMeta.resizeNode(id, width, height);
                             msg += cell ? cell.constructor.NAME + ', ' : 'UI element, ';
                         }
@@ -541,7 +499,6 @@ function CAELiveMapper() {
                         if (event.value.fromSyncMeta) return;
                         if (event.value.userId !== y.db.userId) return;
                         var children = event.value.children;
-                        console.log(event.value);
 
                         function recursiveDelete(parent) {
 
