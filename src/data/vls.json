@@ -59,7 +59,7 @@
             }
         },
         "ff8ef51660b61ef2ca96a874": {
-            "label": "HTML Element",
+            "label": "View Component Part",
             "attributes": {
                 "f8b228ce6cb6e6ca97080624": {
                     "key": "type",
@@ -276,7 +276,7 @@
                         "Widget"
                     ],
                     "targetTypes": [
-                        "HTML Element"
+                        "View Component Part"
                     ]
                 }
             ],
@@ -298,7 +298,7 @@
                         "Function"
                     ],
                     "targetTypes": [
-                        "HTML Element"
+                        "View Component Part"
                     ]
                 }
             ],
@@ -320,7 +320,7 @@
                         "Function"
                     ],
                     "targetTypes": [
-                        "HTML Element"
+                        "View Component Part"
                     ]
                 }
             ],
@@ -339,7 +339,7 @@
             "relations": [
                 {
                     "sourceTypes": [
-                        "HTML Element"
+                        "View Component Part"
                     ],
                     "targetTypes": [
                         "Event"
@@ -494,10 +494,10 @@
             "relations": [
                 {
                     "sourceTypes": [
-                        "HTML Element"
+                        "View Component Part"
                     ],
                     "targetTypes": [
-                        "HTML Element"
+                        "View Component Part"
                     ]
                 }
             ],
